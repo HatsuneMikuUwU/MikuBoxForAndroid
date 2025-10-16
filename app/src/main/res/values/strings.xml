@@ -577,32 +577,28 @@
     <string name="reset_settings_message">Restore default settings, but data such as nodes and groups will be retained. To completely clear data, clear application data directly in the system settings.</string>
     <string name="minimize">Minimize</string>
     <string name="donate_to_original_author">Donate to original author</string>
-
     <string name="language">Language</string>
     <string name="language_system_default">System default</string>
     <string name="language_en_display_name">English</string>
     <string name="language_id_display_name">Indonesia</string>
     <string name="language_zh_Hans_CN_display_name">简体中文（中国）</string>
-
     <string name="clear_cache">Clear Cache</string>
     <string name="clear_cache_confirm">Are you sure you want to clear the cache?</string>
     <string name="clear_cache_failed">Failed to clear cache: %s</string>
     <string name="clear_cache_success">Cache cleared</string>
     <string name="clear_cache_summary">Clear application cache files to fix some abnormal issues</string>
-
     <string name="custom_rules_provider">Custom</string>
     <string name="rules_geoip_url">geoip URL</string>
     <string name="rules_geosite_url">geosite URL</string>
-
     <string name="hide_from_recent_apps">Hide from recent tasks</string>
     <string name="hide_from_recent_apps_summary">Hide the app from recent tasks when running in background</string>
-
     <string name="title_pref_confirm_remove">Delete configuration file confirmation</string>
     <string name="summary_pref_confirm_remove">Whether to delete the configuration file requires a second confirmation by the user</string>
-
     <string name="fab_style">Floating action button style</string>
     <string name="end">End</string>
     <string name="center">Center</string>
+    <string name="pref_dynamic_theme_title">Use Dynamic Theme</string>
+    <string name="pref_dynamic_theme_summary">Use dynamic colors according to the wallpaper (Material You)</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_summary">Hatsune Miku is a Vocaloid-based virtual singer released by Crypton Future Media, code-named CV01. Known for her long turquoise twintails and clear voice, she is a 16-year-old girl and a globally renowned virtual idol. She is active in music, concerts, and anime, and is deeply loved by her fans.</string>
