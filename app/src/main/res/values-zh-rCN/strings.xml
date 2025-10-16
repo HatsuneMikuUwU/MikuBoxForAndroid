@@ -496,27 +496,23 @@
     <string name="reset_settings_message">恢复默认设置, 但节点、分组等数据将保留。如需完全清除数据, 请在系统设置中直接清除应用数据。</string>
     <string name="minimize">最小化</string>
     <string name="donate_to_original_author">向原作者捐款</string>
-
     <string name="language">语言</string>
     <string name="language_system_default">系统默认</string>
-
     <string name="clear_cache">清除缓存</string>
     <string name="clear_cache_confirm">您确定要清除缓存吗？</string>
     <string name="clear_cache_failed">清除缓存失败: %s</string>
     <string name="clear_cache_success">缓存已清除</string>
     <string name="clear_cache_summary">清除应用缓存文件以解决一些问题</string>
-
     <string name="custom_rules_provider">自定义规则</string>
-
     <string name="hide_from_recent_apps">隐藏最近任务列表</string>
     <string name="hide_from_recent_apps_summary">在后台运行时, 将应用从最近任务列表隐藏</string>
-
     <string name="title_pref_confirm_remove">删除配置文件确认</string>
     <string name="summary_pref_confirm_remove">删除配置文件时需要用户再次确认</string>
-
     <string name="fab_style">悬浮按钮样式</string>
     <string name="end">末尾</string>
     <string name="center">居中</string>
+    <string name="pref_dynamic_theme_title">使用动态主题</string>
+    <string name="pref_dynamic_theme_summary">根据壁纸使用动态颜色（Material You）</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_summary">初音未来(Hatsune Miku) 是 Crypton Future Media 发布的基于 Vocaloid 制作的虚拟歌手, 代号CV01。以青绿色的长双马尾和清亮嗓音著称, 人设为16岁少女, 是全球知名虚拟偶像, 广泛活跃于音乐、演唱会及动画, 深受粉丝们喜爱。</string>
