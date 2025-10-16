@@ -482,27 +482,23 @@
     <string name="reset_settings_message">Pulihkan pengaturan default, tetapi data seperti node dan grup akan disimpan. Untuk menghapus data sepenuhnya, silakan hapus data aplikasi langsung di pengaturan sistem.</string>
     <string name="minimize">Minimalkan</string>
     <string name="donate_to_original_author">Donasi ke penulis asli</string>
-
     <string name="language">Bahasa</string>
     <string name="language_system_default">Sistem bawaan</string>
-
     <string name="clear_cache">Hapus Cache</string>
     <string name="clear_cache_confirm">Apakah Anda yakin ingin menghapus cache?</string>
     <string name="clear_cache_failed">Gagal menghapus cache: %s</string>
     <string name="clear_cache_success">Cache dihapus</string>
     <string name="clear_cache_summary">Hapus file cache aplikasi untuk memperbaiki beberapa masalah abnormal</string>
-
     <string name="custom_rules_provider">Kustom</string>
-    
     <string name="hide_from_recent_apps">Sembunyikan dari tugas terbaru</string>
     <string name="hide_from_recent_apps_summary">Sembunyikan aplikasi dari tugas terbaru saat berjalan di latar belakang</string>
-
     <string name="title_pref_confirm_remove">Hapus konfirmasi file konfigurasi</string>
     <string name="summary_pref_confirm_remove">Apakah akan menghapus file konfigurasi memerlukan konfirmasi kedua oleh pengguna</string>
-
     <string name="fab_style">Gaya tombol aksi mengambang</string>
     <string name="end">Akhir</string>
     <string name="center">Tengah</string>
+    <string name="pref_dynamic_theme_title">Gunakan Tema Dinamis</string>
+    <string name="pref_dynamic_theme_summary">Gunakan warna dinamis sesuai wallpaper (Material You)</string>
     
     <!-- uwu-->
     <string name="uwu_about_miku_summary">Hatsune Miku adalah penyanyi virtual berbasis Vocaloid yang dirilis oleh Crypton Future Media, dengan nama kode CV01. Dikenal dengan rambut twintail panjang berwarna biru kehijauan dan suaranya yang jernih, dia adalah seorang gadis berusia 16 tahun dan idola virtual yang terkenal secara global. Dia aktif dalam musik, konser, dan anime, serta sangat dicintai oleh para penggemarnya.</string>  
