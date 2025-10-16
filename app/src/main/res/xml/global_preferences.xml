@@ -23,6 +23,15 @@
             app:icon="@drawable/ic_baseline_color_lens_24"
             app:key="appTheme"
             app:summary="@string/uwu_theme_settings_summary" />
+
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:title="@string/pref_dynamic_theme_title"
+            app:icon="@drawable/ic_toggle_switch"
+            android:key="dynamic_theme_switch"
+            android:summary="@string/pref_dynamic_theme_summary"
+            android:defaultValue="false" />
         
         <com.takisoft.preferencex.SimpleMenuPreference
             android:layout="@layout/uwu_mid"
