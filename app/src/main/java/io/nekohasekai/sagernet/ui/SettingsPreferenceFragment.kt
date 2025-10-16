@@ -39,6 +39,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
 
     private lateinit var isProxyApps: SwitchPreference
     private lateinit var globalCustomConfig: EditConfigPreference
+    private lateinit var dynamicSwitch: SwitchPreference
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,6 +74,21 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             Theme.currentNightMode = (newTheme as String).toInt()
             Theme.applyNightTheme()
             true
+        }
+
+        dynamicSwitch = findPreference("dynamic_theme_switch")!!
+
+        // Set initial state based on DataStore
+        dynamicSwitch.isChecked = DataStore.appTheme == Theme.DYNAMIC
+
+        // Listener when user changes state
+        dynamicSwitch.onPreferenceChangeListener =
+            Preference.OnPreferenceChangeListener { _, newValue ->
+                val isDynamic = newValue as Boolean
+                DataStore.appTheme = if (isDynamic) Theme.DYNAMIC else Theme.TEAL // fallback
+                Theme.apply(requireContext().applicationContext)
+                requireActivity().recreate() // Refresh UI for theme to apply immediately
+                true
         }
 
         fun getLanguageDisplayName(code: String): String {
