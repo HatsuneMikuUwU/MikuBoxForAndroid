@@ -155,10 +155,35 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
                                                 )
                                             }
                                             .build())
+
                                 }
                             }
                         }
                         .build())
+                .addCard(
+                    MaterialAboutCard.Builder()
+                        .outline(false)
+                        .title(R.string.update)
+                        .addItem(
+                            MaterialAboutActionItem.Builder()
+                                .icon(R.drawable.ic_cloud_download)
+                                .text(R.string.release)
+                                .subText(R.string.check_update_release)
+                                .setOnClickAction {
+                                    checkUpdate(false)
+                                }
+                                .build())
+                        .addItem(
+                            MaterialAboutActionItem.Builder()
+                                .icon(R.drawable.ic_cloud_download)
+                                .text(R.string.preview)
+                                .subText(R.string.check_update_preview)
+                                .setOnClickAction {
+                                    checkUpdate(true)
+                                }
+                                .build())
+                        .build())
+                
                 .addCard(
                     MaterialAboutCard.Builder()
                         .outline(false)
@@ -221,5 +246,70 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
                 overScrollMode = RecyclerView.OVER_SCROLL_NEVER
             }
         }
+
+    fun checkUpdate(checkPreview: Boolean) {
+            runOnIoDispatcher {
+                try {
+                    val client = Libcore.newHttpClient().apply {
+                        modernTLS()
+                        trySocks5(DataStore.mixedPort)
+                    }
+                    val response = client.newRequest().apply {
+                        if (checkPreview) {
+                            setURL("https://api.github.com/repos/HatsuneMikuUwU/MikuBoxForAndroid/releases/tags/pre-build")
+                        } else {
+                            setURL("https://api.github.com/repos/HatsuneMikuUwU/MikuBoxForAndroid/releases/latest")
+                        }
+                    }.execute()
+                    val release = JSONObject(Util.getStringBox(response.contentString))
+                    val releaseName = release.getString("name")
+                    val releaseUrl = release.getString("html_url")
+                    var haveUpdate = releaseName.isNotBlank()
+                    haveUpdate = if (isPreview) {
+                        if (checkPreview) {
+                            haveUpdate && releaseName != BuildConfig.PRE_VERSION_NAME
+                        } else {
+                            // User: 1.3.9 pre-1.4.0 Stable: 1.3.9 -> No update
+                            haveUpdate && releaseName != BuildConfig.VERSION_NAME
+                        }
+                    } else {
+                        // User: 1.4.0 Preview: pre-1.4.0 -> No update
+                        // User: 1.4.0 Preview: pre-1.4.1 -> Update
+                        // User: 1.4.0 Stable: 1.4.0 -> No update
+                        // User: 1.4.0 Stable: 1.4.1 -> Update
+                        haveUpdate && !releaseName.contains(BuildConfig.VERSION_NAME)
+                    }
+                    runOnMainDispatcher {
+                        if (haveUpdate) {
+                            val context = requireContext()
+                            MaterialAlertDialogBuilder(context)
+                                .setTitle(R.string.update_dialog_title)
+                                .setMessage(
+                                    context.getString(
+                                        R.string.update_dialog_message,
+                                        SagerNet.appVersionNameForDisplay,
+                                        releaseName
+                                    )
+                                )
+                                .setPositiveButton(R.string.yes) { _, _ ->
+                                    val intent = Intent(Intent.ACTION_VIEW, releaseUrl.toUri())
+                                    context.startActivity(intent)
+                                }
+                                .setNegativeButton(R.string.no, null)
+                                .show()
+                        } else {
+                            Toast.makeText(app, R.string.check_update_no, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    Logs.w(e)
+                    runOnMainDispatcher {
+                        Toast.makeText(app, e.readableMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
     }
+
 }
