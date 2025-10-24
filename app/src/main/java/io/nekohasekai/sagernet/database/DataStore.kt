@@ -89,6 +89,8 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     get() = configurationStore.getInt("last_app_theme", Theme.TEAL)
     set(value) = configurationStore.putInt("last_app_theme", value)
 
+    var hidePreviewDialog by configurationStore.boolean("hide_preview_dialog")
+
     var appTLSVersion by configurationStore.string(Key.APP_TLS_VERSION)
     var enableClashAPI by configurationStore.boolean(Key.ENABLE_CLASH_API)
     var showBottomBar by configurationStore.boolean(Key.SHOW_BOTTOM_BAR)
