@@ -1,39 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:orientation="vertical"
-    android:duplicateParentState="false"
+    android:id="@+id/coordinator"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:background="?attr/colorPrimary"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200.0dip">
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:background="?attr/colorPrimary"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="enterAlways|scroll"
-            app:titleEnabled="false">
+            android:layout_height="fill_parent"
+            app:collapsedTitleTextAppearance="@style/Theme.SagerNet.CollapsingToolbarTitle.Collapsed"
+            app:collapsedTitleTextColor="?android:textColorPrimaryInverse"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/Theme.SagerNet.CollapsingToolbarTitle.Expanded"
+            app:expandedTitleTextColor="?android:textColorPrimaryInverse"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <com.google.android.material.appbar.MaterialToolbar
                 android:theme="?attr/actionBarTheme"
                 android:id="@+id/toolbar"
-                android:background="?attr/colorPrimary"
                 android:layout_width="fill_parent"
-                android:layout_height="?actionBarSize"
-                android:elevation="0.0dip"
-                android:touchscreenBlocksFocus="false"
+                android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/app_name"
-                app:titleTextColor="?android:textColorPrimaryInverse" />
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <FrameLayout
+        android:background="@drawable/uwu_background_collapse"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <com.google.android.material.card.MaterialCardView
+            android:paddingTop="16.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="16.0dip"
+            android:layout_marginBottom="16.0dip"
+            android:layout_marginStart="16.0dip"
+            android:layout_marginEnd="16.0dip"
+            app:cardBackgroundColor="#00000000"
+            app:cardCornerRadius="14.0dip"
+            app:cardElevation="0.0dip">
             <LinearLayout
                 android:orientation="vertical"
-                android:paddingTop="56.0dip"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginTop="-16.0dip"
+                android:layout_marginStart="-16.0dip"
+                android:layout_marginEnd="-16.0dip">
                 <LinearLayout
                     android:orientation="vertical"
                     android:id="@+id/search_layout"
@@ -42,9 +61,11 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="4.0dip"
+                        android:layout_marginStart="16.0dip"
+                        android:layout_marginEnd="16.0dip"
+                        android:layout_marginBottom="4.0dip"
                         app:cardBackgroundColor="?attr/colorCard"
-                        app:cardCornerRadius="10.0dip"
+                        app:cardCornerRadius="14.0dip"
                         app:cardElevation="0.0dip">
                         <LinearLayout
                             android:orientation="vertical"
@@ -56,6 +77,7 @@
                                 android:id="@+id/show_system_apps"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="8.0dip"
                                 android:layout_marginBottom="4.0dip"
                                 android:text="@string/show_system_apps"
                                 style="@style/Widget.MaterialComponents.Chip.Filter" />
@@ -72,30 +94,30 @@
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:id="@+id/loading"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true" />
+                </LinearLayout>
+                <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+                    android:scrollbarSize="0.0dip"
+                    android:id="@+id/list"
+                    android:paddingBottom="64.0dip"
+                    android:visibility="gone"
+                    android:clipToPadding="false"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                <include
+                    android:id="@+id/app_placeholder"
+                    layout="@layout/layout_app_placeholder" />
             </LinearLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
-        android:id="@+id/loading"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true" />
-    </LinearLayout>
-    <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-        android:scrollbarSize="0.0dip"
-        android:id="@+id/list"
-        android:paddingBottom="64.0dip"
-        android:visibility="gone"
-        android:clipToPadding="false"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    <include
-        android:id="@+id/app_placeholder"
-        layout="@layout/layout_app_placeholder" />
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

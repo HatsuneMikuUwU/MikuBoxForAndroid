@@ -1,20 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:background="?attr/colorPrimary"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/layout_appbar" />
+        android:layout_height="200.0dip">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:background="?attr/colorPrimary"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:collapsedTitleTextAppearance="@style/Theme.SagerNet.CollapsingToolbarTitle.Collapsed"
+            app:collapsedTitleTextColor="?android:textColorPrimaryInverse"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/Theme.SagerNet.CollapsingToolbarTitle.Expanded"
+            app:expandedTitleTextColor="?android:textColorPrimaryInverse"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:theme="?attr/actionBarTheme"
+                android:id="@+id/toolbar"
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <FrameLayout
+        android:background="@drawable/uwu_background_collapse"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <com.google.android.material.card.MaterialCardView
+            android:paddingTop="16.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="16.0dip"
+            android:layout_marginBottom="16.0dip"
+            android:layout_marginStart="16.0dip"
+            android:layout_marginEnd="16.0dip"
+            app:cardBackgroundColor="#00000000"
+            app:cardCornerRadius="14.0dip"
+            app:cardElevation="0.0dip">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="-16.0dip"
+                android:layout_marginStart="-16.0dip"
+                android:layout_marginEnd="-16.0dip">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16.0dip"
         android:layout_marginTop="16.0dip"
+        android:layout_marginRight="16.0dip"
         android:layout_marginHorizontal="16.0dip"
-        app:cardBackgroundColor="?attr/colorCard"
+        app:cardBackgroundColor="?colorCard"
         app:cardCornerRadius="14.0dip"
         app:cardElevation="0.0dip"
         app:strokeWidth="0.0dip">
@@ -25,7 +70,7 @@
             android:layout_height="64.0dip"
             app:tabIndicator="@drawable/uwu_tabs_rounded_indicator"
             app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicatorColor="?attr/colorPrimary"
+            app:tabIndicatorColor="?colorPrimary"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorHeight="64.0dip"
             app:tabMode="fixed"
@@ -33,12 +78,16 @@
             app:tabPaddingStart="24.0dip"
             app:tabRippleColor="@android:color/transparent"
             app:tabSelectedTextAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
-            app:tabSelectedTextColor="?attr/colorSurface"
+            app:tabSelectedTextColor="?colorSurface"
             app:tabTextAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
-            app:tabTextColor="?attr/colorOnSurfaceVariant" />
+            app:tabTextColor="?colorOnSurfaceVariant" />
     </com.google.android.material.card.MaterialCardView>
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/tools_pager"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
-</LinearLayout>
+        android:layout_height="fill_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+           </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

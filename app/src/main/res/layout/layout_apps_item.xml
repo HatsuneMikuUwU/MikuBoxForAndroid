@@ -3,12 +3,13 @@
     android:id="@+id/content"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4.0dip"
+    android:layout_marginStart="16.0dip"
+    android:layout_marginEnd="16.0dip"
+    android:layout_marginBottom="4.0dip"
+    android:layout_marginTop="4.0dip"
     app:cardBackgroundColor="?attr/colorCard"
-    app:cardCornerRadius="10.0dip"
+    app:cardCornerRadius="14.0dip"
     app:cardElevation="0.0dip"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="SelectableText"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
@@ -18,7 +19,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
         <ImageView
-            tools:src="@android:drawable/sym_def_app_icon"
             android:id="@+id/itemicon"
             android:layout_width="40.0dip"
             android:layout_height="40.0dip"
@@ -35,7 +35,6 @@
             android:layout_marginStart="16.0dip"
             android:layout_marginEnd="8.0dip">
             <TextView
-                tools:text="Package label"
                 android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                 android:textSize="17.0sp"
                 android:textColor="?attr/colorOnSurface"
@@ -44,7 +43,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                tools:text="com.package.name (10000)"
                 android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
                 android:textSize="12.0sp"
                 android:textColor="?attr/colorOnSurfaceVariant"

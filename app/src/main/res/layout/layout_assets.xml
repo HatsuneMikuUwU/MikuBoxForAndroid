@@ -1,32 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/coordinator"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include
-            layout="@layout/layout_appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:background="?attr/colorPrimary"
+        android:layout_width="fill_parent"
+        android:layout_height="200.0dip">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:background="?attr/colorPrimary"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:collapsedTitleTextAppearance="@style/Theme.SagerNet.CollapsingToolbarTitle.Collapsed"
+            app:collapsedTitleTextColor="?android:textColorPrimaryInverse"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/Theme.SagerNet.CollapsingToolbarTitle.Expanded"
+            app:expandedTitleTextColor="?android:textColorPrimaryInverse"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:theme="?attr/actionBarTheme"
+                android:id="@+id/toolbar"
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <FrameLayout
+        android:background="@drawable/uwu_background_collapse"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <com.google.android.material.card.MaterialCardView
+            android:paddingTop="16.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="16.0dip"
+            android:layout_marginBottom="16.0dip"
+            android:layout_marginStart="16.0dip"
+            android:layout_marginEnd="16.0dip"
+            app:cardBackgroundColor="#00000000"
+            app:cardCornerRadius="14.0dip"
+            app:cardElevation="0.0dip">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="-16.0dip"
+                android:layout_marginStart="-16.0dip"
+                android:layout_marginEnd="-16.0dip">
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
+                android:clipToPadding="false"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false" />
-
+                android:layout_height="wrap_content" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </LinearLayout>
-
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

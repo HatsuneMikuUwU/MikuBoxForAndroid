@@ -47,6 +47,7 @@
             app:cardCornerRadius="28.0dip"
             app:cardElevation="0.0dip">
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/about_content"
                 android:paddingBottom="64.0dip"
                 android:clipToPadding="false"
                 android:layout_width="fill_parent"

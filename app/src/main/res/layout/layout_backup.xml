@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="64.0dip"
+    android:clipToPadding="false"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
 <LinearLayout
     android:orientation="vertical"
-    android:paddingBottom="64.0dip"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:paddingStart="16.0dip"
-    android:paddingEnd="16.0dip"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:paddingEnd="16.0dip">
     <CheckBox
         android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
         android:textSize="14.0sp"
@@ -82,3 +88,4 @@
         android:text="@string/reset_settings"
         style="@style/Widget.AppCompat.Button.Colored" />
 </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
