@@ -36,6 +36,9 @@ import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.database.DataStore
 import moe.matsuri.nb4a.utils.Util
 import org.json.JSONObject
+import io.nekohasekai.sagernet.bg.BaseService
+import io.nekohasekai.sagernet.widget.StatsBar
+import androidx.core.widget.NestedScrollView
 
 class AboutFragment : ToolbarFragment(R.layout.layout_about) {
 
@@ -44,6 +47,8 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
 
         val binding = LayoutAboutBinding.bind(view)
         val collapsingToolbar = view.findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
+        val nestedScrollView = view.findViewById<NestedScrollView>(R.id.about_content)
+        val bottomAppBar = requireActivity().findViewById<StatsBar>(R.id.stats)
 
         ViewCompat.setOnApplyWindowInsetsListener(view, ListListener)
         collapsingToolbar.title = getString(R.string.menu_about)
@@ -51,6 +56,41 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.about_fragment_holder, AboutContent())
             .commitAllowingStateLoss()
+
+        if (bottomAppBar != null && nestedScrollView != null) {
+            fun updateBottomBarVisibility() {
+                val isConnected = DataStore.serviceState == BaseService.State.Connected
+                val showController = DataStore.showBottomBar
+
+                if (!isConnected) {
+                    bottomAppBar.performHide()
+                } else {
+                    if (showController) bottomAppBar.performShow()
+                    else bottomAppBar.performHide()
+                }
+            }
+
+            updateBottomBarVisibility()
+
+            ViewCompat.setNestedScrollingEnabled(nestedScrollView, true)
+
+            nestedScrollView.setOnScrollChangeListener(
+                NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+                    val isConnected = DataStore.serviceState == BaseService.State.Connected
+                    val showController = DataStore.showBottomBar
+
+                    if (isConnected && showController) {
+                        if (scrollY > oldScrollY + 6) {
+                            bottomAppBar.performHide()
+                        } else if (scrollY < oldScrollY - 6) {
+                            bottomAppBar.performShow()
+                        }
+                    } else {
+                        bottomAppBar.performHide()
+                    }
+                }
+            )
+        }
 
         runOnDefaultDispatcher {
             val license = view.context.assets.open("LICENSE").bufferedReader().readText()

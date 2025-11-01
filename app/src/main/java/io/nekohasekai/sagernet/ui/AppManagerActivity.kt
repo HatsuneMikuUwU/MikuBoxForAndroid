@@ -46,6 +46,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import moe.matsuri.nb4a.utils.NGUtil
 import kotlin.coroutines.coroutineContext
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 class AppManagerActivity : ThemedActivity() {
     companion object {
@@ -210,10 +211,11 @@ class AppManagerActivity : ThemedActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
-            setTitle(R.string.proxied_apps)
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_navigation_close)
         }
+        
+        binding.collapsingToolbar.title = getString(R.string.proxied_apps)
 
         if (!DataStore.proxyApps) {
             DataStore.proxyApps = true

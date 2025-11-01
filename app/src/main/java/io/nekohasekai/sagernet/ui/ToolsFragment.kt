@@ -10,30 +10,29 @@ import io.nekohasekai.sagernet.databinding.LayoutToolsBinding
 
 class ToolsFragment : ToolbarFragment(R.layout.layout_tools) {
 
+    private lateinit var binding: LayoutToolsBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.setTitle(R.string.menu_tools)
+        binding = LayoutToolsBinding.bind(view)
 
-        val tools = mutableListOf<NamedFragment>()
-        tools.add(NetworkFragment())
-        tools.add(BackupFragment())
+        binding.collapsingToolbar.title = getString(R.string.menu_tools)
+        binding.toolbar.title = null
 
-        val binding = LayoutToolsBinding.bind(view)
+        val tools = listOf(
+            NetworkFragment(),
+            BackupFragment()
+        )
+
         binding.toolsPager.adapter = ToolsAdapter(tools)
 
         TabLayoutMediator(binding.toolsTab, binding.toolsPager) { tab, position ->
-            tab.text = tools[position].name()
-            tab.view.setOnLongClickListener { // clear toast
-                true
-            }
+            tab.text = (tools[position] as? NamedFragment)?.name() ?: "Tab $position"
         }.attach()
     }
 
-    inner class ToolsAdapter(val tools: List<Fragment>) : FragmentStateAdapter(this) {
-
+    inner class ToolsAdapter(private val tools: List<Fragment>) : FragmentStateAdapter(this) {
         override fun getItemCount() = tools.size
-
         override fun createFragment(position: Int) = tools[position]
     }
-
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
@@ -20,6 +21,8 @@ import io.nekohasekai.sagernet.databinding.LayoutRouteItemBinding
 import io.nekohasekai.sagernet.ktx.*
 import io.nekohasekai.sagernet.widget.ListListener
 import io.nekohasekai.sagernet.widget.UndoSnackbarManager
+import io.nekohasekai.sagernet.widget.StatsBar
+import io.nekohasekai.sagernet.bg.BaseService
 
 class RouteFragment : ToolbarFragment(R.layout.layout_route), Toolbar.OnMenuItemClickListener {
 
@@ -34,7 +37,12 @@ class RouteFragment : ToolbarFragment(R.layout.layout_route), Toolbar.OnMenuItem
         activity = requireActivity() as MainActivity
 
         ViewCompat.setOnApplyWindowInsetsListener(view, ListListener)
-        toolbar.setTitle(R.string.menu_route)
+
+        val collapsingToolbar = view.findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
+        val toolbarView = view.findViewById<Toolbar>(R.id.toolbar)
+        collapsingToolbar.title = getString(R.string.menu_route)
+
+        toolbar = toolbarView
         toolbar.inflateMenu(R.menu.add_route_menu)
         toolbar.setOnMenuItemClickListener(this)
 
@@ -44,6 +52,44 @@ class RouteFragment : ToolbarFragment(R.layout.layout_route), Toolbar.OnMenuItem
         ProfileManager.addListener(ruleAdapter)
         ruleListView.adapter = ruleAdapter
         undoManager = UndoSnackbarManager(activity, ruleAdapter)
+
+        view.post {
+            val bottomAppBar = requireActivity().findViewById<StatsBar>(R.id.stats) ?: return@post
+
+            fun updateBottomBarVisibility() {
+                val isConnected = DataStore.serviceState == BaseService.State.Connected
+                val showController = DataStore.showBottomBar
+
+                if (!isConnected) {
+                    bottomAppBar.performHide()
+                } else {
+                    if (showController) bottomAppBar.performShow()
+                    else bottomAppBar.performHide()
+                }
+            }
+
+            updateBottomBarVisibility()
+
+            if (ruleListView != null) {
+                ViewCompat.setNestedScrollingEnabled(ruleListView, true)
+
+                ruleListView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+
+                        val isConnected = DataStore.serviceState == BaseService.State.Connected
+                        val showController = DataStore.showBottomBar
+
+                        if (isConnected && showController) {
+                            if (dy > 6) bottomAppBar.performHide()
+                            else if (dy < -6) bottomAppBar.performShow()
+                        } else {
+                            bottomAppBar.performHide()
+                        }
+                    }
+                })
+            }
+        }
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.START) {
 

@@ -40,6 +40,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.coroutineContext
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 class AppListActivity : ThemedActivity() {
     companion object {
@@ -204,10 +205,11 @@ class AppListActivity : ThemedActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
-            setTitle(R.string.select_apps)
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_navigation_close)
         }
+        
+        binding.collapsingToolbar.title = getString(R.string.select_apps)
 
         initProxiedUids()
         binding.list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)

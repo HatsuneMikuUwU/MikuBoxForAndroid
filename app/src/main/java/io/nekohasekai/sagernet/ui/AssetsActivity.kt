@@ -24,6 +24,7 @@ import java.io.File
 import java.io.FileWriter
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 class AssetsActivity : ThemedActivity() {
 
@@ -34,26 +35,27 @@ class AssetsActivity : ThemedActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = LayoutAssetsBinding.inflate(layoutInflater)
-        layout = binding
-        setContentView(binding.root)
+        layout = LayoutAssetsBinding.inflate(layoutInflater)
+        setContentView(layout.root)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(layout.toolbar)
         supportActionBar?.apply {
-            setTitle(R.string.route_assets)
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_navigation_close)
         }
 
-        binding.recyclerView.layoutManager = FixedLinearLayoutManager(binding.recyclerView)
+        val collapsingToolbar = layout.collapsingToolbar
+        collapsingToolbar.title = getString(R.string.route_assets)
+        
+        layout.recyclerView.layoutManager = FixedLinearLayoutManager(layout.recyclerView)
         adapter = AssetAdapter()
-        binding.recyclerView.adapter = adapter
+        layout.recyclerView.adapter = adapter
 
-        binding.refreshLayout.setOnRefreshListener {
+        layout.refreshLayout.setOnRefreshListener {
             adapter.reloadAssets()
-            binding.refreshLayout.isRefreshing = false
+            layout.refreshLayout.isRefreshing = false
         }
-        binding.refreshLayout.setColorSchemeColors(getColorAttr(R.attr.primaryOrTextPrimary))
+        layout.refreshLayout.setColorSchemeColors(getColorAttr(R.attr.colorPrimary))
 
         undoManager = UndoSnackbarManager(this, adapter)
 
@@ -81,7 +83,7 @@ class AssetsActivity : ThemedActivity() {
                 target: RecyclerView.ViewHolder
             ) = false
 
-        }).attachToRecyclerView(binding.recyclerView)
+        }).attachToRecyclerView(layout.recyclerView)
     }
 
     override fun snackbarInternal(text: CharSequence): Snackbar {

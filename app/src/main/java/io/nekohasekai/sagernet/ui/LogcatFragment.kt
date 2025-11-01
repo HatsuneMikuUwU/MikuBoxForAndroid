@@ -19,6 +19,8 @@ import io.nekohasekai.sagernet.ktx.*
 import io.nekohasekai.sagernet.widget.ListListener
 import libcore.Libcore
 import moe.matsuri.nb4a.utils.SendLog
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 class LogcatFragment : ToolbarFragment(R.layout.layout_logcat),
     Toolbar.OnMenuItemClickListener {
@@ -28,12 +30,15 @@ class LogcatFragment : ToolbarFragment(R.layout.layout_logcat),
     @SuppressLint("RestrictedApi", "WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.setTitle(R.string.menu_log)
+        binding = LayoutLogcatBinding.bind(view)
 
+        val collapsingToolbar = binding.collapsingToolbar
+        val toolbar = binding.toolbar
+        val appBarLayout = binding.appbar
+
+        collapsingToolbar.title = getString(R.string.menu_log)
         toolbar.inflateMenu(R.menu.logcat_menu)
         toolbar.setOnMenuItemClickListener(this)
-
-        binding = LayoutLogcatBinding.bind(view)
 
         if (Build.VERSION.SDK_INT >= 23) {
             binding.textview.breakStrategy = 0 // simple
@@ -41,9 +46,13 @@ class LogcatFragment : ToolbarFragment(R.layout.layout_logcat),
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root, ListListener)
 
+        binding.scroolview.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            appBarLayout.setExpanded(scrollY == 0)
+        }
+
         reloadSession()
     }
-
+    
     private fun getColorForLine(line: String): ForegroundColorSpan {
         var color = ForegroundColorSpan(Color.GRAY)
         when {
