@@ -1,6 +1,7 @@
 package io.nekohasekai.sagernet.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -117,6 +118,12 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.zip.ZipInputStream
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
+import android.net.Uri
+import androidx.activity.result.PickVisualMediaRequest
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.yalantis.ucrop.UCrop
+import java.io.File
 
 class ConfigurationFragment @JvmOverloads constructor(
     val select: Boolean = false, val selectedItem: ProxyEntity? = null, val titleRes: Int = 0
@@ -340,6 +347,45 @@ class ConfigurationFragment @JvmOverloads constructor(
                         snackbar(e.readableMessage).show()
                     }
                 }
+            }
+        }
+
+    private val pickBannerImage =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                startCropActivity(uri)
+            }
+        }
+
+    private val cropBannerImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val resultUri = UCrop.getOutput(result.data!!)
+                if (resultUri != null) {
+                    try {
+                        DataStore.configurationStore.putString("custom_banner_uri", resultUri.toString())
+
+                        loadBannerImage(resultUri)
+                        snackbar(R.string.custom_banner_set).show()
+
+                    } catch (e: SecurityException) {
+                        Logs.e("Failed to fetch persistent URI permission after crop", e)
+                        snackbar("Failed to save cropped banner image. Permission denied.").show()
+                    } catch (e: Exception) {
+                        Logs.e("Failed to load cropped banner", e)
+                        snackbar("Failed to load cropped banner image.").show()
+                    }
+                } else {
+                    snackbar("Failed to get cropped image.").show()
+                }
+            } else if (result.resultCode == UCrop.RESULT_ERROR) {
+                val cropError = UCrop.getError(result.data!!)
+                if (cropError != null) {
+                    Logs.e("Cropping error: ", cropError)
+                } else {
+                    Logs.e("Cropping error: Unknown error", Throwable("Unknown crop error"))
+                }
+                snackbar("An error occurred while cropping the image.").show()
             }
         }
 
@@ -1013,6 +1059,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                 tabLayout.getTabAt(groupList.size - 1)?.select()
             }
         }
+
 
         override suspend fun groupRemoved(groupId: Long) {
             val index = groupList.indexOfFirst { it.id == groupId }
@@ -1770,21 +1817,114 @@ class ConfigurationFragment @JvmOverloads constructor(
         searchView.onActionViewCollapsed()
         searchView.clearFocus()
     }
-    
+
+    private fun startCropActivity(sourceUri: Uri) {
+        val destinationFileName = "cropped_banner_${System.currentTimeMillis()}.jpg"
+        val destinationUri = Uri.fromFile(File(requireContext().cacheDir, destinationFileName))
+
+        val uCrop = UCrop.of(sourceUri, destinationUri)
+            .withAspectRatio(16F, 5F)
+            .withMaxResultSize(1920, 1080)
+
+        try {
+            val options = UCrop.Options()
+            
+            options.setToolbarColor(requireContext().getColorAttr(R.attr.colorPrimary))
+            options.setStatusBarColor(requireContext().getColorAttr(R.attr.colorPrimary))
+            options.setActiveControlsWidgetColor(requireContext().getColorAttr(R.attr.colorSecondary))
+            options.setToolbarWidgetColor(requireContext().getColorAttr(R.attr.colorOnPrimary))
+
+            options.setDimmedLayerColor(Color.parseColor("#CCFFFFFF"))
+            options.setCircleDimmedLayer(false)
+            options.setShowCropGrid(true)
+            options.setFreeStyleCropEnabled(false)
+            uCrop.withOptions(options)
+        } catch (e: Exception) {
+            Logs.e("Failed to set UCrop theme", e)
+        }
+
+        cropBannerImage.launch(uCrop.getIntent(requireContext()))
+    }
+
+    private fun loadBannerImage(uri: Uri) {
+        val bannerImageView = view?.findViewById<ImageView>(R.id.img_banner_home)
+        bannerImageView?.let {
+            Glide.with(this)
+                .load(uri)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(it)
+        }
+    }
+
     private fun setupBannerLayoutController() {
         val linear = requireView().findViewById<View>(R.id.banner_home)
-        linear?.visibility = if (DataStore.showBannerLayout) View.VISIBLE else View.GONE
+        val bannerImageView = requireView().findViewById<ImageView>(R.id.img_banner_home)
+
+        fun loadSavedBanner() {
+            val savedUriString = DataStore.configurationStore.getString("custom_banner_uri", null)
+            if (!savedUriString.isNullOrEmpty()) {
+                try {
+                    val savedUri = Uri.parse(savedUriString)
+                    if (savedUri.scheme == "file" || requireContext().contentResolver.persistedUriPermissions
+                        .any { it.uri == savedUri && it.isReadPermission }) {
+                        loadBannerImage(savedUri)
+                    } else {
+                        Logs.w("Permission for URI banner lost: $savedUriString")
+                        DataStore.configurationStore.putString("custom_banner_uri", null)
+                        bannerImageView?.setImageResource(R.drawable.uwu_banner_home)
+                    }
+                } catch (e: Exception) {
+                    Logs.w("Failed to load saved banner", e)
+                    DataStore.configurationStore.putString("custom_banner_uri", null)
+                    bannerImageView?.setImageResource(R.drawable.uwu_banner_home)
+                }
+            } else {
+                bannerImageView?.setImageResource(R.drawable.uwu_banner_home)
+            }
+        }
+
+        if (DataStore.showBannerLayout) {
+            linear?.visibility = View.VISIBLE
+            loadSavedBanner()
+        } else {
+            linear?.visibility = View.GONE
+        }
+
+        linear?.setOnClickListener {
+            pickBannerImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+
+        linear?.setOnLongClickListener {
+            if (!DataStore.configurationStore.getString("custom_banner_uri", null).isNullOrEmpty()) {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.delete_custom_banner_title)
+                    .setMessage(R.string.delete_custom_banner_message)
+                    .setPositiveButton(R.string.yes) { dialog: DialogInterface, which: Int ->
+                        DataStore.configurationStore.putString("custom_banner_uri", null)
+                        
+                        bannerImageView?.setImageResource(R.drawable.uwu_banner_home)
+
+                        snackbar(R.string.custom_banner_removed).show()
+                    }
+                    .setNegativeButton(R.string.no, null)
+                    .show()
+            }
+            true
+        }
 
         if (bannerLayoutListener == null) {
             bannerLayoutListener = object : OnPreferenceDataStoreChangeListener {
                 override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {
                     if (key == "show_banner_layout") {
                         val show = DataStore.showBannerLayout
-
+                        
                         if (!isAdded) return
 
                         requireActivity().runOnUiThread {
                             linear?.visibility = if (show) View.VISIBLE else View.GONE
+                            if (show) {
+                                loadSavedBanner()
+                            }
                         }
                     }
                 }
