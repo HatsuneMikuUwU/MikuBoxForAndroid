@@ -10,9 +10,8 @@
         android:layout_height="wrap_content"
         layout="@layout/layout_appbar" />
     <LinearLayout
-        android:id="@+id/banner_home"
         android:background="?attr/colorPrimary"
-        android:paddingBottom="16.0dip"
+        android:paddingBottom="0.0dip"
         android:clipToPadding="false"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -21,10 +20,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/banner_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0.0dip"
-            android:layout_marginBottom="0.0dip"
+            android:layout_marginBottom="16.0dip"
             android:foreground="?attr/selectableItemBackground"
             android:layout_marginStart="16.0dip"
             android:layout_marginEnd="16.0dip"
@@ -45,8 +45,9 @@
                     app:cardCornerRadius="19.0dip"
                     app:cardElevation="0.0dip">
                     <ImageView
+                        android:id="@+id/img_banner_home"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100.0dip"
                         android:src="@drawable/uwu_banner_home"
                         android:scaleType="centerCrop"
                         android:elevation="0.0dip" />
