@@ -65,6 +65,9 @@ dependencies {
 
     implementation("com.airbnb.android:lottie:4.2.2")
 
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.yalantis:ucrop:2.2.8")
+
     implementation("com.github.jenly1314:zxing-lite:2.1.1")
     implementation("com.blacksquircle.ui:editorkit:2.6.0")
     implementation("com.blacksquircle.ui:language-base:2.6.0")
