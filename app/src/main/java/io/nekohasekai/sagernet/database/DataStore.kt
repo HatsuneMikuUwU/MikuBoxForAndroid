@@ -97,6 +97,8 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     get() = configurationStore.getInt("dpi_value", 0)
     set(value) = configurationStore.putInt("dpi_value", value)
     var showBannerLayout by configurationStore.boolean("show_banner_layout") { true }
+    var showSplashScreen by configurationStore.boolean("show_splash_screen") { true }
+    
 
     var appTLSVersion by configurationStore.string(Key.APP_TLS_VERSION)
     var enableClashAPI by configurationStore.boolean(Key.ENABLE_CLASH_API)
