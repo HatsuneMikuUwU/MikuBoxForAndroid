@@ -624,6 +624,10 @@ Please grant this permission in System Settings."</string>
     <string name="banner_home_summary">Hide or show banner on homepage</string>
     <string name="pref_show_splash_title">Show splash screen</string>
     <string name="pref_show_splash_summary">Show splash screen when application is run</string>
+    <string name="delete_custom_banner_title">Remove Custom Banner</string>
+    <string name="delete_custom_banner_message">Are you sure you want to delete the custom banner image?</string>
+    <string name="custom_banner_removed">Custom banner removed.</string>
+    <string name="custom_banner_set">Custom banner successfully setup.</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>
