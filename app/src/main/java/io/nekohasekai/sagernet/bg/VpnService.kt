@@ -219,9 +219,6 @@ class VpnService : BaseVpnService(),
     override fun onRevoke() = stopRunner()
 
     override fun onDestroy() {
-        if (DataStore.soundOnConnect) {
-           SoundPlayer.playDisconnect(this)
-        }
         DataStore.vpnService = null
         super.onDestroy()
         data.binder.close()
