@@ -3,8 +3,6 @@
 
 -keep class io.nekohasekai.sagernet.** { *;}
 -keep class moe.matsuri.nb4a.** { *;}
--keep class com.yalantis.ucrop.** { *; }
--keep interface com.yalantis.ucrop.** { *; }
 -keep class com.yalantis.ucrop.UCropActivity { *; }
 
 # Clean Kotlin
