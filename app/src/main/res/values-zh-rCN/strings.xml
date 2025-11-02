@@ -523,6 +523,8 @@
     <string name="reset">重置</string>
     <string name="banner_home_title">显示首页横幅</string>
     <string name="banner_home_summary">隐藏或显示首页横幅</string>
+    <string name="pref_show_splash_title">显示启动画面</string>
+    <string name="pref_show_splash_summary">应用程序运行时显示启动画面</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>
