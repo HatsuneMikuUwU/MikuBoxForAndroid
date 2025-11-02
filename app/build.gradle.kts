@@ -65,7 +65,7 @@ dependencies {
 
     implementation("com.airbnb.android:lottie:4.2.2")
 
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:glide:5.0.5")
     implementation("com.github.yalantis:ucrop:2.2.11")
 
     implementation("com.github.jenly1314:zxing-lite:2.1.1")
