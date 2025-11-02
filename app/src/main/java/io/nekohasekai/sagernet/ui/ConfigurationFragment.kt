@@ -1829,11 +1829,6 @@ class ConfigurationFragment @JvmOverloads constructor(
         try {
             val options = UCrop.Options()
             
-            options.setToolbarColor(requireContext().getColorAttr(R.attr.colorPrimary))
-            options.setStatusBarColor(requireContext().getColorAttr(R.attr.colorPrimary))
-            options.setActiveControlsWidgetColor(requireContext().getColorAttr(R.attr.colorSecondary))
-            options.setToolbarWidgetColor(requireContext().getColorAttr(R.attr.colorOnPrimary))
-
             options.setDimmedLayerColor(Color.parseColor("#CCFFFFFF"))
             options.setCircleDimmedLayer(false)
             options.setShowCropGrid(true)
