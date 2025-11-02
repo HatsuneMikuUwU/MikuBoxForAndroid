@@ -171,6 +171,10 @@
             android:name="com.neko.splash.app.SplashActivity"
             android:configChanges="uiMode" />
         <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="uiMode" />
+        <activity
             android:screenOrientation="portrait"
             android:name="io.nekohasekai.sagernet.ui.VpnRequestActivity"
             android:excludeFromRecents="true"
