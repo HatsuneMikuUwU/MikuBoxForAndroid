@@ -214,5 +214,16 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                   true
              }
         }
+          
+        // Splash Screen controller
+        val splashController: SwitchPreference? = findPreference("show_splash_screen")
+        splashController?.apply {
+            isChecked = DataStore.showSplashScreen
+            setOnPreferenceChangeListener { _: Preference, newValue: Any ->
+                val showSplash = newValue as Boolean
+                DataStore.showSplashScreen = showSplash
+                true
+            }
+        }
     }
 }
