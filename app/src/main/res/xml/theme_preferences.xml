@@ -90,10 +90,18 @@
             app:key="app_language"
             app:title="@string/language" />
          <SwitchPreference
-            android:layout="@layout/uwu_bot_switch"
+            android:layout="@layout/uwu_mid_switch"
             android:title="@string/banner_home_title"
             android:key="show_banner_layout"
             android:summary="@string/banner_home_summary"
+            android:widgetLayout="@layout/uwu_switch"
+            android:defaultValue="true"
+            app:icon="@drawable/ic_toggle_switch" />
+        <SwitchPreference
+            android:layout="@layout/uwu_bot_switch"
+            android:title="@string/pref_show_splash_title"
+            android:key="show_splash_screen"
+            android:summary="@string/pref_show_splash_summary"
             android:widgetLayout="@layout/uwu_switch"
             android:defaultValue="true"
             app:icon="@drawable/ic_toggle_switch" />
