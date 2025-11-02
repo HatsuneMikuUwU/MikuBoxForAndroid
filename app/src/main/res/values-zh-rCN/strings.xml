@@ -525,6 +525,10 @@
     <string name="banner_home_summary">隐藏或显示首页横幅</string>
     <string name="pref_show_splash_title">显示启动画面</string>
     <string name="pref_show_splash_summary">应用程序运行时显示启动画面</string>
+    <string name="delete_custom_banner_title">移除自定义横幅</string>
+    <string name="delete_custom_banner_message">您确定要删除自定义横幅图片吗？</string>
+    <string name="custom_banner_removed">自定义横幅已移除。</string>
+    <string name="custom_banner_set">自定义横幅设置成功。</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>
