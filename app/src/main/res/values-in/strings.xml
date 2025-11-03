@@ -560,7 +560,7 @@ yang kamu butuhin."</string>
     <string name="uwu_maintainer_summary">Tim Developer HatsuneMikuUwU</string>
     <string name="uwu_splash_title">"Dibuat pake ❤️
 Sama Tim Developer HatsuneMikuUwU"</string>
-    <string name="uwu_splash_summary">Versi 1.4.2-UwU</string>
+    <string name="uwu_splash_summary">Versi %1$s (%2$d)</string>
     <string name="uwu_theme_settings_title">Settingan Tema</string>
     <string name="uwu_theme_settings_summary">Pilih warna aksenmu sendiri</string>
     <string name="uwu_banner_theme_title">Tampilan dan nuansa</string>
