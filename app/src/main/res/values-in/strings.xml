@@ -91,7 +91,7 @@
     <string name="invert_selections">Balikkin pilihan</string>
     <string name="clear_selections">Bersihin pilihan</string>
     <string name="bypass_apps">Lewatin</string>
-    <string name="show_system_apps">Tunjukin aplikasi sistem</string>
+    <string name="show_system_apps">Tampilin aplikasi sistem</string>
     <string name="auto_connect">Sambung otomatis</string>
     <string name="auto_connect_summary">Proksi bakal nyambung lagi otomatis abis HP nyala atau di-update</string>
     <string name="direct_boot_aware">Izinin mulai sebelum kunci dibuka</string>
@@ -172,7 +172,7 @@
     <string name="ws_path">Path WebSocket</string>
     <string name="http_host">Host HTTP</string>
     <string name="http_path">Path HTTP</string>
-    <string name="show_bottom_bar">Tunjukin bilah bawah kayak SagerNet</string>
+    <string name="show_bottom_bar">Tampilin bilah bawah kayak SagerNet</string>
     <string name="utls_fingerprint">Sidik jari uTLS</string>
     <string name="grpc_service_name">Nama Layanan gRPC</string>
     <string name="alpn">Negosiasi Protokol Lapisan Aplikasi (ALPN)</string>
@@ -180,13 +180,13 @@
         \n%s</string>
     <string name="deduplication">Hapus duplikat</string>
     <string name="version_x">Versi (%s)</string>
-    <string name="show_stop">Tunjukin tombol berhenti</string>
+    <string name="show_stop">Tampilin tombol berhenti</string>
     <string name="show_stop_sum">Kalo kamu gak mau pake ubin cepat (quick tile)</string>
     <string name="ss_cat">Settingan Shadowsocks</string>
     <string name="insecure">Gak aman</string>
     <string name="deprecated">Udah usang</string>
-    <string name="show_direct_speed">Tunjukin kecepatan langsung</string>
-    <string name="show_direct_speed_sum">Tunjukin juga kecepatan trafik non-proksi di notifikasi</string>
+    <string name="show_direct_speed">Tampilin kecepatan langsung</string>
+    <string name="show_direct_speed_sum">Tampilin juga kecepatan trafik non-proksi di notifikasi</string>
     <string name="select_profile">Pilih Profil</string>
     <string name="proxy_chain">Rantai Proksi</string>
     <string name="chain_settings">Settingan Rantai</string>
@@ -261,8 +261,8 @@
     <string name="probe_interval">Interval Pemeriksaan</string>
     <string name="standard">Standar</string>
     <string name="unavailable">Gak tersedia</string>
-    <string name="always_show_address">Selalu tunjukin alamat</string>
-    <string name="always_show_address_sum">Selalu tunjukin alamat server di kartu profil</string>
+    <string name="always_show_address">Selalu tampilin alamat</string>
+    <string name="always_show_address_sum">Selalu tampilin alamat server di kartu profil</string>
     <string name="clear_traffic_statistics">Bersihin statistik trafik</string>
     <string name="connection_test">Tes Koneksi</string>
     <string name="connection_test_clear_results">Bersihin hasil</string>
@@ -395,7 +395,7 @@
         \n
         \nKalo emang harus pake, coba N=2 dulu buat liat apa masalahmu kelar. Gak disaranin banget pake lebih dari 4 koneksi di sini.</string>
     <string name="tools_network">Jaringan</string>
-    <string name="backup">Cadangan (Backup)</string>
+    <string name="backup">Cadangan</string>
     <string name="backup_groups_and_configurations">Grup dan konfigurasi</string>
     <string name="backup_import">Impor</string>
     <string name="backup_summary">Outbound kustom bakal ilang kalo aturan rute di-backup bareng profil.</string>
@@ -447,7 +447,7 @@
     <string name="landing_proxy">Proksi pendaratan</string>
     <string name="protocol_version">Versi protokol</string>
     <string name="share_subscription">Bagikan langganan</string>
-    <string name="show_group_in_notification">Tunjukin nama grup di notifikasi</string>
+    <string name="show_group_in_notification">Tampilin nama grup di notifikasi</string>
     <string name="reset_connections">Reset koneksi</string>
     <string name="remove_duplicate">Hapus server duplikat</string>
     <string name="tls_camouflage_settings">Settingan kamuflase TLS</string>
