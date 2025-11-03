@@ -122,14 +122,16 @@
                             android:layout_marginStart="10.0dip"
                             android:layout_marginEnd="5.0dip"
                             android:backgroundTint="?attr/colorSecondaryContainer">
-                            <ImageView
+                            <com.airbnb.lottie.LottieAnimationView
                                 android:gravity="center"
                                 android:layout_width="20.0dip"
                                 android:layout_height="20.0dip"
                                 android:layout_marginTop="8.0dip"
-                                android:src="@drawable/ic_service_active"
-                                android:tint="?attr/colorPrimary"
-                                android:layout_marginStart="8.0dip" />
+                                android:layout_marginStart="8.0dip"
+                                app:lottie_autoPlay="true"
+                                app:lottie_colorFilter="?attr/colorPrimary"
+                                app:lottie_loop="true"
+                                app:lottie_rawRes="@raw/uwu_lottie_heart" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
