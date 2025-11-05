@@ -8,9 +8,11 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.TooltipCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.neko.marquee.text.AutoMarqueeTextView
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.bg.BaseService
 import io.nekohasekai.sagernet.database.DataStore
@@ -19,8 +21,10 @@ import io.nekohasekai.sagernet.ui.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.neko.marquee.text.AutoMarqueeTextView
-import androidx.lifecycle.LifecycleOwner
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.URL
 
 class StatsBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
@@ -39,7 +43,6 @@ class StatsBar @JvmOverloads constructor(
     }
 
     class YourBehavior(val getAllowShow: () -> Boolean) : Behavior() {
-
         override fun onNestedScroll(
             coordinatorLayout: CoordinatorLayout, child: BottomAppBar, target: View,
             dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int,
@@ -68,7 +71,6 @@ class StatsBar @JvmOverloads constructor(
             super.slideDown(child)
         }
     }
-
 
     override fun setOnClickListener(l: OnClickListener?) {
         statusText = findViewById(R.id.status)
@@ -127,31 +129,84 @@ class StatsBar @JvmOverloads constructor(
         }"
     }
 
+    private fun getFlagEmoji(countryCode: String): String {
+        try {
+            if (countryCode.length != 2) {
+                return "❓"
+            }
+            val firstLetter = Character.codePointAt(countryCode.uppercase(), 0) - 0x41 + 0x1F1E6
+            val secondLetter = Character.codePointAt(countryCode.uppercase(), 1) - 0x41 + 0x1F1E6
+            return String(Character.toChars(firstLetter)) + String(Character.toChars(secondLetter))
+        } catch (e: Exception) {
+            return "❓"
+        }
+    }
+
+    private suspend fun getPublicIpInfo(): String {
+        return withContext(Dispatchers.IO) {
+            try {
+                val url = URL("https://ipwhois.app/json/")
+                val connection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+                connection.connectTimeout = 5000
+                connection.readTimeout = 5000
+
+                val response = connection.inputStream.bufferedReader().use { it.readText() }
+                val json = JSONObject(response)
+
+                if (json.getBoolean("success")) {
+                    val ip = json.getString("ip")
+                    val country = json.getString("country")
+                    val countryCode = json.getString("country_code")
+                    
+                    val flag = getFlagEmoji(countryCode)
+                    
+                    "IP: $ip ($flag $country)"
+                } else {
+                    context.getString(R.string.ip_info_failed)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                "IP Fail: ${e.javaClass.simpleName}"
+            }
+        }
+    }
+    
     fun testConnection() {
         val activity = context as MainActivity
         isEnabled = false
         setStatus(app.getText(R.string.connection_test_testing))
+        
         runOnDefaultDispatcher {
             try {
                 val elapsed = activity.urlTest()
+                val latencyResult = app.getString(
+                    if (DataStore.connectionTestURL.startsWith("https://")) {
+                        R.string.connection_test_available
+                    } else {
+                        R.string.connection_test_available_http
+                    }, elapsed
+                )
+
                 onMainDispatcher {
                     isEnabled = true
-                    setStatus(
-                        app.getString(
-                            if (DataStore.connectionTestURL.startsWith("https://")) {
-                                R.string.connection_test_available
-                            } else {
-                                R.string.connection_test_available_http
-                            }, elapsed
-                        )
-                    )
+                    setStatus(latencyResult)
+
+                    if (DataStore.connectionTestWithIp) {
+                        
+                        activity.lifecycleScope.launch {
+                            val ipInfo = getPublicIpInfo()
+                            
+                            setStatus("$latencyResult • $ipInfo")
+                        }
+                    }
                 }
 
             } catch (e: Exception) {
                 Logs.w(e.toString())
                 onMainDispatcher {
                     isEnabled = true
-                    setStatus(app.getText(R.string.connection_test_testing))
+                    setStatus(app.getText(R.string.connection_test_testing)) 
 
                     activity.snackbar(
                         app.getString(
@@ -162,5 +217,4 @@ class StatsBar @JvmOverloads constructor(
             }
         }
     }
-
 }
