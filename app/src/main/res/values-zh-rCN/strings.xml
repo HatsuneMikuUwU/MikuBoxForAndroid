@@ -529,6 +529,9 @@
     <string name="delete_custom_banner_message">您确定要删除自定义横幅图片吗？</string>
     <string name="custom_banner_removed">自定义横幅已移除。</string>
     <string name="custom_banner_set">自定义横幅设置成功。</string>
+    <string name="ip_info_failed">获取 IP 失败</string>
+    <string name="ip_info_bottom_bar_title">连接测试时检查 IP</string>
+    <string name="ip_info_bottom_bar_summary">点击底部栏时也显示公共 IP, 国家和旗帜</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>
