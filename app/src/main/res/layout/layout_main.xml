@@ -36,7 +36,8 @@
             app:layout_anchor="@+id/stats"
             app:pressedTranslationZ="6.0dip"
             app:srcCompat="@drawable/ic_service_idle"
-            app:tint="?android:textColorPrimaryInverse" />
+            app:tint="?android:textColorPrimaryInverse"
+            style="?attr/floatingActionButtonStyle" />
         <io.nekohasekai.sagernet.widget.StatsBar
             android:layout_gravity="bottom"
             android:id="@+id/stats"
@@ -48,7 +49,8 @@
             app:contentInsetStart="0.0dip"
             app:elevation="0.0dip"
             app:hideOnScroll="true"
-            app:layout_scrollFlags="enterAlways|scroll">
+            app:layout_scrollFlags="enterAlways|scroll"
+            style="?attr/bottomAppBarStyle">
             <LinearLayout
                 android:orientation="vertical"
                 android:background="?android:selectableItemBackground"
