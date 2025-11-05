@@ -225,5 +225,16 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
+
+     // IP test controller bottom bar
+     val ipTestController: SwitchPreference? = findPreference("connection_test_with_ip")
+        ipTestController?.apply {
+            isChecked = DataStore.connectionTestWithIp
+            setOnPreferenceChangeListener { _, newValue ->
+                val isEnabled = newValue as Boolean
+                DataStore.connectionTestWithIp = isEnabled
+                true
+            }
+        }
     }
 }
