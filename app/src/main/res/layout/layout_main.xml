@@ -80,6 +80,17 @@
                     android:singleLine="true"
                     android:layout_columnWeight="1.0" />
                 <com.neko.marquee.text.AutoMarqueeTextView
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                    android:textSize="14.0sp"
+                    android:textColor="?android:textColorPrimaryInverse"
+                    android:ellipsize="marquee"
+                    android:layout_gravity="fill_horizontal"
+                    android:id="@+id/ip_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever" />
+                <com.neko.marquee.text.AutoMarqueeTextView
                     android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                     android:textSize="17.0sp"
                     android:textColor="?android:textColorPrimaryInverse"
