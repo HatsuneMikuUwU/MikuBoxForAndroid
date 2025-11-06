@@ -633,6 +633,9 @@ Please grant this permission in System Settings."</string>
     <string name="ip_info_bottom_bar_summary">Also show public IP, country, and flag when tapping the bottom bar</string>
     <string name="ip_info_show_ip_in_two_line_summary">Displays IP info results in the second line (above latency) during connection tests</string>
     <string name="ip_info_show_ip_in_two_line_title">Display IP Info in Separate Line</string>
+    <string name="theme_category">Theme</string>
+    <string name="bottom_bar_category">Bottom bar</string>
+    <string name="opsional_category">Opsional</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

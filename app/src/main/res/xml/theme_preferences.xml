@@ -6,7 +6,7 @@
         android:layout="@layout/uwu_banner_theme"
         android:selectable="false" />
     <PreferenceCategory
-        app:title="@string/uwu_theme_settings_title">
+        app:title="@string/theme_category">
         <moe.matsuri.nb4a.ui.ColorPickerPreference
             android:layout="@layout/uwu_top_switch"
             android:title="@string/theme"
@@ -31,57 +31,18 @@
             app:title="@string/night_mode"
             app:useSimpleSummaryProvider="true" />
         <SwitchPreference
-            android:layout="@layout/uwu_mid_switch"
+            android:layout="@layout/uwu_bot_switch"
             android:title="@string/pref_true_black_title"
             android:key="true_dark_enabled"
             android:summary="@string/pref_true_black_summary"
             android:widgetLayout="@layout/uwu_switch"
             android:defaultValue="false"
             app:icon="@drawable/ic_toggle_switch" />
-        <moe.matsuri.nb4a.ui.DpiEditTextPreference
-            android:layout="@layout/uwu_mid"
-            android:inputType="number"
-            app:defaultValue="0"
-            app:dialogMessage="@string/pref_custom_dpi_dialog_massage"
-            app:icon="@drawable/ic_cellphone_screenshot"
-            app:key="custom_dpi"
-            app:title="@string/pref_custom_dpi"
-            app:useSimpleSummaryProvider="true" />
-        <SwitchPreference
-            android:layout="@layout/uwu_mid_switch"
-            android:widgetLayout="@layout/uwu_switch"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            app:icon="@drawable/ic_toggle_switch"
-            app:key="showBottomBar"
-            app:title="@string/show_bottom_bar" />
-        <SwitchPreference
-            android:layout="@layout/uwu_mid_switch"
-            android:title="@string/ip_info_bottom_bar_title"
-            android:key="connection_test_with_ip"
-            android:summary="@string/ip_info_bottom_bar_summary"
-            android:widgetLayout="@layout/uwu_switch"
-            android:defaultValue="false"
-            app:icon="@drawable/ic_ip_info" />
-        <SwitchPreference
-            android:layout="@layout/uwu_mid_switch"
-            android:title="@string/ip_info_show_ip_in_two_line_title"
-            android:key="show_ip_in_two_line"
-            android:summary="@string/ip_info_show_ip_in_two_line_summary"
-            android:widgetLayout="@layout/uwu_switch"
-            android:defaultValue="false"
-            app:icon="@drawable/ic_toggle_switch" />
-        <com.takisoft.preferencex.SimpleMenuPreference
-            android:layout="@layout/uwu_mid"
-            app:defaultValue="1"
-            app:entries="@array/fab_style_entry"
-            app:entryValues="@array/int_array_2"
-            app:icon="@drawable/ic_service_busy"
-            app:key="fab_style"
-            app:title="@string/fab_style"
-            app:useSimpleSummaryProvider="true" />
-        <SwitchPreference
-            android:layout="@layout/uwu_mid_switch"
+       </PreferenceCategory>
+       <PreferenceCategory
+            app:title="@string/opsional_category">
+       <SwitchPreference
+            android:layout="@layout/uwu_top_switch"
             android:title="@string/pref_font_bold_title"
             android:key="bold_font_switch"
             android:summary="@string/pref_font_bold_summary"
@@ -105,7 +66,7 @@
             app:isPreferenceVisible="true"
             app:key="app_language"
             app:title="@string/language" />
-         <SwitchPreference
+        <SwitchPreference
             android:layout="@layout/uwu_mid_switch"
             android:title="@string/banner_home_title"
             android:key="show_banner_layout"
@@ -114,12 +75,57 @@
             android:defaultValue="true"
             app:icon="@drawable/ic_toggle_switch" />
         <SwitchPreference
-            android:layout="@layout/uwu_bot_switch"
+            android:layout="@layout/uwu_mid_switch"
             android:title="@string/pref_show_splash_title"
             android:key="show_splash_screen"
             android:summary="@string/pref_show_splash_summary"
             android:widgetLayout="@layout/uwu_switch"
             android:defaultValue="true"
             app:icon="@drawable/ic_toggle_switch" />
+        <moe.matsuri.nb4a.ui.DpiEditTextPreference
+            android:layout="@layout/uwu_bot"
+            android:inputType="number"
+            app:defaultValue="0"
+            app:dialogMessage="@string/pref_custom_dpi_dialog_massage"
+            app:icon="@drawable/ic_cellphone_screenshot"
+            app:key="custom_dpi"
+            app:title="@string/pref_custom_dpi"
+            app:useSimpleSummaryProvider="true" />
+       </PreferenceCategory>
+       <PreferenceCategory
+            app:title="@string/bottom_bar_category">
+        <SwitchPreference
+            android:layout="@layout/uwu_top_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:summaryOn="@string/on"
+            android:summaryOff="@string/off"
+            app:icon="@drawable/ic_toggle_switch"
+            app:key="showBottomBar"
+            app:title="@string/show_bottom_bar" />
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:title="@string/ip_info_bottom_bar_title"
+            android:key="connection_test_with_ip"
+            android:summary="@string/ip_info_bottom_bar_summary"
+            android:widgetLayout="@layout/uwu_switch"
+            android:defaultValue="false"
+            app:icon="@drawable/ic_ip_info" />
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:title="@string/ip_info_show_ip_in_two_line_title"
+            android:key="show_ip_in_two_line"
+            android:summary="@string/ip_info_show_ip_in_two_line_summary"
+            android:widgetLayout="@layout/uwu_switch"
+            android:defaultValue="false"
+            app:icon="@drawable/ic_toggle_switch" />
+        <com.takisoft.preferencex.SimpleMenuPreference
+            android:layout="@layout/uwu_bot"
+            app:defaultValue="1"
+            app:entries="@array/fab_style_entry"
+            app:entryValues="@array/int_array_2"
+            app:icon="@drawable/ic_service_busy"
+            app:key="fab_style"
+            app:title="@string/fab_style"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 </PreferenceScreen>

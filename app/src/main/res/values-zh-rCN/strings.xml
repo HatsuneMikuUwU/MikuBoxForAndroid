@@ -534,6 +534,9 @@
     <string name="ip_info_bottom_bar_summary">点击底部栏时也显示公共 IP, 国家和旗帜</string>
     <string name="ip_info_show_ip_in_two_line_summary">连接测试时，IP 信息将显示在第二行（延迟信息上方）</string>
     <string name="ip_info_show_ip_in_two_line_title">IP 信息分行显示</string>
+    <string name="theme_category">主题</string>
+    <string name="bottom_bar_category">底部栏</string>
+    <string name="opsional_category">可选</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>
