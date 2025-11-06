@@ -145,29 +145,28 @@ class StatsBar @JvmOverloads constructor(
     private suspend fun getPublicIpInfo(): String {
         return withContext(Dispatchers.IO) {
             try {
-                val url = URL("https://ipwhois.app/json/")
+                val url = URL("https://ipapi.co/json/")
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.connectTimeout = 5000
                 connection.readTimeout = 5000
-
+                connection.setRequestProperty("User-Agent", "Mozilla/5.0")
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
                 val json = JSONObject(response)
 
-                if (json.getBoolean("success")) {
+                if (!json.has("error")) {
                     val ip = json.getString("ip")
-                    val country = json.getString("country")
+                    val country = json.getString("country_name")
                     val countryCode = json.getString("country_code")
-                    
-                    val flag = getFlagEmoji(countryCode)
-                    
+                    val flag = getFlagEmoji(countryCode)        
                     "IP: $ip ($flag $country)"
                 } else {
-                    context.getString(R.string.ip_info_failed)
+                    val reason = json.getString("reason")
+                    "IP Fail: $reason" 
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                "IP Fail: ${e.javaClass.simpleName}"
+                context.getString(R.string.ip_info_failed)
             }
         }
     }
@@ -191,12 +190,9 @@ class StatsBar @JvmOverloads constructor(
                 onMainDispatcher {
                     isEnabled = true
                     setStatus(latencyResult)
-
                     if (DataStore.connectionTestWithIp) {
-                        
                         activity.lifecycleScope.launch {
                             val ipInfo = getPublicIpInfo()
-                            
                             setStatus("$latencyResult • $ipInfo")
                         }
                     }
@@ -207,7 +203,6 @@ class StatsBar @JvmOverloads constructor(
                 onMainDispatcher {
                     isEnabled = true
                     setStatus(app.getText(R.string.connection_test_testing)) 
-
                     activity.snackbar(
                         app.getString(
                             R.string.connection_test_error, e.readableMessage
