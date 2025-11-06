@@ -211,10 +211,16 @@ class StatsBar @JvmOverloads constructor(
                     setStatus(latencyResult)
 
                     if (DataStore.connectionTestWithIp) {
-                        ipStatusText.visibility = View.VISIBLE
                         activity.lifecycleScope.launch {
                             val ipInfo = getPublicIpInfo()
-                            ipStatusText.text = ipInfo
+
+                            if (DataStore.showIpInTwoLine) { 
+                                ipStatusText.text = ipInfo
+                                ipStatusText.visibility = View.VISIBLE
+                            } else {
+                                setStatus("$latencyResult | $ipInfo")
+                                ipStatusText.visibility = View.GONE
+                            }
                         }
                     }
                 }
@@ -223,9 +229,9 @@ class StatsBar @JvmOverloads constructor(
                 Logs.w(e.toString())
                 onMainDispatcher {
                     isEnabled = true
-                    setStatus(app.getText(R.string.connection_test_testing))
+                    setStatus(app.getText(R.string.connection_test_testing)) 
                     ipStatusText.visibility = View.GONE
-                    ipStatusText.text = "" 
+                    ipStatusText.text = ""
                     activity.snackbar(
                         app.getString(
                             R.string.connection_test_error, e.readableMessage

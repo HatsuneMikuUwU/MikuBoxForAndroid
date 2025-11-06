@@ -236,5 +236,17 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
+        
+        // Controller for IP display style (1 line vs 2 lines)
+        val ipDisplayStyleController: SwitchPreference? = findPreference("show_ip_in_two_line")
+        ipDisplayStyleController?.apply {
+            isChecked = DataStore.showIpInTwoLine
+            setOnPreferenceChangeListener { _, newValue ->
+                val isTwoLines = newValue as Boolean
+                DataStore.showIpInTwoLine = isTwoLines
+                true
+            }
+        }
     }
 }
+

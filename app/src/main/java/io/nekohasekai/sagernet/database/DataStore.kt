@@ -99,6 +99,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var showBannerLayout by configurationStore.boolean("show_banner_layout") { true }
     var showSplashScreen by configurationStore.boolean("show_splash_screen") { true }
     var connectionTestWithIp by configurationStore.boolean("connection_test_with_ip") { false }
+    var showIpInTwoLine by configurationStore.boolean("show_ip_in_two_line") { false }
 
     var appTLSVersion by configurationStore.string(Key.APP_TLS_VERSION)
     var enableClashAPI by configurationStore.boolean(Key.ENABLE_CLASH_API)

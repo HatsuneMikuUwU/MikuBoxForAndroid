@@ -631,6 +631,8 @@ Please grant this permission in System Settings."</string>
     <string name="ip_info_failed">Failed to get IP</string>
     <string name="ip_info_bottom_bar_title">Check IP on connection test</string>
     <string name="ip_info_bottom_bar_summary">Also show public IP, country, and flag when tapping the bottom bar</string>
+    <string name="ip_info_show_ip_in_two_line_summary">Displays IP info results in the second line (above latency) during connection tests</string>
+    <string name="ip_info_show_ip_in_two_line_title">Display IP Info in Separate Line</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>
