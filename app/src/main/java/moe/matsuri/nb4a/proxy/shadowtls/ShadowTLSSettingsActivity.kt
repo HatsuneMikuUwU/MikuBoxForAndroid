@@ -9,6 +9,10 @@ import io.nekohasekai.sagernet.ui.profile.ProfileSettingsActivity
 import moe.matsuri.nb4a.proxy.PreferenceBinding
 import moe.matsuri.nb4a.proxy.PreferenceBindingManager
 import moe.matsuri.nb4a.proxy.Type
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceGroup
+import androidx.preference.PreferenceScreen
+import io.nekohasekai.sagernet.database.DataStore
 
 class ShadowTLSSettingsActivity : ProfileSettingsActivity<ShadowTLSBean>() {
 
@@ -40,6 +44,12 @@ class ShadowTLSSettingsActivity : ProfileSettingsActivity<ShadowTLSBean>() {
         rootKey: String?,
     ) {
         addPreferencesFromResource(R.xml.shadowtls_preferences)
+
+        val styleValue = DataStore.categoryStyle
+        preferenceScreen?.let { screen ->
+            updateAllCategoryStyles(styleValue, screen)
+        }
+        
         pbm.setPreferenceFragment(this)
 
         serverPort.preference.apply {
@@ -49,6 +59,26 @@ class ShadowTLSSettingsActivity : ProfileSettingsActivity<ShadowTLSBean>() {
         password.preference.apply {
             this as EditTextPreference
             summaryProvider = PasswordSummaryProvider
+        }
+    }
+
+    private fun updateAllCategoryStyles(styleValue: String?, group: PreferenceGroup) {
+        val newLayout = when (styleValue) {
+            "style1" -> R.layout.uwu_preference_category_1
+            "style2" -> R.layout.uwu_preference_category_2
+            "style3" -> R.layout.uwu_preference_category_3
+            "style4" -> R.layout.uwu_preference_category_4
+            else -> R.layout.uwu_preference_category_1
+        }
+
+        for (i in 0 until group.preferenceCount) {
+            val preference = group.getPreference(i)
+            if (preference is PreferenceCategory) {
+                preference.layoutResource = newLayout
+            }
+            if (preference is PreferenceGroup) {
+                updateAllCategoryStyles(styleValue, preference)
+            }
         }
     }
 

@@ -537,6 +537,12 @@
     <string name="theme_category">主题</string>
     <string name="bottom_bar_category">底部栏</string>
     <string name="opsional_category">可选</string>
+    <string name="style_category_entries_1">样式 1</string>
+    <string name="style_category_entries_2">样式 2</string>
+    <string name="style_category_entries_3">样式 3</string>
+    <string name="style_category_entries_4">样式 4</string>
+    <string name="category_style_title">分类标题样式</string>
+
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>

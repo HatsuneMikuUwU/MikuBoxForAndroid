@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	
+	<string-array name="style_category_entries">
+        <item>@string/style_category_entries_1</item>
+        <item>@string/style_category_entries_2</item>
+        <item>@string/style_category_entries_3</item>
+        <item>@string/style_category_entries_4</item>
+    </string-array>
+    
+    <string-array name="style_category_values">
+        <item>style1</item>
+        <item>style2</item>
+        <item>style3</item>
+        <item>style4</item>
+    </string-array>
 
     <string-array name="uwu_random_text">
     	<item>@string/uwu_banner_summary</item>

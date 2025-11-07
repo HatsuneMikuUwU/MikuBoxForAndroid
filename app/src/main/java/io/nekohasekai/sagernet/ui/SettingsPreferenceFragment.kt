@@ -9,6 +9,9 @@ import android.widget.EditText
 import androidx.core.app.ActivityCompat
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceGroup
+import androidx.preference.PreferenceScreen
 import androidx.preference.SwitchPreference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.nekohasekai.sagernet.Key
@@ -50,20 +53,22 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         DataStore.initGlobal()
         addPreferencesFromResource(R.xml.global_preferences)
 
+        val styleValue = DataStore.categoryStyle
+        preferenceScreen?.let { screen ->
+            updateAllCategoryStyles(styleValue, screen)
+        }
+        
         val mixedPort = findPreference<EditTextPreference>(Key.MIXED_PORT)!!
         mixedPort.setOnBindEditTextListener(EditTextPreferenceModifiers.Port)
-
         if (Build.VERSION.SDK_INT < 28) {
             findPreference<Preference>(Key.METERED_NETWORK)?.remove()
         }
-
         isProxyApps = findPreference(Key.PROXY_APPS)!!
         isProxyApps.setOnPreferenceChangeListener { _, newValue ->
             startActivity(Intent(activity, AppManagerActivity::class.java))
             if (newValue as Boolean) DataStore.dirty = true
             newValue
         }
-
         val profileTrafficStatistics = findPreference<SwitchPreference>(Key.PROFILE_TRAFFIC_STATISTICS)!!
         val speedInterval = findPreference<SimpleMenuPreference>(Key.SPEED_INTERVAL)!!
         profileTrafficStatistics.isEnabled = speedInterval.value != "0"
@@ -72,14 +77,12 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             needReload()
             true
         }
-
         val enableClashAPI = findPreference<SwitchPreference>(Key.ENABLE_CLASH_API)!!
         enableClashAPI.setOnPreferenceChangeListener { _, newValue ->
             (activity as? MainActivity)?.refreshNavMenu(newValue as Boolean)
             needReload()
             true
         }
-
         val rulesProvider = findPreference<SimpleMenuPreference>(Key.RULES_PROVIDER)!!
         val rulesGeositeUrl = findPreference<EditTextPreference>("rules_geosite_url")!!
         val rulesGeoipUrl = findPreference<EditTextPreference>("rules_geoip_url")!!
@@ -91,16 +94,13 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             rulesGeoipUrl.isVisible = provider == 5
             true
         }
-
         val serviceMode = findPreference<Preference>(Key.SERVICE_MODE)!!
         serviceMode.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, _ ->
             if (DataStore.serviceState.started) SagerNet.stopService()
             true
         }
-
         globalCustomConfig = findPreference(Key.GLOBAL_CUSTOM_CONFIG)!!
         globalCustomConfig.useConfigStore(Key.GLOBAL_CUSTOM_CONFIG)
-
         findPreference<LongClickListPreference>(Key.LOG_LEVEL)!!.let { logLevel ->
             logLevel.dialogLayoutResource = R.layout.layout_loglevel_help
             logLevel.setOnPreferenceChangeListener { _, _ ->
@@ -127,8 +127,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-
-        // Clear Cache
         val clearCache = findPreference<Preference>("clear_cache")!!
         clearCache.setOnPreferenceClickListener {
             MaterialAlertDialogBuilder(requireContext()).apply {
@@ -141,8 +139,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             }.show()
             true
         }
-
-        // Assign reload listeners
         mixedPort.onPreferenceChangeListener = reloadListener
         findPreference<SwitchPreference>(Key.APPEND_HTTP_PROXY)!!.onPreferenceChangeListener = reloadListener
         findPreference<SwitchPreference>(Key.SHOW_DIRECT_SPEED)!!.onPreferenceChangeListener = reloadListener
@@ -159,7 +155,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         findPreference<SwitchPreference>(Key.RESOLVE_DESTINATION)!!.onPreferenceChangeListener = reloadListener
         findPreference<SimpleMenuPreference>(Key.TUN_IMPLEMENTATION)!!.onPreferenceChangeListener = reloadListener
         findPreference<SwitchPreference>(Key.ACQUIRE_WAKE_LOCK)!!.onPreferenceChangeListener = reloadListener
-
         globalCustomConfig.onPreferenceChangeListener = reloadListener
     }
 
@@ -172,20 +167,17 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             globalCustomConfig.notifyChanged()
         }
     }
-
+    
     private fun clearAppCache() {
         try {
             val cacheDir = SagerNet.application.cacheDir
             clearDirFiles(cacheDir, skipFiles = setOf("neko.log"))
-
             val parentDir = cacheDir.parentFile
             val relativeCache = File(parentDir, "cache")
             if (relativeCache.exists() && relativeCache.isDirectory) {
                 clearDirFiles(relativeCache)
             }
-
             Toast.makeText(requireContext(), R.string.clear_cache_success, Toast.LENGTH_SHORT).show()
-
             Handler(Looper.getMainLooper()).postDelayed({
                 needReload()
             }, 500)
@@ -219,4 +211,25 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         }
         return false
     }
+
+    private fun updateAllCategoryStyles(styleValue: String?, group: PreferenceGroup) {
+        val newLayout = when (styleValue) {
+            "style1" -> R.layout.uwu_preference_category_1
+            "style2" -> R.layout.uwu_preference_category_2
+            "style3" -> R.layout.uwu_preference_category_3
+            "style4" -> R.layout.uwu_preference_category_4
+            else -> R.layout.uwu_preference_category_1
+        }
+
+        for (i in 0 until group.preferenceCount) {
+            val preference = group.getPreference(i)
+            if (preference is PreferenceCategory) {
+                preference.layoutResource = newLayout
+            }
+            if (preference is PreferenceGroup) {
+                updateAllCategoryStyles(styleValue, preference)
+            }
+        }
+    }
+    
 }

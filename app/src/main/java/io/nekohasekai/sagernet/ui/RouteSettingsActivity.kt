@@ -41,6 +41,9 @@ import io.nekohasekai.sagernet.widget.OutboundPreference
 import kotlinx.parcelize.Parcelize
 import moe.matsuri.nb4a.ui.EditConfigPreference
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceGroup
+import androidx.preference.PreferenceScreen
 
 @Suppress("UNCHECKED_CAST")
 class RouteSettingsActivity(
@@ -111,6 +114,11 @@ class RouteSettingsActivity(
         rootKey: String?,
     ) {
         addPreferencesFromResource(R.xml.route_preferences)
+
+        val styleValue = DataStore.categoryStyle
+        preferenceScreen?.let { screen ->
+            updateAllCategoryStyles(styleValue, screen)
+        }
 
         editConfigPreference = findPreference(Key.SERVER_CONFIG)!!
     }
@@ -394,6 +402,26 @@ class RouteSettingsActivity(
             }
         }
 
+    }
+
+    private fun updateAllCategoryStyles(styleValue: String?, group: PreferenceGroup) {
+        val newLayout = when (styleValue) {
+            "style1" -> R.layout.uwu_preference_category_1
+            "style2" -> R.layout.uwu_preference_category_2
+            "style3" -> R.layout.uwu_preference_category_3
+            "style4" -> R.layout.uwu_preference_category_4
+            else -> R.layout.uwu_preference_category_1
+        }
+
+        for (i in 0 until group.preferenceCount) {
+            val preference = group.getPreference(i)
+            if (preference is PreferenceCategory) {
+                preference.layoutResource = newLayout
+            }
+            if (preference is PreferenceGroup) {
+                updateAllCategoryStyles(styleValue, preference)
+            }
+        }
     }
 
 }

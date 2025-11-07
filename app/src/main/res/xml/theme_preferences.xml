@@ -83,13 +83,22 @@
             android:defaultValue="true"
             app:icon="@drawable/ic_toggle_switch" />
         <moe.matsuri.nb4a.ui.DpiEditTextPreference
-            android:layout="@layout/uwu_bot"
+            android:layout="@layout/uwu_mid"
             android:inputType="number"
             app:defaultValue="0"
             app:dialogMessage="@string/pref_custom_dpi_dialog_massage"
             app:icon="@drawable/ic_cellphone_screenshot"
             app:key="custom_dpi"
             app:title="@string/pref_custom_dpi"
+            app:useSimpleSummaryProvider="true" />
+       <com.takisoft.preferencex.SimpleMenuPreference
+            android:layout="@layout/uwu_bot"
+            android:title="@string/category_style_title"
+            app:icon="@drawable/ic_shape_outline"
+            android:key="key_category_style_menu"
+            android:defaultValue="style1"
+            app:entries="@array/style_category_entries"
+            app:entryValues="@array/style_category_values" 
             app:useSimpleSummaryProvider="true" />
        </PreferenceCategory>
        <PreferenceCategory

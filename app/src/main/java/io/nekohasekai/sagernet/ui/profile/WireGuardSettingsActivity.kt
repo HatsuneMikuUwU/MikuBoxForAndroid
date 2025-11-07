@@ -9,6 +9,10 @@ import io.nekohasekai.sagernet.fmt.wireguard.WireGuardBean
 import moe.matsuri.nb4a.proxy.PreferenceBinding
 import moe.matsuri.nb4a.proxy.PreferenceBindingManager
 import moe.matsuri.nb4a.proxy.Type
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceGroup
+import androidx.preference.PreferenceScreen
+import io.nekohasekai.sagernet.database.DataStore
 
 class WireGuardSettingsActivity : ProfileSettingsActivity<WireGuardBean>() {
 
@@ -38,12 +42,38 @@ class WireGuardSettingsActivity : ProfileSettingsActivity<WireGuardBean>() {
         rootKey: String?,
     ) {
         addPreferencesFromResource(R.xml.wireguard_preferences)
+
+        val styleValue = DataStore.categoryStyle
+        preferenceScreen?.let { screen ->
+            updateAllCategoryStyles(styleValue, screen)
+        }
+        
         pbm.setPreferenceFragment(this)
 
         (serverPort.preference as EditTextPreference)
             .setOnBindEditTextListener(EditTextPreferenceModifiers.Port)
         (privateKey.preference as EditTextPreference).summaryProvider = PasswordSummaryProvider
         (mtu.preference as EditTextPreference).setOnBindEditTextListener(EditTextPreferenceModifiers.Number)
+    }
+
+    private fun updateAllCategoryStyles(styleValue: String?, group: PreferenceGroup) {
+        val newLayout = when (styleValue) {
+            "style1" -> R.layout.uwu_preference_category_1
+            "style2" -> R.layout.uwu_preference_category_2
+            "style3" -> R.layout.uwu_preference_category_3
+            "style4" -> R.layout.uwu_preference_category_4
+            else -> R.layout.uwu_preference_category_1
+        }
+
+        for (i in 0 until group.preferenceCount) {
+            val preference = group.getPreference(i)
+            if (preference is PreferenceCategory) {
+                preference.layoutResource = newLayout
+            }
+            if (preference is PreferenceGroup) {
+                updateAllCategoryStyles(styleValue, preference)
+            }
+        }
     }
 
 }

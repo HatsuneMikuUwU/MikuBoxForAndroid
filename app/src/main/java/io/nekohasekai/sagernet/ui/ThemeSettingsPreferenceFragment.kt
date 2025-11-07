@@ -5,6 +5,9 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.app.ActivityCompat
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceGroup
+import androidx.preference.PreferenceScreen
 import androidx.preference.SwitchPreference
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import com.takisoft.preferencex.SimpleMenuPreference
@@ -35,7 +38,11 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
         DataStore.initGlobal()
         addPreferencesFromResource(R.xml.theme_preferences)
 
-        // App Theme
+        val styleValue = DataStore.categoryStyle
+        preferenceScreen?.let { screen ->
+            updateAllCategoryStyles(styleValue, screen)
+        }
+       
         val appTheme = findPreference<ColorPickerPreference>(Key.APP_THEME)!!
         appTheme.setOnPreferenceChangeListener { _, newTheme ->
             if (DataStore.serviceState.started) SagerNet.reloadService()
@@ -46,16 +53,14 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
             true
         }
-
-        // Night Theme
+        
         val nightTheme = findPreference<SimpleMenuPreference>(Key.NIGHT_THEME)!!
         nightTheme.setOnPreferenceChangeListener { _, newTheme ->
             Theme.currentNightMode = (newTheme as String).toInt()
             Theme.applyNightTheme()
             true
         }
-
-        // Dynamic Theme
+        
         dynamicSwitch = findPreference("dynamic_theme_switch")!!
         val isDynamicInitially = DataStore.appTheme == Theme.DYNAMIC
         dynamicSwitch.isChecked = isDynamicInitially
@@ -65,7 +70,6 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             lastAppTheme = Theme.TEAL
             DataStore.lastAppTheme = lastAppTheme
         }
-
         dynamicSwitch.onPreferenceChangeListener =
             Preference.OnPreferenceChangeListener { _, newValue ->
                 val isDynamic = newValue as Boolean
@@ -76,14 +80,12 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                     DataStore.appTheme =
                         DataStore.lastAppTheme.takeIf { it != Theme.DYNAMIC } ?: Theme.TEAL
                 }
-
                 Theme.apply(requireContext().applicationContext)
                 appTheme.isEnabled = !isDynamic
                 requireActivity().recreate()
                 true
             }
-
-        // Bold Font
+            
         val boldFontSwitch = findPreference<SwitchPreference>("bold_font_switch")
         boldFontSwitch?.apply {
             isChecked = DataStore.boldFontEnabled
@@ -94,8 +96,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-
-        // True Black
+        
         val trueBlackSwitch = findPreference<SwitchPreference>("true_dark_enabled")
         trueBlackSwitch?.apply {
             isChecked = DataStore.trueBlackEnabled
@@ -106,7 +107,6 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             } else {
                 getString(R.string.pref_true_black_summary)
             }
-
             setOnPreferenceChangeListener { _, newValue ->
                 val enabled = newValue as Boolean
                 DataStore.trueBlackEnabled = enabled
@@ -114,7 +114,6 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 requireActivity().recreate()
                 true
             }
-
             nightTheme.setOnPreferenceChangeListener { _, newValue ->
                 val newMode = (newValue as String).toInt()
                 Theme.currentNightMode = newMode
@@ -133,8 +132,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-
-        // Sound Connect
+        
         val soundConnectSwitch = findPreference<SwitchPreference>("sound_connect")
         soundConnectSwitch?.apply {
             isChecked = DataStore.soundOnConnect
@@ -143,18 +141,15 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-
-        // DPI Preference
+        
         val dpiPref = findPreference<DpiEditTextPreference>("custom_dpi")
         dpiPref?.apply {
             val defaultDpi = resources.displayMetrics.densityDpi
             val currentDpi = DataStore.dpiValue.takeIf { it > 0 } ?: defaultDpi
             text = currentDpi.toString()
-
             setOnBindEditTextListener { editText ->
                 editText.inputType = EditorInfo.TYPE_CLASS_NUMBER
             }
-
             setOnPreferenceChangeListener { _, newValue ->
                 val dpi = (newValue as String).toIntOrNull() ?: currentDpi
                 val clamped = dpi.coerceIn(200, 500)
@@ -164,8 +159,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-
-        // Language
+        
         fun getLanguageDisplayName(code: String): String {
             return when (code) {
                 "" -> getString(R.string.language_system_default)
@@ -175,17 +169,14 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 else -> Locale.forLanguageTag(code).displayName
             }
         }
-
         val appLanguage = findPreference<SimpleMenuPreference>(Key.APP_LANGUAGE)
         appLanguage?.apply {
             val locale = when (val value = AppCompatDelegate.getApplicationLocales().toLanguageTags()) {
                 "in" -> "id"
                 else -> value
             }
-
             summary = getLanguageDisplayName(locale)
             value = if (locale in resources.getStringArray(R.array.language_value)) locale else ""
-
             setOnPreferenceChangeListener { _, newValue ->
                 val newLocale = newValue as String
                 AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(newLocale))
@@ -194,8 +185,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-
-        // FAB Style
+        
         findPreference<SimpleMenuPreference>("fab_style")!!.setOnPreferenceChangeListener { _, _ ->
             requireActivity().apply {
                 finish()
@@ -204,18 +194,16 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             true
         }
         
-     // Banner home show or hide
-     val layoutController: SwitchPreference? = findPreference("show_banner_layout")
-          layoutController?.apply {
-              isChecked = DataStore.showBannerLayout
-              setOnPreferenceChangeListener { _: Preference, newValue: Any ->
-                  val show = newValue as Boolean
-                  DataStore.showBannerLayout = show
-                  true
-             }
+        val layoutController: SwitchPreference? = findPreference("show_banner_layout")
+        layoutController?.apply {
+            isChecked = DataStore.showBannerLayout
+            setOnPreferenceChangeListener { _: Preference, newValue: Any ->
+                val show = newValue as Boolean
+                DataStore.showBannerLayout = show
+                true
+            }
         }
-          
-        // Splash Screen controller
+        
         val splashController: SwitchPreference? = findPreference("show_splash_screen")
         splashController?.apply {
             isChecked = DataStore.showSplashScreen
@@ -225,9 +213,8 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-
-     // IP test controller bottom bar
-     val ipTestController: SwitchPreference? = findPreference("connection_test_with_ip")
+        
+        val ipTestController: SwitchPreference? = findPreference("connection_test_with_ip")
         ipTestController?.apply {
             isChecked = DataStore.connectionTestWithIp
             setOnPreferenceChangeListener { _, newValue ->
@@ -237,7 +224,6 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
         }
         
-        // Controller for IP display style (1 line vs 2 lines)
         val ipDisplayStyleController: SwitchPreference? = findPreference("show_ip_in_two_line")
         ipDisplayStyleController?.apply {
             isChecked = DataStore.showIpInTwoLine
@@ -247,6 +233,40 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
+        
+        val styleCategoryController: SimpleMenuPreference? = findPreference("key_category_style_menu")
+        styleCategoryController?.setOnPreferenceChangeListener { _, newValue ->
+            val styleValue = newValue as String
+            preferenceScreen?.let { screen ->
+                updateAllCategoryStyles(styleValue, screen)
+                listView.adapter?.notifyDataSetChanged()
+            }
+            true
+        }
     }
-}
 
+    override fun onResume() {
+        super.onResume()
+    }
+    
+    private fun updateAllCategoryStyles(styleValue: String?, group: PreferenceGroup) {
+        val newLayout = when (styleValue) {
+            "style1" -> R.layout.uwu_preference_category_1
+            "style2" -> R.layout.uwu_preference_category_2
+            "style3" -> R.layout.uwu_preference_category_3
+            "style4" -> R.layout.uwu_preference_category_4
+            else -> R.layout.uwu_preference_category_1
+        }
+
+        for (i in 0 until group.preferenceCount) {
+            val preference = group.getPreference(i)
+            if (preference is PreferenceCategory) {
+                preference.layoutResource = newLayout
+            }
+            if (preference is PreferenceGroup) {
+                updateAllCategoryStyles(styleValue, preference)
+            }
+        }
+    }
+    
+}
