@@ -2246,7 +2246,6 @@
     </style>
     
     <style name="AppTheme.PreferenceCategory" parent="@style/Preference.Category.Material">
-        <item name="android:layout">@layout/uwu_preference_category</item>
         <item name="allowDividerAbove">false</item>
         <item name="allowDividerBelow">false</item>
         <item name="iconSpaceReserved">false</item>
