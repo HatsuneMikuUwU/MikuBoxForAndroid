@@ -643,6 +643,7 @@ Please grant this permission in System Settings."</string>
     <string name="style_category_entries_5">Style 5</string>
     <string name="style_category_entries_6">Style 6</string>
     <string name="category_style_title">Preference category title style</string>
+    <string name="dynamic_theme_min_android_12">Only available on Android 12 and above</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

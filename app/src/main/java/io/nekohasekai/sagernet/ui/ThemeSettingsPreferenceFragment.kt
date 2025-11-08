@@ -1,5 +1,6 @@
 package io.nekohasekai.sagernet.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -62,29 +63,36 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
         }
         
         dynamicSwitch = findPreference("dynamic_theme_switch")!!
-        val isDynamicInitially = DataStore.appTheme == Theme.DYNAMIC
-        dynamicSwitch.isChecked = isDynamicInitially
-        appTheme.isEnabled = !isDynamicInitially
-        var lastAppTheme = DataStore.lastAppTheme
-        if (lastAppTheme == 0) {
-            lastAppTheme = Theme.TEAL
-            DataStore.lastAppTheme = lastAppTheme
-        }
-        dynamicSwitch.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { _, newValue ->
-                val isDynamic = newValue as Boolean
-                if (isDynamic) {
-                    DataStore.lastAppTheme = DataStore.appTheme
-                    DataStore.appTheme = Theme.DYNAMIC
-                } else {
-                    DataStore.appTheme =
-                        DataStore.lastAppTheme.takeIf { it != Theme.DYNAMIC } ?: Theme.TEAL
-                }
-                Theme.apply(requireContext().applicationContext)
-                appTheme.isEnabled = !isDynamic
-                requireActivity().recreate()
-                true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val isDynamicInitially = DataStore.appTheme == Theme.DYNAMIC
+            dynamicSwitch.isChecked = isDynamicInitially
+            appTheme.isEnabled = !isDynamicInitially
+            var lastAppTheme = DataStore.lastAppTheme
+            if (lastAppTheme == 0) {
+                lastAppTheme = Theme.TEAL
+                DataStore.lastAppTheme = lastAppTheme
             }
+            dynamicSwitch.onPreferenceChangeListener =
+                Preference.OnPreferenceChangeListener { _, newValue ->
+                    val isDynamic = newValue as Boolean
+                    if (isDynamic) {
+                        DataStore.lastAppTheme = DataStore.appTheme
+                        DataStore.appTheme = Theme.DYNAMIC
+                    } else {
+                        DataStore.appTheme =
+                            DataStore.lastAppTheme.takeIf { it != Theme.DYNAMIC } ?: Theme.TEAL
+                    }
+                    Theme.apply(requireContext().applicationContext)
+                    appTheme.isEnabled = !isDynamic
+                    requireActivity().recreate()
+                    true
+                }
+        } else {
+            dynamicSwitch.isEnabled = false
+            dynamicSwitch.isChecked = false
+            dynamicSwitch.summary = getString(R.string.dynamic_theme_min_android_12)
+            appTheme.isEnabled = true
+        }
             
         val boldFontSwitch = findPreference<SwitchPreference>("bold_font_switch")
         boldFontSwitch?.apply {

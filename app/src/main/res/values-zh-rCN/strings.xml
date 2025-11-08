@@ -544,7 +544,7 @@
     <string name="style_category_entries_5">样式 5</string>
     <string name="style_category_entries_6">样式 6</string>
     <string name="category_style_title">分类标题样式</string>
-
+    <string name="dynamic_theme_min_android_12">仅适用于 Android 12 及更高版本</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>
