@@ -123,6 +123,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.yalantis.ucrop.UCrop
+import io.nekohasekai.sagernet.ui.ProfileMenuBottomSheet
 import java.io.File
 
 class ConfigurationFragment @JvmOverloads constructor(
@@ -131,7 +132,8 @@ class ConfigurationFragment @JvmOverloads constructor(
     PopupMenu.OnMenuItemClickListener,
     Toolbar.OnMenuItemClickListener,
     SearchView.OnQueryTextListener,
-    OnPreferenceDataStoreChangeListener {
+    OnPreferenceDataStoreChangeListener,
+    ProfileMenuBottomSheet.OnOptionClickListener {
 
     interface SelectCallback {
         fun returnProfile(profileId: Long)
@@ -407,34 +409,9 @@ class ConfigurationFragment @JvmOverloads constructor(
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_scan_qr_code -> {
-                startActivity(Intent(context, ScannerActivity::class.java))
-            }
-
-            R.id.action_import_clipboard -> {
-                val text = SagerNet.getClipboardText()
-                if (text.isBlank()) {
-                    snackbar(getString(R.string.clipboard_empty)).show()
-                } else runOnDefaultDispatcher {
-                    try {
-                        val proxies = RawUpdater.parseRaw(text)
-                        if (proxies.isNullOrEmpty()) onMainDispatcher {
-                            snackbar(getString(R.string.no_proxies_found_in_clipboard)).show()
-                        } else import(proxies)
-                    } catch (e: SubscriptionFoundException) {
-                        (requireActivity() as MainActivity).importSubscription(e.link.toUri())
-                    } catch (e: Exception) {
-                        Logs.w(e)
-
-                        onMainDispatcher {
-                            snackbar(e.readableMessage).show()
-                        }
-                    }
-                }
-            }
-
-            R.id.action_import_file -> {
-                startFilesForResult(importFile, "*/*")
+            R.id.action_profile_import_sheet -> {
+                ProfileMenuBottomSheet().show(childFragmentManager, ProfileMenuBottomSheet.TAG)
+                return true
             }
 
             R.id.action_new_socks -> {
@@ -658,6 +635,39 @@ class ConfigurationFragment @JvmOverloads constructor(
             }
         }
         return true
+    }
+
+    override fun onOptionClicked(viewId: Int) {
+        when (viewId) {
+            R.id.action_scan_qr_code -> {
+                startActivity(Intent(context, ScannerActivity::class.java))
+            }
+
+            R.id.action_import_clipboard -> {
+                val text = SagerNet.getClipboardText()
+                if (text.isBlank()) {
+                    snackbar(getString(R.string.clipboard_empty)).show()
+                } else runOnDefaultDispatcher {
+                    try {
+                        val proxies = RawUpdater.parseRaw(text)
+                        if (proxies.isNullOrEmpty()) onMainDispatcher {
+                            snackbar(getString(R.string.no_proxies_found_in_clipboard)).show()
+                        } else import(proxies)
+                    } catch (e: SubscriptionFoundException) {
+                        (requireActivity() as MainActivity).importSubscription(e.link.toUri())
+                    } catch (e: Exception) {
+                        Logs.w(e)
+                        onMainDispatcher {
+                            snackbar(e.readableMessage).show()
+                        }
+                    }
+                }
+            }
+
+            R.id.action_import_file -> {
+                startFilesForResult(importFile, "*/*")
+            }
+        }
     }
 
     inner class TestDialog {
@@ -1046,6 +1056,8 @@ class ConfigurationFragment @JvmOverloads constructor(
         override fun containsItem(itemId: Long): Boolean {
             return groupList.any { it.id == itemId }
         }
+
+
 
         override suspend fun groupAdd(group: ProxyGroup) {
             tabLayout.post {

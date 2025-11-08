@@ -56,6 +56,7 @@
         <item name="elevation">0.0dip</item>
         <item name="fabColorBackground">?colorPrimary</item>
         <item name="itemShapeAppearance">@style/ShapeAppearance.MaterialComponents.MediumComponent</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.SagerNet.BottomSheetDialog</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet</item>
         <item name="popupMenuBackground">@drawable/uwu_bg_popup</item>
         <item name="popupMenuStyle">@style/AppTheme.PopupMenu</item>

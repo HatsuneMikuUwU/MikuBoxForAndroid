@@ -1,4 +1,22 @@
 <resources>
+	
+	<style name="Theme.SagerNet.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="android:colorBackground">@drawable/uwu_background_bottom_sheet</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Material3.BottomSheetDialog</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">?attr/colorBg</item>
+        <item name="android:windowElevation">0.0dip</item>
+        <item name="bottomSheetStyle">@style/Theme.SagerNet.BottomSheetStyle</item>
+        <item name="paddingBottomSystemWindowInsets">false</item>
+        <item name="paddingLeftSystemWindowInsets">false</item>
+        <item name="paddingRightSystemWindowInsets">false</item>
+    </style>
+  
+    <style name="Theme.SagerNet.BottomSheetStyle" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="backgroundTint">?attr/colorBg</item>
+    </style>
 
   <style name="Theme.SagerNet.CollapsingToolbarTitle.Collapsed" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">20.0dip</item>
@@ -84,6 +102,7 @@
         <item name="elevation">0.0dip</item>
         <item name="fabColorBackground">?colorPrimary</item>
         <item name="itemShapeAppearance">@style/ShapeAppearance.MaterialComponents.MediumComponent</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.SagerNet.BottomSheetDialog</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet</item>
         <item name="popupMenuBackground">@drawable/uwu_bg_popup</item>
         <item name="popupMenuStyle">@style/AppTheme.PopupMenu</item>
