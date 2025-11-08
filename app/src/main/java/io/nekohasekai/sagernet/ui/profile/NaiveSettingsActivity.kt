@@ -81,6 +81,8 @@ class NaiveSettingsActivity : ProfileSettingsActivity<NaiveBean>() {
             "style2" -> R.layout.uwu_preference_category_2
             "style3" -> R.layout.uwu_preference_category_3
             "style4" -> R.layout.uwu_preference_category_4
+            "style5" -> R.layout.uwu_preference_category_5
+            "style6" -> R.layout.uwu_preference_category_6
             else -> R.layout.uwu_preference_category_1
         }
 

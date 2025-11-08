@@ -6,6 +6,8 @@
         <item>@string/style_category_entries_2</item>
         <item>@string/style_category_entries_3</item>
         <item>@string/style_category_entries_4</item>
+        <item>@string/style_category_entries_5</item>
+        <item>@string/style_category_entries_6</item>
     </string-array>
     
     <string-array name="style_category_values">
@@ -13,6 +15,8 @@
         <item>style2</item>
         <item>style3</item>
         <item>style4</item>
+        <item>style5</item>
+        <item>style6</item>
     </string-array>
 
     <string-array name="uwu_random_text">
