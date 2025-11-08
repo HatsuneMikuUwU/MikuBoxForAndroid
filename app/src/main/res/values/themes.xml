@@ -9,7 +9,7 @@
         <item name="android:navigationBarColor">?attr/colorBg</item>
         <item name="android:windowElevation">0.0dip</item>
         <item name="bottomSheetStyle">@style/Theme.SagerNet.BottomSheetStyle</item>
-        <item name="paddingBottomSystemWindowInsets">false</item>
+        <item name="paddingBottomSystemWindowInsets">true</item>
         <item name="paddingLeftSystemWindowInsets">false</item>
         <item name="paddingRightSystemWindowInsets">false</item>
     </style>
