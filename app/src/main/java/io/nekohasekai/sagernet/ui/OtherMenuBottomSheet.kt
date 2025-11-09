@@ -1,14 +1,67 @@
 package io.nekohasekai.sagernet.ui
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.CheckedTextView
+import android.widget.ImageView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.nekohasekai.sagernet.GroupOrder
 import io.nekohasekai.sagernet.R
+
+private const val ANIMATION_DURATION = 300L
+
+private fun View.expand() {
+    measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+    val targetHeight = measuredHeight
+
+    layoutParams.height = 1
+    visibility = View.VISIBLE
+
+    val valueAnimator = ValueAnimator.ofInt(1, targetHeight)
+    valueAnimator.addUpdateListener { animator ->
+        layoutParams.height = animator.animatedValue as Int
+        requestLayout()
+    }
+
+    valueAnimator.interpolator = DecelerateInterpolator()
+    valueAnimator.duration = ANIMATION_DURATION
+    valueAnimator.start()
+}
+
+private fun View.collapse() {
+    val initialHeight = measuredHeight
+
+    val valueAnimator = ValueAnimator.ofInt(initialHeight, 0)
+    valueAnimator.addUpdateListener { animator ->
+        layoutParams.height = animator.animatedValue as Int
+        requestLayout()
+    }
+
+    valueAnimator.interpolator = DecelerateInterpolator()
+    valueAnimator.duration = ANIMATION_DURATION
+    valueAnimator.start()
+
+    valueAnimator.addListener(object : android.animation.Animator.AnimatorListener {
+        override fun onAnimationStart(animation: android.animation.Animator) {}
+        override fun onAnimationEnd(animation: android.animation.Animator) {
+            visibility = View.GONE
+        }
+        override fun onAnimationCancel(animation: android.animation.Animator) {}
+        override fun onAnimationRepeat(animation: android.animation.Animator) {}
+    })
+}
+
+private fun View.animateRotation(endDegree: Float) {
+    this.animate()
+        .rotation(endDegree)
+        .setDuration(ANIMATION_DURATION)
+        .start()
+}
 
 class OtherMenuBottomSheet : BottomSheetDialogFragment() {
 
@@ -17,7 +70,6 @@ class OtherMenuBottomSheet : BottomSheetDialogFragment() {
     }
 
     private var mListener: OnOtherOptionClickListener? = null
-
     private var currentOrder: Int = GroupOrder.ORIGIN
 
     override fun onAttach(context: Context) {
@@ -25,7 +77,11 @@ class OtherMenuBottomSheet : BottomSheetDialogFragment() {
         if (parentFragment is OnOtherOptionClickListener) {
             mListener = parentFragment as OnOtherOptionClickListener
         } else {
-            throw RuntimeException("$parentFragment must implement OnOtherOptionClickListener")
+            mListener = try {
+                context as OnOtherOptionClickListener
+            } catch (e: ClassCastException) {
+                throw RuntimeException("$context must implement OnOtherOptionClickListener")
+            }
         }
     }
 
@@ -55,6 +111,18 @@ class OtherMenuBottomSheet : BottomSheetDialogFragment() {
             GroupOrder.BY_DELAY -> checkDelay?.isChecked = true
         }
         
+        setupExpandable(
+            toggleHeader = view.findViewById(R.id.action_group_setting_1),
+            expandableContent = view.findViewById(R.id.expandable_setting_content_1),
+            arrowIcon = view.findViewById(R.id.arrow_icon_1)
+        )
+        
+        setupExpandable(
+            toggleHeader = view.findViewById(R.id.action_group_setting_2),
+            expandableContent = view.findViewById(R.id.expandable_setting_content_2),
+            arrowIcon = view.findViewById(R.id.arrow_icon_2)
+        )
+
         val clickListener = View.OnClickListener {
             mListener?.onOtherOptionClicked(it.id)
             dismiss()
@@ -75,6 +143,29 @@ class OtherMenuBottomSheet : BottomSheetDialogFragment() {
 
         viewIds.forEach { id ->
             view.findViewById<View>(id)?.setOnClickListener(clickListener)
+        }
+    }
+
+    private fun setupExpandable(toggleHeader: View?, expandableContent: View?, arrowIcon: ImageView?) {
+        if (toggleHeader != null && expandableContent != null) {
+            
+            if (arrowIcon != null) {
+                arrowIcon.rotation = if (expandableContent.visibility == View.VISIBLE) 90f else 0f
+            }
+            
+            if (expandableContent.visibility != View.GONE) {
+                 expandableContent.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            }
+
+            toggleHeader.setOnClickListener {
+                if (expandableContent.visibility == View.GONE) {
+                    expandableContent.expand()
+                    arrowIcon?.animateRotation(90f)
+                } else {
+                    expandableContent.collapse()
+                    arrowIcon?.animateRotation(0f)
+                }
+            }
         }
     }
 

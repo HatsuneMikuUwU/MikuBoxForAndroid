@@ -144,6 +144,190 @@
                         </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+                
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:id="@+id/action_group_setting_1"
+                    android:background="@drawable/uwu_bg_top"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:clipToPadding="false"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8.0dip"
+                    android:layout_marginBottom="4.0dip"
+                    android:baselineAligned="false"
+                    android:minHeight="?android:listPreferredItemHeightSmall"
+                    android:layout_marginStart="16.0dip"
+                    android:layout_marginEnd="16.0dip"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto">
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16.0dip"
+                        android:layout_marginBottom="16.0dip"
+                        android:layout_marginStart="8.0dip"
+                        android:layout_marginEnd="8.0dip">
+                        <LinearLayout
+                            android:background="@drawable/uwu_bg_icon"
+                            android:layout_width="45.0dip"
+                            android:layout_height="45.0dip"
+                            android:layout_marginStart="8.0dip"
+                            android:backgroundTint="?attr/colorPrimary">
+                            <ImageView
+                                android:gravity="center"
+                                android:layout_width="25.0dip"
+                                android:layout_height="25.0dip"
+                                android:layout_marginTop="10.0dip"
+                                android:src="@drawable/ic_social_emoji_symbols"
+                                android:tint="?attr/colorIcon"
+                                android:layout_marginStart="10.0dip" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20.0dip"
+                        android:layout_marginBottom="20.0dip"
+                        android:layout_weight="1.0"
+                        android:layout_marginStart="8.0dip"
+                        android:layout_marginEnd="16.0dip">
+                        <TextView
+                            android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                            android:textSize="17.0sp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:ellipsize="marquee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/action_group_setting_1"
+                            android:singleLine="false" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16.0dip"
+                        android:layout_marginBottom="16.0dip"
+                        android:layout_marginStart="8.0dip"
+                        android:layout_marginEnd="16.0dip">
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="28.0dip"
+                            android:layout_height="28.0dip"
+                            app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
+                            app:cardCornerRadius="99.0dip"
+                            app:cardElevation="0.0dip"
+                            app:strokeWidth="0.0dip">
+                            <ImageView
+                                android:id="@+id/arrow_icon_1"
+                                android:layout_width="25.0dip"
+                                android:layout_height="25.0dip"
+                                android:layout_marginTop="1.0dip"
+                                android:src="@drawable/uwu_arrow"
+                                android:tint="?attr/colorOnSurfaceVariant"
+                                android:layout_marginStart="2.0dip" />
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:id="@+id/action_group_setting_2"
+                    android:background="@drawable/uwu_bg_bot"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:clipToPadding="false"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.0dip"
+                    android:layout_marginBottom="8.0dip"
+                    android:baselineAligned="false"
+                    android:minHeight="?android:listPreferredItemHeightSmall"
+                    android:layout_marginStart="16.0dip"
+                    android:layout_marginEnd="16.0dip"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto">
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16.0dip"
+                        android:layout_marginBottom="16.0dip"
+                        android:layout_marginStart="8.0dip"
+                        android:layout_marginEnd="8.0dip">
+                        <LinearLayout
+                            android:background="@drawable/uwu_bg_icon"
+                            android:layout_width="45.0dip"
+                            android:layout_height="45.0dip"
+                            android:layout_marginStart="8.0dip"
+                            android:backgroundTint="?attr/colorPrimary">
+                            <ImageView
+                                android:gravity="center"
+                                android:layout_width="25.0dip"
+                                android:layout_height="25.0dip"
+                                android:layout_marginTop="10.0dip"
+                                android:src="@drawable/ic_connection"
+                                android:tint="?attr/colorIcon"
+                                android:layout_marginStart="10.0dip" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20.0dip"
+                        android:layout_marginBottom="20.0dip"
+                        android:layout_weight="1.0"
+                        android:layout_marginStart="8.0dip"
+                        android:layout_marginEnd="16.0dip">
+                        <TextView
+                            android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                            android:textSize="17.0sp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:ellipsize="marquee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/action_group_setting_2"
+                            android:singleLine="false" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16.0dip"
+                        android:layout_marginBottom="16.0dip"
+                        android:layout_marginStart="8.0dip"
+                        android:layout_marginEnd="16.0dip">
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="28.0dip"
+                            android:layout_height="28.0dip"
+                            app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
+                            app:cardCornerRadius="99.0dip"
+                            app:cardElevation="0.0dip"
+                            app:strokeWidth="0.0dip">
+                            <ImageView
+                                android:id="@+id/arrow_icon_2"
+                                android:layout_width="25.0dip"
+                                android:layout_height="25.0dip"
+                                android:layout_marginTop="1.0dip"
+                                android:src="@drawable/uwu_arrow"
+                                android:tint="?attr/colorOnSurfaceVariant"
+                                android:layout_marginStart="2.0dip" />
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/expandable_setting_content_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                
                 <LinearLayout
                     android:gravity="center_vertical"
                     android:id="@+id/action_update_subscription"
@@ -319,14 +503,14 @@
                 <LinearLayout
                     android:gravity="center_vertical"
                     android:id="@+id/action_remove_duplicate"
-                    android:background="@drawable/uwu_bg_mid"
+                    android:background="@drawable/uwu_bg_bot"
                     android:focusable="true"
                     android:clickable="true"
                     android:clipToPadding="false"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0.0dip"
-                    android:layout_marginBottom="4.0dip"
+                    android:layout_marginBottom="8.0dip"
                     android:baselineAligned="false"
                     android:minHeight="?android:listPreferredItemHeightSmall"
                     android:layout_marginStart="16.0dip"
@@ -402,16 +586,25 @@
                         </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
                 </LinearLayout>
+              </LinearLayout>
+                
+                <LinearLayout
+                   android:id="@+id/expandable_setting_content_2"
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:visibility="gone">
+                
                 <LinearLayout
                     android:gravity="center_vertical"
                     android:id="@+id/action_connection_tcp_ping"
-                    android:background="@drawable/uwu_bg_mid"
+                    android:background="@drawable/uwu_bg_top"
                     android:focusable="true"
                     android:clickable="true"
                     android:clipToPadding="false"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0.0dip"
+                    android:layout_marginTop="8.0dip"
                     android:layout_marginBottom="4.0dip"
                     android:baselineAligned="false"
                     android:minHeight="?android:listPreferredItemHeightSmall"
@@ -438,7 +631,7 @@
                                 android:layout_width="25.0dip"
                                 android:layout_height="25.0dip"
                                 android:layout_marginTop="10.0dip"
-                                android:src="@drawable/ic_alpha_t_circle_outline"
+                                android:src="@drawable/ic_web_clock"
                                 android:tint="?attr/colorIcon"
                                 android:layout_marginStart="10.0dip" />
                         </LinearLayout>
@@ -524,7 +717,7 @@
                                 android:layout_width="25.0dip"
                                 android:layout_height="25.0dip"
                                 android:layout_marginTop="10.0dip"
-                                android:src="@drawable/ic_baseline_cast_connected_24"
+                                android:src="@drawable/ic_sync"
                                 android:tint="?attr/colorIcon"
                                 android:layout_marginStart="10.0dip" />
                         </LinearLayout>
@@ -746,6 +939,8 @@
                         </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
                 </LinearLayout>
+              </LinearLayout>
+                
                 <com.google.android.material.card.MaterialCardView
                     android:clipToPadding="false"
                     android:layout_width="fill_parent"
