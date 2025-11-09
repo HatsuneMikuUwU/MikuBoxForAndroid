@@ -1,68 +1,32 @@
 package io.nekohasekai.sagernet.ui
 
-import android.animation.Animator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
 import android.widget.CheckedTextView
 import android.widget.ImageView
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.nekohasekai.sagernet.GroupOrder
 import io.nekohasekai.sagernet.R
 
 
-private const val ANIMATION_DURATION = 300L
+private const val TRANSITION_DURATION = 300L
 
-private fun View.expand() {
-    measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-    val targetHeight = measuredHeight
+private fun View.toggleWithTransition(parentView: ViewGroup, isExpanding: Boolean) {
+    
+    TransitionManager.beginDelayedTransition(parentView, AutoTransition().setDuration(TRANSITION_DURATION))
 
-    layoutParams.height = 1
-    visibility = View.VISIBLE
-
-    val valueAnimator = ValueAnimator.ofInt(1, targetHeight)
-    valueAnimator.addUpdateListener { animator ->
-        layoutParams.height = animator.animatedValue as Int
-        requestLayout()
-    }
-
-    valueAnimator.interpolator = DecelerateInterpolator()
-    valueAnimator.duration = ANIMATION_DURATION
-    valueAnimator.start()
-}
-
-private fun View.collapse() {
-    val initialHeight = measuredHeight
-
-    val valueAnimator = ValueAnimator.ofInt(initialHeight, 0)
-    valueAnimator.addUpdateListener { animator ->
-        layoutParams.height = animator.animatedValue as Int
-        requestLayout()
-    }
-
-    valueAnimator.interpolator = DecelerateInterpolator()
-    valueAnimator.duration = ANIMATION_DURATION
-    valueAnimator.start()
-
-    valueAnimator.addListener(object : Animator.AnimatorListener {
-        override fun onAnimationStart(animation: Animator) {}
-        override fun onAnimationEnd(animation: Animator) {
-            visibility = View.GONE
-            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT // Reset height
-        }
-        override fun onAnimationCancel(animation: Animator) {}
-        override fun onAnimationRepeat(animation: Animator) {}
-    })
+    this.visibility = if (isExpanding) View.VISIBLE else View.GONE
 }
 
 private fun View.animateRotation(endDegree: Float) {
     this.animate()
         .rotation(endDegree)
-        .setDuration(ANIMATION_DURATION)
+        .setDuration(TRANSITION_DURATION)
         .start()
 }
 
@@ -114,13 +78,17 @@ class OtherMenuBottomSheet : BottomSheetDialogFragment() {
             GroupOrder.BY_DELAY -> checkDelay?.isChecked = true
         }
         
+        val menuContainerParent = view.findViewById<ViewGroup>(R.id.menu_container_parent) ?: view as ViewGroup
+
         setupExpandable(
+            parent = menuContainerParent,
             toggleHeader = view.findViewById(R.id.action_group_setting_1),
             expandableContent = view.findViewById(R.id.expandable_setting_content_1),
             arrowIcon = view.findViewById(R.id.arrow_icon_1)
         )
         
         setupExpandable(
+            parent = menuContainerParent,
             toggleHeader = view.findViewById(R.id.action_group_setting_2),
             expandableContent = view.findViewById(R.id.expandable_setting_content_2),
             arrowIcon = view.findViewById(R.id.arrow_icon_2)
@@ -149,28 +117,21 @@ class OtherMenuBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setupExpandable(toggleHeader: View?, expandableContent: View?, arrowIcon: ImageView?) {
+    private fun setupExpandable(parent: ViewGroup, toggleHeader: View?, expandableContent: View?, arrowIcon: ImageView?) {
         if (toggleHeader != null && expandableContent != null) {
             
-            if (expandableContent.visibility == View.VISIBLE) {
-                arrowIcon?.rotation = 90f
-                expandableContent.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            } else {
-                arrowIcon?.rotation = 0f
+            if (arrowIcon != null) {
+                arrowIcon.rotation = if (expandableContent.visibility == View.VISIBLE) 90f else 0f
             }
-
+            
             toggleHeader.setOnClickListener {
-                if (expandableContent.visibility == View.GONE) {
-                    
-                    expandableContent.visibility = View.VISIBLE
-                    
-                    expandableContent.post { 
-                        expandableContent.expand()
-                        arrowIcon?.animateRotation(90f)
-                    }
-                    
+                val isExpanding = expandableContent.visibility == View.GONE
+
+                if (isExpanding) {
+                    expandableContent.toggleWithTransition(parent, true)
+                    arrowIcon?.animateRotation(90f)
                 } else {
-                    expandableContent.collapse()
+                    expandableContent.toggleWithTransition(parent, false)
                     arrowIcon?.animateRotation(0f)
                 }
             }

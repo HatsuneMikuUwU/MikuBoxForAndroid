@@ -19,13 +19,14 @@
         app:cardBackgroundColor="#00000000"
         app:cardCornerRadius="28.0dip"
         app:cardElevation="0.0dip">
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginTop="-16.0dip"
             android:layout_marginStart="-16.0dip"
             android:layout_marginEnd="-16.0dip">
             <LinearLayout
+                android:id="@+id/menu_container_parent" 
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -1085,6 +1086,6 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
