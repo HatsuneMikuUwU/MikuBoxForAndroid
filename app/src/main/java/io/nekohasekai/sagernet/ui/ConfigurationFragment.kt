@@ -2,10 +2,14 @@ package io.nekohasekai.sagernet.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.text.SpannableStringBuilder
 import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -19,7 +23,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -34,9 +40,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.yalantis.ucrop.UCrop
 import io.nekohasekai.sagernet.GroupOrder
 import io.nekohasekai.sagernet.GroupType
 import io.nekohasekai.sagernet.Key
@@ -81,6 +90,7 @@ import io.nekohasekai.sagernet.plugin.PluginManager
 import io.nekohasekai.sagernet.ui.profile.ChainSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.HttpSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.HysteriaSettingsActivity
+import io.nekohasekai.sagernet.ui.profile.JuicitySettingsActivity
 import io.nekohasekai.sagernet.ui.profile.MieruSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.NaiveSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.SSHSettingsActivity
@@ -89,7 +99,6 @@ import io.nekohasekai.sagernet.ui.profile.SocksSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.TrojanGoSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.TrojanSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.TuicSettingsActivity
-import io.nekohasekai.sagernet.ui.profile.JuicitySettingsActivity
 import io.nekohasekai.sagernet.ui.profile.VMessSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.WireGuardSettingsActivity
 import io.nekohasekai.sagernet.widget.QRCodeDialog
@@ -109,23 +118,19 @@ import moe.matsuri.nb4a.proxy.config.ConfigSettingActivity
 import moe.matsuri.nb4a.proxy.shadowtls.ShadowTLSSettingsActivity
 import moe.matsuri.nb4a.ui.ConnectionTestNotification
 import okhttp3.internal.closeQuietly
+import java.io.File
+import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.net.UnknownHostException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.zip.ZipInputStream
-import android.content.DialogInterface
-import androidx.appcompat.app.AlertDialog
-import android.net.Uri
-import androidx.activity.result.PickVisualMediaRequest
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.yalantis.ucrop.UCrop
-import io.nekohasekai.sagernet.ui.ProfileMenuBottomSheet
-import io.nekohasekai.sagernet.ui.OtherMenuBottomSheet
-import java.io.File
+
 
 class ConfigurationFragment @JvmOverloads constructor(
     val select: Boolean = false, val selectedItem: ProxyEntity? = null, val titleRes: Int = 0
@@ -135,7 +140,7 @@ class ConfigurationFragment @JvmOverloads constructor(
     SearchView.OnQueryTextListener,
     OnPreferenceDataStoreChangeListener,
     ProfileMenuBottomSheet.OnOptionClickListener, 
-    OtherMenuBottomSheet.OnOtherOptionClickListener { // <-- Implementasi listener baru
+    OtherMenuBottomSheet.OnOtherOptionClickListener {
 
     interface SelectCallback {
         fun returnProfile(profileId: Long)
@@ -364,20 +369,28 @@ class ConfigurationFragment @JvmOverloads constructor(
     private val cropBannerImage =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                val resultUri = UCrop.getOutput(result.data!!)
-                if (resultUri != null) {
+                val cacheUri = UCrop.getOutput(result.data!!)
+                if (cacheUri != null) {
                     try {
-                        DataStore.configurationStore.putString("custom_banner_uri", resultUri.toString())
+                        val oldUriString = DataStore.configurationStore.getString("custom_banner_uri", null)
+                        if (!oldUriString.isNullOrEmpty()) {
+                            try {
+                                val oldUri = Uri.parse(oldUriString)
+                                requireContext().contentResolver.delete(oldUri, null, null)
+                            } catch (e: Exception) {
+                                Logs.w("Failed to delete old custom banner: $oldUriString", e)
+                            }
+                        }
+                        val publicMediaUri = saveBannerToMediaStore(cacheUri)
 
-                        loadBannerImage(resultUri)
+                        DataStore.configurationStore.putString("custom_banner_uri", publicMediaUri.toString())
+
+                        loadBannerImage(publicMediaUri)
                         snackbar(R.string.custom_banner_set).show()
 
-                    } catch (e: SecurityException) {
-                        Logs.e("Failed to fetch persistent URI permission after crop", e)
-                        snackbar("Failed to save cropped banner image. Permission denied.").show()
                     } catch (e: Exception) {
-                        Logs.e("Failed to load cropped banner", e)
-                        snackbar("Failed to load cropped banner image.").show()
+                        Logs.e("Failed to save banner to MediaStore", e)
+                        snackbar("Failed to save banner image: ${e.message}").show()
                     }
                 } else {
                     snackbar("Failed to get cropped image.").show()
@@ -1818,7 +1831,7 @@ class ConfigurationFragment @JvmOverloads constructor(
     }
 
     private fun startCropActivity(sourceUri: Uri) {
-        val destinationFileName = "cropped_banner_${System.currentTimeMillis()}.jpg"
+        val destinationFileName = "cropped_banner_temp.jpg"
         val destinationUri = Uri.fromFile(File(requireContext().cacheDir, destinationFileName))
 
         val uCrop = UCrop.of(sourceUri, destinationUri)
@@ -1840,6 +1853,50 @@ class ConfigurationFragment @JvmOverloads constructor(
         cropBannerImage.launch(uCrop.getIntent(requireContext()))
     }
 
+    @Throws(IOException::class)
+    private fun saveBannerToMediaStore(sourceCacheUri: Uri): Uri {
+        val resolver = requireContext().contentResolver
+        
+        val timeStamp = SimpleDateFormat("yyyy-MM-dd_HH:mm", Locale.US).format(Date())
+        val fileName = "uwu_custom_banner_$timeStamp.jpg"
+
+        val values = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+            put(MediaStore.MediaColumns.RELATIVE_PATH, "Pictures/MikuBox")
+            put(MediaStore.MediaColumns.IS_PENDING, 1)
+        }
+
+        val collection = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+        val newImageUri = resolver.insert(collection, values)
+            ?: throw IOException("Failed to create new MediaStore record")
+
+        try {
+            resolver.openOutputStream(newImageUri).use { outputStream ->
+                if (outputStream == null) throw IOException("Failed to get output stream")
+                
+                resolver.openInputStream(sourceCacheUri).use { inputStream ->
+                    if (inputStream == null) throw IOException("Failed to get input stream from cache")
+                    inputStream.copyTo(outputStream)
+                }
+            }
+
+            values.clear()
+            values.put(MediaStore.MediaColumns.IS_PENDING, 0)
+            resolver.update(newImageUri, values, null, null)
+
+            return newImageUri
+        } catch (e: Exception) {
+            resolver.delete(newImageUri, null, null)
+            throw e
+        } finally {
+            val cacheFile = File(sourceCacheUri.path!!)
+            if (cacheFile.exists()) {
+                cacheFile.delete()
+            }
+        }
+    }
+
     private fun loadBannerImage(uri: Uri) {
         val bannerImageView = view?.findViewById<ImageView>(R.id.img_banner_home)
         bannerImageView?.let {
@@ -1859,16 +1916,13 @@ class ConfigurationFragment @JvmOverloads constructor(
             if (!savedUriString.isNullOrEmpty()) {
                 try {
                     val savedUri = Uri.parse(savedUriString)
-                    if (savedUri.scheme == "file" || requireContext().contentResolver.persistedUriPermissions
-                        .any { it.uri == savedUri && it.isReadPermission }) {
-                        loadBannerImage(savedUri)
-                    } else {
-                        Logs.w("Permission for URI banner lost: $savedUriString")
-                        DataStore.configurationStore.putString("custom_banner_uri", null)
-                        bannerImageView?.setImageResource(R.drawable.uwu_banner_home)
+                    
+                    requireContext().contentResolver.openInputStream(savedUri).use {
                     }
+                    
+                    loadBannerImage(savedUri)
                 } catch (e: Exception) {
-                    Logs.w("Failed to load saved banner", e)
+                    Logs.w("Failed to load banner URI (file may have been deleted): $savedUriString", e)
                     DataStore.configurationStore.putString("custom_banner_uri", null)
                     bannerImageView?.setImageResource(R.drawable.uwu_banner_home)
                 }
@@ -1889,11 +1943,27 @@ class ConfigurationFragment @JvmOverloads constructor(
         }
 
         linear?.setOnLongClickListener {
-            if (!DataStore.configurationStore.getString("custom_banner_uri", null).isNullOrEmpty()) {
+            val savedUriString = DataStore.configurationStore.getString("custom_banner_uri", null)
+            if (!savedUriString.isNullOrEmpty()) {
                 AlertDialog.Builder(requireContext())
                     .setTitle(R.string.delete_custom_banner_title)
                     .setMessage(R.string.delete_custom_banner_message)
                     .setPositiveButton(R.string.yes) { dialog: DialogInterface, which: Int ->
+                        
+                        try {
+                            val savedUri = Uri.parse(savedUriString)
+                            val rowsDeleted = requireContext().contentResolver.delete(savedUri, null, null)
+
+                            if (rowsDeleted <= 0) {
+                                Logs.w("Banner file not found or failed to delete.")
+                            }
+                        } catch (e: SecurityException) {
+                            Logs.e("Failed to delete custom banner (SecurityException)", e)
+                            snackbar("Failed to delete file. Manually delete from Gallery.").show()
+                        } catch (e: Exception) {
+                            Logs.e("Failed to delete custom banner", e)
+                        }
+
                         DataStore.configurationStore.putString("custom_banner_uri", null)
                         
                         bannerImageView?.setImageResource(R.drawable.uwu_banner_home)
