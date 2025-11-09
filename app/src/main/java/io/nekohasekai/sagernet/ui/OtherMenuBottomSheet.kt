@@ -1,5 +1,6 @@
 package io.nekohasekai.sagernet.ui
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.widget.ImageView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.nekohasekai.sagernet.GroupOrder
 import io.nekohasekai.sagernet.R
+
 
 private const val ANIMATION_DURATION = 300L
 
@@ -46,13 +48,14 @@ private fun View.collapse() {
     valueAnimator.duration = ANIMATION_DURATION
     valueAnimator.start()
 
-    valueAnimator.addListener(object : android.animation.Animator.AnimatorListener {
-        override fun onAnimationStart(animation: android.animation.Animator) {}
-        override fun onAnimationEnd(animation: android.animation.Animator) {
+    valueAnimator.addListener(object : Animator.AnimatorListener {
+        override fun onAnimationStart(animation: Animator) {}
+        override fun onAnimationEnd(animation: Animator) {
             visibility = View.GONE
+            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT // Reset height
         }
-        override fun onAnimationCancel(animation: android.animation.Animator) {}
-        override fun onAnimationRepeat(animation: android.animation.Animator) {}
+        override fun onAnimationCancel(animation: Animator) {}
+        override fun onAnimationRepeat(animation: Animator) {}
     })
 }
 
@@ -149,18 +152,23 @@ class OtherMenuBottomSheet : BottomSheetDialogFragment() {
     private fun setupExpandable(toggleHeader: View?, expandableContent: View?, arrowIcon: ImageView?) {
         if (toggleHeader != null && expandableContent != null) {
             
-            if (arrowIcon != null) {
-                arrowIcon.rotation = if (expandableContent.visibility == View.VISIBLE) 90f else 0f
-            }
-            
-            if (expandableContent.visibility != View.GONE) {
-                 expandableContent.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            if (expandableContent.visibility == View.VISIBLE) {
+                arrowIcon?.rotation = 90f
+                expandableContent.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            } else {
+                arrowIcon?.rotation = 0f
             }
 
             toggleHeader.setOnClickListener {
                 if (expandableContent.visibility == View.GONE) {
-                    expandableContent.expand()
-                    arrowIcon?.animateRotation(90f)
+                    
+                    expandableContent.visibility = View.VISIBLE
+                    
+                    expandableContent.post { 
+                        expandableContent.expand()
+                        arrowIcon?.animateRotation(90f)
+                    }
+                    
                 } else {
                     expandableContent.collapse()
                     arrowIcon?.animateRotation(0f)
