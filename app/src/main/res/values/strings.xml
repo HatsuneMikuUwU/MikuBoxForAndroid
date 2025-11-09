@@ -646,6 +646,7 @@ Please grant this permission in System Settings."</string>
     <string name="dynamic_theme_min_android_12">Only available on Android 12 and above</string>
     <string name="action_group_setting_1">Server options</string>
     <string name="action_group_setting_2">Connection test</string>
+    <string name="expandable_summary">Click here to expand</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>
