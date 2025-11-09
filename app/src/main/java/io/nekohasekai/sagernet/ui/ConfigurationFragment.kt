@@ -124,6 +124,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.yalantis.ucrop.UCrop
 import io.nekohasekai.sagernet.ui.ProfileMenuBottomSheet
+import io.nekohasekai.sagernet.ui.OtherMenuBottomSheet
 import java.io.File
 
 class ConfigurationFragment @JvmOverloads constructor(
@@ -133,7 +134,8 @@ class ConfigurationFragment @JvmOverloads constructor(
     Toolbar.OnMenuItemClickListener,
     SearchView.OnQueryTextListener,
     OnPreferenceDataStoreChangeListener,
-    ProfileMenuBottomSheet.OnOptionClickListener {
+    ProfileMenuBottomSheet.OnOptionClickListener, 
+    OtherMenuBottomSheet.OnOtherOptionClickListener { // <-- Implementasi listener baru
 
     interface SelectCallback {
         fun returnProfile(profileId: Long)
@@ -412,8 +414,30 @@ class ConfigurationFragment @JvmOverloads constructor(
             R.id.action_profile_import_sheet -> {
                 ProfileMenuBottomSheet().show(childFragmentManager, ProfileMenuBottomSheet.TAG)
                 return true
-            }   
+            }
 
+            R.id.action_other_menu_sheet -> { 
+                val currentOrder = getCurrentGroupFragment()?.proxyGroup?.order ?: GroupOrder.ORIGIN
+                OtherMenuBottomSheet.newInstance(currentOrder)
+                    .show(childFragmentManager, OtherMenuBottomSheet.TAG)
+                return true
+            }
+        }
+        return true
+    }
+
+    private fun updateGroupOrder(order: Int) {
+        val fragment = getCurrentGroupFragment() ?: return
+        if (fragment.proxyGroup.order == order) return // Tidak ada perubahan
+
+        runOnDefaultDispatcher {
+            fragment.proxyGroup.order = order
+            GroupManager.updateGroup(fragment.proxyGroup)
+        }
+    }
+
+    override fun onOtherOptionClicked(viewId: Int) {
+        when (viewId) {
             R.id.action_update_subscription -> {
                 val group = DataStore.currentGroup()
                 if (group.type != GroupType.SUBSCRIPTION) {
@@ -425,7 +449,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                     }
                 }
             }
-
+            
             R.id.action_clear_traffic_statistics -> {
                 runOnDefaultDispatcher {
                     val profiles = SagerDatabase.proxyDao.getByGroup(DataStore.currentGroupId())
@@ -442,7 +466,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                     }
                 }
             }
-
+            
             R.id.action_connection_test_clear_results -> {
                 runOnDefaultDispatcher {
                     val profiles = SagerDatabase.proxyDao.getByGroup(DataStore.currentGroupId())
@@ -460,7 +484,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                     }
                 }
             }
-
+            
             R.id.action_connection_test_delete_unavailable -> {
                 runOnDefaultDispatcher {
                     val profiles = SagerDatabase.proxyDao.getByGroup(DataStore.currentGroupId())
@@ -499,7 +523,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                     }
                 }
             }
-
+            
             R.id.action_remove_duplicate -> {
                 runOnDefaultDispatcher {
                     val profiles = SagerDatabase.proxyDao.getByGroup(DataStore.currentGroupId())
@@ -551,16 +575,27 @@ class ConfigurationFragment @JvmOverloads constructor(
                     }
                 }
             }
-
+            
             R.id.action_connection_tcp_ping -> {
                 pingTest(false)
             }
-
+            
             R.id.action_connection_url_test -> {
                 urlTest()
             }
+
+            R.id.action_order_origin -> {
+                updateGroupOrder(GroupOrder.ORIGIN)
+            }
+            
+            R.id.action_order_by_name -> {
+                updateGroupOrder(GroupOrder.BY_NAME)
+            }
+            
+            R.id.action_order_by_delay -> {
+                updateGroupOrder(GroupOrder.BY_DELAY)
+            }
         }
-        return true
     }
 
     override fun onOptionClicked(viewId: Int) {
@@ -1182,55 +1217,7 @@ class ConfigurationFragment @JvmOverloads constructor(
             } else if (!::configurationListView.isInitialized) {
                 onViewCreated(requireView(), null)
             }
-            checkOrderMenu()
             configurationListView.requestFocus()
-        }
-
-        fun checkOrderMenu() {
-            if (select) return
-
-            val pf = requireParentFragment() as? ToolbarFragment ?: return
-            val menu = pf.toolbar.menu
-            val origin = menu.findItem(R.id.action_order_origin)
-            val byName = menu.findItem(R.id.action_order_by_name)
-            val byDelay = menu.findItem(R.id.action_order_by_delay)
-            when (proxyGroup.order) {
-                GroupOrder.ORIGIN -> {
-                    origin.isChecked = true
-                }
-
-                GroupOrder.BY_NAME -> {
-                    byName.isChecked = true
-                }
-
-                GroupOrder.BY_DELAY -> {
-                    byDelay.isChecked = true
-                }
-            }
-
-            fun updateTo(order: Int) {
-                if (proxyGroup.order == order) return
-                runOnDefaultDispatcher {
-                    proxyGroup.order = order
-                    GroupManager.updateGroup(proxyGroup)
-                }
-            }
-
-            origin.setOnMenuItemClickListener {
-                it.isChecked = true
-                updateTo(GroupOrder.ORIGIN)
-                true
-            }
-            byName.setOnMenuItemClickListener {
-                it.isChecked = true
-                updateTo(GroupOrder.BY_NAME)
-                true
-            }
-            byDelay.setOnMenuItemClickListener {
-                it.isChecked = true
-                updateTo(GroupOrder.BY_DELAY)
-                true
-            }
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

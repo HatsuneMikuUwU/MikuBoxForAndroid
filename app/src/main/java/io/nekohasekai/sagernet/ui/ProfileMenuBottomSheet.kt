@@ -30,115 +30,43 @@ class ProfileMenuBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.bottom_sheet_import_menu, container, false)
+        return inflater.inflate(R.layout.uwu_bottom_sheet_import_menu, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view.findViewById<View>(R.id.action_scan_qr_code).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-
-        view.findViewById<View>(R.id.action_import_clipboard).setOnClickListener {
+        
+        val clickListener = View.OnClickListener {
             mListener?.onOptionClicked(it.id)
             dismiss()
         }
 
-        view.findViewById<View>(R.id.action_import_file).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_socks).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_http).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_ss).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_vmess).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_vless).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_trojan).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_trojan_go).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_mieru).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_naive).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_hysteria).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_tuic).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_juicity).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_ssh).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_wg).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_shadowtls).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_anytls).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_config).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
-        }
-        
-        view.findViewById<View>(R.id.action_new_chain).setOnClickListener {
-            mListener?.onOptionClicked(it.id)
-            dismiss()
+        val actionIds = listOf(
+            R.id.action_scan_qr_code,
+            R.id.action_import_clipboard,
+            R.id.action_import_file,
+            R.id.action_new_socks,
+            R.id.action_new_http,
+            R.id.action_new_ss,
+            R.id.action_new_vmess,
+            R.id.action_new_vless,
+            R.id.action_new_trojan,
+            R.id.action_new_trojan_go,
+            R.id.action_new_mieru,
+            R.id.action_new_naive,
+            R.id.action_new_hysteria,
+            R.id.action_new_tuic,
+            R.id.action_new_juicity,
+            R.id.action_new_ssh,
+            R.id.action_new_wg,
+            R.id.action_new_shadowtls,
+            R.id.action_new_anytls,
+            R.id.action_new_config,
+            R.id.action_new_chain
+        )
+
+        actionIds.forEach { id ->
+            view.findViewById<View>(id)?.setOnClickListener(clickListener)
         }
     }
 

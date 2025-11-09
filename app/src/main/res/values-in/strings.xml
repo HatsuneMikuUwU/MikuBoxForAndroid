@@ -341,7 +341,7 @@
     <string name="group_order">Urutkan</string>
     <string name="group_order_origin">Asli</string>
     <string name="group_order_by_name">Berdasarkan Nama</string>
-    <string name="group_order_by_delay">Berdasarkan Penundaan (Delay)</string>
+    <string name="group_order_by_delay">Berdasarkan Delay</string>
     <string name="plugin_exists_but_on_shit_system" formatted="false">Profil %s butuh plugin
         %s, tapi vendor HP-mu (yang biasanya juga raksasa kapitalis pengintai dan pembuat malware) ngerusak sistem Android-mu jadi plugin-nya gak bisa dipake.</string>
     <string name="shadowsocks_plugin_v2ray">Plugin V2Ray (Plugin Shadowsocks)</string>
