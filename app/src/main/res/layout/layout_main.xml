@@ -184,64 +184,92 @@
                             android:layout_marginTop="-30.0dip"
                             android:layout_marginRight="75.0dip"
                             android:backgroundTint="?attr/colorSurfaceContainerHigh" />
-                        <LinearLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:gravity="center"
                             android:layout_gravity="center_vertical"
                             android:orientation="vertical"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16.0dip"
-                            android:layout_marginTop="5.0dip"
+                            android:layout_marginTop="10.0dip"
                             android:layout_marginRight="16.0dip"
                             android:layout_marginBottom="10.0dip">
                             <ImageView
+                                android:id="@+id/miku_ui"
                                 android:layout_width="wrap_content"
-                                android:layout_height="100.0dip"
+                                android:layout_height="80.0dip"
                                 android:layout_marginBottom="0.0dip"
-                                android:src="@drawable/uwu_miku_ui" />
-                            <FrameLayout
+                                android:src="@drawable/uwu_miku_ui"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                            <TextView
+                                android:textSize="30.0sp"
+                                android:textColor="?attr/colorPrimary"
+                                android:id="@+id/title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="-10.0dip">
-                                <TextView
-                                    android:textSize="30.0sp"
-                                    android:textColor="?attr/colorOnSurface"
-                                    android:ellipsize="marquee"
-                                    android:gravity="center_horizontal"
-                                    android:id="@+id/title"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="MikuBox for Android"
-                                    android:singleLine="true"
-                                    android:fontFamily="@font/uwu_font_title" />
-                                <TextView
-                                    android:textSize="30.0sp"
-                                    android:textColor="?attr/colorPrimary"
-                                    android:ellipsize="marquee"
-                                    android:gravity="center_horizontal"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="MikuBox for Android"
-                                    android:singleLine="true"
-                                    android:maxLength="8"
-                                    android:fontFamily="@font/uwu_font_title" />
-                            </FrameLayout>
+                                android:text="MikuBox"
+                                android:fontFamily="@font/uwu_font_title"
+                                app:layout_constraintStart_toStartOf="@+id/miku_ui"
+                                app:layout_constraintTop_toBottomOf="@+id/miku_ui" />
+                            <TextView
+                                android:textSize="30.0sp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:id="@+id/title2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="for"
+                                android:fontFamily="@font/uwu_font_title"
+                                app:layout_constraintEnd_toStartOf="@+id/title3"
+                                app:layout_constraintStart_toEndOf="@+id/title"
+                                app:layout_constraintTop_toBottomOf="@+id/miku_ui" />
+                            <TextView
+                                android:textSize="30.0sp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:id="@+id/title3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Android"
+                                android:fontFamily="@font/uwu_font_title"
+                                app:layout_constraintEnd_toEndOf="@+id/miku_ui"
+                                app:layout_constraintTop_toBottomOf="@+id/miku_ui" />
                             <TextView
                                 android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                                 android:textSize="17.0sp"
                                 android:textColor="?attr/colorOnSurface"
-                                android:gravity="center_horizontal"
                                 android:id="@+id/summary"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Modified from NekoBox"
-                                android:maxLines="10"
-                                android:layout_below="@+id/title"
-                                android:layout_alignLeft="@+id/title"
+                                android:text="Modified"
                                 android:fontFamily="@font/uwu_font_summary"
-                                android:textAlignment="center"
-                                android:layout_alignStart="@+id/title" />
-                        </LinearLayout>
+                                app:layout_constraintHorizontal_chainStyle="spread"
+                                app:layout_constraintStart_toStartOf="@+id/title"
+                                app:layout_constraintTop_toBottomOf="@+id/title" />
+                            <TextView
+                                android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                                android:textSize="17.0sp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:id="@+id/summary2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="from"
+                                android:fontFamily="@font/uwu_font_summary"
+                                app:layout_constraintEnd_toStartOf="@+id/summary3"
+                                app:layout_constraintStart_toEndOf="@+id/summary"
+                                app:layout_constraintTop_toBottomOf="@+id/title2" />
+                            <TextView
+                                android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                                android:textSize="17.0sp"
+                                android:textColor="?attr/colorPrimary"
+                                android:id="@+id/summary3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="NekoBox"
+                                android:fontFamily="@font/uwu_font_summary"
+                                app:layout_constraintEnd_toEndOf="@+id/title3"
+                                app:layout_constraintTop_toBottomOf="@+id/title3" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                         <View
                             android:gravity="center_horizontal"
                             android:layout_gravity="bottom|center"
@@ -318,8 +346,8 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:singleLine="true"
-                                            uwu_runnable="true"
-                                            android:marqueeRepeatLimit="marquee_forever" />
+                                            android:marqueeRepeatLimit="marquee_forever"
+                                            uwu_runnable="true" />
                                     </LinearLayout>
                                 </RelativeLayout>
                             </LinearLayout>
