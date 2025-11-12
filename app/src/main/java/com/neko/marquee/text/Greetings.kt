@@ -11,6 +11,7 @@ import android.util.AttributeSet
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.ConfigurationCompat
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
 import io.nekohasekai.sagernet.R
@@ -37,9 +38,11 @@ class Greetings @JvmOverloads constructor(
     private var useManualCity = false
     
     private var lastWeatherTime = 0L
-    private var lastWeatherText: String? = null
     private var lastLat = 0.0
     private var lastLon = 0.0
+    private var cachedTemp = 0
+    private var cachedCode = -1
+    private var cachedLocName = ""
 
     private val weatherInterval = 30 * 60 * 1000L
     private val minDistanceChange = 2000f
@@ -47,9 +50,13 @@ class Greetings @JvmOverloads constructor(
     private val timeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action in listOf(
-                    Intent.ACTION_TIME_TICK, Intent.ACTION_TIME_CHANGED, Intent.ACTION_TIMEZONE_CHANGED
+                    Intent.ACTION_TIME_TICK, 
+                    Intent.ACTION_TIME_CHANGED, 
+                    Intent.ACTION_TIMEZONE_CHANGED
                 )
-            ) updateGreeting(lastWeatherText ?: "")
+            ) {
+                refreshGreetingText()
+            }
         }
     }
 
@@ -58,7 +65,7 @@ class Greetings @JvmOverloads constructor(
         useManualCity = DataStore.manualWeatherEnabled
         
         loadCache()
-        updateGreeting(lastWeatherText ?: "")
+        refreshGreetingText()
     }
 
     override fun onAttachedToWindow() {
@@ -85,39 +92,55 @@ class Greetings @JvmOverloads constructor(
 
     override fun isFocused(): Boolean = true
 
+    private fun getAppLocale(): Locale {
+        return ConfigurationCompat.getLocales(context.resources.configuration)[0] 
+            ?: Locale.getDefault()
+    }
+
     private fun loadCache() {
-        lastWeatherText = prefs.getString("cached_text", null)
         lastWeatherTime = prefs.getLong("cached_time", 0L)
         lastLat = prefs.getFloat("cached_lat", 0f).toDouble()
         lastLon = prefs.getFloat("cached_lon", 0f).toDouble()
+        cachedTemp = prefs.getInt("cached_temp", 0)
+        cachedCode = prefs.getInt("cached_code", -1)
+        cachedLocName = prefs.getString("cached_loc_name", "") ?: ""
     }
 
-    private fun saveCache(text: String, time: Long, lat: Double, lon: Double) {
-        lastWeatherText = text
+    private fun saveCache(time: Long, lat: Double, lon: Double, temp: Int, code: Int, locName: String) {
         lastWeatherTime = time
         lastLat = lat
         lastLon = lon
+        cachedTemp = temp
+        cachedCode = code
+        cachedLocName = locName
         
         prefs.edit().apply {
-            putString("cached_text", text)
             putLong("cached_time", time)
             putFloat("cached_lat", lat.toFloat())
             putFloat("cached_lon", lon.toFloat())
+            putInt("cached_temp", temp)
+            putInt("cached_code", code)
+            putString("cached_loc_name", locName)
             apply()
         }
     }
 
-    private fun checkSettingsAndFetch() {
-        showWeather = DataStore.showWeatherInfo
-        useManualCity = DataStore.manualWeatherEnabled
+    private fun refreshGreetingText() {
+        val weatherString = if (cachedCode != -1 && showWeather) {
+            val condition = getLocalizedCondition(cachedCode)
+            val emoji = getWeatherEmoji(cachedCode)
+            val prefix = context.getString(R.string.weather_today)
+            val locSuffix = if (cachedLocName.isNotEmpty()) " ($cachedLocName)" else ""
+            
+            "$prefix $condition $emoji , $cachedTemp°C$locSuffix"
+        } else {
+            ""
+        }
         
-        if (showWeather) fetchWeather()
-        
-        handler.removeCallbacksAndMessages(null)
-        handler.postDelayed({ checkSettingsAndFetch() }, weatherInterval)
+        updateTextView(weatherString)
     }
 
-    private fun updateGreeting(weatherText: String = "") {
+    private fun updateTextView(weatherText: String) {
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         @StringRes val greetRes = when (hour) {
             in 5..10 -> R.string.uwu_greeting_morning
@@ -129,6 +152,16 @@ class Greetings @JvmOverloads constructor(
 
         val greeting = context.getString(greetRes)
         text = if (weatherText.isNotEmpty() && showWeather) "$greeting $weatherText" else greeting
+    }
+
+    private fun checkSettingsAndFetch() {
+        showWeather = DataStore.showWeatherInfo
+        useManualCity = DataStore.manualWeatherEnabled
+        
+        if (showWeather) fetchWeather()
+        
+        handler.removeCallbacksAndMessages(null)
+        handler.postDelayed({ checkSettingsAndFetch() }, weatherInterval)
     }
 
     private fun fetchWeather() {
@@ -177,14 +210,14 @@ class Greetings @JvmOverloads constructor(
                 Location.distanceBetween(lastLat, lastLon, lat, lon, dist)
                 val distanceChanged = dist[0] > minDistanceChange
 
-                if ((now - lastWeatherTime) < weatherInterval && !distanceChanged && lastWeatherText != null) {
-                    withContext(Dispatchers.Main) { updateGreeting(lastWeatherText!!) }
+                if ((now - lastWeatherTime) < weatherInterval && !distanceChanged && cachedCode != -1) {
+                    withContext(Dispatchers.Main) { refreshGreetingText() }
                     return@launch
                 }
 
                 var locationName = ""
                 try {
-                    val geocoder = Geocoder(context, Locale.getDefault())
+                    val geocoder = Geocoder(context, getAppLocale())
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         geocoder.getFromLocation(lat, lon, 1) { addresses ->
                             if (addresses.isNotEmpty()) {
@@ -210,22 +243,15 @@ class Greetings @JvmOverloads constructor(
                 val temp = current.getDouble("temperature").roundToInt()
                 val code = current.getInt("weathercode")
 
-                val condition = getLocalizedCondition(code)
-                val emoji = getWeatherEmoji(code)
-                val prefix = context.getString(R.string.weather_today)
-                
-                val locSuffix = if (locationName.isNotEmpty()) " ($locationName)" else ""
-                val weatherText = "$prefix $condition $emoji , $temp°C$locSuffix"
-
                 withContext(Dispatchers.Main) { 
-                    saveCache(weatherText, now, lat, lon)
-                    updateGreeting(weatherText) 
+                    saveCache(now, lat, lon, temp, code, locationName)
+                    refreshGreetingText() 
                 }
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                if (lastWeatherText != null) {
-                    withContext(Dispatchers.Main) { updateGreeting(lastWeatherText!!) }
+                if (cachedCode != -1) {
+                    withContext(Dispatchers.Main) { refreshGreetingText() }
                 }
             }
         }
