@@ -1,26 +1,30 @@
 package io.nekohasekai.sagernet.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceGroup
-import androidx.preference.PreferenceScreen
 import androidx.preference.SwitchPreference
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import com.takisoft.preferencex.SimpleMenuPreference
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import io.nekohasekai.sagernet.Key
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.ktx.FixedLinearLayoutManager
-import io.nekohasekai.sagernet.utils.Theme
 import io.nekohasekai.sagernet.utils.DPIController
+import io.nekohasekai.sagernet.utils.Theme
 import moe.matsuri.nb4a.ui.ColorPickerPreference
 import moe.matsuri.nb4a.ui.DpiEditTextPreference
 import java.util.*
@@ -43,7 +47,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
         preferenceScreen?.let { screen ->
             updateAllCategoryStyles(styleValue, screen)
         }
-       
+
         val appTheme = findPreference<ColorPickerPreference>(Key.APP_THEME)!!
         appTheme.setOnPreferenceChangeListener { _, newTheme ->
             if (DataStore.serviceState.started) SagerNet.reloadService()
@@ -54,14 +58,14 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
             true
         }
-        
+
         val nightTheme = findPreference<SimpleMenuPreference>(Key.NIGHT_THEME)!!
         nightTheme.setOnPreferenceChangeListener { _, newTheme ->
             Theme.currentNightMode = (newTheme as String).toInt()
             Theme.applyNightTheme()
             true
         }
-        
+
         dynamicSwitch = findPreference("dynamic_theme_switch")!!
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val isDynamicInitially = DataStore.appTheme == Theme.DYNAMIC
@@ -93,7 +97,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             dynamicSwitch.summary = getString(R.string.dynamic_theme_min_android_12)
             appTheme.isEnabled = true
         }
-            
+
         val boldFontSwitch = findPreference<SwitchPreference>("bold_font_switch")
         boldFontSwitch?.apply {
             isChecked = DataStore.boldFontEnabled
@@ -104,7 +108,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        
+
         val trueBlackSwitch = findPreference<SwitchPreference>("true_dark_enabled")
         trueBlackSwitch?.apply {
             isChecked = DataStore.trueBlackEnabled
@@ -140,7 +144,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        
+
         val soundConnectSwitch = findPreference<SwitchPreference>("sound_connect")
         soundConnectSwitch?.apply {
             isChecked = DataStore.soundOnConnect
@@ -149,7 +153,63 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        
+
+        val weatherController: SwitchPreference? = findPreference("show_weather_info")
+        weatherController?.apply {
+            isChecked = DataStore.showWeatherInfo
+            setOnPreferenceChangeListener { _: Preference, newValue: Any ->
+                val showWeather = newValue as Boolean
+
+                if (showWeather) {
+                    if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        AlertDialog.Builder(requireContext())
+                            .setTitle(R.string.permission_location_title)
+                            .setMessage(R.string.permission_location_message)
+                            .setPositiveButton(R.string.permission_grant) { _, _ ->
+                                requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 101)
+                            }
+                            .setNegativeButton(R.string.permission_deny) { dialog, _ ->
+                                dialog.dismiss()
+                                this.isChecked = false
+                            }
+                            .setCancelable(false)
+                            .show()
+                    } else {
+                        DataStore.showWeatherInfo = true
+                    }
+                } else {
+                    DataStore.showWeatherInfo = false
+                }
+                true
+            }
+        }
+
+        val manualWeatherSwitch = findPreference<SwitchPreference>("manual_weather_enabled")
+        val manualWeatherCity = findPreference<EditTextPreference>("manual_weather_city")
+
+        manualWeatherSwitch?.apply {
+            isChecked = DataStore.manualWeatherEnabled
+            setOnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as Boolean
+                DataStore.manualWeatherEnabled = enabled
+                if (!enabled) {
+                    DataStore.manualWeatherCity = ""
+                    manualWeatherCity?.text = ""
+                }
+                true
+            }
+        }
+
+        manualWeatherCity?.apply {
+            text = DataStore.manualWeatherCity
+            setOnPreferenceChangeListener { _, newValue ->
+                DataStore.manualWeatherCity = newValue.toString()
+                true
+            }
+        }
+
         val dpiPref = findPreference<DpiEditTextPreference>("custom_dpi")
         dpiPref?.apply {
             val defaultDpi = resources.displayMetrics.densityDpi
@@ -167,7 +227,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        
+
         fun getLanguageDisplayName(code: String): String {
             return when (code) {
                 "" -> getString(R.string.language_system_default)
@@ -177,6 +237,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 else -> Locale.forLanguageTag(code).displayName
             }
         }
+
         val appLanguage = findPreference<SimpleMenuPreference>(Key.APP_LANGUAGE)
         appLanguage?.apply {
             val locale = when (val value = AppCompatDelegate.getApplicationLocales().toLanguageTags()) {
@@ -193,7 +254,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        
+
         findPreference<SimpleMenuPreference>("fab_style")!!.setOnPreferenceChangeListener { _, _ ->
             requireActivity().apply {
                 finish()
@@ -201,7 +262,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
             true
         }
-        
+
         val layoutController: SwitchPreference? = findPreference("show_banner_layout")
         layoutController?.apply {
             isChecked = DataStore.showBannerLayout
@@ -211,7 +272,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        
+
         val splashController: SwitchPreference? = findPreference("show_splash_screen")
         splashController?.apply {
             isChecked = DataStore.showSplashScreen
@@ -221,7 +282,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        
+
         val ipTestController: SwitchPreference? = findPreference("connection_test_with_ip")
         ipTestController?.apply {
             isChecked = DataStore.connectionTestWithIp
@@ -231,7 +292,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        
+
         val ipDisplayStyleController: SwitchPreference? = findPreference("show_ip_in_two_line")
         ipDisplayStyleController?.apply {
             isChecked = DataStore.showIpInTwoLine
@@ -241,7 +302,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-        
+
         val styleCategoryController: SimpleMenuPreference? = findPreference("key_category_style_menu")
         styleCategoryController?.setOnPreferenceChangeListener { _, newValue ->
             val styleValue = newValue as String
@@ -253,10 +314,24 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 101) {
+            val weatherController: SwitchPreference? = findPreference("show_weather_info")
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                DataStore.showWeatherInfo = true
+                weatherController?.isChecked = true
+            } else {
+                DataStore.showWeatherInfo = false
+                weatherController?.isChecked = false
+            }
+        }
     }
-    
+
     private fun updateAllCategoryStyles(styleValue: String?, group: PreferenceGroup) {
         val newLayout = when (styleValue) {
             "style1" -> R.layout.uwu_preference_category_1
@@ -278,5 +353,4 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
         }
     }
-    
 }

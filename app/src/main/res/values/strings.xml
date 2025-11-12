@@ -647,6 +647,27 @@ Please grant this permission in System Settings."</string>
     <string name="action_group_setting_1">Server options</string>
     <string name="action_group_setting_2">Connection test</string>
     <string name="expandable_summary">Click here to expand</string>
+    <string name="weather_today">Today is</string>
+    <string name="weather_clear">clear</string>
+    <string name="weather_partly_cloudy">partly cloudy</string>
+    <string name="weather_cloudy">cloudy</string>
+    <string name="weather_fog">foggy</string>
+    <string name="weather_drizzle">drizzle</string>
+    <string name="weather_rain">rainy</string>
+    <string name="weather_snow">snowy</string>
+    <string name="weather_showers">showery</string>
+    <string name="weather_thunderstorm">thunderstorm</string>
+    <string name="show_weather_info">Show weather info</string>
+    <string name="show_weather_info_summary">Shows current weather in the greeting text</string>
+    <string name="permission_location_title">Location Permission Required</string>
+    <string name="permission_location_message">To show weather information, the app needs access to your location.</string>
+    <string name="permission_grant">Grant Permission</string>
+    <string name="permission_deny">Deny</string>
+    <string name="category_weather">Weather</string>
+    <string name="weather_manual_mode">Use manual location</string>
+    <string name="weather_manual_summary">If enabled, use city name instead of GPS</string>
+    <string name="weather_city">City name</string>
+    <string name="weather_city_dialog">Enter city name</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

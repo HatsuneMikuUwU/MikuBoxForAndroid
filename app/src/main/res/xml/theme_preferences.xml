@@ -100,6 +100,34 @@
             app:entries="@array/style_category_entries"
             app:entryValues="@array/style_category_values" 
             app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/category_weather">
+        <SwitchPreference
+            android:layout="@layout/uwu_top_switch"
+            android:title="@string/show_weather_info"
+            android:key="show_weather_info"
+            android:summary="@string/show_weather_info_summary"
+            android:widgetLayout="@layout/uwu_switch"
+            android:defaultValue="false"
+            app:icon="@drawable/ic_weather_cloudy" />
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            app:defaultValue="false"
+            app:dependency="show_weather_info"
+            app:icon="@drawable/ic_toggle_switch"
+            app:key="manual_weather_enabled"
+            app:summary="@string/weather_manual_summary"
+            app:title="@string/weather_manual_mode" />
+        <EditTextPreference
+            android:layout="@layout/uwu_bot"
+            app:dependency="manual_weather_enabled"
+            app:dialogMessage="@string/weather_city_dialog"
+            app:icon="@drawable/ic_city"
+            app:key="manual_weather_city"
+            app:title="@string/weather_city"
+            app:useSimpleSummaryProvider="true" />
        </PreferenceCategory>
        <PreferenceCategory
             app:title="@string/bottom_bar_category">

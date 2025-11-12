@@ -67,6 +67,8 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:5.0.5")
     implementation("com.github.yalantis:ucrop:2.2.11")
+    
+    implementation("com.google.android.gms:play-services-location:21.2.0")
 
     implementation("com.github.jenly1314:zxing-lite:2.1.1")
     implementation("com.blacksquircle.ui:editorkit:2.6.0")

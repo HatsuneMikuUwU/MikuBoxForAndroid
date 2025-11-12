@@ -101,6 +101,9 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var connectionTestWithIp by configurationStore.boolean("connection_test_with_ip") { false }
     var showIpInTwoLine by configurationStore.boolean("show_ip_in_two_line") { false }
     var categoryStyle by configurationStore.string("key_category_style_menu") { "style1" }
+    var showWeatherInfo by configurationStore.boolean("show_weather_info") { false }
+    var manualWeatherEnabled by configurationStore.boolean("manual_weather_enabled") { false }
+    var manualWeatherCity by configurationStore.string("manual_weather_city") { "" }
 
     var appTLSVersion by configurationStore.string(Key.APP_TLS_VERSION)
     var enableClashAPI by configurationStore.boolean(Key.ENABLE_CLASH_API)

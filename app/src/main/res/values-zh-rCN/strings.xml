@@ -548,6 +548,27 @@
     <string name="action_group_setting_1">服务器选项</string>
     <string name="action_group_setting_2">连接测试</string>
     <string name="expandable_summary">点击此处展开</string>
+    <string name="weather_today">今天</string>
+    <string name="weather_clear">晴朗</string>
+    <string name="weather_partly_cloudy">多云</string>
+    <string name="weather_cloudy">阴天</string>
+    <string name="weather_fog">有雾</string>
+    <string name="weather_drizzle">毛毛雨</string>
+     <string name="weather_rain">下雨</string>
+     <string name="weather_snow">下雪</string>
+     <string name="weather_showers">阵雨</string>
+     <string name="weather_thunderstorm">雷雨</string>
+     <string name="show_weather_info">显示天气信息</string>
+     <string name="show_weather_info_summary">在问候语中显示当前天气状况</string>
+     <string name="permission_location_title">需要位置权限</string>
+     <string name="permission_location_message">为了显示天气信息，应用需要获取您的位置权限。</string>
+     <string name="permission_grant">授予权限</string>
+     <string name="permission_deny">拒绝</string>
+     <string name="category_weather">天气</string>
+     <string name="weather_manual_mode">使用手动定位</string>
+     <string name="weather_manual_summary">启用后，将使用城市名称而非 GPS</string>
+     <string name="weather_city">城市名称</string>
+     <string name="weather_city_dialog">输入城市名称</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>

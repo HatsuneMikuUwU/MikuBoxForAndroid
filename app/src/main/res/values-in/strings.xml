@@ -552,6 +552,27 @@ Tolong kasih izinnya di Settingan Sistem."</string>
     <string name="action_group_setting_1">Settingan server</string>
     <string name="action_group_setting_2">Tes koneksi</string>
     <string name="expandable_summary">Klik disini untuk memperluas</string>
+    <string name="weather_today">Hari ini</string>
+    <string name="weather_clear">cerah</string>
+    <string name="weather_partly_cloudy">berawan sebagian</string>
+    <string name="weather_cloudy">berawan</string>
+    <string name="weather_fog">berkabut</string>
+    <string name="weather_drizzle">gerimis</string>
+    <string name="weather_rain">hujan</string>
+    <string name="weather_snow">bersalju</string>
+    <string name="weather_showers">hujan ringan</string>
+    <string name="weather_thunderstorm">badai petir</string>
+    <string name="show_weather_info">Tampilin info cuaca</string>
+    <string name="show_weather_info_summary">Tampilin cuaca sekarang di teks sapaan</string>
+    <string name="permission_location_title">Butuh Izin Lokasi nih</string>
+    <string name="permission_location_message">Biar info cuacanya bisa muncul, kita butuh akses lokasi kamu ya.</string>
+    <string name="permission_grant">Boleh deh</string>
+    <string name="permission_deny">Gak dulu</string>
+    <string name="category_weather">Cuaca</string>
+     <string name="weather_manual_mode">Set lokasi manual</string>
+     <string name="weather_manual_summary">Kalo nyala, pake nama kota doang, gak pake GPS</string>
+     <string name="weather_city">Nama kotanya</string>
+     <string name="weather_city_dialog">Tulis nama kotanya</string>
     
     <string name="uwu_about_miku_title">Siapa itu Hatsune Miku?</string>
     <string name="uwu_about_miku_summary">Hatsune Miku itu penyanyi virtual berbasis Vocaloid yang dirilis sama Crypton Future Media, kode namanya CV01. Dikenal gara-gara rambut twintail panjang warna biru kehijauan sama suaranya yang jernih, dia itu cewek 16 tahun dan idola virtual yang terkenal sedunia. Dia aktif di musik, konser, dan anime, plus disayang banget sama fans-fansnya.</string>
