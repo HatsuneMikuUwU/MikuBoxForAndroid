@@ -270,6 +270,11 @@ class ConfigurationFragment @JvmOverloads constructor(
 
         DataStore.profileCacheStore.registerChangeListener(this)
     }
+    
+    override fun onResume() {
+        super.onResume()
+        greetings?.checkReload()
+    }
 
     override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {
         runOnMainDispatcher {
@@ -1226,7 +1231,6 @@ class ConfigurationFragment @JvmOverloads constructor(
 
         override fun onResume() {
             super.onResume()
-            
             greetings?.checkReload()
 
             if (::configurationListView.isInitialized && configurationListView.size == 0) {
