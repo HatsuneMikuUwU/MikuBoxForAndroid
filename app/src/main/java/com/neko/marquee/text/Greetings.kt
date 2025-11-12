@@ -154,7 +154,7 @@ class Greetings @JvmOverloads constructor(
                 val condition = getLocalizedCondition(code)
                 val emoji = getWeatherEmoji(code)
                 val prefix = context.getString(R.string.weather_today)
-                val weatherText = "$prefix $condition $emoji, $temp°C ($cityName)"
+                val weatherText = "$prefix $condition $emoji, $temp°C — $cityName"
 
                 lastWeatherText = weatherText
                 lastWeatherTime = now
