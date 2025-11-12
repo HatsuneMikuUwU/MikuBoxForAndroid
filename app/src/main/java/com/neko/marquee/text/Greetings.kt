@@ -75,6 +75,18 @@ class Greetings @JvmOverloads constructor(
         updateDisplay()
     }
 
+    fun reloadWeather() {
+        refreshSettings()
+        lastWeatherTime = 0L
+        cachedCode = -1
+        
+        updateDisplay()
+
+        if (showWeather) {
+            fetchWeather()
+        }
+    }
+
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
         if (hasWindowFocus) isSelected = true
         super.onWindowFocusChanged(hasWindowFocus)
