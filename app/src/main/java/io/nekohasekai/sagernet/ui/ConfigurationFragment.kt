@@ -1231,7 +1231,6 @@ class ConfigurationFragment @JvmOverloads constructor(
 
         override fun onResume() {
             super.onResume()
-            greetings?.checkReload()
 
             if (::configurationListView.isInitialized && configurationListView.size == 0) {
                 configurationListView.adapter = adapter
