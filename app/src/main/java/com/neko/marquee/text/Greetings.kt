@@ -30,6 +30,8 @@ class Greetings @JvmOverloads constructor(
     private val fusedClient by lazy { LocationServices.getFusedLocationProviderClient(context) }
     private val handler = Handler(Looper.getMainLooper())
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    
+    private val prefs by lazy { context.getSharedPreferences("neko_weather_cache", Context.MODE_PRIVATE) }
 
     private var showWeather = false
     private var useManualCity = false
@@ -54,7 +56,9 @@ class Greetings @JvmOverloads constructor(
     init {
         showWeather = DataStore.showWeatherInfo
         useManualCity = DataStore.manualWeatherEnabled
-        updateGreeting()
+        
+        loadCache()
+        updateGreeting(lastWeatherText ?: "")
     }
 
     override fun onAttachedToWindow() {
@@ -80,6 +84,28 @@ class Greetings @JvmOverloads constructor(
     }
 
     override fun isFocused(): Boolean = true
+
+    private fun loadCache() {
+        lastWeatherText = prefs.getString("cached_text", null)
+        lastWeatherTime = prefs.getLong("cached_time", 0L)
+        lastLat = prefs.getFloat("cached_lat", 0f).toDouble()
+        lastLon = prefs.getFloat("cached_lon", 0f).toDouble()
+    }
+
+    private fun saveCache(text: String, time: Long, lat: Double, lon: Double) {
+        lastWeatherText = text
+        lastWeatherTime = time
+        lastLat = lat
+        lastLon = lon
+        
+        prefs.edit().apply {
+            putString("cached_text", text)
+            putLong("cached_time", time)
+            putFloat("cached_lat", lat.toFloat())
+            putFloat("cached_lon", lon.toFloat())
+            apply()
+        }
+    }
 
     private fun checkSettingsAndFetch() {
         showWeather = DataStore.showWeatherInfo
@@ -191,12 +217,11 @@ class Greetings @JvmOverloads constructor(
                 val locSuffix = if (locationName.isNotEmpty()) " ($locationName)" else ""
                 val weatherText = "$prefix $condition $emoji , $temp°C$locSuffix"
 
-                lastWeatherText = weatherText
-                lastWeatherTime = now
-                lastLat = lat
-                lastLon = lon
+                withContext(Dispatchers.Main) { 
+                    saveCache(weatherText, now, lat, lon)
+                    updateGreeting(weatherText) 
+                }
 
-                withContext(Dispatchers.Main) { updateGreeting(weatherText) }
             } catch (e: Exception) {
                 e.printStackTrace()
                 if (lastWeatherText != null) {
@@ -231,13 +256,13 @@ class Greetings @JvmOverloads constructor(
         2 -> "⛅"
         3 -> "☁️"
         45, 48 -> "🌫️"
-        51, 53, 55 -> "🌧️"
+        in 51..55 -> "🌧️"
         56, 57 -> "❄️"
-        61, 63, 65 -> "🌧️"
+        in 61..65 -> "🌧️"
         66, 67 -> "❄️"
-        71, 73, 75 -> "❄️"
+        in 71..75 -> "❄️"
         77 -> "❄️"
-        80, 81, 82 -> "🌦️"
+        in 80..82 -> "🌦️"
         85, 86 -> "❄️"
         95 -> "⛈️"
         96, 99 -> "⛈️"
@@ -249,21 +274,18 @@ class Greetings @JvmOverloads constructor(
             0 -> R.string.weather_clear
             1 -> R.string.weather_clear
             2 -> R.string.weather_partly_cloudy
-            3 -> R.string.weather_overcast
+            3 -> R.string.weather_cloudy 
             45, 48 -> R.string.weather_fog
             51, 53, 55 -> R.string.weather_drizzle
-            56, 57 -> R.string.weather_freezing_rain
+            56, 57 -> R.string.weather_drizzle
             61, 63, 65 -> R.string.weather_rain
-            66, 67 -> R.string.weather_freezing_rain
-            71, 73, 75 -> R.string.weather_snow
-            77 -> R.string.weather_snow_grains
+            66, 67 -> R.string.weather_rain
+            71, 73, 75, 77 -> R.string.weather_snow
             80, 81, 82 -> R.string.weather_showers
             85, 86 -> R.string.weather_snow
             95, 96, 99 -> R.string.weather_thunderstorm
             else -> R.string.weather_cloudy
         }
         return context.getString(resId)
-    }    
-}
- 
+    }
 }
