@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.*
 import android.content.pm.PackageManager
 import android.location.Geocoder
-import android.location.Location
 import android.os.*
 import android.util.AttributeSet
 import androidx.annotation.StringRes
@@ -29,13 +28,22 @@ class Greetings @JvmOverloads constructor(
     private val fusedClient by lazy { LocationServices.getFusedLocationProviderClient(context) }
     private val handler = Handler(Looper.getMainLooper())
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    private val prefs by lazy { context.getSharedPreferences("neko_weather_cache", Context.MODE_PRIVATE) }
 
     private var showWeather = false
-    private var lastWeatherTime = 0L
-    private var lastWeatherText: String? = null
     private var useManualCity = false
-
     private val weatherInterval = 30 * 60 * 1000L
+
+    private var cachedTemp: Int = -999
+    private var cachedCode: Int = -1
+    private var cachedCity: String = ""
+    private var lastWeatherTime: Long = 0L
+
+    private val KEY_TEMP = "w_temp"
+    private val KEY_CODE = "w_code"
+    private val KEY_CITY = "w_city"
+    private val KEY_TIME = "w_time"
+
     private val locationRequest = LocationRequest.Builder(
         Priority.PRIORITY_BALANCED_POWER_ACCURACY, 10_000L
     ).setMinUpdateIntervalMillis(60_000L).build()
@@ -45,14 +53,18 @@ class Greetings @JvmOverloads constructor(
             if (intent?.action in listOf(
                     Intent.ACTION_TIME_TICK, Intent.ACTION_TIME_CHANGED, Intent.ACTION_TIMEZONE_CHANGED
                 )
-            ) updateGreeting(lastWeatherText ?: "")
+            ) updateDisplay()
         }
     }
 
     init {
-        showWeather = DataStore.showWeatherInfo
-        useManualCity = DataStore.manualWeatherEnabled
-        updateGreeting()
+        cachedTemp = prefs.getInt(KEY_TEMP, -999)
+        cachedCode = prefs.getInt(KEY_CODE, -1)
+        cachedCity = prefs.getString(KEY_CITY, "") ?: ""
+        lastWeatherTime = prefs.getLong(KEY_TIME, 0L)
+
+        refreshSettings()
+        updateDisplay()
     }
 
     override fun onAttachedToWindow() {
@@ -63,10 +75,16 @@ class Greetings @JvmOverloads constructor(
             addAction(Intent.ACTION_TIMEZONE_CHANGED)
         })
 
-        showWeather = DataStore.showWeatherInfo
-        useManualCity = DataStore.manualWeatherEnabled
+        refreshSettings()
 
-        if (showWeather) fetchWeather()
+        if (showWeather) {
+            val now = System.currentTimeMillis()
+            if ((now - lastWeatherTime) < weatherInterval && cachedCode != -1) {
+                updateDisplay()
+            } else {
+                fetchWeather()
+            }
+        }
         scheduleWeatherRefresh()
     }
 
@@ -77,9 +95,13 @@ class Greetings @JvmOverloads constructor(
         coroutineScope.cancel()
     }
 
-    override fun isFocused(): Boolean = true
+    private fun refreshSettings() {
+        showWeather = DataStore.showWeatherInfo
+        useManualCity = DataStore.manualWeatherEnabled
+    }
 
     private fun scheduleWeatherRefresh() {
+        handler.removeCallbacksAndMessages(null)
         handler.postDelayed(object : Runnable {
             override fun run() {
                 if (showWeather) fetchWeather()
@@ -88,7 +110,7 @@ class Greetings @JvmOverloads constructor(
         }, weatherInterval)
     }
 
-    private fun updateGreeting(weatherText: String = "") {
+    private fun updateDisplay() {
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         @StringRes val greetRes = when (hour) {
             in 5..10 -> R.string.uwu_greeting_morning
@@ -97,9 +119,19 @@ class Greetings @JvmOverloads constructor(
             in 19..23 -> R.string.uwu_greeting_night
             else -> R.string.uwu_greeting_late_night
         }
-
         val greeting = context.getString(greetRes)
-        text = if (weatherText.isNotEmpty() && showWeather) "$greeting $weatherText" else greeting
+
+        if (showWeather && cachedCode != -1 && cachedTemp != -999) {
+            val condition = getLocalizedCondition(cachedCode)
+            val emoji = getWeatherEmoji(cachedCode)
+            val prefix = context.getString(R.string.weather_today)
+            
+            val locationSuffix = if (cachedCity.isNotEmpty()) " - $cachedCity" else ""
+            
+            text = "$greeting $prefix $condition $emoji , $cachedTemp°C$locationSuffix"
+        } else {
+            text = greeting
+        }
     }
 
     private fun fetchWeather() {
@@ -134,8 +166,9 @@ class Greetings @JvmOverloads constructor(
         coroutineScope.launch(Dispatchers.IO) {
             try {
                 val now = System.currentTimeMillis()
-                if ((now - lastWeatherTime) < weatherInterval && lastWeatherText != null) {
-                    withContext(Dispatchers.Main) { updateGreeting(lastWeatherText!!) }
+                
+                if ((now - lastWeatherTime) < weatherInterval && cachedCode != -1) {
+                    withContext(Dispatchers.Main) { updateDisplay() }
                     return@launch
                 }
 
@@ -159,19 +192,20 @@ class Greetings @JvmOverloads constructor(
                     "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current_weather=true"
                 ).readText()
                 val current = JSONObject(response).getJSONObject("current_weather")
-                val temp = current.getDouble("temperature").roundToInt()
-                val code = current.getInt("weathercode")
-
-                val condition = getLocalizedCondition(code)
-                val emoji = getWeatherEmoji(code)
-                val prefix = context.getString(R.string.weather_today)
                 
-                val locationSuffix = if (!resolvedCity.isNullOrEmpty()) " - $resolvedCity" else ""
-                val weatherText = "$prefix $condition $emoji , $temp°C$locationSuffix"
-
-                lastWeatherText = weatherText
+                cachedTemp = current.getDouble("temperature").roundToInt()
+                cachedCode = current.getInt("weathercode")
+                cachedCity = resolvedCity ?: ""
                 lastWeatherTime = now
-                withContext(Dispatchers.Main) { updateGreeting(weatherText) }
+
+                prefs.edit()
+                    .putInt(KEY_TEMP, cachedTemp)
+                    .putInt(KEY_CODE, cachedCode)
+                    .putString(KEY_CITY, cachedCity)
+                    .putLong(KEY_TIME, lastWeatherTime)
+                    .apply()
+
+                withContext(Dispatchers.Main) { updateDisplay() }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -189,7 +223,6 @@ class Greetings @JvmOverloads constructor(
                 val first = results.getJSONObject(0)
                 val lat = first.getDouble("latitude")
                 val lon = first.getDouble("longitude")
-                
                 val officialName = first.optString("name", city)
 
                 fetchWeatherByCoords(lat, lon, officialName)
