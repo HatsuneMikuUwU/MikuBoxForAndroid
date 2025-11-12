@@ -1226,6 +1226,8 @@ class ConfigurationFragment @JvmOverloads constructor(
 
         override fun onResume() {
             super.onResume()
+            
+            greetings?.checkReload()
 
             if (::configurationListView.isInitialized && configurationListView.size == 0) {
                 configurationListView.adapter = adapter
@@ -1995,13 +1997,6 @@ class ConfigurationFragment @JvmOverloads constructor(
                                 loadSavedBanner()
                             }
                         }
-                    }
-
-                    if (key == "manual_weather_city" || key == "manual_weather_enabled" || key == "show_weather_info") {
-                         if (!isAdded) return
-                         requireActivity().runOnUiThread {
-                             greetings?.reloadWeather()
-                         }
                     }
                 }
             }
