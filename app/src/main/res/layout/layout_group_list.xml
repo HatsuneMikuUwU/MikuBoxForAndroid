@@ -97,6 +97,7 @@
                                 android:text="@string/uwu_banner_title"
                                 android:singleLine="false" />
                             <com.neko.marquee.text.Greetings
+                                android:id="@+id/greeting_text"
                                 android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
                                 android:textSize="14.0sp"
                                 android:textColor="?attr/colorOnSurfaceVariant"
@@ -113,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0.0dip"
                         android:layout_marginBottom="0.0dip"
-                        android:layout_marginStart="8.0dip"
+                        android:layout_marginStart="5.0dip"
                         android:layout_marginEnd="16.0dip">
                         <LinearLayout
                             android:background="@drawable/uwu_bg_icon"
