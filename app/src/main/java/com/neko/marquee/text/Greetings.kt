@@ -6,6 +6,7 @@ import android.content.*
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.*
+import android.text.TextUtils
 import android.util.AttributeSet
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
@@ -58,6 +59,13 @@ class Greetings @JvmOverloads constructor(
     }
 
     init {
+        ellipsize = TextUtils.TruncateAt.MARQUEE
+        marqueeRepeatLimit = -1
+        isSingleLine = true
+        isSelected = true
+        isFocusable = true
+        isFocusableInTouchMode = true
+
         cachedTemp = prefs.getInt(KEY_TEMP, -999)
         cachedCode = prefs.getInt(KEY_CODE, -1)
         cachedCity = prefs.getString(KEY_CITY, "") ?: ""
@@ -67,8 +75,15 @@ class Greetings @JvmOverloads constructor(
         updateDisplay()
     }
 
+    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
+        if (hasWindowFocus) isSelected = true
+        super.onWindowFocusChanged(hasWindowFocus)
+    }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        isSelected = true
+        
         context.registerReceiver(timeReceiver, IntentFilter().apply {
             addAction(Intent.ACTION_TIME_TICK)
             addAction(Intent.ACTION_TIME_CHANGED)
@@ -90,7 +105,10 @@ class Greetings @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        context.unregisterReceiver(timeReceiver)
+        try {
+            context.unregisterReceiver(timeReceiver)
+        } catch (e: Exception) {
+        }
         handler.removeCallbacksAndMessages(null)
         coroutineScope.cancel()
     }
@@ -132,6 +150,8 @@ class Greetings @JvmOverloads constructor(
         } else {
             text = greeting
         }
+        
+        isSelected = true
     }
 
     private fun fetchWeather() {
