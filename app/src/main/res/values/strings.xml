@@ -657,6 +657,9 @@ Please grant this permission in System Settings."</string>
     <string name="weather_snow">snowy</string>
     <string name="weather_showers">showery</string>
     <string name="weather_thunderstorm">thunderstorm</string>
+    <string name="weather_overcast">overcast</string>
+    <string name="weather_freezing_rain">freezing Rain</string>
+    <string name="weather_snow_grains">snow grains</string>
     <string name="show_weather_info">Show weather info</string>
     <string name="show_weather_info_summary">Shows current weather in the greeting text</string>
     <string name="permission_location_title">Location Permission Required</string>
@@ -667,7 +670,7 @@ Please grant this permission in System Settings."</string>
     <string name="weather_manual_mode">Use manual location</string>
     <string name="weather_manual_summary">If enabled, use city name instead of GPS</string>
     <string name="weather_city">City name</string>
-    <string name="weather_city_dialog">Enter city name</string>
+    <string name="weather_city_dialog">Enter city name (example: Tokyo, Jakarta, Beijing)</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

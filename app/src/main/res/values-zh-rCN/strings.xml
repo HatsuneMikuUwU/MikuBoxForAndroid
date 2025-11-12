@@ -558,6 +558,9 @@
      <string name="weather_snow">下雪</string>
      <string name="weather_showers">阵雨</string>
      <string name="weather_thunderstorm">雷雨</string>
+     <string name="weather_overcast">阴</string>
+     <string name="weather_freezing_rain">冻雨</string>
+     <string name="weather_snow_grains">米雪</string>
      <string name="show_weather_info">显示天气信息</string>
      <string name="show_weather_info_summary">在问候语中显示当前天气状况</string>
      <string name="permission_location_title">需要位置权限</string>
@@ -568,7 +571,7 @@
      <string name="weather_manual_mode">使用手动定位</string>
      <string name="weather_manual_summary">启用后，将使用城市名称而非 GPS</string>
      <string name="weather_city">城市名称</string>
-     <string name="weather_city_dialog">输入城市名称</string>
+     <string name="weather_city_dialog">输入城市名称（例如：东京、雅加达、北京）</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>
