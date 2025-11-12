@@ -4,21 +4,18 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.*
 import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.Location
 import android.os.*
 import android.util.AttributeSet
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import androidx.core.os.ConfigurationCompat
 import com.google.android.gms.location.*
-import com.google.android.gms.tasks.CancellationTokenSource
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.net.URL
+import java.net.URLEncoder
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -31,116 +28,66 @@ class Greetings @JvmOverloads constructor(
     private val fusedClient by lazy { LocationServices.getFusedLocationProviderClient(context) }
     private val handler = Handler(Looper.getMainLooper())
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
-    
-    private val prefs by lazy { context.getSharedPreferences("neko_weather_cache", Context.MODE_PRIVATE) }
 
     private var showWeather = false
-    private var useManualCity = false
-    
     private var lastWeatherTime = 0L
-    private var lastLat = 0.0
-    private var lastLon = 0.0
-    private var cachedTemp = 0
-    private var cachedCode = -1
-    private var cachedLocName = ""
+    private var lastWeatherText: String? = null
+    private var useManualCity = false
 
     private val weatherInterval = 30 * 60 * 1000L
-    private val minDistanceChange = 2000f
+    private val locationRequest = LocationRequest.Builder(
+        Priority.PRIORITY_BALANCED_POWER_ACCURACY, 10_000L
+    ).setMinUpdateIntervalMillis(60_000L).build()
 
     private val timeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action in listOf(
-                    Intent.ACTION_TIME_TICK, 
-                    Intent.ACTION_TIME_CHANGED, 
-                    Intent.ACTION_TIMEZONE_CHANGED
+                    Intent.ACTION_TIME_TICK, Intent.ACTION_TIME_CHANGED, Intent.ACTION_TIMEZONE_CHANGED
                 )
-            ) {
-                refreshGreetingText()
-            }
+            ) updateGreeting(lastWeatherText ?: "")
         }
     }
 
     init {
         showWeather = DataStore.showWeatherInfo
         useManualCity = DataStore.manualWeatherEnabled
-        
-        loadCache()
-        refreshGreetingText()
+        updateGreeting()
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        val filter = IntentFilter().apply {
+        context.registerReceiver(timeReceiver, IntentFilter().apply {
             addAction(Intent.ACTION_TIME_TICK)
             addAction(Intent.ACTION_TIME_CHANGED)
             addAction(Intent.ACTION_TIMEZONE_CHANGED)
-        }
-        context.registerReceiver(timeReceiver, filter)
+        })
 
-        checkSettingsAndFetch()
+        showWeather = DataStore.showWeatherInfo
+        useManualCity = DataStore.manualWeatherEnabled
+
+        if (showWeather) fetchWeather()
+        scheduleWeatherRefresh()
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        try {
-            context.unregisterReceiver(timeReceiver)
-        } catch (e: Exception) {
-        }
+        context.unregisterReceiver(timeReceiver)
         handler.removeCallbacksAndMessages(null)
         coroutineScope.cancel()
     }
 
     override fun isFocused(): Boolean = true
 
-    private fun getAppLocale(): Locale {
-        return ConfigurationCompat.getLocales(context.resources.configuration)[0] 
-            ?: Locale.getDefault()
+    private fun scheduleWeatherRefresh() {
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                if (showWeather) fetchWeather()
+                handler.postDelayed(this, weatherInterval)
+            }
+        }, weatherInterval)
     }
 
-    private fun loadCache() {
-        lastWeatherTime = prefs.getLong("cached_time", 0L)
-        lastLat = prefs.getFloat("cached_lat", 0f).toDouble()
-        lastLon = prefs.getFloat("cached_lon", 0f).toDouble()
-        cachedTemp = prefs.getInt("cached_temp", 0)
-        cachedCode = prefs.getInt("cached_code", -1)
-        cachedLocName = prefs.getString("cached_loc_name", "") ?: ""
-    }
-
-    private fun saveCache(time: Long, lat: Double, lon: Double, temp: Int, code: Int, locName: String) {
-        lastWeatherTime = time
-        lastLat = lat
-        lastLon = lon
-        cachedTemp = temp
-        cachedCode = code
-        cachedLocName = locName
-        
-        prefs.edit().apply {
-            putLong("cached_time", time)
-            putFloat("cached_lat", lat.toFloat())
-            putFloat("cached_lon", lon.toFloat())
-            putInt("cached_temp", temp)
-            putInt("cached_code", code)
-            putString("cached_loc_name", locName)
-            apply()
-        }
-    }
-
-    private fun refreshGreetingText() {
-        val weatherString = if (cachedCode != -1 && showWeather) {
-            val condition = getLocalizedCondition(cachedCode)
-            val emoji = getWeatherEmoji(cachedCode)
-            val prefix = context.getString(R.string.weather_today)
-            val locSuffix = if (cachedLocName.isNotEmpty()) " ($cachedLocName)" else ""
-            
-            "$prefix $condition $emoji , $cachedTemp°C$locSuffix"
-        } else {
-            ""
-        }
-        
-        updateTextView(weatherString)
-    }
-
-    private fun updateTextView(weatherText: String) {
+    private fun updateGreeting(weatherText: String = "") {
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         @StringRes val greetRes = when (hour) {
             in 5..10 -> R.string.uwu_greeting_morning
@@ -152,16 +99,6 @@ class Greetings @JvmOverloads constructor(
 
         val greeting = context.getString(greetRes)
         text = if (weatherText.isNotEmpty() && showWeather) "$greeting $weatherText" else greeting
-    }
-
-    private fun checkSettingsAndFetch() {
-        showWeather = DataStore.showWeatherInfo
-        useManualCity = DataStore.manualWeatherEnabled
-        
-        if (showWeather) fetchWeather()
-        
-        handler.removeCallbacksAndMessages(null)
-        handler.postDelayed({ checkSettingsAndFetch() }, weatherInterval)
     }
 
     private fun fetchWeather() {
@@ -178,81 +115,52 @@ class Greetings @JvmOverloads constructor(
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
         ) {
-            fetchWeatherByCity(DataStore.manualWeatherCity.ifEmpty { "Tokyo" })
+            fetchWeatherByCity("Tokyo")
             return
         }
 
-        val cancellationTokenSource = CancellationTokenSource()
-        fusedClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, cancellationTokenSource.token)
-            .addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    fetchWeatherByCoords(location.latitude, location.longitude)
-                } else {
-                    fusedClient.lastLocation.addOnSuccessListener { lastLoc ->
-                        if (lastLoc != null) {
-                            fetchWeatherByCoords(lastLoc.latitude, lastLoc.longitude)
-                        } else {
-                            fetchWeatherByCity("Tokyo")
-                        }
-                    }
-                }
+        fusedClient.requestLocationUpdates(locationRequest, object : LocationCallback() {
+            override fun onLocationResult(result: LocationResult) {
+                fusedClient.removeLocationUpdates(this)
+                val loc = result.lastLocation
+                if (loc != null) fetchWeatherByCoords(loc.latitude, loc.longitude)
+                else fetchWeatherByCity("Tokyo")
             }
-            .addOnFailureListener {
-                fetchWeatherByCity("Tokyo")
-            }
+        }, Looper.getMainLooper())
     }
 
     private fun fetchWeatherByCoords(lat: Double, lon: Double) {
         coroutineScope.launch(Dispatchers.IO) {
             try {
                 val now = System.currentTimeMillis()
-                val dist = FloatArray(1)
-                Location.distanceBetween(lastLat, lastLon, lat, lon, dist)
-                val distanceChanged = dist[0] > minDistanceChange
-
-                if ((now - lastWeatherTime) < weatherInterval && !distanceChanged && cachedCode != -1) {
-                    withContext(Dispatchers.Main) { refreshGreetingText() }
+                if ((now - lastWeatherTime) < weatherInterval && lastWeatherText != null) {
+                    withContext(Dispatchers.Main) { updateGreeting(lastWeatherText!!) }
                     return@launch
                 }
 
-                var locationName = ""
-                try {
-                    val geocoder = Geocoder(context, getAppLocale())
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        geocoder.getFromLocation(lat, lon, 1) { addresses ->
-                            if (addresses.isNotEmpty()) {
-                                locationName = addresses[0].subLocality ?: addresses[0].locality ?: ""
-                            }
-                        }
-                    } else {
-                        @Suppress("DEPRECATION")
-                        val addresses = geocoder.getFromLocation(lat, lon, 1)
-                        if (!addresses.isNullOrEmpty()) {
-                            locationName = addresses[0].subLocality ?: addresses[0].locality ?: ""
-                        }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                val geoUrl = "https://geocoding-api.open-meteo.com/v1/reverse?latitude=$lat&longitude=$lon"
+                val geoResponse = URL(geoUrl).readText()
+                val geoJson = JSONObject(geoResponse)
+                val cityName = geoJson.optJSONArray("results")
+                    ?.optJSONObject(0)?.optString("name") ?: "Your location"
 
                 val response = URL(
-                    "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current_weather=true&timezone=auto"
+                    "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current_weather=true"
                 ).readText()
-                
                 val current = JSONObject(response).getJSONObject("current_weather")
                 val temp = current.getDouble("temperature").roundToInt()
                 val code = current.getInt("weathercode")
 
-                withContext(Dispatchers.Main) { 
-                    saveCache(now, lat, lon, temp, code, locationName)
-                    refreshGreetingText() 
-                }
+                val condition = getLocalizedCondition(code)
+                val emoji = getWeatherEmoji(code)
+                val prefix = context.getString(R.string.weather_today)
+                val weatherText = "$prefix $condition $emoji, $temp°C ($cityName)"
 
+                lastWeatherText = weatherText
+                lastWeatherTime = now
+                withContext(Dispatchers.Main) { updateGreeting(weatherText) }
             } catch (e: Exception) {
                 e.printStackTrace()
-                if (cachedCode != -1) {
-                    withContext(Dispatchers.Main) { refreshGreetingText() }
-                }
             }
         }
     }
@@ -260,16 +168,32 @@ class Greetings @JvmOverloads constructor(
     private fun fetchWeatherByCity(city: String) {
         coroutineScope.launch(Dispatchers.IO) {
             try {
-                val geoResponse = URL("https://geocoding-api.open-meteo.com/v1/search?name=$city&count=1").readText()
+                val encoded = URLEncoder.encode(city, "UTF-8")
+                val geoResponse = URL("https://geocoding-api.open-meteo.com/v1/search?name=$encoded").readText()
                 val geoJson = JSONObject(geoResponse)
                 val results = geoJson.optJSONArray("results") ?: return@launch
-                
-                if (results.length() > 0) {
-                    val first = results.getJSONObject(0)
-                    val lat = first.getDouble("latitude")
-                    val lon = first.getDouble("longitude")
-                    fetchWeatherByCoords(lat, lon)
-                }
+                if (results.length() == 0) return@launch
+
+                val first = results.getJSONObject(0)
+                val lat = first.getDouble("latitude")
+                val lon = first.getDouble("longitude")
+                val cityName = first.optString("name", city)
+
+                val response = URL(
+                    "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current_weather=true"
+                ).readText()
+                val current = JSONObject(response).getJSONObject("current_weather")
+                val temp = current.getDouble("temperature").roundToInt()
+                val code = current.getInt("weathercode")
+
+                val condition = getLocalizedCondition(code)
+                val emoji = getWeatherEmoji(code)
+                val prefix = context.getString(R.string.weather_today)
+                val weatherText = "$prefix $condition $emoji, $temp°C — $cityName"
+
+                lastWeatherText = weatherText
+                lastWeatherTime = System.currentTimeMillis()
+                withContext(Dispatchers.Main) { updateGreeting(weatherText) }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
