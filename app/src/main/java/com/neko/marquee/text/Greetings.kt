@@ -34,10 +34,7 @@ class Greetings @JvmOverloads constructor(
     private var lastWeatherText: String? = null
     private var useManualCity = false
 
-    private val weatherInterval = 30 * 60 * 1000L
-    private val locationRequest = LocationRequest.Builder(
-        Priority.PRIORITY_BALANCED_POWER_ACCURACY, 10_000L
-    ).setMinUpdateIntervalMillis(60_000L).build()
+    private val weatherInterval = 30 * 60 * 1000L // 30 menit
 
     private val timeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -106,12 +103,12 @@ class Greetings @JvmOverloads constructor(
             val city = DataStore.manualWeatherCity.ifEmpty { "Tokyo" }
             fetchWeatherByCity(city)
         } else {
-            fetchWeatherByGPS()
+            fetchWeatherByGPSHighAccuracy()
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun fetchWeatherByGPS() {
+    private fun fetchWeatherByGPSHighAccuracy() {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
         ) {
@@ -119,14 +116,28 @@ class Greetings @JvmOverloads constructor(
             return
         }
 
-        fusedClient.requestLocationUpdates(locationRequest, object : LocationCallback() {
-            override fun onLocationResult(result: LocationResult) {
-                fusedClient.removeLocationUpdates(this)
-                val loc = result.lastLocation
-                if (loc != null) fetchWeatherByCoords(loc.latitude, loc.longitude)
-                else fetchWeatherByCity("Tokyo")
+        val highAccRequest = CurrentLocationRequest.Builder()
+            .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+            .setMaxUpdateAgeMillis(0)
+            .build()
+
+        coroutineScope.launch {
+            try {
+                val loc = withContext(Dispatchers.IO) {
+                    fusedClient.getCurrentLocation(highAccRequest, null).awaitWithTimeout(5000)
+                        ?: fusedClient.lastLocation.awaitWithTimeout(3000)
+                }
+
+                if (loc != null) {
+                    fetchWeatherByCoords(loc.latitude, loc.longitude)
+                } else {
+                    fetchWeatherByCity("Tokyo")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                fetchWeatherByCity("Tokyo")
             }
-        }, Looper.getMainLooper())
+        }
     }
 
     private fun fetchWeatherByCoords(lat: Double, lon: Double) {
@@ -142,7 +153,7 @@ class Greetings @JvmOverloads constructor(
                 val geoResponse = URL(geoUrl).readText()
                 val geoJson = JSONObject(geoResponse)
                 val cityName = geoJson.optJSONArray("results")
-                    ?.optJSONObject(0)?.optString("name") ?: "Your location"
+                    ?.optJSONObject(0)?.optString("name") ?: "Your Location"
 
                 val response = URL(
                     "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current_weather=true"
@@ -238,4 +249,12 @@ class Greetings @JvmOverloads constructor(
         }
         return context.getString(resId)
     }
+
+    private suspend fun <T> Task<T>.awaitWithTimeout(timeoutMillis: Long): T? =
+        withTimeoutOrNull(timeoutMillis) {
+            suspendCancellableCoroutine { cont ->
+                addOnSuccessListener { cont.resume(it, null) }
+                addOnFailureListener { cont.resume(null, null) }
+            }
+        }
 }
