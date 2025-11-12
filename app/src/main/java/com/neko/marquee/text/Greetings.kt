@@ -40,13 +40,13 @@ class Greetings @JvmOverloads constructor(
     private var cachedCity: String = ""
     private var lastWeatherTime: Long = 0L
 
-    private var lastLoadedCity: String = ""
-    private var lastLoadedManualState: Boolean = false
-
     private val KEY_TEMP = "w_temp"
     private val KEY_CODE = "w_code"
     private val KEY_CITY = "w_city"
     private val KEY_TIME = "w_time"
+    
+    private val KEY_IS_MANUAL = "w_is_manual"
+    private val KEY_MANUAL_NAME = "w_manual_name"
 
     private val locationRequest = LocationRequest.Builder(
         Priority.PRIORITY_BALANCED_POWER_ACCURACY, 10_000L
@@ -74,49 +74,8 @@ class Greetings @JvmOverloads constructor(
         cachedCity = prefs.getString(KEY_CITY, "") ?: ""
         lastWeatherTime = prefs.getLong(KEY_TIME, 0L)
 
-        lastLoadedCity = DataStore.manualWeatherCity
-        lastLoadedManualState = DataStore.manualWeatherEnabled
-
         refreshSettings()
         updateDisplay()
-    }
-
-    fun checkReload() {
-        val currentCity = DataStore.manualWeatherCity
-        val currentState = DataStore.manualWeatherEnabled
-        
-        if (currentCity != lastLoadedCity || currentState != lastLoadedManualState) {
-            reloadWeather(force = true)
-        } else {
-            reloadWeather(force = false)
-        }
-    }
-
-    fun reloadWeather(force: Boolean = false) {
-        refreshSettings()
-        
-        lastLoadedCity = DataStore.manualWeatherCity
-        lastLoadedManualState = DataStore.manualWeatherEnabled
-
-        if (force) {
-            lastWeatherTime = 0L
-            cachedCode = -1
-            
-        }
-        
-        updateDisplay()
-
-        if (showWeather) {
-            if (force) {
-                fetchWeather()
-            } else {
-                val now = System.currentTimeMillis()
-                if ((now - lastWeatherTime) < weatherInterval && cachedCode != -1) {
-                } else {
-                    fetchWeather()
-                }
-            }
-        }
     }
 
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
@@ -134,7 +93,11 @@ class Greetings @JvmOverloads constructor(
             addAction(Intent.ACTION_TIMEZONE_CHANGED)
         })
 
-        checkReload()
+        refreshSettings()
+
+        if (showWeather) {
+            fetchWeather()
+        }
         scheduleWeatherRefresh()
     }
 
@@ -221,6 +184,21 @@ class Greetings @JvmOverloads constructor(
         coroutineScope.launch(Dispatchers.IO) {
             try {
                 val now = System.currentTimeMillis()
+                
+                val storedIsManual = prefs.getBoolean(KEY_IS_MANUAL, false)
+                val storedManualCity = prefs.getString(KEY_MANUAL_NAME, "") ?: ""
+                val currentManualCity = DataStore.manualWeatherCity
+
+                val isTimeValid = (now - lastWeatherTime) < weatherInterval
+               
+                val isModeValid = (storedIsManual == useManualCity)
+                
+                val isCityValid = if (useManualCity) (storedManualCity == currentManualCity) else true
+
+                if (isTimeValid && isModeValid && isCityValid && cachedCode != -1) {
+                    withContext(Dispatchers.Main) { updateDisplay() }
+                    return@launch
+                }
 
                 var resolvedCity = cityName
                 if (resolvedCity == null) {
@@ -253,6 +231,8 @@ class Greetings @JvmOverloads constructor(
                     .putInt(KEY_CODE, cachedCode)
                     .putString(KEY_CITY, cachedCity)
                     .putLong(KEY_TIME, lastWeatherTime)
+                    .putBoolean(KEY_IS_MANUAL, useManualCity)
+                    .putString(KEY_MANUAL_NAME, if(useManualCity) currentManualCity else "")
                     .apply()
 
                 withContext(Dispatchers.Main) { updateDisplay() }
@@ -265,6 +245,19 @@ class Greetings @JvmOverloads constructor(
     private fun fetchWeatherByCity(city: String) {
         coroutineScope.launch(Dispatchers.IO) {
             try {
+                val now = System.currentTimeMillis()
+                val storedIsManual = prefs.getBoolean(KEY_IS_MANUAL, false)
+                val storedManualCity = prefs.getString(KEY_MANUAL_NAME, "") ?: ""
+                
+                val isTimeValid = (now - lastWeatherTime) < weatherInterval
+                val isModeValid = (storedIsManual == useManualCity)
+                val isCityValid = (storedManualCity == city)
+
+                if (isTimeValid && isModeValid && isCityValid && cachedCode != -1) {
+                    withContext(Dispatchers.Main) { updateDisplay() }
+                    return@launch
+                }
+                
                 val geoResponse = URL("https://geocoding-api.open-meteo.com/v1/search?name=$city").readText()
                 val geoJson = JSONObject(geoResponse)
                 val results = geoJson.optJSONArray("results") ?: return@launch

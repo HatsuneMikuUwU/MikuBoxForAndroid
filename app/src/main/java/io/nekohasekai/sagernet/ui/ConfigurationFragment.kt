@@ -130,7 +130,6 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.zip.ZipInputStream
-import com.neko.marquee.text.Greetings
 
 
 class ConfigurationFragment @JvmOverloads constructor(
@@ -150,8 +149,6 @@ class ConfigurationFragment @JvmOverloads constructor(
     lateinit var adapter: GroupPagerAdapter
     lateinit var tabLayout: TabLayout
     lateinit var groupPager: ViewPager2
-    
-    private var greetings: Greetings? = null
 
     private var bannerLayoutListener: OnPreferenceDataStoreChangeListener? = null
 
@@ -198,8 +195,6 @@ class ConfigurationFragment @JvmOverloads constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-        greetings = view.findViewById(R.id.greeting_text)
 
         setupBannerLayoutController()
 
@@ -269,11 +264,6 @@ class ConfigurationFragment @JvmOverloads constructor(
         }
 
         DataStore.profileCacheStore.registerChangeListener(this)
-    }
-    
-    override fun onResume() {
-        super.onResume()
-        greetings?.checkReload()
     }
 
     override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {
