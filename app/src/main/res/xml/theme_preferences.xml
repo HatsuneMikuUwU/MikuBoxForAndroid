@@ -116,18 +116,27 @@
             android:widgetLayout="@layout/uwu_switch"
             app:defaultValue="false"
             app:dependency="show_weather_info"
-            app:icon="@drawable/ic_toggle_switch"
+            app:icon="@drawable/ic_map_marker_outline"
             app:key="manual_weather_enabled"
             app:summary="@string/weather_manual_summary"
             app:title="@string/weather_manual_mode" />
         <EditTextPreference
-            android:layout="@layout/uwu_bot"
+            android:layout="@layout/uwu_mid"
             app:dependency="manual_weather_enabled"
             app:dialogMessage="@string/weather_city_dialog"
             app:icon="@drawable/ic_city"
             app:key="manual_weather_city"
             app:title="@string/weather_city"
             app:useSimpleSummaryProvider="true" />
+       <SwitchPreference
+            android:layout="@layout/uwu_bot_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            app:defaultValue="true"
+            app:dependency="show_weather_info"
+            app:icon="@drawable/ic_toggle_switch"
+            app:key="show_weather_condition"
+            app:summary="@string/show_weather_condition_summary"
+            app:title="@string/show_weather_condition" />
        </PreferenceCategory>
        <PreferenceCategory
             app:title="@string/bottom_bar_category">

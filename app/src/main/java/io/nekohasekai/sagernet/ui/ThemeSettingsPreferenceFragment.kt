@@ -210,6 +210,15 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
         }
 
+        val weatherConditionSwitch = findPreference<SwitchPreference>("show_weather_condition")
+        weatherConditionSwitch?.apply {
+            isChecked = DataStore.showWeatherCondition
+            setOnPreferenceChangeListener { _, newValue ->
+                DataStore.showWeatherCondition = newValue as Boolean
+                true
+            }
+        }
+
         val dpiPref = findPreference<DpiEditTextPreference>("custom_dpi")
         dpiPref?.apply {
             val defaultDpi = resources.displayMetrics.densityDpi

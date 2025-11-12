@@ -572,6 +572,9 @@
      <string name="weather_manual_summary">启用后，将使用城市名称而非 GPS</string>
      <string name="weather_city">城市名称</string>
      <string name="weather_city_dialog">输入城市名称（例如：东京、雅加达、北京）</string>
+     <string name="show_weather_condition">显示天气状况</string>
+     <string name="show_weather_condition_summary">显示前缀文本和天气状况描述</string>
+
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>

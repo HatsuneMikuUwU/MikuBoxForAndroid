@@ -33,6 +33,8 @@ class Greetings @JvmOverloads constructor(
 
     private var showWeather = false
     private var useManualCity = false
+    private var showCondition = true
+    
     private val weatherInterval = 30 * 60 * 1000L
 
     private var cachedTemp: Int = -999
@@ -114,6 +116,7 @@ class Greetings @JvmOverloads constructor(
     private fun refreshSettings() {
         showWeather = DataStore.showWeatherInfo
         useManualCity = DataStore.manualWeatherEnabled
+        showCondition = DataStore.showWeatherCondition 
     }
 
     private fun scheduleWeatherRefresh() {
@@ -138,13 +141,18 @@ class Greetings @JvmOverloads constructor(
         val greeting = context.getString(greetRes)
 
         if (showWeather && cachedCode != -1 && cachedTemp != -999) {
-            val condition = getLocalizedCondition(cachedCode)
             val emoji = getWeatherEmoji(cachedCode)
-            val prefix = context.getString(R.string.weather_today)
-            
             val locationSuffix = if (cachedCity.isNotEmpty()) " - $cachedCity" else ""
+
+            val weatherString = if (showCondition) {
+                val condition = getLocalizedCondition(cachedCode)
+                val prefix = context.getString(R.string.weather_today)
+                "$prefix $condition $emoji"
+            } else {
+                emoji
+            }
             
-            text = "$greeting $prefix $condition $emoji , $cachedTemp°C$locationSuffix"
+            text = "$greeting $weatherString $cachedTemp°C$locationSuffix"
         } else {
             text = greeting
         }
@@ -190,9 +198,7 @@ class Greetings @JvmOverloads constructor(
                 val currentManualCity = DataStore.manualWeatherCity
 
                 val isTimeValid = (now - lastWeatherTime) < weatherInterval
-               
                 val isModeValid = (storedIsManual == useManualCity)
-                
                 val isCityValid = if (useManualCity) (storedManualCity == currentManualCity) else true
 
                 if (isTimeValid && isModeValid && isCityValid && cachedCode != -1) {

@@ -671,6 +671,8 @@ Please grant this permission in System Settings."</string>
     <string name="weather_manual_summary">If enabled, use city name instead of GPS</string>
     <string name="weather_city">City name</string>
     <string name="weather_city_dialog">Enter city name (example: Tokyo, Jakarta, Beijing)</string>
+    <string name="show_weather_condition">Show weather condition</string>
+    <string name="show_weather_condition_summary">Show prefix text and weather condition description</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>
