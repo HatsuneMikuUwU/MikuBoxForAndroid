@@ -2,21 +2,28 @@ package com.neko.marquee.text
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.location.Geocoder
-import android.os.*
-import android.text.TextUtils
 import android.util.AttributeSet
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import com.google.android.gms.location.*
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.net.URL
+import java.net.URLEncoder
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -27,15 +34,17 @@ class Greetings @JvmOverloads constructor(
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     private val fusedClient by lazy { LocationServices.getFusedLocationProviderClient(context) }
-    private val handler = Handler(Looper.getMainLooper())
-    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    
+    private var weatherJob: Job? = null
+    private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+    
     private val prefs by lazy { context.getSharedPreferences("neko_weather_cache", Context.MODE_PRIVATE) }
 
     private var showWeather = false
     private var useManualCity = false
     private var showCondition = true
     
-    private val weatherInterval = 30 * 60 * 1000L
+    private val weatherInterval = 60 * 60 * 1000L
 
     private var cachedTemp: Int = -999
     private var cachedCode: Int = -1
@@ -46,7 +55,6 @@ class Greetings @JvmOverloads constructor(
     private val KEY_CODE = "w_code"
     private val KEY_CITY = "w_city"
     private val KEY_TIME = "w_time"
-    
     private val KEY_IS_MANUAL = "w_is_manual"
     private val KEY_MANUAL_NAME = "w_manual_name"
 
@@ -57,50 +65,45 @@ class Greetings @JvmOverloads constructor(
     private val timeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action in listOf(
-                    Intent.ACTION_TIME_TICK, Intent.ACTION_TIME_CHANGED, Intent.ACTION_TIMEZONE_CHANGED
+                    Intent.ACTION_TIME_TICK, 
+                    Intent.ACTION_TIME_CHANGED, 
+                    Intent.ACTION_TIMEZONE_CHANGED
                 )
-            ) updateDisplay()
+            ) {
+                updateDisplay()
+            }
         }
     }
 
     init {
-        ellipsize = TextUtils.TruncateAt.MARQUEE
+        ellipsize = android.text.TextUtils.TruncateAt.MARQUEE
         marqueeRepeatLimit = -1
         isSingleLine = true
         isSelected = true
         isFocusable = true
         isFocusableInTouchMode = true
+        freezesText = true
 
         cachedTemp = prefs.getInt(KEY_TEMP, -999)
         cachedCode = prefs.getInt(KEY_CODE, -1)
         cachedCity = prefs.getString(KEY_CITY, "") ?: ""
         lastWeatherTime = prefs.getLong(KEY_TIME, 0L)
-
-        refreshSettings()
-        updateDisplay()
-    }
-
-    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
-        if (hasWindowFocus) isSelected = true
-        super.onWindowFocusChanged(hasWindowFocus)
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         isSelected = true
-        
-        context.registerReceiver(timeReceiver, IntentFilter().apply {
+
+        val filter = IntentFilter().apply {
             addAction(Intent.ACTION_TIME_TICK)
             addAction(Intent.ACTION_TIME_CHANGED)
             addAction(Intent.ACTION_TIMEZONE_CHANGED)
-        })
+        }
+        context.registerReceiver(timeReceiver, filter)
 
         refreshSettings()
-
-        if (showWeather) {
-            fetchWeather()
-        }
-        scheduleWeatherRefresh()
+        updateDisplay()
+        startWeatherLoop()
     }
 
     override fun onDetachedFromWindow() {
@@ -109,8 +112,13 @@ class Greetings @JvmOverloads constructor(
             context.unregisterReceiver(timeReceiver)
         } catch (e: Exception) {
         }
-        handler.removeCallbacksAndMessages(null)
-        coroutineScope.cancel()
+        weatherJob?.cancel()
+        scope.coroutineContext.cancelChildren()
+    }
+
+    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
+        super.onWindowFocusChanged(hasWindowFocus)
+        if (hasWindowFocus) isSelected = true
     }
 
     private fun refreshSettings() {
@@ -119,14 +127,17 @@ class Greetings @JvmOverloads constructor(
         showCondition = DataStore.showWeatherCondition 
     }
 
-    private fun scheduleWeatherRefresh() {
-        handler.removeCallbacksAndMessages(null)
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                if (showWeather) fetchWeather()
-                handler.postDelayed(this, weatherInterval)
+    private fun startWeatherLoop() {
+        weatherJob?.cancel()
+        weatherJob = scope.launch {
+            while (isActive) {
+                if (showWeather) {
+                    refreshSettings()
+                    fetchWeather()
+                }
+                delay(weatherInterval)
             }
-        }, weatherInterval)
+        }
     }
 
     private fun updateDisplay() {
@@ -138,31 +149,49 @@ class Greetings @JvmOverloads constructor(
             in 19..23 -> R.string.uwu_greeting_night
             else -> R.string.uwu_greeting_late_night
         }
+        
         val greeting = context.getString(greetRes)
+        val sb = StringBuilder(greeting)
 
         if (showWeather && cachedCode != -1 && cachedTemp != -999) {
             val emoji = getWeatherEmoji(cachedCode)
             val locationSuffix = if (cachedCity.isNotEmpty()) " - $cachedCity" else ""
+            
+            sb.append("  ")
 
-            val weatherString = if (showCondition) {
+            if (showCondition) {
                 val condition = getLocalizedCondition(cachedCode)
                 val prefix = context.getString(R.string.weather_today)
-                "$prefix $condition $emoji"
+                sb.append("$prefix $condition $emoji")
             } else {
-                emoji
+                sb.append(emoji)
             }
-            
-            text = "$greeting $weatherString $cachedTemp°C$locationSuffix"
-        } else {
-            text = greeting
+            sb.append(" $cachedTemp°C$locationSuffix")
         }
+
+        text = sb.toString()
         
-        isSelected = true
+        isSelected = false
+        isSelected = true 
     }
 
-    private fun fetchWeather() {
+    private suspend fun fetchWeather() {
+        val now = System.currentTimeMillis()
+        val storedIsManual = prefs.getBoolean(KEY_IS_MANUAL, false)
+        val storedManualCity = prefs.getString(KEY_MANUAL_NAME, "") ?: ""
+        val currentManualCity = DataStore.manualWeatherCity
+
+        val isTimeValid = (now - lastWeatherTime) < weatherInterval
+        val isModeValid = (storedIsManual == useManualCity)
+        val isCityValid = if (useManualCity) (storedManualCity == currentManualCity) else true
+
+        if (isTimeValid && isModeValid && isCityValid && cachedCode != -1) {
+            withContext(Dispatchers.Main) { updateDisplay() }
+            return
+        }
+
         if (useManualCity) {
-            val city = DataStore.manualWeatherCity.ifEmpty { "Tokyo" }
+            val city = currentManualCity.ifEmpty { "Tokyo" }
             fetchWeatherByCity(city)
         } else {
             fetchWeatherByGPS()
@@ -170,104 +199,37 @@ class Greetings @JvmOverloads constructor(
     }
 
     @SuppressLint("MissingPermission")
-    private fun fetchWeatherByGPS() {
+    private suspend fun fetchWeatherByGPS() {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
         ) {
             fetchWeatherByCity("Tokyo")
             return
         }
-
-        fusedClient.requestLocationUpdates(locationRequest, object : LocationCallback() {
-            override fun onLocationResult(result: LocationResult) {
-                fusedClient.removeLocationUpdates(this)
-                val loc = result.lastLocation
-                if (loc != null) fetchWeatherByCoords(loc.latitude, loc.longitude, null)
-                else fetchWeatherByCity("Tokyo")
-            }
-        }, Looper.getMainLooper())
-    }
-
-    private fun fetchWeatherByCoords(lat: Double, lon: Double, cityName: String?) {
-        coroutineScope.launch(Dispatchers.IO) {
-            try {
-                val now = System.currentTimeMillis()
-                
-                val storedIsManual = prefs.getBoolean(KEY_IS_MANUAL, false)
-                val storedManualCity = prefs.getString(KEY_MANUAL_NAME, "") ?: ""
-                val currentManualCity = DataStore.manualWeatherCity
-
-                val isTimeValid = (now - lastWeatherTime) < weatherInterval
-                val isModeValid = (storedIsManual == useManualCity)
-                val isCityValid = if (useManualCity) (storedManualCity == currentManualCity) else true
-
-                if (isTimeValid && isModeValid && isCityValid && cachedCode != -1) {
-                    withContext(Dispatchers.Main) { updateDisplay() }
-                    return@launch
-                }
-
-                var resolvedCity = cityName
-                if (resolvedCity == null) {
-                    try {
-                        val geocoder = Geocoder(context, Locale.getDefault())
-                        @Suppress("DEPRECATION")
-                        val addresses = geocoder.getFromLocation(lat, lon, 1)
-                        if (!addresses.isNullOrEmpty()) {
-                            resolvedCity = addresses[0].locality 
-                                ?: addresses[0].subAdminArea 
-                                ?: addresses[0].adminArea
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+        
+        withContext(Dispatchers.Main) {
+             fusedClient.requestLocationUpdates(locationRequest, object : LocationCallback() {
+                override fun onLocationResult(result: LocationResult) {
+                    fusedClient.removeLocationUpdates(this)
+                    val loc = result.lastLocation
+                    scope.launch(Dispatchers.IO) {
+                        if (loc != null) fetchWeatherByCoords(loc.latitude, loc.longitude, null)
+                        else fetchWeatherByCity("Tokyo")
                     }
                 }
-
-                val response = URL(
-                    "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current_weather=true"
-                ).readText()
-                val current = JSONObject(response).getJSONObject("current_weather")
-                
-                cachedTemp = current.getDouble("temperature").roundToInt()
-                cachedCode = current.getInt("weathercode")
-                cachedCity = resolvedCity ?: ""
-                lastWeatherTime = now
-
-                prefs.edit()
-                    .putInt(KEY_TEMP, cachedTemp)
-                    .putInt(KEY_CODE, cachedCode)
-                    .putString(KEY_CITY, cachedCity)
-                    .putLong(KEY_TIME, lastWeatherTime)
-                    .putBoolean(KEY_IS_MANUAL, useManualCity)
-                    .putString(KEY_MANUAL_NAME, if(useManualCity) currentManualCity else "")
-                    .apply()
-
-                withContext(Dispatchers.Main) { updateDisplay() }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            }, android.os.Looper.getMainLooper())
         }
     }
 
-    private fun fetchWeatherByCity(city: String) {
-        coroutineScope.launch(Dispatchers.IO) {
+    private suspend fun fetchWeatherByCity(city: String) {
+        withContext(Dispatchers.IO) {
             try {
-                val now = System.currentTimeMillis()
-                val storedIsManual = prefs.getBoolean(KEY_IS_MANUAL, false)
-                val storedManualCity = prefs.getString(KEY_MANUAL_NAME, "") ?: ""
-                
-                val isTimeValid = (now - lastWeatherTime) < weatherInterval
-                val isModeValid = (storedIsManual == useManualCity)
-                val isCityValid = (storedManualCity == city)
-
-                if (isTimeValid && isModeValid && isCityValid && cachedCode != -1) {
-                    withContext(Dispatchers.Main) { updateDisplay() }
-                    return@launch
-                }
-                
-                val geoResponse = URL("https://geocoding-api.open-meteo.com/v1/search?name=$city").readText()
+                val encodedCity = URLEncoder.encode(city, "UTF-8")
+                val geoResponse = URL("https://geocoding-api.open-meteo.com/v1/search?name=$encodedCity").readText()
                 val geoJson = JSONObject(geoResponse)
-                val results = geoJson.optJSONArray("results") ?: return@launch
-                if (results.length() == 0) return@launch
+                val results = geoJson.optJSONArray("results")
+                
+                if (results == null || results.length() == 0) return@withContext
 
                 val first = results.getJSONObject(0)
                 val lat = first.getDouble("latitude")
@@ -281,6 +243,52 @@ class Greetings @JvmOverloads constructor(
         }
     }
 
+    private suspend fun fetchWeatherByCoords(lat: Double, lon: Double, cityName: String?) {
+        try {
+            var resolvedCity = cityName
+            
+            if (resolvedCity == null) {
+                try {
+                    val geocoder = Geocoder(context, Locale.getDefault())
+                    @Suppress("DEPRECATION")
+                    val addresses = geocoder.getFromLocation(lat, lon, 1)
+                    if (!addresses.isNullOrEmpty()) {
+                        resolvedCity = addresses[0].locality 
+                            ?: addresses[0].subAdminArea 
+                            ?: addresses[0].adminArea
+                    }
+                } catch (e: Exception) {         
+                    e.printStackTrace() 
+                }
+            }
+
+            val response = URL(
+                "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current_weather=true"
+            ).readText()
+            
+            val current = JSONObject(response).getJSONObject("current_weather")
+            
+            cachedTemp = current.getDouble("temperature").roundToInt()
+            cachedCode = current.getInt("weathercode")
+            cachedCity = resolvedCity ?: ""
+            lastWeatherTime = System.currentTimeMillis()
+
+            prefs.edit()
+                .putInt(KEY_TEMP, cachedTemp)
+                .putInt(KEY_CODE, cachedCode)
+                .putString(KEY_CITY, cachedCity)
+                .putLong(KEY_TIME, lastWeatherTime)
+                .putBoolean(KEY_IS_MANUAL, useManualCity)
+                .putString(KEY_MANUAL_NAME, if(useManualCity) DataStore.manualWeatherCity else "")
+                .apply()
+
+            withContext(Dispatchers.Main) { updateDisplay() }
+            
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     private fun getWeatherEmoji(code: Int): String = when (code) {
         0 -> "☀️"
         1 -> "🌤️"
@@ -291,29 +299,23 @@ class Greetings @JvmOverloads constructor(
         56, 57 -> "❄️"
         in 61..65 -> "🌧️"
         66, 67 -> "❄️"
-        in 71..75 -> "❄️"
-        77 -> "❄️"
+        in 71..77 -> "❄️"
         in 80..82 -> "🌦️"
         85, 86 -> "❄️"
-        95 -> "⛈️"
-        96, 99 -> "⛈️"
-        else -> "qm"
+        95, 96, 99 -> "⛈️"
+        else -> "🌡️"
     }
 
     private fun getLocalizedCondition(code: Int): String {
         val resId = when (code) {
-            0 -> R.string.weather_clear
-            1 -> R.string.weather_clear
+            0, 1 -> R.string.weather_clear
             2 -> R.string.weather_partly_cloudy
             3 -> R.string.weather_cloudy 
             45, 48 -> R.string.weather_fog
-            51, 53, 55 -> R.string.weather_drizzle
-            56, 57 -> R.string.weather_drizzle
-            61, 63, 65 -> R.string.weather_rain
-            66, 67 -> R.string.weather_rain
-            71, 73, 75, 77 -> R.string.weather_snow
+            51, 53, 55, 56, 57 -> R.string.weather_drizzle
+            61, 63, 65, 66, 67 -> R.string.weather_rain
+            71, 73, 75, 77, 85, 86 -> R.string.weather_snow
             80, 81, 82 -> R.string.weather_showers
-            85, 86 -> R.string.weather_snow
             95, 96, 99 -> R.string.weather_thunderstorm
             else -> R.string.weather_cloudy
         }

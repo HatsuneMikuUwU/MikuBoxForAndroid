@@ -113,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0.0dip"
                         android:layout_marginBottom="0.0dip"
-                        android:layout_marginStart="5.0dip"
+                        android:layout_marginStart="0.0dip"
                         android:layout_marginEnd="16.0dip">
                         <LinearLayout
                             android:background="@drawable/uwu_bg_icon"
