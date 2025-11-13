@@ -105,6 +105,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var manualWeatherEnabled by configurationStore.boolean("manual_weather_enabled") { false }
     var manualWeatherCity by configurationStore.string("manual_weather_city") { "" }
     var showWeatherCondition by configurationStore.boolean("show_weather_condition") { true }
+    var customProfileName by configurationStore.string("custom_profile_name") { "" }
 
     var appTLSVersion by configurationStore.string(Key.APP_TLS_VERSION)
     var enableClashAPI by configurationStore.boolean(Key.ENABLE_CLASH_API)

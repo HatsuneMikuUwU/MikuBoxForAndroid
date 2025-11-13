@@ -673,13 +673,16 @@ Please grant this permission in System Settings."</string>
     <string name="weather_city_dialog">Enter city name (example: Tokyo, Jakarta, Beijing)</string>
     <string name="show_weather_condition">Show weather condition</string>
     <string name="show_weather_condition_summary">Show prefix text and weather condition description</string>
+    <string name="profile_name_custom_title">Header name</string>
+    <string name="profile_name_custom_dialog">Change display name</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>
     <string name="uwu_about_miku_summary">Hatsune Miku is a Vocaloid-based virtual singer released by Crypton Future Media, code-named CV01. Known for her long turquoise twintails and clear voice, she is a 16-year-old girl and a globally renowned virtual idol. She is active in music, concerts, and anime, and is deeply loved by her fans.</string>
     <string name="uwu_about_version_title">About app</string>
     <string name="uwu_about_version_summary">Tap here or arrow icon to know more about the app.</string>
-    <string name="uwu_banner_title">Hi, master</string>
+    <string name="uwu_banner_title">master</string>
+    <string name="uwu_banner_title_custom">Hi, %1$s</string>
     <string name="uwu_banner_settings_summary">"Welcome to the settings
 menu, please select
 whichever option

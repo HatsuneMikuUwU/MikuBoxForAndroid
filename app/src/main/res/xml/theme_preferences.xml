@@ -74,6 +74,13 @@
             android:widgetLayout="@layout/uwu_switch"
             android:defaultValue="true"
             app:icon="@drawable/ic_toggle_switch" />
+       <EditTextPreference
+            android:layout="@layout/uwu_mid"
+            app:icon="@drawable/ic_image_edit"
+            app:key="custom_profile_name"
+            app:title="@string/profile_name_custom_title"
+            app:dialogMessage="@string/profile_name_custom_dialog"
+            app:defaultValue="@string/uwu_banner_title" />
         <SwitchPreference
             android:layout="@layout/uwu_mid_switch"
             android:title="@string/pref_show_splash_title"

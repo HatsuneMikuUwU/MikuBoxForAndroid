@@ -578,13 +578,15 @@ Tolong kasih izinnya di Settingan Sistem."</string>
      <string name="weather_city_dialog">Tulis nama kotanya (contoh: Tokyo, Jakarta, Beijing)</string>
      <string name="show_weather_condition">Tampilin kondisi cuaca</string>
      <string name="show_weather_condition_summary">Tampilin tulisan depan sama deskripsi cuaca</string>
-
+     <string name="profile_name_custom_title">Nama header</string>
+     <string name="profile_name_custom_dialog">Ubah nama tampilan</string>
     
     <string name="uwu_about_miku_title">Siapa itu Hatsune Miku?</string>
     <string name="uwu_about_miku_summary">Hatsune Miku itu penyanyi virtual berbasis Vocaloid yang dirilis sama Crypton Future Media, kode namanya CV01. Dikenal gara-gara rambut twintail panjang warna biru kehijauan sama suaranya yang jernih, dia itu cewek 16 tahun dan idola virtual yang terkenal sedunia. Dia aktif di musik, konser, dan anime, plus disayang banget sama fans-fansnya.</string>
     <string name="uwu_about_version_title">Tentang Aplikasi</string>
     <string name="uwu_about_version_summary">Klik di sini atau ikon panah buat cari tau lebih lanjut tentang aplikasi ini.</string>
-    <string name="uwu_banner_title">Hai, sayang</string>
+    <string name="uwu_banner_title">sayang</string>
+    <string name="uwu_banner_title_custom">Hai, %1$s</string>
     <string name="uwu_banner_settings_summary">"Met dateng di menu
 settingan, monggo
 pilih aja opsi mana

@@ -574,7 +574,8 @@
      <string name="weather_city_dialog">输入城市名称（例如：东京、雅加达、北京）</string>
      <string name="show_weather_condition">显示天气状况</string>
      <string name="show_weather_condition_summary">显示前缀文本和天气状况描述</string>
-
+     <string name="profile_name_custom_title">标题名称</string>
+     <string name="profile_name_custom_dialog">修改显示名称</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>
@@ -597,7 +598,8 @@
     <string name="uwu_banner_summary_8">打开你的心灵吧..!</string>
     <string name="uwu_banner_summary_9">突破.. 限制！</string>
     <string name="uwu_banner_summary_10">你在做什么呢？</string>
-    <string name="uwu_banner_title">嗨, 主人</string>
+    <string name="uwu_banner_title">主人</string>
+    <string name="uwu_banner_title_custom">嗨, %1$s</string>
     <string name="uwu_general_settings_title">通用设置</string>
     <string name="uwu_maintainer_title">本应用由以下团队维护</string>
     <string name="uwu_maintainer_summary">HatsuneMikuUwU 开发团队</string>

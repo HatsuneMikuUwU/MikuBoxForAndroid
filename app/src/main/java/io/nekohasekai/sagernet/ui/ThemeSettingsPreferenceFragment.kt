@@ -48,6 +48,19 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             updateAllCategoryStyles(styleValue, screen)
         }
 
+        val customProfileNamePref = findPreference<EditTextPreference>("custom_profile_name")
+        customProfileNamePref?.apply {
+            val currentName = DataStore.customProfileName
+            text = currentName
+            summary = if (currentName.isEmpty()) getString(R.string.uwu_banner_title) else currentName
+            setOnPreferenceChangeListener { _, newValue ->
+                val newName = newValue.toString()
+                DataStore.customProfileName = newName
+                summary = if (newName.isEmpty()) getString(R.string.uwu_banner_title) else newName
+                true
+            }
+        }
+
         val appTheme = findPreference<ColorPickerPreference>(Key.APP_THEME)!!
         appTheme.setOnPreferenceChangeListener { _, newTheme ->
             if (DataStore.serviceState.started) SagerNet.reloadService()

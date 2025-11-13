@@ -106,15 +106,15 @@
                                         android:orientation="vertical"
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content">
-                                        <TextView
+                                        <com.neko.marquee.text.UserNameTextView
                                             android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                                             android:textSize="17.0sp"
                                             android:textColor="@android:color/white"
                                             android:ellipsize="marquee"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="@string/uwu_banner_title"
-                                            android:singleLine="false" />
+                                            android:marqueeRepeatLimit="marquee_forever"
+                                            android:singleLine="true" />
                                         <com.neko.marquee.text.RandomText
                                             android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                                             android:textSize="14.0sp"
