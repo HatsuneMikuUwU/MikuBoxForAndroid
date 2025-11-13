@@ -1,16 +1,18 @@
 package com.neko.welcome.app
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.*;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.neko.splash.app.SplashActivity;
-import io.nekohasekai.sagernet.ui.ThemedActivity;
-import io.nekohasekai.sagernet.R;
-import java.util.*;
+import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.os.Bundle
+import android.view.View
+import android.widget.*
+import androidx.core.view.WindowCompat
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.neko.splash.app.SplashActivity
+import io.nekohasekai.sagernet.ui.ThemedActivity
+import io.nekohasekai.sagernet.R
+import java.util.*
 
 class WelcomeActivity : ThemedActivity() {
 
@@ -29,6 +31,18 @@ class WelcomeActivity : ThemedActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.uwu_activity_welcome)
+
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        
+        val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
+        if (isNightMode) {
+            windowInsetsController.isAppearanceLightStatusBars = false
+            windowInsetsController.isAppearanceLightNavigationBars = false
+        } else {
+            windowInsetsController.isAppearanceLightStatusBars = true
+            windowInsetsController.isAppearanceLightNavigationBars = true
+        }
 
         prefs = getSharedPreferences("f", MODE_PRIVATE)
         dialog = MaterialAlertDialogBuilder(this)

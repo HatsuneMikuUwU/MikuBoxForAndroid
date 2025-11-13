@@ -167,6 +167,7 @@
             android:layout="@layout/uwu_mid_switch"
             android:title="@string/ip_info_show_ip_in_two_line_title"
             android:key="show_ip_in_two_line"
+            app:dependency="connection_test_with_ip"
             android:summary="@string/ip_info_show_ip_in_two_line_summary"
             android:widgetLayout="@layout/uwu_switch"
             android:defaultValue="false"
