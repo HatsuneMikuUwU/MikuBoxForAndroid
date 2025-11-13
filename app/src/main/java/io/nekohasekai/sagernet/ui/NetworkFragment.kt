@@ -6,6 +6,7 @@ import android.view.View
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.databinding.LayoutNetworkBinding
 import io.nekohasekai.sagernet.ktx.app
+import com.neko.hostnamefinder.HostnameFinder
 
 class NetworkFragment : NamedFragment(R.layout.layout_network) {
 
@@ -15,8 +16,13 @@ class NetworkFragment : NamedFragment(R.layout.layout_network) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = LayoutNetworkBinding.bind(view)
+
         binding.stunTest.setOnClickListener {
             startActivity(Intent(requireContext(), StunActivity::class.java))
+        }
+        
+        binding.hostnameFinder.setOnClickListener {
+            startActivity(Intent(requireContext(), HostnameFinder::class.java))
         }
     }
 

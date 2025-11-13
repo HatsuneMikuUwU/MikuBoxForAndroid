@@ -11,9 +11,8 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+    	
     <com.google.android.material.card.MaterialCardView
-        android:focusable="true"
-        android:clickable="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16.0dip"
@@ -68,5 +67,62 @@
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+    
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16.0dip"
+        android:layout_marginTop="8.0dip"
+        android:layout_marginRight="16.0dip"
+        android:layout_marginBottom="8.0dip"
+        app:cardBackgroundColor="?attr/colorCard"
+        app:cardCornerRadius="14.0dip"
+        app:cardElevation="0.0dip">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:paddingTop="16.0dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16.0dip"
+                android:paddingEnd="16.0dip">
+                <TextView
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                    android:textSize="17.0sp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hostname_finder" />
+                <TextView
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                    android:textSize="14.0sp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.0dip"
+                    android:text="@string/hostname_finder_summary" />
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8.0dip">
+                <Button
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                    android:textColor="?attr/colorPrimary"
+                    android:id="@+id/hostnameFinder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start"
+                    android:layout_marginEnd="8.0dip"
+                    style="@style/Widget.AppCompat.Button.Borderless" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    
 </LinearLayout>
     </androidx.core.widget.NestedScrollView>

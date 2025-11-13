@@ -576,6 +576,25 @@
      <string name="show_weather_condition_summary">显示前缀文本和天气状况描述</string>
      <string name="profile_name_custom_title">标题名称</string>
      <string name="profile_name_custom_dialog">修改显示名称</string>
+     <string name="hostname_finder">主机名查找器</string>
+    <string name="hostname_finder_summary">在此查找托管在同一服务器上的其他网站.</string>
+    <string name="hf_error_input_host">请输入主机</string>
+    <string name="hf_loading">加载中...</string>
+    <string name="hf_result_loading">结果：请稍候...</string>
+    <string name="hf_result_error">结果：错误</string>
+    <string name="hf_copied">已复制到剪贴板！</string>
+    <string name="hf_result">结果：</string>
+    <string name="hf_copy">复制</string>
+    <string name="hf_search">搜索</string>
+    <string name="hf_hint">输入主机或域名</string>
+    <string name="hf_result_found_ips">结果：找到 %1$d 个 IP</string>
+    <string name="hf_result_found_hostnames">结果：找到 %1$d 个主机名</string>
+    <string name="hf_result_found_subdomains">结果：找到 %1$d 个子域名</string>
+    <string name="hf_result_found_domains">结果：找到 %1$d 个域名</string>
+    <string name="hf_error_generic">错误：%1$s</string>
+    <string name="hf_error_crt">来自 crt.sh 的错误：%1$s</string>
+    <string name="hf_error_vt">来自 VirusTotal 的错误：%1$s</string>
+    <string name="hf_error_ygs">来自 YouGetSignal 的错误：%1$s</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>

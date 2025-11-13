@@ -675,6 +675,25 @@ Please grant this permission in System Settings."</string>
     <string name="show_weather_condition_summary">Show prefix text and weather condition description</string>
     <string name="profile_name_custom_title">Header name</string>
     <string name="profile_name_custom_dialog">Change display name</string>
+    <string name="hostname_finder">Hostname Finder</string>
+    <string name="hostname_finder_summary">Find other websites hosted on a web server here.</string>
+    <string name="hf_error_input_host">Please input a host</string>
+    <string name="hf_loading">Loading...</string>
+    <string name="hf_result_loading">Results: Please wait...</string>
+    <string name="hf_result_error">Results: Error</string>
+    <string name="hf_copied">Copied to clipboard!</string>
+    <string name="hf_result">Results:</string>
+    <string name="hf_copy">Copy</string>
+    <string name="hf_search">Search</string>
+    <string name="hf_hint">Input host or domain</string>
+    <string name="hf_result_found_ips">Results: Found %1$d IP</string>
+    <string name="hf_result_found_hostnames">Results: Found %1$d hostnames</string>
+    <string name="hf_result_found_subdomains">Results: Found %1$d subdomains</string>
+    <string name="hf_result_found_domains">Results: Found %1$d domains</string>
+    <string name="hf_error_generic">Error: %1$s</string>
+    <string name="hf_error_crt">Error from crt.sh: %1$s</string>
+    <string name="hf_error_vt">Error from VirusTotal: %1$s</string>
+    <string name="hf_error_ygs">Error from YouGetSignal: %1$s</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

@@ -14,19 +14,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             layout="@layout/layout_appbar" />
-        <LinearLayout
-            android:gravity="center"
-            android:id="@+id/wait_layout"
-            android:visibility="gone"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <TextView
-                android:textAppearance="@style/AppearanceFoundation.Title"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/stun_attest_loading" />
-        </LinearLayout>
         <androidx.core.widget.NestedScrollView
             android:id="@+id/main_layout"
             android:paddingBottom="64.0dip"
@@ -57,25 +44,48 @@
                             android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nat_stun_server_hint"
+                            android:hint="@string/hf_hint"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                             <EditText
-                                android:id="@+id/nat_stun_server"
+                                android:id="@+id/edtHost"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:text="stun.voipgate.com:3478"
+                                android:text="www.google.com"
                                 android:ems="10"
                                 android:inputType="text" />
                         </com.google.android.material.textfield.TextInputLayout>
+                        <Spinner
+                            android:textSize="17.0sp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:id="@+id/spinnerSource"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16.0dip" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
-                    android:focusable="true"
-                    android:clickable="true"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16.0dip"
+                    android:layout_marginRight="16.0dip"
                     android:layout_marginTop="16.0dip"
+                    android:layout_marginBottom="8.0dip">
+                    <Button
+                        android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                        android:textColor="?android:textColorPrimaryInverse"
+                        android:id="@+id/btnSearch"
+                        android:background="@drawable/uwu_bg_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hf_search"
+                        style="@style/Widget.AppCompat.Button.Colored" />
+                </LinearLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.0dip"
+                    android:layout_marginTop="8.0dip"
                     android:layout_marginRight="16.0dip"
                     app:cardBackgroundColor="?attr/colorCard"
                     app:cardCornerRadius="14.0dip"
@@ -89,14 +99,15 @@
                             android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                             android:textSize="17.0sp"
                             android:textColor="?attr/colorOnSurface"
+                            android:id="@+id/txtResultTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nat_result_hint" />
+                            android:text="@string/hf_result" />
                         <TextView
                             android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
                             android:textSize="14.0sp"
                             android:textColor="?attr/colorOnSurfaceVariant"
-                            android:id="@+id/nat_result"
+                            android:id="@+id/txtResults"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -112,11 +123,11 @@
                     <Button
                         android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                         android:textColor="?android:textColorPrimaryInverse"
-                        android:id="@+id/stunTest"
+                        android:id="@+id/btnCopy"
                         android:background="@drawable/uwu_bg_button"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/start"
+                        android:text="@string/hf_copy"
                         style="@style/Widget.AppCompat.Button.Colored" />
                 </LinearLayout>
             </LinearLayout>
