@@ -1,5 +1,6 @@
 package io.nekohasekai.sagernet.ui
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -54,11 +55,7 @@ abstract class ThemedActivity : AppCompatActivity {
                 val top = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
                 findViewById<AppBarLayout>(R.id.appbar)?.apply {
                     updatePadding(top = top)
-//                Logs.w("appbar $top")
                 }
-//            findViewById<NavigationView>(R.id.nav_view)?.apply {
-//                updatePadding(top = top)
-//            }
                 insets
             }
         }
@@ -66,7 +63,6 @@ abstract class ThemedActivity : AppCompatActivity {
 
     override fun setTheme(resId: Int) {
         super.setTheme(resId)
-
         themeResId = resId
     }
 
@@ -77,6 +73,21 @@ abstract class ThemedActivity : AppCompatActivity {
             uiMode = newConfig.uiMode
             ActivityCompat.recreate(this)
         }
+    }
+
+    override fun startActivity(intent: Intent?) {
+        super.startActivity(intent)
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+    }
+
+    override fun startActivity(intent: Intent?, options: Bundle?) {
+        super.startActivity(intent, options)
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
     }
 
     fun snackbar(@StringRes resId: Int): Snackbar = snackbar("").setText(resId)
