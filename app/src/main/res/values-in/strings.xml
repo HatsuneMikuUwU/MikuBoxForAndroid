@@ -599,6 +599,16 @@ Tolong kasih izinnya di Settingan Sistem."</string>
     <string name="hf_error_crt">Error dari crt.sh: %1$s</string>
     <string name="hf_error_vt">Error dari VirusTotal: %1$s</string>
     <string name="hf_error_ygs">Error dari YouGetSignal: %1$s</string>
+    <string name="host_to_ip">Host ke IP</string>
+    <string name="hip_error_empty">Masukin hostname dulu</string>
+    <string name="hip_resolving">Lagi resolving...</string>
+    <string name="hip_error_generic">Error: %1$s</string>
+    <string name="hip_unknown">Ga diketahui</string>
+    <string name="hip_result_format">Hostname: %1$s\nAlamat IP: %2$s\nNegara: %3$s\nKota: %4$s\nProvider ISP: %5$s</string>
+    <string name="host_to_ip_summary">Ubah host ke IP di sini.</string>
+    <string name="hip_result">Hasilnya:</string>
+    <string name="hip_lookup">Cek</string>
+    <string name="hip_hint">Masukin host atau domain</string>
     
     <string name="uwu_about_miku_title">Siapa itu Hatsune Miku?</string>
     <string name="uwu_about_miku_summary">Hatsune Miku itu penyanyi virtual berbasis Vocaloid yang dirilis sama Crypton Future Media, kode namanya CV01. Dikenal gara-gara rambut twintail panjang warna biru kehijauan sama suaranya yang jernih, dia itu cewek 16 tahun dan idola virtual yang terkenal sedunia. Dia aktif di musik, konser, dan anime, plus disayang banget sama fans-fansnya.</string>

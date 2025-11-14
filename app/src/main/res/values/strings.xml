@@ -694,6 +694,16 @@ Please grant this permission in System Settings."</string>
     <string name="hf_error_crt">Error from crt.sh: %1$s</string>
     <string name="hf_error_vt">Error from VirusTotal: %1$s</string>
     <string name="hf_error_ygs">Error from YouGetSignal: %1$s</string>
+    <string name="host_to_ip">Host to IP</string>
+    <string name="hip_error_empty">Please enter a hostname</string>
+    <string name="hip_resolving">Resolving...</string>
+    <string name="hip_error_generic">Error: %1$s</string>
+    <string name="hip_unknown">Unknown</string>
+    <string name="hip_result_format">Hostname: %1$s\nIP Address: %2$s\nCountry: %3$s\nCity: %4$s\nISP Provider: %5$s</string>
+    <string name="host_to_ip_summary">Convert your host to IP here.</string>
+    <string name="hip_result">Results:</string>
+    <string name="hip_lookup">Lookup</string>
+    <string name="hip_hint">Input host or domain</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

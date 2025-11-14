@@ -181,6 +181,12 @@
             android:launchMode="singleTask"
             android:parentActivityName="io.nekohasekai.sagernet.ui.MainActivity" />
         <activity
+            android:screenOrientation="portrait"
+            android:name="com.neko.hosttoip.HostToIP"
+            android:configChanges="uiMode"
+            android:launchMode="singleTask"
+            android:parentActivityName="io.nekohasekai.sagernet.ui.MainActivity" />
+        <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:configChanges="uiMode" />

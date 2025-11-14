@@ -595,6 +595,16 @@
     <string name="hf_error_crt">来自 crt.sh 的错误：%1$s</string>
     <string name="hf_error_vt">来自 VirusTotal 的错误：%1$s</string>
     <string name="hf_error_ygs">来自 YouGetSignal 的错误：%1$s</string>
+    <string name="host_to_ip">主机转 IP</string>
+    <string name="hip_error_empty">请输入主机名</string>
+    <string name="hip_resolving">解析中...</string>
+    <string name="hip_error_generic">错误：%1$s</string>
+    <string name="hip_unknown">未知</string>
+    <string name="hip_result_format">主机名：%1$s\nIP 地址：%2$s\n国家：%3$s\n城市：%4$s\nISP 服务商：%5$s</string>
+    <string name="host_to_ip_summary">在此将主机转换为 IP.</string>
+    <string name="hip_result">结果：</string>
+    <string name="hip_lookup">查询</string>
+    <string name="hip_hint">输入主机或域名</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>

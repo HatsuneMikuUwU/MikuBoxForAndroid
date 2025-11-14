@@ -7,6 +7,7 @@ import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.databinding.LayoutNetworkBinding
 import io.nekohasekai.sagernet.ktx.app
 import com.neko.hostnamefinder.HostnameFinder
+import com.neko.hosttoip.HostToIP
 
 class NetworkFragment : NamedFragment(R.layout.layout_network) {
 
@@ -23,6 +24,10 @@ class NetworkFragment : NamedFragment(R.layout.layout_network) {
         
         binding.hostnameFinder.setOnClickListener {
             startActivity(Intent(requireContext(), HostnameFinder::class.java))
+        }
+        
+        binding.hostToIP.setOnClickListener {
+            startActivity(Intent(requireContext(), HostToIP::class.java))
         }
     }
 
