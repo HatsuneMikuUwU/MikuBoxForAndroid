@@ -45,7 +45,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hf_hint"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                            style="@style/AppTheme.TextInputLayout">
                             <EditText
                                 android:id="@+id/edtHost"
                                 android:layout_width="fill_parent"
@@ -55,12 +55,17 @@
                                 android:inputType="text" />
                         </com.google.android.material.textfield.TextInputLayout>
                         <Spinner
+                            android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                             android:textSize="17.0sp"
                             android:textColor="?attr/colorOnSurface"
                             android:id="@+id/spinnerSource"
+                            android:background="@drawable/uwu_bg_spinner"
+                            android:focusable="true"
+                            android:clickable="true"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16.0dip" />
+                            android:layout_marginTop="16.0dip"
+                            android:foreground="?android:selectableItemBackground" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <LinearLayout

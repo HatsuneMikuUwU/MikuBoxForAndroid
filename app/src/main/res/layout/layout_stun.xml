@@ -58,7 +58,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/nat_stun_server_hint"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                            style="@style/AppTheme.TextInputLayout">
                             <EditText
                                 android:id="@+id/nat_stun_server"
                                 android:layout_width="fill_parent"

@@ -85,7 +85,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/search_apps"
-                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                                style="@style/AppTheme.TextInputLayout">
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/search"
                                     android:layout_width="fill_parent"
