@@ -119,7 +119,7 @@
             android:defaultValue="false"
             app:icon="@drawable/ic_toggle_switch" />
         <SwitchPreference
-            android:layout="@layout/uwu_top_switch"
+            android:layout="@layout/uwu_mid_switch"
             android:title="@string/cardview_icon_profile_server_title"
             android:key="uwu_icon_profile_server"
             android:summary="@string/cardview_icon_profile_server_summary"
