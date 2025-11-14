@@ -76,14 +76,12 @@
                             android:layout_marginBottom="16.0dip"
                             android:layout_marginStart="16.0dip"
                             android:layout_marginEnd="5.0dip">
-                            <com.neko.circleimageview.CircleImageView
+                            <com.neko.shapeimageview.CookieImageView
                                 android:layout_width="80.0dip"
                                 android:layout_height="80.0dip"
                                 android:src="@drawable/uwu_banner_profile"
-                                app:civ_border_color="@android:color/white"
-                                app:civ_border_overlay="true"
-                                app:civ_border_width="3.0dip"
-                                app:civ_circle_background_color="?attr/colorBg" />
+                                app:siBorderColor="@android:color/white"
+                                app:siBorderWidth="3.0dip" />
                         </LinearLayout>
                         <RelativeLayout
                             android:paddingTop="16.0dip"

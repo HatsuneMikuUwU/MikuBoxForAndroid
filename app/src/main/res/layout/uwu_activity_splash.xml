@@ -15,16 +15,13 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
         
-            <com.neko.circleimageview.CircleImageView
+            <com.neko.shapeimageview.CookieImageView
                 android:id="@+id/logo_view"
                 android:layout_width="160.0dip"
                 android:layout_height="160.0dip"
                 android:src="@drawable/uwu_banner_splash"
-                app:civ_border_color="?android:textColorPrimaryInverse"
-                app:civ_border_overlay="true"
-                app:civ_border_width="3.0dip"
-                app:civ_circle_background_color="@android:color/transparent"
-                android:scaleType="centerCrop" />
+                app:siBorderColor="?android:textColorPrimaryInverse"
+                app:siBorderWidth="3.0dip" />
         
         <TextView
             android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"

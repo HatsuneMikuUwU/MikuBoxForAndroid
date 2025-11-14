@@ -289,11 +289,13 @@
                                 android:layout_marginTop="25.0dip"
                                 android:layout_marginRight="16.0dip"
                                 android:layout_marginBottom="25.0dip">
-                                <ImageView
+                                <com.neko.shapeimageview.CookieImageView
                                     android:id="@+id/icon"
                                     android:layout_width="80.0dip"
                                     android:layout_height="80.0dip"
-                                    android:src="@drawable/uwu_banner_profile_2" />
+                                    android:src="@drawable/uwu_banner_profile"
+                                    app:siBorderColor="?attr/colorPrimary"
+                                    app:siBorderWidth="3.0dip" />
                                 <FrameLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
