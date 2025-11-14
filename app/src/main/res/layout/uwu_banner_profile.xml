@@ -113,8 +113,8 @@
                                 android:ellipsize="marquee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:marqueeRepeatLimit="marquee_forever"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:marqueeRepeatLimit="marquee_forever" />
                             <com.neko.marquee.text.RandomText
                                 android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
                                 android:textSize="17.0sp"
@@ -122,12 +122,9 @@
                                 android:ellipsize="marquee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                uwu_runnable="false"
                                 android:singleLine="true"
-                                android:marqueeRepeatLimit="marquee_forever" />
-                                <!-- uwu_runnable = true / false -->
-                                <!-- true = auto change every second -->
-                                <!-- false = change when entering and exiting -->
+                                android:marqueeRepeatLimit="marquee_forever"
+                                uwu_runnable="false" />
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
@@ -162,18 +159,20 @@
                     android:clipToPadding="false"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
-                    <LinearLayout
+                    <com.neko.widget.LayoutOff
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16.0dip"
                         android:layout_marginBottom="16.0dip"
-                        android:layout_marginStart="16.0dip"
-                        android:layout_marginEnd="8.0dip">
+                        android:layout_marginStart="8.0dip"
+                        android:layout_marginEnd="0.0dip"
+                        key="uwu_icon">
                         <LinearLayout
                             android:background="@drawable/uwu_bg_icon"
                             android:layout_width="45.0dip"
                             android:layout_height="45.0dip"
+                            android:layout_marginStart="8.0dip"
                             android:backgroundTint="?attr/colorPrimary">
                             <androidx.preference.internal.PreferenceImageView
                                 android:gravity="center"
@@ -187,15 +186,15 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
                         </LinearLayout>
-                    </LinearLayout>
+                    </com.neko.widget.LayoutOff>
                     <RelativeLayout
                         android:paddingTop="16.0dip"
                         android:paddingBottom="16.0dip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
-                        android:layout_marginStart="8.0dip"
-                        android:layout_marginEnd="8.0dip">
+                        android:layout_marginStart="16.0dip"
+                        android:layout_marginEnd="16.0dip">
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="fill_parent"
@@ -210,26 +209,34 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/uwu_banner_title"
                                 android:singleLine="false" />
-                            <TextView
-                                android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
-                                android:textSize="14.0sp"
-                                android:textColor="?android:textColorSecondary"
-                                android:ellipsize="marquee"
-                                android:id="@android:id/summary"
+                            <com.neko.widget.LayoutOff
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:singleLine="false"
-                                android:marqueeRepeatLimit="marquee_forever" />
+                                android:layout_below="@android:id/title"
+                                android:layout_alignStart="@android:id/title"
+                                key="uwu_summary">
+                                <TextView
+                                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                                    android:textSize="14.0sp"
+                                    android:textColor="?android:textColorSecondary"
+                                    android:ellipsize="marquee"
+                                    android:id="@android:id/summary"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="false"
+                                    android:marqueeRepeatLimit="marquee_forever" />
+                            </com.neko.widget.LayoutOff>
                         </LinearLayout>
                     </RelativeLayout>
-                    <LinearLayout
+                    <com.neko.widget.LayoutOff
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16.0dip"
                         android:layout_marginBottom="16.0dip"
-                        android:layout_marginStart="8.0dip"
-                        android:layout_marginEnd="16.0dip">
+                        android:layout_marginStart="0.0dip"
+                        android:layout_marginEnd="16.0dip"
+                        key="uwu_arrow">
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="28.0dip"
                             android:layout_height="28.0dip"
@@ -245,7 +252,7 @@
                                 android:tint="?attr/colorOnSurfaceVariant"
                                 android:layout_marginStart="2.0dip" />
                         </com.google.android.material.card.MaterialCardView>
-                    </LinearLayout>
+                    </com.neko.widget.LayoutOff>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -334,7 +334,59 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
             true
         }
-    }
+
+        val layoutOffSwitchIcon = findPreference<SwitchPreference>("uwu_icon")
+        layoutOffSwitchIcon?.apply {
+            val targetLayoutKey = "uwu_icon"
+            val sharedPrefs = requireContext().getSharedPreferences("AppSettings", android.content.Context.MODE_PRIVATE)
+            val currentValue = sharedPrefs.getInt(targetLayoutKey, 0)
+            isChecked = currentValue == 1
+            setOnPreferenceChangeListener { _, newValue ->
+                val isEnabled = newValue as Boolean
+                sharedPrefs.edit().putInt(targetLayoutKey, if (isEnabled) 1 else 0).apply()
+                true
+            }
+        }
+        
+        val layoutOffSwitchIconProfileServer = findPreference<SwitchPreference>("uwu_icon_profile_server")
+        layoutOffSwitchIconProfileServer?.apply {
+            val targetLayoutKey = "uwu_icon_profile_server"
+            val sharedPrefs = requireContext().getSharedPreferences("AppSettings", android.content.Context.MODE_PRIVATE)
+            val currentValue = sharedPrefs.getInt(targetLayoutKey, 0)
+            isChecked = currentValue == 1
+            setOnPreferenceChangeListener { _, newValue ->
+                val isEnabled = newValue as Boolean
+                sharedPrefs.edit().putInt(targetLayoutKey, if (isEnabled) 1 else 0).apply()
+                true
+            }
+        }
+
+        val layoutOffSwitchSummary = findPreference<SwitchPreference>("uwu_summary")
+        layoutOffSwitchSummary?.apply {
+            val targetLayoutKey = "uwu_summary"
+            val sharedPrefs = requireContext().getSharedPreferences("AppSettings", android.content.Context.MODE_PRIVATE)
+            val currentValue = sharedPrefs.getInt(targetLayoutKey, 0)
+            isChecked = currentValue == 1
+            setOnPreferenceChangeListener { _, newValue ->
+                val isEnabled = newValue as Boolean
+                sharedPrefs.edit().putInt(targetLayoutKey, if (isEnabled) 1 else 0).apply()
+                true
+            }
+        }
+
+        val layoutOffSwitchIconArrow = findPreference<SwitchPreference>("uwu_arrow")
+        layoutOffSwitchIconArrow?.apply {
+            val targetLayoutKey = "uwu_arrow"
+            val sharedPrefs = requireContext().getSharedPreferences("AppSettings", android.content.Context.MODE_PRIVATE)
+            val currentValue = sharedPrefs.getInt(targetLayoutKey, 0)
+            isChecked = currentValue == 1
+            setOnPreferenceChangeListener { _, newValue ->
+                val isEnabled = newValue as Boolean
+                sharedPrefs.edit().putInt(targetLayoutKey, if (isEnabled) 1 else 0).apply()
+                true
+            }
+        }
+    } 
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

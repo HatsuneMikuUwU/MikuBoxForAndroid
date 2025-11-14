@@ -1747,7 +1747,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                         onMainDispatcher {
                             shareLayer.setBackgroundColor(Color.TRANSPARENT)
                             shareButton.setImageResource(R.drawable.ic_social_share)
-                            shareButton.setColorFilter(Color.GRAY)
+                            shareButton.setColorFilter(shareButton.context.getColorAttr(R.attr.colorOnSurface))
                             shareButton.isVisible = true
 
                             shareLayout.setOnClickListener {

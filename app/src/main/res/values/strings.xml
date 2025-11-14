@@ -704,6 +704,15 @@ Please grant this permission in System Settings."</string>
     <string name="hip_result">Results:</string>
     <string name="hip_lookup">Lookup</string>
     <string name="hip_hint">Input host or domain</string>
+    <string name="cardview_category">Custom preference</string>
+    <string name="cardview_icon_title">Icon</string>
+    <string name="cardview_icon_summary">Hide icon in preference</string>
+    <string name="cardview_summary_title">Summary preference</string>
+    <string name="cardview_summary_summary">Hide summary in preference</string>
+    <string name="cardview_arrow_title">Arrow icon</string>
+    <string name="cardview_arrow_summary">Hide arrow icon in preference</string>
+    <string name="cardview_icon_profile_server_title">Icon profile server</string>
+    <string name="cardview_icon_profile_server_summary">Hide icon in profile server</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

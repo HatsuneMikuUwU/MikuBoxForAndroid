@@ -605,6 +605,15 @@
     <string name="hip_result">结果：</string>
     <string name="hip_lookup">查询</string>
     <string name="hip_hint">输入主机或域名</string>
+    <string name="cardview_category">自定义设置</string>
+    <string name="cardview_icon_title">图标</string>
+    <string name="cardview_icon_summary">隐藏设置图标</string>
+    <string name="cardview_summary_title">设置简介</string>
+    <string name="cardview_summary_summary">隐藏设置简介文字</string>
+   <string name="cardview_arrow_title">箭头图标</string>
+   <string name="cardview_arrow_summary">隐藏箭头指示</string>
+   <string name="cardview_icon_profile_server_title">服务器配置图标</string>
+   <string name="cardview_icon_profile_server_summary">隐藏服务器配置图标</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>

@@ -109,6 +109,41 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
     <PreferenceCategory
+        app:title="@string/cardview_category">
+        <SwitchPreference
+            android:layout="@layout/uwu_top_switch"
+            android:title="@string/cardview_icon_title"
+            android:key="uwu_icon"
+            android:summary="@string/cardview_icon_summary"
+            android:widgetLayout="@layout/uwu_switch"
+            android:defaultValue="false"
+            app:icon="@drawable/ic_toggle_switch" />
+        <SwitchPreference
+            android:layout="@layout/uwu_top_switch"
+            android:title="@string/cardview_icon_profile_server_title"
+            android:key="uwu_icon_profile_server"
+            android:summary="@string/cardview_icon_profile_server_summary"
+            android:widgetLayout="@layout/uwu_switch"
+            android:defaultValue="false"
+            app:icon="@drawable/ic_toggle_switch" />
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_toggle_switch"
+            app:key="uwu_summary"
+            app:summary="@string/cardview_summary_summary"
+            app:title="@string/cardview_summary_title" />
+       <SwitchPreference
+            android:layout="@layout/uwu_bot_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_toggle_switch"
+            app:key="uwu_arrow"
+            app:summary="@string/cardview_arrow_summary"
+            app:title="@string/cardview_arrow_title" />
+    </PreferenceCategory>
+    <PreferenceCategory
         app:title="@string/category_weather">
         <SwitchPreference
             android:layout="@layout/uwu_top_switch"
