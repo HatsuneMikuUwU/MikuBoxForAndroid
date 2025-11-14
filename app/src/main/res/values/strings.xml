@@ -707,7 +707,7 @@ Please grant this permission in System Settings."</string>
     <string name="cardview_category">Custom preference</string>
     <string name="cardview_icon_title">Icon</string>
     <string name="cardview_icon_summary">Hide icon in preference</string>
-    <string name="cardview_summary_title">Summary preference</string>
+    <string name="cardview_summary_title">Summary</string>
     <string name="cardview_summary_summary">Hide summary in preference</string>
     <string name="cardview_arrow_title">Arrow icon</string>
     <string name="cardview_arrow_summary">Hide arrow icon in preference</string>
