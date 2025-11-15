@@ -2,7 +2,6 @@ package moe.matsuri.nb4a.ui
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import android.widget.TextView
 import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceViewHolder
@@ -21,16 +20,14 @@ class CardEditPreference @JvmOverloads constructor(
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
-        
-        holder.itemView.isClickable = false
-        
-        val cardView: View? = holder.findViewById(R.id.on_click)
 
-        cardView?.setOnClickListener {
-            preferenceManager?.showDialog(this) 
+        val cardClick = holder.findViewById(R.id.on_click)
+
+        cardClick?.setOnClickListener {
+            performClick()
         }
 
-        val summaryTextView = holder.findViewById(android.R.id.summary) as? TextView
-        summaryTextView?.text = text 
+        val summary = holder.findViewById(android.R.id.summary) as? TextView
+        summary?.text = text
     }
 }
