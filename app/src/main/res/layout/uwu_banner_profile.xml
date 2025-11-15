@@ -11,8 +11,9 @@
     app:cardCornerRadius="28.0dip"
     app:cardElevation="0.0dip"
     app:strokeWidth="0.0dip"
-    android:clickable="false" 
-    app:rippleColor="@android:color/transparent"
+    android:focusable="true"
+    android:clickable="true" 
+    app:rippleColor="?android:colorControlHighlight"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
@@ -142,10 +143,6 @@
                 android:backgroundTint="?attr/colorBg" />
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/on_click"
-            android:focusable="true"
-            android:clickable="true" 
-            app:rippleColor="?android:colorControlHighlight"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0.0dip"
