@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
-    <EditTextPreference
+    <moe.matsuri.nb4a.ui.CardEditPreference
         android:layout="@layout/uwu_banner_profile"
         app:icon="@drawable/ic_social_emoji_symbols"
         app:key="profileName"
