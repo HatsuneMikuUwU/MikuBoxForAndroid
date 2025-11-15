@@ -106,26 +106,35 @@
         <EditTextPreference
             android:layout="@layout/uwu_mid"
             android:title="@string/banner_height_title"
-            app:icon="@drawable/ic_arrow_up_down_bold_outline"
             android:key="banner_height"
             android:summary="@string/banner_height_summary"
             android:inputType="number"
             app:defaultValue="100"
-            app:dependency="show_banner_layout" />
+            app:dependency="show_banner_layout"
+            app:icon="@drawable/ic_arrow_up_down_bold_outline" />
         <Preference
-            android:layout="@layout/uwu_mid"
+            android:layout="@layout/uwu_bot"
             android:title="@string/banner_custom_title"
-            app:icon="@drawable/ic_image_area"
             android:key="action_change_banner_image"
             android:summary="@string/banner_custom_summary"
-            app:dependency="show_banner_layout" />
+            app:dependency="show_banner_layout"
+            app:icon="@drawable/ic_image_area" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/banner_profile_category">
         <EditTextPreference
-            android:layout="@layout/uwu_bot"
+            android:layout="@layout/uwu_top"
             app:defaultValue="@string/uwu_banner_title"
             app:dialogMessage="@string/profile_name_custom_dialog"
             app:icon="@drawable/ic_image_edit"
             app:key="custom_profile_name"
             app:title="@string/profile_name_custom_title" />
+        <Preference
+            app:icon="@drawable/ic_image_area"
+            android:layout="@layout/uwu_bot"
+            android:title="@string/banner_profile_custom_title"
+            android:key="action_change_profile_banner_image"
+            android:summary="@string/banner_profile_custom_summary" />
     </PreferenceCategory>
     <PreferenceCategory
         app:title="@string/cardview_category">

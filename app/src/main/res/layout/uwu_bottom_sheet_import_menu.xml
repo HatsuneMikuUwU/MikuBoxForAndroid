@@ -85,7 +85,7 @@
                                     android:layout_marginBottom="16.0dip"
                                     android:layout_marginStart="16.0dip"
                                     android:layout_marginEnd="5.0dip">
-                                    <com.neko.shapeimageview.CookieImageView
+                                    <com.neko.widget.ProfileBannerImageView
                                         android:layout_width="60.0dip"
                                         android:layout_height="60.0dip"
                                         android:src="@drawable/uwu_banner_profile"

@@ -628,6 +628,7 @@ Please grant this permission in System Settings."</string>
     <string name="delete_custom_banner_message">Are you sure you want to delete the custom banner image?</string>
     <string name="custom_banner_removed">Custom banner removed.</string>
     <string name="custom_banner_set">Custom banner successfully setup.</string>
+    <string name="custom_banner_profile_set">Custom banner profile successfully setup.</string>
     <string name="ip_info_failed">Failed to get IP</string>
     <string name="ip_info_bottom_bar_title">Check IP on connection test</string>
     <string name="ip_info_bottom_bar_summary">Also show public IP, country, and flag when tapping the bottom bar</string>
@@ -718,7 +719,9 @@ Please grant this permission in System Settings."</string>
     <string name="banner_height_summary">Set homepage banner height (in dp). Default: 100</string>
     <string name="banner_custom_title">Change banner image</string>
     <string name="banner_custom_summary">Select an image from the gallery for the homepage banner</string>
-
+    <string name="banner_profile_category">Profile</string>
+    <string name="banner_profile_custom_title">Change profile banner</string>
+    <string name="banner_profile_custom_summary">Choose a custom image for the profile header</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

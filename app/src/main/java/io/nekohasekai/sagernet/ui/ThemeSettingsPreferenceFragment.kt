@@ -67,14 +67,51 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                             }
                         }
 
-                        val publicMediaUri = saveBannerToMediaStore(cacheUri)
-
+                        val publicMediaUri = saveBannerToMediaStore(cacheUri, "uwu_home_banner_")
                         DataStore.configurationStore.putString("custom_banner_uri", publicMediaUri.toString())
-
                         (activity as? MainActivity)?.snackbar(R.string.custom_banner_set)?.show()
 
                     } catch (e: Exception) {
                         Logs.e("Failed to save banner to MediaStore", e)
+                        (activity as? MainActivity)?.snackbar("Failed to save: ${e.message}")?.show()
+                    }
+                }
+            } else if (result.resultCode == UCrop.RESULT_ERROR) {
+                val cropError = UCrop.getError(result.data!!) ?: Throwable("Unknown UCrop error")
+                Logs.e("Cropping error: ", cropError)
+            }
+        }
+
+    private val pickProfileBannerImage =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                startCropProfileActivity(uri)
+            }
+        }
+
+    private val cropProfileBannerImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val cacheUri = UCrop.getOutput(result.data!!)
+                if (cacheUri != null) {
+                    try {
+                        val oldUriString = DataStore.configurationStore.getString("profile_banner_uri", null)
+                        if (!oldUriString.isNullOrEmpty()) {
+                            try {
+                                val oldUri = Uri.parse(oldUriString)
+                                requireContext().contentResolver.delete(oldUri, null, null)
+                            } catch (e: Exception) {
+                                Logs.w("Failed to delete old profile banner", e)
+                            }
+                        }
+
+                        val publicMediaUri = saveBannerToMediaStore(cacheUri, "uwu_profile_banner_")
+                        
+                        DataStore.configurationStore.putString("profile_banner_uri", publicMediaUri.toString())
+                        (activity as? MainActivity)?.snackbar(R.string.custom_banner_profile_set)?.show()
+
+                    } catch (e: Exception) {
+                        Logs.e("Failed to save profile banner", e)
                         (activity as? MainActivity)?.snackbar("Failed to save: ${e.message}")?.show()
                     }
                 }
@@ -346,6 +383,12 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
         }
 
+        val changeBannerPref = findPreference<Preference>("action_change_banner_image")
+        changeBannerPref?.setOnPreferenceClickListener {
+            pickBannerImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            true
+        }
+
         val bannerHeightPref = findPreference<EditTextPreference>("banner_height")
         bannerHeightPref?.apply {
             setOnBindEditTextListener { editText ->
@@ -360,10 +403,10 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 true
             }
         }
-     
-        val changeBannerPref = findPreference<Preference>("action_change_banner_image")
-        changeBannerPref?.setOnPreferenceClickListener {
-            pickBannerImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+
+        val changeProfileBannerPref = findPreference<Preference>("action_change_profile_banner_image")
+        changeProfileBannerPref?.setOnPreferenceClickListener {
+            pickProfileBannerImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
             true
         }
 
@@ -503,7 +546,9 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
     private fun startCropActivity(sourceUri: Uri) {
         val destinationFileName = "cropped_banner_temp.jpg"
         val destinationUri = Uri.fromFile(File(requireContext().cacheDir, destinationFileName))
+        
         val heightDp = DataStore.bannerHeight
+        
         val displayMetrics = resources.displayMetrics
         val screenWidthPx = displayMetrics.widthPixels.toFloat()
         val targetHeightPx = dp2pxf(heightDp)
@@ -524,11 +569,32 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
         cropBannerImage.launch(uCrop.getIntent(requireContext()))
     }
 
+    private fun startCropProfileActivity(sourceUri: Uri) {
+        val destinationFileName = "cropped_profile_banner_temp.jpg"
+        val destinationUri = Uri.fromFile(File(requireContext().cacheDir, destinationFileName))
+        
+        val uCrop = UCrop.of(sourceUri, destinationUri)
+            .withAspectRatio(1f, 1f)
+            .withMaxResultSize(1024, 1024)
+
+        try {
+            val options = UCrop.Options()
+            options.setDimmedLayerColor(Color.parseColor("#CCFFFFFF"))
+            options.setCircleDimmedLayer(true) 
+            options.setShowCropGrid(true)
+            options.setFreeStyleCropEnabled(false)
+            uCrop.withOptions(options)
+        } catch (e: Exception) {
+            Logs.e("Failed to set UCrop theme", e)
+        }
+        cropProfileBannerImage.launch(uCrop.getIntent(requireContext()))
+    }
+
     @Throws(IOException::class)
-    private fun saveBannerToMediaStore(sourceCacheUri: Uri): Uri {
+    private fun saveBannerToMediaStore(sourceCacheUri: Uri, fileNamePrefix: String = "uwu_custom_banner_"): Uri {
         val resolver = requireContext().contentResolver
         val timeStamp = SimpleDateFormat("yyyy-MM-dd_HH:mm", Locale.US).format(Date())
-        val fileName = "uwu_custom_banner_$timeStamp.jpg"
+        val fileName = "${fileNamePrefix}$timeStamp.jpg"
 
         val values = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
