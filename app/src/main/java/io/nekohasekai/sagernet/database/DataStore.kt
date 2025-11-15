@@ -96,7 +96,10 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var dpiValue: Int
     get() = configurationStore.getInt("dpi_value", 0)
     set(value) = configurationStore.putInt("dpi_value", value)
+    
     var showBannerLayout by configurationStore.boolean("show_banner_layout") { true }
+    var bannerHeight by configurationStore.stringToInt("banner_height") { 100 }
+
     var showSplashScreen by configurationStore.boolean("show_splash_screen") { true }
     var connectionTestWithIp by configurationStore.boolean("connection_test_with_ip") { false }
     var showIpInTwoLine by configurationStore.boolean("show_ip_in_two_line") { false }

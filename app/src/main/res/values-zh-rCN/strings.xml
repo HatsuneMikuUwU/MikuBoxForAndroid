@@ -614,6 +614,12 @@
    <string name="cardview_arrow_summary">隐藏箭头指示</string>
    <string name="cardview_icon_profile_server_title">服务器配置图标</string>
    <string name="cardview_icon_profile_server_summary">隐藏服务器配置图标</string>
+   <string name="banner_category">横幅</string>
+   <string name="banner_height_title">横幅高度</string>
+   <string name="banner_height_summary">设置首页横幅高度（单位 dp），默认值：100</string>
+   <string name="banner_custom_title">更换横幅图片</string>
+   <string name="banner_custom_summary">从相册中选择图片作为首页横幅</string>
+
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>
