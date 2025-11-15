@@ -67,25 +67,7 @@ import io.nekohasekai.sagernet.fmt.AbstractBean
 import io.nekohasekai.sagernet.fmt.toUniversalLink
 import io.nekohasekai.sagernet.group.GroupUpdater
 import io.nekohasekai.sagernet.group.RawUpdater
-import io.nekohasekai.sagernet.ktx.FixedLinearLayoutManager
-import io.nekohasekai.sagernet.ktx.Logs
-import io.nekohasekai.sagernet.ktx.SubscriptionFoundException
-import io.nekohasekai.sagernet.ktx.alert
-import io.nekohasekai.sagernet.ktx.app
-import io.nekohasekai.sagernet.ktx.dp2px
-import io.nekohasekai.sagernet.ktx.getColorAttr
-import io.nekohasekai.sagernet.ktx.getColour
-import io.nekohasekai.sagernet.ktx.isIpAddress
-import io.nekohasekai.sagernet.ktx.onMainDispatcher
-import io.nekohasekai.sagernet.ktx.readableMessage
-import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
-import io.nekohasekai.sagernet.ktx.runOnLifecycleDispatcher
-import io.nekohasekai.sagernet.ktx.runOnMainDispatcher
-import io.nekohasekai.sagernet.ktx.scrollTo
-import io.nekohasekai.sagernet.ktx.showAllowingStateLoss
-import io.nekohasekai.sagernet.ktx.snackbar
-import io.nekohasekai.sagernet.ktx.startFilesForResult
-import io.nekohasekai.sagernet.ktx.tryToShow
+import io.nekohasekai.sagernet.ktx.*
 import io.nekohasekai.sagernet.plugin.PluginManager
 import io.nekohasekai.sagernet.ui.profile.ChainSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.HttpSettingsActivity
@@ -356,53 +338,6 @@ class ConfigurationFragment @JvmOverloads constructor(
                         snackbar(e.readableMessage).show()
                     }
                 }
-            }
-        }
-
-    private val pickBannerImage =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            if (uri != null) {
-                startCropActivity(uri)
-            }
-        }
-
-    private val cropBannerImage =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                val cacheUri = UCrop.getOutput(result.data!!)
-                if (cacheUri != null) {
-                    try {
-                        val oldUriString = DataStore.configurationStore.getString("custom_banner_uri", null)
-                        if (!oldUriString.isNullOrEmpty()) {
-                            try {
-                                val oldUri = Uri.parse(oldUriString)
-                                requireContext().contentResolver.delete(oldUri, null, null)
-                            } catch (e: Exception) {
-                                Logs.w("Failed to delete old custom banner: $oldUriString", e)
-                            }
-                        }
-                        val publicMediaUri = saveBannerToMediaStore(cacheUri)
-
-                        DataStore.configurationStore.putString("custom_banner_uri", publicMediaUri.toString())
-
-                        loadBannerImage(publicMediaUri)
-                        snackbar(R.string.custom_banner_set).show()
-
-                    } catch (e: Exception) {
-                        Logs.e("Failed to save banner to MediaStore", e)
-                        snackbar("Failed to save banner image: ${e.message}").show()
-                    }
-                } else {
-                    snackbar("Failed to get cropped image.").show()
-                }
-            } else if (result.resultCode == UCrop.RESULT_ERROR) {
-                val cropError = UCrop.getError(result.data!!)
-                if (cropError != null) {
-                    Logs.e("Cropping error: ", cropError)
-                } else {
-                    Logs.e("Cropping error: Unknown error", Throwable("Unknown crop error"))
-                }
-                snackbar("An error occurred while cropping the image.").show()
             }
         }
 
@@ -1830,73 +1765,6 @@ class ConfigurationFragment @JvmOverloads constructor(
         searchView.clearFocus()
     }
 
-    private fun startCropActivity(sourceUri: Uri) {
-        val destinationFileName = "cropped_banner_temp.jpg"
-        val destinationUri = Uri.fromFile(File(requireContext().cacheDir, destinationFileName))
-
-        val uCrop = UCrop.of(sourceUri, destinationUri)
-            .withAspectRatio(16F, 5F)
-            .withMaxResultSize(1920, 1080)
-
-        try {
-            val options = UCrop.Options()
-            
-            options.setDimmedLayerColor(Color.parseColor("#CCFFFFFF"))
-            options.setCircleDimmedLayer(false)
-            options.setShowCropGrid(true)
-            options.setFreeStyleCropEnabled(false)
-            uCrop.withOptions(options)
-        } catch (e: Exception) {
-            Logs.e("Failed to set UCrop theme", e)
-        }
-
-        cropBannerImage.launch(uCrop.getIntent(requireContext()))
-    }
-
-    @Throws(IOException::class)
-    private fun saveBannerToMediaStore(sourceCacheUri: Uri): Uri {
-        val resolver = requireContext().contentResolver
-        
-        val timeStamp = SimpleDateFormat("yyyy-MM-dd_HH:mm", Locale.US).format(Date())
-        val fileName = "uwu_custom_banner_$timeStamp.jpg"
-
-        val values = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, "Pictures/MikuBox")
-            put(MediaStore.MediaColumns.IS_PENDING, 1)
-        }
-
-        val collection = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-        val newImageUri = resolver.insert(collection, values)
-            ?: throw IOException("Failed to create new MediaStore record")
-
-        try {
-            resolver.openOutputStream(newImageUri).use { outputStream ->
-                if (outputStream == null) throw IOException("Failed to get output stream")
-                
-                resolver.openInputStream(sourceCacheUri).use { inputStream ->
-                    if (inputStream == null) throw IOException("Failed to get input stream from cache")
-                    inputStream.copyTo(outputStream)
-                }
-            }
-
-            values.clear()
-            values.put(MediaStore.MediaColumns.IS_PENDING, 0)
-            resolver.update(newImageUri, values, null, null)
-
-            return newImageUri
-        } catch (e: Exception) {
-            resolver.delete(newImageUri, null, null)
-            throw e
-        } finally {
-            val cacheFile = File(sourceCacheUri.path!!)
-            if (cacheFile.exists()) {
-                cacheFile.delete()
-            }
-        }
-    }
-
     private fun loadBannerImage(uri: Uri) {
         val bannerImageView = view?.findViewById<ImageView>(R.id.img_banner_home)
         bannerImageView?.let {
@@ -1910,6 +1778,21 @@ class ConfigurationFragment @JvmOverloads constructor(
     private fun setupBannerLayoutController() {
         val linear = requireView().findViewById<View>(R.id.banner_home)
         val bannerImageView = requireView().findViewById<ImageView>(R.id.img_banner_home)
+
+        fun updateBannerSize() {
+            bannerImageView?.apply {
+                val heightDp = DataStore.bannerHeight
+
+                val params = layoutParams
+                params.height = dp2px(heightDp)
+                
+                layoutParams = params
+                scaleType = ImageView.ScaleType.CENTER_CROP
+                requestLayout()
+            }
+        }
+
+        updateBannerSize()
 
         fun loadSavedBanner() {
             val savedUriString = DataStore.configurationStore.getString("custom_banner_uri", null)
@@ -1936,10 +1819,6 @@ class ConfigurationFragment @JvmOverloads constructor(
             loadSavedBanner()
         } else {
             linear?.visibility = View.GONE
-        }
-
-        linear?.setOnClickListener {
-            pickBannerImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
         linear?.setOnLongClickListener {
@@ -1979,14 +1858,21 @@ class ConfigurationFragment @JvmOverloads constructor(
         if (bannerLayoutListener == null) {
             bannerLayoutListener = object : OnPreferenceDataStoreChangeListener {
                 override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {
-                    if (key == "show_banner_layout") {
-                        val show = DataStore.showBannerLayout
-                        
-                        if (!isAdded) return
+                    if (!isAdded) return
 
-                        requireActivity().runOnUiThread {
-                            linear?.visibility = if (show) View.VISIBLE else View.GONE
-                            if (show) {
+                    requireActivity().runOnUiThread {
+                        when (key) {
+                            "show_banner_layout" -> {
+                                val show = DataStore.showBannerLayout
+                                linear?.visibility = if (show) View.VISIBLE else View.GONE
+                                if (show) {
+                                    loadSavedBanner()
+                                }
+                            }
+                            "banner_height" -> {
+                                updateBannerSize()
+                            }
+                            "custom_banner_uri" -> {
                                 loadSavedBanner()
                             }
                         }

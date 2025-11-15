@@ -713,6 +713,12 @@ Please grant this permission in System Settings."</string>
     <string name="cardview_arrow_summary">Hide arrow icon in preference</string>
     <string name="cardview_icon_profile_server_title">Icon profile server</string>
     <string name="cardview_icon_profile_server_summary">Hide icon in profile server</string>
+    <string name="banner_category">Banner</string>
+    <string name="banner_height_title">Banner height</string>
+    <string name="banner_height_summary">Set homepage banner height (in dp). Default: 100</string>
+    <string name="banner_custom_title">Change banner image</string>
+    <string name="banner_custom_summary">Select an image from the gallery for the homepage banner</string>
+
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

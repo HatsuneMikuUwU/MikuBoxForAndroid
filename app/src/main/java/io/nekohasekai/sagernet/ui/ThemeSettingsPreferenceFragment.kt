@@ -1,11 +1,18 @@
 package io.nekohasekai.sagernet.ui
 
 import android.Manifest
+import android.app.Activity
+import android.content.ContentValues
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -18,20 +25,64 @@ import androidx.preference.PreferenceGroup
 import androidx.preference.SwitchPreference
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import com.takisoft.preferencex.SimpleMenuPreference
+import com.yalantis.ucrop.UCrop
 import io.nekohasekai.sagernet.Key
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.database.DataStore
-import io.nekohasekai.sagernet.ktx.FixedLinearLayoutManager
+import io.nekohasekai.sagernet.ktx.*
 import io.nekohasekai.sagernet.utils.DPIController
 import io.nekohasekai.sagernet.utils.Theme
 import moe.matsuri.nb4a.ui.ColorPickerPreference
 import moe.matsuri.nb4a.ui.DpiEditTextPreference
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
 
     private lateinit var dynamicSwitch: SwitchPreference
+
+    private val pickBannerImage =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                startCropActivity(uri)
+            }
+        }
+
+    private val cropBannerImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val cacheUri = UCrop.getOutput(result.data!!)
+                if (cacheUri != null) {
+                    try {
+                        val oldUriString = DataStore.configurationStore.getString("custom_banner_uri", null)
+                        if (!oldUriString.isNullOrEmpty()) {
+                            try {
+                                val oldUri = Uri.parse(oldUriString)
+                                requireContext().contentResolver.delete(oldUri, null, null)
+                            } catch (e: Exception) {
+                                Logs.w("Failed to delete old custom banner", e)
+                            }
+                        }
+
+                        val publicMediaUri = saveBannerToMediaStore(cacheUri)
+
+                        DataStore.configurationStore.putString("custom_banner_uri", publicMediaUri.toString())
+
+                        (activity as? MainActivity)?.snackbar(R.string.custom_banner_set)?.show()
+
+                    } catch (e: Exception) {
+                        Logs.e("Failed to save banner to MediaStore", e)
+                        (activity as? MainActivity)?.snackbar("Failed to save: ${e.message}")?.show()
+                    }
+                }
+            } else if (result.resultCode == UCrop.RESULT_ERROR) {
+                val cropError = UCrop.getError(result.data!!) ?: Throwable("Unknown UCrop error")
+                Logs.e("Cropping error: ", cropError)
+            }
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -295,6 +346,27 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
         }
 
+        val bannerHeightPref = findPreference<EditTextPreference>("banner_height")
+        bannerHeightPref?.apply {
+            setOnBindEditTextListener { editText ->
+                editText.inputType = EditorInfo.TYPE_CLASS_NUMBER
+            }
+            val currentHeight = DataStore.bannerHeight
+            text = currentHeight.toString()
+            setOnPreferenceChangeListener { _, newValue ->
+                val newHeightStr = newValue as String
+                val newHeight = newHeightStr.toIntOrNull() ?: 100
+                DataStore.bannerHeight = newHeight
+                true
+            }
+        }
+     
+        val changeBannerPref = findPreference<Preference>("action_change_banner_image")
+        changeBannerPref?.setOnPreferenceClickListener {
+            pickBannerImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            true
+        }
+
         val splashController: SwitchPreference? = findPreference("show_splash_screen")
         splashController?.apply {
             isChecked = DataStore.showSplashScreen
@@ -424,6 +496,70 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             }
             if (preference is PreferenceGroup) {
                 updateAllCategoryStyles(styleValue, preference)
+            }
+        }
+    }
+
+    private fun startCropActivity(sourceUri: Uri) {
+        val destinationFileName = "cropped_banner_temp.jpg"
+        val destinationUri = Uri.fromFile(File(requireContext().cacheDir, destinationFileName))
+        val heightDp = DataStore.bannerHeight
+        val displayMetrics = resources.displayMetrics
+        val screenWidthPx = displayMetrics.widthPixels.toFloat()
+        val targetHeightPx = dp2pxf(heightDp)
+        val uCrop = UCrop.of(sourceUri, destinationUri)
+            .withAspectRatio(screenWidthPx, targetHeightPx)
+            .withMaxResultSize(screenWidthPx.toInt(), targetHeightPx.toInt())
+
+        try {
+            val options = UCrop.Options()
+            options.setDimmedLayerColor(Color.parseColor("#CCFFFFFF"))
+            options.setCircleDimmedLayer(false)
+            options.setShowCropGrid(true)
+            options.setFreeStyleCropEnabled(false)
+            uCrop.withOptions(options)
+        } catch (e: Exception) {
+            Logs.e("Failed to set UCrop theme", e)
+        }
+        cropBannerImage.launch(uCrop.getIntent(requireContext()))
+    }
+
+    @Throws(IOException::class)
+    private fun saveBannerToMediaStore(sourceCacheUri: Uri): Uri {
+        val resolver = requireContext().contentResolver
+        val timeStamp = SimpleDateFormat("yyyy-MM-dd_HH:mm", Locale.US).format(Date())
+        val fileName = "uwu_custom_banner_$timeStamp.jpg"
+
+        val values = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+            put(MediaStore.MediaColumns.RELATIVE_PATH, "Pictures/MikuBox")
+            put(MediaStore.MediaColumns.IS_PENDING, 1)
+        }
+
+        val collection = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+        val newImageUri = resolver.insert(collection, values)
+            ?: throw IOException("Failed to create new MediaStore record")
+
+        try {
+            resolver.openOutputStream(newImageUri).use { outputStream ->
+                if (outputStream == null) throw IOException("Failed to get output stream")
+                resolver.openInputStream(sourceCacheUri).use { inputStream ->
+                    if (inputStream == null) throw IOException("Failed to get input stream from cache")
+                    inputStream.copyTo(outputStream)
+                }
+            }
+            values.clear()
+            values.put(MediaStore.MediaColumns.IS_PENDING, 0)
+            resolver.update(newImageUri, values, null, null)
+            return newImageUri
+        } catch (e: Exception) {
+            resolver.delete(newImageUri, null, null)
+            throw e
+        } finally {
+            val cacheFile = File(sourceCacheUri.path!!)
+            if (cacheFile.exists()) {
+                cacheFile.delete()
             }
         }
     }

@@ -38,10 +38,10 @@
             android:widgetLayout="@layout/uwu_switch"
             android:defaultValue="false"
             app:icon="@drawable/ic_toggle_switch" />
-       </PreferenceCategory>
-       <PreferenceCategory
-            app:title="@string/opsional_category">
-       <SwitchPreference
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/opsional_category">
+        <SwitchPreference
             android:layout="@layout/uwu_top_switch"
             android:title="@string/pref_font_bold_title"
             android:key="bold_font_switch"
@@ -68,21 +68,6 @@
             app:title="@string/language" />
         <SwitchPreference
             android:layout="@layout/uwu_mid_switch"
-            android:title="@string/banner_home_title"
-            android:key="show_banner_layout"
-            android:summary="@string/banner_home_summary"
-            android:widgetLayout="@layout/uwu_switch"
-            android:defaultValue="true"
-            app:icon="@drawable/ic_toggle_switch" />
-       <EditTextPreference
-            android:layout="@layout/uwu_mid"
-            app:icon="@drawable/ic_image_edit"
-            app:key="custom_profile_name"
-            app:title="@string/profile_name_custom_title"
-            app:dialogMessage="@string/profile_name_custom_dialog"
-            app:defaultValue="@string/uwu_banner_title" />
-        <SwitchPreference
-            android:layout="@layout/uwu_mid_switch"
             android:title="@string/pref_show_splash_title"
             android:key="show_splash_screen"
             android:summary="@string/pref_show_splash_summary"
@@ -98,15 +83,49 @@
             app:key="custom_dpi"
             app:title="@string/pref_custom_dpi"
             app:useSimpleSummaryProvider="true" />
-       <com.takisoft.preferencex.SimpleMenuPreference
+        <com.takisoft.preferencex.SimpleMenuPreference
             android:layout="@layout/uwu_bot"
             android:title="@string/category_style_title"
-            app:icon="@drawable/ic_shape_outline"
             android:key="key_category_style_menu"
             android:defaultValue="style1"
             app:entries="@array/style_category_entries"
-            app:entryValues="@array/style_category_values" 
+            app:entryValues="@array/style_category_values"
+            app:icon="@drawable/ic_shape_outline"
             app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/banner_category">
+        <SwitchPreference
+            android:layout="@layout/uwu_top_switch"
+            android:title="@string/banner_home_title"
+            android:key="show_banner_layout"
+            android:summary="@string/banner_home_summary"
+            android:widgetLayout="@layout/uwu_switch"
+            android:defaultValue="true"
+            app:icon="@drawable/ic_toggle_switch" />
+        <EditTextPreference
+            android:layout="@layout/uwu_mid"
+            android:title="@string/banner_height_title"
+            app:icon="@drawable/ic_arrow_up_down_bold_outline"
+            android:key="banner_height"
+            android:summary="@string/banner_height_summary"
+            android:inputType="number"
+            app:defaultValue="100"
+            app:dependency="show_banner_layout" />
+        <Preference
+            android:layout="@layout/uwu_mid"
+            android:title="@string/banner_custom_title"
+            app:icon="@drawable/ic_image_area"
+            android:key="action_change_banner_image"
+            android:summary="@string/banner_custom_summary"
+            app:dependency="show_banner_layout" />
+        <EditTextPreference
+            android:layout="@layout/uwu_bot"
+            app:defaultValue="@string/uwu_banner_title"
+            app:dialogMessage="@string/profile_name_custom_dialog"
+            app:icon="@drawable/ic_image_edit"
+            app:key="custom_profile_name"
+            app:title="@string/profile_name_custom_title" />
     </PreferenceCategory>
     <PreferenceCategory
         app:title="@string/cardview_category">
@@ -134,7 +153,7 @@
             app:key="uwu_summary"
             app:summary="@string/cardview_summary_summary"
             app:title="@string/cardview_summary_title" />
-       <SwitchPreference
+        <SwitchPreference
             android:layout="@layout/uwu_bot_switch"
             android:widgetLayout="@layout/uwu_switch"
             app:defaultValue="false"
@@ -170,7 +189,7 @@
             app:key="manual_weather_city"
             app:title="@string/weather_city"
             app:useSimpleSummaryProvider="true" />
-       <SwitchPreference
+        <SwitchPreference
             android:layout="@layout/uwu_bot_switch"
             android:widgetLayout="@layout/uwu_switch"
             app:defaultValue="true"
@@ -179,9 +198,9 @@
             app:key="show_weather_condition"
             app:summary="@string/show_weather_condition_summary"
             app:title="@string/show_weather_condition" />
-       </PreferenceCategory>
-       <PreferenceCategory
-            app:title="@string/bottom_bar_category">
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/bottom_bar_category">
         <SwitchPreference
             android:layout="@layout/uwu_top_switch"
             android:widgetLayout="@layout/uwu_switch"
@@ -202,10 +221,10 @@
             android:layout="@layout/uwu_mid_switch"
             android:title="@string/ip_info_show_ip_in_two_line_title"
             android:key="show_ip_in_two_line"
-            app:dependency="connection_test_with_ip"
             android:summary="@string/ip_info_show_ip_in_two_line_summary"
             android:widgetLayout="@layout/uwu_switch"
             android:defaultValue="false"
+            app:dependency="connection_test_with_ip"
             app:icon="@drawable/ic_toggle_switch" />
         <com.takisoft.preferencex.SimpleMenuPreference
             android:layout="@layout/uwu_bot"
