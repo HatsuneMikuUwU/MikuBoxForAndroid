@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content">
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="fill_parent"
-                    android:layout_height="100.0dip"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12.0dip"
                     android:layout_marginStart="12.0dip"
                     android:layout_marginEnd="12.0dip"
@@ -47,7 +47,7 @@
                     <ImageView
                         android:id="@+id/img_banner_home"
                         android:layout_width="fill_parent"
-                        android:layout_height="100.0dip"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/uwu_banner_home"
                         android:scaleType="centerCrop"
                         android:elevation="0.0dip" />
