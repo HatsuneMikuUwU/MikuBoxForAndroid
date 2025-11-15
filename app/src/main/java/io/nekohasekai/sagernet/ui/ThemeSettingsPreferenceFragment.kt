@@ -509,7 +509,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
         val targetHeightPx = dp2pxf(heightDp)
         val uCrop = UCrop.of(sourceUri, destinationUri)
             .withAspectRatio(screenWidthPx, targetHeightPx)
-            .withMaxResultSize(screenWidthPx.toInt(), targetHeightPx.toInt())
+            .withMaxResultSize(2560, 1440)
 
         try {
             val options = UCrop.Options()
