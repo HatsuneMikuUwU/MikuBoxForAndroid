@@ -39,6 +39,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.android.material.snackbar.Snackbar
 
 class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
 
@@ -69,11 +70,11 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
 
                         val publicMediaUri = saveBannerToMediaStore(cacheUri, "uwu_home_banner_")
                         DataStore.configurationStore.putString("custom_banner_uri", publicMediaUri.toString())
-                        (activity as? MainActivity)?.snackbar(R.string.custom_banner_set)?.show()
+                        snackbar(R.string.custom_banner_set).show()
 
                     } catch (e: Exception) {
                         Logs.e("Failed to save banner to MediaStore", e)
-                        (activity as? MainActivity)?.snackbar("Failed to save: ${e.message}")?.show()
+                        snackbar("Failed to save: ${e.message}").show()
                     }
                 }
             } else if (result.resultCode == UCrop.RESULT_ERROR) {
@@ -108,11 +109,11 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                         val publicMediaUri = saveBannerToMediaStore(cacheUri, "uwu_profile_banner_")
                         
                         DataStore.configurationStore.putString("profile_banner_uri", publicMediaUri.toString())
-                        (activity as? MainActivity)?.snackbar(R.string.custom_banner_profile_set)?.show()
+                        snackbar(R.string.custom_banner_profile_set).show()
 
                     } catch (e: Exception) {
                         Logs.e("Failed to save profile banner", e)
-                        (activity as? MainActivity)?.snackbar("Failed to save: ${e.message}")?.show()
+                        snackbar("Failed to save: ${e.message}").show()
                     }
                 }
             } else if (result.resultCode == UCrop.RESULT_ERROR) {
@@ -389,6 +390,39 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
             true
         }
 
+        val deleteBannerPref = findPreference<Preference>("action_delete_banner_image")
+        deleteBannerPref?.setOnPreferenceClickListener {
+            val savedUriString = DataStore.configurationStore.getString("custom_banner_uri", null)
+            if (!savedUriString.isNullOrEmpty()) {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.delete_custom_banner_title)
+                    .setMessage(R.string.delete_custom_banner_message)
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        try {
+                            val savedUri = Uri.parse(savedUriString)
+                            val rowsDeleted = requireContext().contentResolver.delete(savedUri, null, null)
+                            if (rowsDeleted <= 0) {
+                                Logs.w("Banner file not found or failed to delete.")
+                            }
+                        } catch (e: SecurityException) {
+                            Logs.e("Failed to delete custom banner (SecurityException)", e)
+                            snackbar("Failed to delete file. Manually delete from Gallery.").show()
+                        } catch (e: Exception) {
+                            Logs.e("Failed to delete custom banner", e)
+                        }
+
+                        DataStore.configurationStore.putString("custom_banner_uri", null)
+                        snackbar(R.string.custom_banner_removed).show()
+                    }
+                    .setNegativeButton(R.string.no, null)
+                    .show()
+            } else {
+                snackbar(R.string.no_custom_banner_to_remove).show()
+            }
+            true
+        }
+
+
         val bannerHeightPref = findPreference<EditTextPreference>("banner_height")
         bannerHeightPref?.apply {
             setOnBindEditTextListener { editText ->
@@ -407,6 +441,38 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
         val changeProfileBannerPref = findPreference<Preference>("action_change_profile_banner_image")
         changeProfileBannerPref?.setOnPreferenceClickListener {
             pickProfileBannerImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            true
+        }
+
+        val deleteProfileBannerPref = findPreference<Preference>("action_delete_profile_banner_image")
+        deleteProfileBannerPref?.setOnPreferenceClickListener {
+            val savedUriString = DataStore.configurationStore.getString("profile_banner_uri", null)
+            if (!savedUriString.isNullOrEmpty()) {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.delete_custom_banner_title)
+                    .setMessage(R.string.delete_custom_banner_message)
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        try {
+                            val savedUri = Uri.parse(savedUriString)
+                            val rowsDeleted = requireContext().contentResolver.delete(savedUri, null, null)
+                            if (rowsDeleted <= 0) {
+                                Logs.w("Profile banner file not found or failed to delete.")
+                            }
+                        } catch (e: SecurityException) {
+                            Logs.e("Failed to delete custom profile banner (SecurityException)", e)
+                            snackbar("Failed to delete file. Manually delete from Gallery.").show()
+                        } catch (e: Exception) {
+                            Logs.e("Failed to delete custom profile banner", e)
+                        }
+
+                        DataStore.configurationStore.putString("profile_banner_uri", null)
+                        snackbar(R.string.custom_banner_removed).show()
+                    }
+                    .setNegativeButton(R.string.no, null)
+                    .show()
+            } else {
+                snackbar(R.string.no_custom_banner_to_remove).show()
+            }
             true
         }
 

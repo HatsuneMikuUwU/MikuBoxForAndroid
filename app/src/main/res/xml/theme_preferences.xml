@@ -113,12 +113,18 @@
             app:dependency="show_banner_layout"
             app:icon="@drawable/ic_arrow_up_down_bold_outline" />
         <Preference
-            android:layout="@layout/uwu_bot"
+            android:layout="@layout/uwu_mid"
             android:title="@string/banner_custom_title"
             android:key="action_change_banner_image"
             android:summary="@string/banner_custom_summary"
             app:dependency="show_banner_layout"
             app:icon="@drawable/ic_image_area" />
+        <Preference
+            android:layout="@layout/uwu_bot"
+            app:key="action_delete_banner_image"
+            app:summary="@string/delete_custom_banner_summary"
+            app:title="@string/delete_custom_banner"
+            app:icon="@drawable/ic_action_delete" />
     </PreferenceCategory>
     <PreferenceCategory
         app:title="@string/banner_profile_category">
@@ -130,11 +136,17 @@
             app:key="custom_profile_name"
             app:title="@string/profile_name_custom_title" />
         <Preference
-            app:icon="@drawable/ic_image_area"
-            android:layout="@layout/uwu_bot"
+            android:layout="@layout/uwu_mid"
             android:title="@string/banner_profile_custom_title"
             android:key="action_change_profile_banner_image"
-            android:summary="@string/banner_profile_custom_summary" />
+            android:summary="@string/banner_profile_custom_summary"
+            app:icon="@drawable/ic_image_area" />
+        <Preference
+            android:layout="@layout/uwu_bot"
+            app:key="action_delete_profile_banner_image"
+            app:summary="@string/delete_custom_banner_profile_summary"
+            app:title="@string/delete_custom_banner_profile"
+            app:icon="@drawable/ic_action_delete" />
     </PreferenceCategory>
     <PreferenceCategory
         app:title="@string/cardview_category">

@@ -627,6 +627,11 @@ Tolong kasih izinnya di Settingan Sistem."</string>
      <string name="banner_profile_category">Profil</string>
      <string name="banner_profile_custom_title">Ganti gambar profile</string>
      <string name="banner_profile_custom_summary">Pilih gambar custom untuk header profil</string>
+     <string name="delete_custom_banner">Ilangin banner custom</string>
+     <string name="delete_custom_banner_summary">Balikin ke banner bawaan</string>
+     <string name="delete_custom_banner_profile">Ilangin banner profil custom</string>
+     <string name="delete_custom_banner_profile_summary">Balikin ke banner profil bawaan</string>
+     <string name="no_custom_banner_to_remove">Nggak ada banner custom yang disetel</string>
     
     <string name="uwu_about_miku_title">Siapa itu Hatsune Miku?</string>
     <string name="uwu_about_miku_summary">Hatsune Miku itu penyanyi virtual berbasis Vocaloid yang dirilis sama Crypton Future Media, kode namanya CV01. Dikenal gara-gara rambut twintail panjang warna biru kehijauan sama suaranya yang jernih, dia itu cewek 16 tahun dan idola virtual yang terkenal sedunia. Dia aktif di musik, konser, dan anime, plus disayang banget sama fans-fansnya.</string>

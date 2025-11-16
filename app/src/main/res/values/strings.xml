@@ -722,6 +722,11 @@ Please grant this permission in System Settings."</string>
     <string name="banner_profile_category">Profile</string>
     <string name="banner_profile_custom_title">Change profile banner</string>
     <string name="banner_profile_custom_summary">Choose a custom image for the profile header</string>
+    <string name="delete_custom_banner">Delete custom banner</string>
+    <string name="delete_custom_banner_summary">Revert to default banner</string>
+    <string name="delete_custom_banner_profile">Delete custom profile banner</string>
+    <string name="delete_custom_banner_profile_summary">Revert to default profile banner</string>
+    <string name="no_custom_banner_to_remove">No custom banner is set</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>

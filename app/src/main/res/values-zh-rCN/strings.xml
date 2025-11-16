@@ -623,6 +623,11 @@
    <string name="banner_profile_category">个人资料</string>
    <string name="banner_profile_custom_title">更换个人资料横幅</string>
    <string name="banner_profile_custom_summary">选择自定义图片作为个人资料横幅</string>
+   <string name="delete_custom_banner">删除自定义横幅</string>
+    <string name="delete_custom_banner_summary">恢复默认横幅</string>
+    <string name="delete_custom_banner_profile">删除自定义个人资料横幅</string>
+    <string name="delete_custom_banner_profile_summary">恢复默认个人资料横幅</string>
+    <string name="no_custom_banner_to_remove">未设置自定义横幅</string>
     
     <!-- uwu -->
     <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>

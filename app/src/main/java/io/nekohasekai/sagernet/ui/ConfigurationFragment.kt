@@ -1088,6 +1088,8 @@ class ConfigurationFragment @JvmOverloads constructor(
 
         override suspend fun onUpdated(profile: ProxyEntity, noTraffic: Boolean) = Unit
 
+
+
         override suspend fun onRemoved(groupId: Long, profileId: Long) {
             val group = groupList.find { it.id == groupId } ?: return
             if (group.ungrouped && SagerDatabase.proxyDao.countByGroup(groupId) == 0L) {
@@ -1819,40 +1821,6 @@ class ConfigurationFragment @JvmOverloads constructor(
             loadSavedBanner()
         } else {
             linear?.visibility = View.GONE
-        }
-
-        linear?.setOnLongClickListener {
-            val savedUriString = DataStore.configurationStore.getString("custom_banner_uri", null)
-            if (!savedUriString.isNullOrEmpty()) {
-                AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.delete_custom_banner_title)
-                    .setMessage(R.string.delete_custom_banner_message)
-                    .setPositiveButton(R.string.yes) { dialog: DialogInterface, which: Int ->
-                        
-                        try {
-                            val savedUri = Uri.parse(savedUriString)
-                            val rowsDeleted = requireContext().contentResolver.delete(savedUri, null, null)
-
-                            if (rowsDeleted <= 0) {
-                                Logs.w("Banner file not found or failed to delete.")
-                            }
-                        } catch (e: SecurityException) {
-                            Logs.e("Failed to delete custom banner (SecurityException)", e)
-                            snackbar("Failed to delete file. Manually delete from Gallery.").show()
-                        } catch (e: Exception) {
-                            Logs.e("Failed to delete custom banner", e)
-                        }
-
-                        DataStore.configurationStore.putString("custom_banner_uri", null)
-                        
-                        bannerImageView?.setImageResource(R.drawable.uwu_banner_home)
-
-                        snackbar(R.string.custom_banner_removed).show()
-                    }
-                    .setNegativeButton(R.string.no, null)
-                    .show()
-            }
-            true
         }
 
         if (bannerLayoutListener == null) {
