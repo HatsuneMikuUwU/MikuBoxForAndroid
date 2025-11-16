@@ -3,13 +3,13 @@ package com.neko.widget
 import android.content.Context
 import android.net.Uri
 import android.util.AttributeSet
-import com.neko.shapeimageview.ShaderImageView
-import com.neko.shapeimageview.shader.ShaderHelper
-import com.neko.shapeimageview.shader.SvgShader
 import androidx.preference.PreferenceDataStore
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.signature.ObjectKey
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.neko.shapeimageview.ShaderImageView
+import com.neko.shapeimageview.shader.ShaderHelper
+import com.neko.shapeimageview.shader.SvgShader
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.database.preference.OnPreferenceDataStoreChangeListener
@@ -19,7 +19,7 @@ class ProfileBannerImageView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ShaderImageView(context, attrs, defStyleAttr), OnPreferenceDataStoreChangeListener {
-    
+
     private val KEY_URI = "profile_banner_uri"
 
     override fun createImageViewHelper(): ShaderHelper {
@@ -28,9 +28,6 @@ class ProfileBannerImageView @JvmOverloads constructor(
 
     init {
         scaleType = ScaleType.CENTER_CROP
-        if (!isInEditMode) {
-            loadImage()
-        }
     }
 
     override fun onAttachedToWindow() {
@@ -60,33 +57,26 @@ class ProfileBannerImageView @JvmOverloads constructor(
         val savedUriString = DataStore.configurationStore.getString(KEY_URI, null)
 
         if (!savedUriString.isNullOrEmpty()) {
-            try {
-                val savedUri = Uri.parse(savedUriString)
-                context.contentResolver.openInputStream(savedUri).use {}
+            val savedUri = Uri.parse(savedUriString)
 
-                Glide.with(this)
-                    .asBitmap()
-                    .load(savedUri)
-                    .signature(ObjectKey(System.currentTimeMillis().toString())) // Paksa refresh cache
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(this)
-            } catch (e: Exception) {
-                loadDefault()
-            }
+            Glide.with(this)
+                .asBitmap()
+                .load(savedUri)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .skipMemoryCache(false)
+                .placeholder(R.drawable.uwu_banner_profile)
+                .error(R.drawable.uwu_banner_profile)
+                .into(this)
+
         } else {
             loadDefault()
         }
     }
 
     private fun loadDefault() {
-        try {
-            Glide.with(this)
-                .asBitmap()
-                .load(R.drawable.uwu_banner_profile)
-                .into(this)
-        } catch (e: Exception) {
-            setImageResource(R.drawable.uwu_banner_profile)
-        }
+        Glide.with(this)
+            .asBitmap()
+            .load(R.drawable.uwu_banner_profile)
+            .into(this)
     }
 }
