@@ -1,12 +1,14 @@
 package com.neko.widget
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.util.AttributeSet
 import androidx.preference.PreferenceDataStore
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.neko.shapeimageview.ShaderImageView
 import com.neko.shapeimageview.shader.ShaderHelper
 import com.neko.shapeimageview.shader.SvgShader
@@ -47,36 +49,47 @@ class ProfileBannerImageView @JvmOverloads constructor(
 
     override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {
         if (key == KEY_URI) {
-            post {
-                loadImage()
-            }
+            post { loadImage() }
         }
     }
 
     private fun loadImage() {
         val savedUriString = DataStore.configurationStore.getString(KEY_URI, null)
 
-        if (!savedUriString.isNullOrEmpty()) {
-            val savedUri = Uri.parse(savedUriString)
-
-            Glide.with(this)
-                .asBitmap()
-                .load(savedUri)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .skipMemoryCache(false)
-                .placeholder(R.drawable.uwu_banner_profile)
-                .error(R.drawable.uwu_banner_profile)
-                .into(this)
-
-        } else {
+        if (savedUriString.isNullOrEmpty()) {
             loadDefault()
+            return
         }
+
+        val savedUri = Uri.parse(savedUriString)
+
+        Glide.with(this)
+            .asBitmap()
+            .load(savedUri)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .placeholder(R.drawable.uwu_banner_profile)
+            .error(R.drawable.uwu_banner_profile)
+            .into(object : SimpleTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?
+                ) {
+                    setImageBitmap(resource)
+                }
+            })
     }
 
     private fun loadDefault() {
         Glide.with(this)
             .asBitmap()
             .load(R.drawable.uwu_banner_profile)
-            .into(this)
+            .into(object : SimpleTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?
+                ) {
+                    setImageBitmap(resource)
+                }
+            })
     }
 }
