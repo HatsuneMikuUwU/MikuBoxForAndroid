@@ -45,7 +45,7 @@
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content">
-                        <com.google.android.material.card.MaterialCardView
+                        <com.neko.elasticview.ElasticView
                             android:layout_width="fill_parent"
                             android:layout_height="150.0dip"
                             android:layout_marginTop="12.0dip"
@@ -54,7 +54,8 @@
                             android:layout_marginEnd="12.0dip"
                             app:cardBackgroundColor="#00000000"
                             app:cardCornerRadius="19.0dip"
-                            app:cardElevation="0.0dip">
+                            app:cardElevation="0.0dip"
+                            app:rippleColor="#00000000">
                             <ImageView
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
@@ -140,7 +141,7 @@
                                     </RelativeLayout>
                                 </LinearLayout>
                             </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
+                        </com.neko.elasticview.ElasticView>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <LinearLayout

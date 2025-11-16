@@ -3425,6 +3425,7 @@
 
     <color name="preference_simple_menu_background">#FAFAFA</color>
 
+    <color name="startColor">#59FFFFFF</color>
 
 </resources>
 

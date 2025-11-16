@@ -124,6 +124,7 @@
             app:key="action_delete_banner_image"
             app:summary="@string/delete_custom_banner_summary"
             app:title="@string/delete_custom_banner"
+            app:dependency="show_banner_layout"
             app:icon="@drawable/ic_action_delete" />
     </PreferenceCategory>
     <PreferenceCategory

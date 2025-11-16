@@ -48,6 +48,10 @@
         <attr name="siStrokeJoin"/>
         <attr name="siStrokeMiter" format="dimension" />
     </declare-styleable>
+    
+    <declare-styleable name="ElasticView">
+        <attr name="flexibility" format="float" />
+    </declare-styleable>
 
     <declare-styleable name="SwitchButton">
         <attr name="uwuThumbDrawable" format="reference"/>
