@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import io.nekohasekai.sagernet.BuildConfig
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.SagerNet
@@ -97,7 +96,7 @@ class AppListActivity : ThemedActivity() {
 
     private inner class AppsAdapter : RecyclerView.Adapter<AppViewHolder>(),
         Filterable,
-        FastScrollRecyclerView.SectionedAdapter {
+        RecyclerView.SectionedAdapter {
         var filteredApps = apps
 
         suspend fun reload() {
