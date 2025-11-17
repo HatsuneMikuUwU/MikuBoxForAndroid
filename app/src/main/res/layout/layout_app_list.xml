@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:indeterminate="true" />
                 </LinearLayout>
-                <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:scrollbarSize="0.0dip"
                     android:id="@+id/list"
                     android:paddingBottom="64.0dip"

@@ -52,7 +52,7 @@
                 android:layout_marginTop="-16.0dip"
                 android:layout_marginStart="-16.0dip"
                 android:layout_marginEnd="-16.0dip">
-        <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:scrollbarSize="0.0dip"
             android:id="@+id/group_list"
             android:paddingBottom="64.0dip"
