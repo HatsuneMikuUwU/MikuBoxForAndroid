@@ -4,7 +4,7 @@ An Android universal proxy toolchain powered by **sing-box**.
 *一款使用 sing-box 的 Android 通用代理程式*
 
 
-[![Platform](https://img.shields.io/badge/android-platform?style=flat&label=platform&labelColor=21262d&color=6e7681)](https://www.android.com) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)  
+[![Platform](https://img.shields.io/badge/android-platform?style=flat&label=platform&labelColor=21262d&color=6e7681)](https://www.android.com) [![API](https://img.shields.io/badge/API-29%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)  
 [![Releases](https://img.shields.io/github/v/release/HatsuneMikuUwU/MikuBoxForAndroid)](https://github.com/HatsuneMikuUwU/MikuBoxForAndroid/releases) [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-orange.svg)](https://www.gnu.org/licenses/gpl-3.0) 
 
 ---
