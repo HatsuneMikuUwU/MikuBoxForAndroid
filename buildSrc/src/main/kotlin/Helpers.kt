@@ -61,13 +61,13 @@ fun Project.setupCommon() {
             }
         }
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_21
-            targetCompatibility = JavaVersion.VERSION_21
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
         }
 
         extensions.configure<KotlinAndroidProjectExtension> {
             compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_21)
+                jvmTarget.set(JvmTarget.JVM_1_8)
             }
         }
 
