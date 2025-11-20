@@ -4,10 +4,8 @@ import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByName
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import java.util.Base64
 import java.util.Properties
 import kotlin.system.exitProcess
@@ -20,10 +18,7 @@ private lateinit var localProperties: Properties
 fun Project.requireMetadata(): Properties {
     if (!::metadata.isInitialized) {
         metadata = Properties().apply {
-            val propFile = rootProject.file("nb4a.properties")
-            if (propFile.exists()) {
-                load(propFile.inputStream())
-            }
+            load(rootProject.file("nb4a.properties").inputStream())
         }
     }
     return metadata
@@ -35,11 +30,8 @@ fun Project.requireLocalProperties(): Properties {
 
         val base64 = System.getenv("LOCAL_PROPERTIES")
         if (!base64.isNullOrBlank()) {
-            try {
-                localProperties.load(Base64.getDecoder().decode(base64).inputStream())
-            } catch (e: Exception) {
-                println("Failed to decode LOCAL_PROPERTIES")
-            }
+
+            localProperties.load(Base64.getDecoder().decode(base64).inputStream())
         } else if (project.rootProject.file("local.properties").exists()) {
             localProperties.load(rootProject.file("local.properties").inputStream())
         }
@@ -52,7 +44,7 @@ fun Project.setupCommon() {
         buildToolsVersion = "35.0.1"
         compileSdk = 36
         defaultConfig {
-            minSdk = 29
+            minSdk = 21
             targetSdk = 36
         }
         buildTypes {
@@ -64,13 +56,9 @@ fun Project.setupCommon() {
             sourceCompatibility = JavaVersion.VERSION_1_8
             targetCompatibility = JavaVersion.VERSION_1_8
         }
-
-        extensions.configure<KotlinAndroidProjectExtension> {
-            compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_1_8)
-            }
+        (android as ExtensionAware).extensions.getByName<KotlinJvmOptions>("kotlinOptions").apply {
+            jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
-
         lint {
             showAll = true
             checkAllWarnings = true
@@ -96,7 +84,6 @@ fun Project.setupCommon() {
                 )
             )
         }
-        
         (this as? AbstractAppExtension)?.apply {
             buildTypes {
                 getByName("release") {
@@ -157,12 +144,9 @@ fun Project.setupAppCommon() {
 }
 
 fun Project.setupApp() {
-    val meta = requireMetadata()
-    val pkgName = meta.getProperty("PACKAGE_NAME")
-    val verName = meta.getProperty("VERSION_NAME")
-    val verCodeStr = meta.getProperty("VERSION_CODE")
-    val verCode = verCodeStr.toInt() * 5
-
+    val pkgName = requireMetadata().getProperty("PACKAGE_NAME")
+    val verName = requireMetadata().getProperty("VERSION_NAME")
+    val verCode = (requireMetadata().getProperty("VERSION_CODE").toInt()) * 5
     android.apply {
         defaultConfig {
             applicationId = pkgName
@@ -201,11 +185,10 @@ fun Project.setupApp() {
             create("fdroid")
             create("play")
             create("preview") {
-                val preVerName = requireMetadata().getProperty("PRE_VERSION_NAME") ?: ""
                 buildConfigField(
                     "String",
                     "PRE_VERSION_NAME",
-                    "\"$preVerName\""
+                    "\"${requireMetadata().getProperty("PRE_VERSION_NAME")}\""
                 )
             }
         }
@@ -214,12 +197,10 @@ fun Project.setupApp() {
             outputs.all {
                 this as BaseVariantOutputImpl
                 val isPreview = outputFileName.contains("-preview")
-                val preVerName = requireMetadata().getProperty("PRE_VERSION_NAME") ?: ""
-                
                 outputFileName = if (isPreview) {
                     outputFileName.replace(
                         project.name,
-                        "MikuBox-$preVerName"
+                        "MikuBox-" + requireMetadata().getProperty("PRE_VERSION_NAME")
                     ).replace("-preview", "")
                 } else {
                     outputFileName.replace(project.name, "MikuBox-$versionName")
@@ -230,7 +211,7 @@ fun Project.setupApp() {
         }
 
         for (abi in listOf("Arm64", "Arm", "X64", "X86")) {
-            tasks.register("assemble" + abi + "FdroidRelease") {
+            tasks.create("assemble" + abi + "FdroidRelease") {
                 dependsOn("assembleFdroidRelease")
             }
         }
