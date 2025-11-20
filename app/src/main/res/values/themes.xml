@@ -2294,7 +2294,7 @@
     
     <style name="AppTheme.Widget.Material3.NavigationView" parent="@style/Widget.Design.ScrimInsetsFrameLayout">
         <item name="android:background">?colorSurfaceContainerLow</item>
-        <item name="android:maxWidth">360.0dip</item>
+        <item name="android:maxWidth">325.0dip</item>
         <item name="bottomInsetScrimEnabled">false</item>
         <item name="dividerInsetEnd">28.0dip</item>
         <item name="dividerInsetStart">28.0dip</item>

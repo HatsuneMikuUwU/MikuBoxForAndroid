@@ -120,9 +120,8 @@
         android:layout_gravity="start"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:maxWidth="360.0dip">
+        android:layout_width="325.0dip"
+        android:layout_height="fill_parent">
         <LinearLayout
             android:orientation="vertical"
             android:background="@drawable/uwu_bg_navigationview"
