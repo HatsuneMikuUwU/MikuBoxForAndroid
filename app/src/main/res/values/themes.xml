@@ -52,7 +52,6 @@
         <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
         <item name="colorBackgroundFloating">#ff212121</item>
         <item name="dialogCornerRadius">28.0dip</item>
-        <item name="actionModeTheme">@style/CrashFixTheme</item>
     </style>
   
     <style name="Theme.SagerNet" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
@@ -69,7 +68,6 @@
         <item name="actionBarStyle">@style/Widget.MaterialComponents.ActionBar.Solid</item>
         <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
-        <item name="actionModeTheme">@style/CrashFixTheme</item>
         <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet</item>
         <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Choice.SagerNet</item>
         <item name="colorAccent">?colorPrimary</item>
@@ -155,7 +153,6 @@
         <item name="actionBarStyle">@style/Widget.MaterialComponents.ActionBar.Solid</item>
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
-        <item name="actionModeTheme">@style/CrashFixTheme</item>
         <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet</item>
         <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Choice.SagerNet</item>
         <item name="colorAccent">?colorPrimary</item>
@@ -2340,11 +2337,4 @@
     <item name="android:textStyle">bold</item>
   </style>
   
-    <style name="CrashFixTheme" parent="@style/Theme.AppCompat.Light">
-    <item name="android:imageButtonStyle">@android:style/Widget.ImageButton</item>
-    <item name="android:listSelector">@android:color/transparent</item>
-    <item name="android:popupMenuStyle">@android:style/Widget.PopupMenu</item>
-    <item name="android:dropDownListViewStyle">@android:style/Widget.ListView.DropDown</item>
-  </style>
-    
 </resources>
