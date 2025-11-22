@@ -40,7 +40,6 @@
     </style>
   
     <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet.True.Black" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="backgroundTint">#ff212121</item>
         <item name="colorSurface">#ff212121</item>
         <item name="android:backgroundTint">#ff212121</item>
@@ -232,7 +231,6 @@
 
 
     <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
         <item name="colorSurface">?attr/colorSurfaceContainerHigh</item>
         <item name="android:backgroundTint">?attr/colorSurfaceContainerHigh</item>
