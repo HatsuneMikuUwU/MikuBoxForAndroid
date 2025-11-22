@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             style="@style/AppTheme.TextInputLayout">
             <com.google.android.material.textfield.TextInputEditText
-                android:background="@android:color/transparent"
                 android:textColor="?android:textColorPrimary"
                 android:id="@android:id/edit"
                 android:layout_width="fill_parent"
