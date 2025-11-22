@@ -68,7 +68,6 @@
         <item name="actionBarStyle">@style/Widget.MaterialComponents.ActionBar.Solid</item>
         <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
-        <item name="android:actionModeTheme">@style/CrashFixTheme</item>
         <item name="actionModeTheme">@style/CrashFixTheme</item>
         <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet</item>
         <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Choice.SagerNet</item>
