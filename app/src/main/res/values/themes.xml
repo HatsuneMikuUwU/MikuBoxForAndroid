@@ -50,6 +50,8 @@
         <item name="buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
         <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush.Primary</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
+        <item name="android:imageButtonStyle">@style/Widget.AppCompat.ImageButton</item>
+        <item name="imageButtonStyle">@style/Widget.AppCompat.ImageButton</item>
         <item name="colorBackgroundFloating">#ff212121</item>
         <item name="dialogCornerRadius">28.0dip</item>
     </style>
@@ -238,6 +240,8 @@
         <item name="buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
         <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush.Primary</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
+        <item name="android:imageButtonStyle">@style/Widget.AppCompat.ImageButton</item>
+        <item name="imageButtonStyle">@style/Widget.AppCompat.ImageButton</item>
         <item name="colorBackgroundFloating">?attr/colorSurfaceContainerHigh</item>
         <item name="dialogCornerRadius">28.0dip</item>
     </style>
