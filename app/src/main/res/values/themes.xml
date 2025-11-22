@@ -50,8 +50,6 @@
         <item name="buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
         <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush.Primary</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
-        <item name="android:imageButtonStyle">@style/Widget.AppCompat.ImageButton</item>
-        <item name="imageButtonStyle">@style/Widget.AppCompat.ImageButton</item>
         <item name="colorBackgroundFloating">#ff212121</item>
         <item name="dialogCornerRadius">28.0dip</item>
     </style>
@@ -70,6 +68,8 @@
         <item name="actionBarStyle">@style/Widget.MaterialComponents.ActionBar.Solid</item>
         <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
+        <item name="android:actionModeTheme">@style/CrashFixTheme</item>
+        <item name="actionModeTheme">@style/CrashFixTheme</item>
         <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet</item>
         <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Choice.SagerNet</item>
         <item name="colorAccent">?colorPrimary</item>
@@ -240,8 +240,6 @@
         <item name="buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
         <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush.Primary</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
-        <item name="android:imageButtonStyle">@style/Widget.AppCompat.ImageButton</item>
-        <item name="imageButtonStyle">@style/Widget.AppCompat.ImageButton</item>
         <item name="colorBackgroundFloating">?attr/colorSurfaceContainerHigh</item>
         <item name="dialogCornerRadius">28.0dip</item>
     </style>
@@ -2338,6 +2336,13 @@
 
   <style name="BoldTextThemeOverlay">
     <item name="android:textStyle">bold</item>
+  </style>
+  
+  <style name="CrashFixTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="android:imageButtonStyle">@android:style/Widget.ImageButton</item>
+    <item name="imageButtonStyle">@android:style/Widget.ImageButton</item>
+    <item name="android:listSelector">@android:drawable/list_selector_background</item>
+    <item name="android:popupMenuStyle">@android:style/Widget.PopupMenu</item>
   </style>
     
 </resources>
