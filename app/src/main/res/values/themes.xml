@@ -40,6 +40,7 @@
     </style>
   
     <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet.True.Black" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="backgroundTint">#ff212121</item>
         <item name="colorSurface">#ff212121</item>
         <item name="android:backgroundTint">#ff212121</item>
@@ -52,6 +53,7 @@
         <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
         <item name="colorBackgroundFloating">#ff212121</item>
         <item name="dialogCornerRadius">28.0dip</item>
+        <item name="actionModeTheme">@style/CrashFixTheme</item>
     </style>
   
     <style name="Theme.SagerNet" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
@@ -154,6 +156,7 @@
         <item name="actionBarStyle">@style/Widget.MaterialComponents.ActionBar.Solid</item>
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
+        <item name="actionModeTheme">@style/CrashFixTheme</item>
         <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet</item>
         <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Choice.SagerNet</item>
         <item name="colorAccent">?colorPrimary</item>
@@ -229,6 +232,7 @@
 
 
     <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
         <item name="colorSurface">?attr/colorSurfaceContainerHigh</item>
         <item name="android:backgroundTint">?attr/colorSurfaceContainerHigh</item>
@@ -241,6 +245,7 @@
         <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
         <item name="colorBackgroundFloating">?attr/colorSurfaceContainerHigh</item>
         <item name="dialogCornerRadius">28.0dip</item>
+        <item name="actionModeTheme">@style/CrashFixTheme</item>
     </style>
 
     <style name="AppearanceFoundation.Title" parent="TextAppearance.AppCompat.Title">
@@ -2337,11 +2342,13 @@
     <item name="android:textStyle">bold</item>
   </style>
   
-  <style name="CrashFixTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="CrashFixTheme" parent="@style/Theme.AppCompat.Light">
     <item name="android:imageButtonStyle">@android:style/Widget.ImageButton</item>
     <item name="imageButtonStyle">@android:style/Widget.ImageButton</item>
-    <item name="android:listSelector">@android:drawable/list_selector_background</item>
+    <item name="android:listSelector">@android:color/transparent</item>
+    <item name="listSelector">@android:color/transparent</item>
     <item name="android:popupMenuStyle">@android:style/Widget.PopupMenu</item>
+    <item name="android:dropDownListViewStyle">@android:style/Widget.ListView.DropDown</item>
   </style>
     
 </resources>
