@@ -45,7 +45,7 @@ jobs:
           echo "sdk.dir=${ANDROID_HOME}" > local.properties
           ./run init action gradle
           # assembleRelease çalıştırıyoruz ama imza zorunluluğunu bypass ediyoruz
-          ./gradlew app:assembleRelease -x validateSigningRelease
+          ./gradlew app:assembleRelease
           
       - name: Prepare Files
         run: |
