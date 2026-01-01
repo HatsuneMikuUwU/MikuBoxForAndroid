@@ -1,16 +1,7 @@
-name: Full Release Build
+name: Debug Build & Multi-Arch Release
 
 on:
   workflow_dispatch:
-    inputs:
-      tag_name:
-        description: 'Sürüm Etiketi (örn: v1.0.0)'
-        required: true
-        default: 'v1.0.0'
-      release_title:
-        description: 'Yayın Başlığı'
-        required: true
-        default: 'MikuBox Yeni Sürüm'
 
 jobs:
   libcore:
@@ -19,59 +10,108 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Install Golang
         uses: actions/setup-go@v5
         with:
           go-version: ^1.25
-      - name: Native Build
-        run: ./run lib core
 
-  build_and_release:
-    name: Build and Publish
+      - name: Generate Status Files
+        run: |
+          find buildScript libcore/*.sh | xargs cat | sha1sum > golang_status
+          git ls-files libcore | xargs cat | sha1sum > libcore_status
+
+      - name: LibCore Cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: app/libs/libcore.aar
+          key: ${{ hashFiles('.github/workflows/*', 'golang_status', 'libcore_status') }}
+
+      - name: Native Build
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          chmod +x run
+          ./run lib core
+
+  build:
+    name: Build OSS APK
     runs-on: ubuntu-latest
-    needs: libcore
+    needs:
+      - libcore
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Setup Java
+
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Restore LibCore Cache
+        uses: actions/cache@v4
+        with:
+          path: app/libs/libcore.aar
+          key: ${{ hashFiles('.github/workflows/*', 'golang_status', 'libcore_status') }}
 
       - name: Gradle Build
+        env:
+          BUILD_PLUGIN: none
+          # Kotlin derleyicisine daha fazla bellek veriyoruz
+          _JAVA_OPTIONS: "-Xmx4g -Xms2g"
         run: |
           echo "sdk.dir=${ANDROID_HOME}" > local.properties
-          # NDK yolunu GitHub runner'a göre set ediyoruz
-          echo "ndk.dir=${ANDROID_HOME}/ndk/27.3.13750724" >> local.properties
+          # NDK bundle yolu bazı runnerlarda farklılık gösterebilir, garantiliyoruz
+          echo "ndk.dir=${ANDROID_HOME}/ndk-bundle" >> local.properties
+          
+          chmod +x run gradlew
           ./run init action gradle
-          # İmza istemeyen debug build alıyoruz (En güvenli yol)
-          ./gradlew app:assembleDebug
           
-      - name: Prepare Assets
+          # Sadece PreviewDebug varyantını derleyerek karmaşayı önlüyoruz
+          ./gradlew :app:assemblePreviewDebug \
+            --no-daemon \
+            --info \
+            --stacktrace \
+            -Dorg.gradle.internal.http.socketTimeout=120000 \
+            -Dorg.gradle.internal.http.connectionTimeout=120000
+
+      - name: Prepare Final APKs
+        if: success()
         run: |
-          mkdir -p release_files
-          # Üretilen tüm APK'ları bul ve klasöre kopyala
-          find app/build/outputs/apk/debug -name "*.apk" -exec cp {} release_files/ \;
-          # Tüm dosyaları içeren bir ZIP oluştur
-          zip -r release_files/MikuBox_All_Files.zip release_files/
-          
-      - name: Create GitHub Release
+          mkdir -p final_apks
+          # Sadece başarıyla üretilen preview debug apk'larını al
+          find app/build/outputs/apk/preview/debug -name "*.apk" -exec cp {} final_apks/ \;
+          # Eğer dosya kopyalanamadıysa tüm dizinde ara
+          if [ -z "$(ls -A final_apks)" ]; then
+            find app/build/outputs/apk -name "*debug.apk" -exec cp {} final_apks/ \;
+          fi
+
+      - name: Upload Artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: MikuBox-Preview-Debug
+          path: final_apks/
+
+      - name: Create Release
+        if: success()
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.event.inputs.tag_name }}
-          name: ${{ github.event.inputs.release_title }}
+          tag_name: v1.4.3-build-${{ github.run_number }}
+          name: "MikuBox Preview Build #${{ github.run_number }}"
           body: |
-            ## 📦 MikuBox Android Otomatik Derleme
-            Bu sürüm başarıyla oluşturuldu.
-            
-            - **Etiket:** ${{ github.event.inputs.tag_name }}
-            - **Build Tipi:** Debug (İmza gerektirmez)
-            - **Açıklama:** ZIP içerisinde tüm derleme çıktıları mevcuttur.
-          files: |
-            release_files/*.apk
-            release_files/*.zip
+            ### 🛠 Build Bilgileri
+            - **Durum:** Başarılı
+            - **Varyant:** Preview Debug
+            - **JDK:** 21
+            - **Not:** Bu sürüm imzasızdır, test amaçlıdır.
+          draft: false
+          prerelease: true
+          files: final_apks/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
