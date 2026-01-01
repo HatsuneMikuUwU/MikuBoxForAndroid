@@ -43,17 +43,19 @@ jobs:
       - name: Gradle Build
         run: |
           echo "sdk.dir=${ANDROID_HOME}" > local.properties
+          # NDK yolunu GitHub runner'a göre set ediyoruz
+          echo "ndk.dir=${ANDROID_HOME}/ndk/27.3.13750724" >> local.properties
           ./run init action gradle
-          # assembleRelease çalıştırıyoruz ama imza zorunluluğunu bypass ediyoruz
-          ./gradlew app:assembleRelease
+          # İmza istemeyen debug build alıyoruz (En güvenli yol)
+          ./gradlew app:assembleDebug
           
-      - name: Prepare Files
+      - name: Prepare Assets
         run: |
           mkdir -p release_files
-          # APK'yı bul ve kopyala
-          find app/build/outputs/apk -name "*.apk" -exec cp {} release_files/ \;
-          # Tüm release dosyalarını içeren bir ZIP oluştur
-          zip -r release_files/all-assets.zip release_files/
+          # Üretilen tüm APK'ları bul ve klasöre kopyala
+          find app/build/outputs/apk/debug -name "*.apk" -exec cp {} release_files/ \;
+          # Tüm dosyaları içeren bir ZIP oluştur
+          zip -r release_files/MikuBox_All_Files.zip release_files/
           
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -61,12 +63,12 @@ jobs:
           tag_name: ${{ github.event.inputs.tag_name }}
           name: ${{ github.event.inputs.release_title }}
           body: |
-            ## MikuBox Android Build
-            Bu sürüm GitHub Actions tarafından otomatik olarak oluşturulmuştur.
+            ## 📦 MikuBox Android Otomatik Derleme
+            Bu sürüm başarıyla oluşturuldu.
             
-            - **Sürüm:** ${{ github.event.inputs.tag_name }}
-            - **Tarih:** ${{ github.event.repository.updated_at }}
-            - **Değişiklikler:** Otomatik derleme (imzasız sürüm).
+            - **Etiket:** ${{ github.event.inputs.tag_name }}
+            - **Build Tipi:** Debug (İmza gerektirmez)
+            - **Açıklama:** ZIP içerisinde tüm derleme çıktıları mevcuttur.
           files: |
             release_files/*.apk
             release_files/*.zip
