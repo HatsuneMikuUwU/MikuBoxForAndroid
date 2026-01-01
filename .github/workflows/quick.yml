@@ -1,3 +1,4 @@
+
 name: Debug Build & Multi-Arch Release
 
 on:
@@ -41,6 +42,7 @@ jobs:
       - libcore
     permissions:
       contents: write
+    if: github.event_name == 'workflow_dispatch' || github.actor == 'HSSkyBoy'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -52,6 +54,11 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
+      - name: Generate Status Files
+        run: |
+          find buildScript libcore/*.sh | xargs cat | sha1sum > golang_status
+          git ls-files libcore | xargs cat | sha1sum > libcore_status
+      
       - name: Restore LibCore Cache
         uses: actions/cache@v4
         with:
@@ -61,54 +68,47 @@ jobs:
       - name: Gradle Build
         env:
           BUILD_PLUGIN: none
-          # Kotlin derleyicisine daha fazla bellek veriyoruz
-          _JAVA_OPTIONS: "-Xmx4g -Xms2g"
         run: |
           echo "sdk.dir=${ANDROID_HOME}" > local.properties
-          # NDK bundle yolu bazı runnerlarda farklılık gösterebilir, garantiliyoruz
           echo "ndk.dir=${ANDROID_HOME}/ndk-bundle" >> local.properties
           
           chmod +x run gradlew
           ./run init action gradle
           
-          # Sadece PreviewDebug varyantını derleyerek karmaşayı önlüyoruz
-          ./gradlew :app:assemblePreviewDebug \
+          ./gradlew app:assemblePreviewDebug \
             --no-daemon \
-            --info \
             --stacktrace \
             -Dorg.gradle.internal.http.socketTimeout=120000 \
             -Dorg.gradle.internal.http.connectionTimeout=120000
 
-      - name: Prepare Final APKs
-        if: success()
-        run: |
           mkdir -p final_apks
-          # Sadece başarıyla üretilen preview debug apk'larını al
-          find app/build/outputs/apk/preview/debug -name "*.apk" -exec cp {} final_apks/ \;
-          # Eğer dosya kopyalanamadıysa tüm dizinde ara
+          find app/build/outputs/apk -name "*debug.apk" -exec cp {} final_apks/ \;
+          
           if [ -z "$(ls -A final_apks)" ]; then
-            find app/build/outputs/apk -name "*debug.apk" -exec cp {} final_apks/ \;
+            exit 1
           fi
 
       - name: Upload Artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: MikuBox-Preview-Debug
+          name: MikuBox-All-Architectures-Debug
           path: final_apks/
 
       - name: Create Release
         if: success()
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.4.3-build-${{ github.run_number }}
+          tag_name: 1.4.3-UwU-tr-${{ github.run_number }}
           name: "MikuBox Preview Build #${{ github.run_number }}"
           body: |
-            ### 🛠 Build Bilgileri
-            - **Durum:** Başarılı
-            - **Varyant:** Preview Debug
-            - **JDK:** 21
-            - **Not:** Bu sürüm imzasızdır, test amaçlıdır.
+            ### Build Information
+            - **Build Status:** Success
+            - **Build Number:** ${{ github.run_number }}
+            - **Signature:** Debug (Unsigned)
+            - **Date:** ${{ github.event.head_commit.timestamp }}
+            
+            This is an automated preview build.
           draft: false
           prerelease: true
           files: final_apks/*.apk
