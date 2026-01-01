@@ -1,0 +1,75 @@
+name: Full Release Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Sürüm Etiketi (örn: v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+      release_title:
+        description: 'Yayın Başlığı'
+        required: true
+        default: 'MikuBox Yeni Sürüm'
+
+jobs:
+  libcore:
+    name: Native Build (LibCore)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Golang
+        uses: actions/setup-go@v5
+        with:
+          go-version: ^1.25
+      - name: Native Build
+        run: ./run lib core
+
+  build_and_release:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+    needs: libcore
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Gradle Build
+        run: |
+          echo "sdk.dir=${ANDROID_HOME}" > local.properties
+          ./run init action gradle
+          # assembleRelease çalıştırıyoruz ama imza zorunluluğunu bypass ediyoruz
+          ./gradlew app:assembleRelease -x validateSigningRelease
+          
+      - name: Prepare Files
+        run: |
+          mkdir -p release_files
+          # APK'yı bul ve kopyala
+          find app/build/outputs/apk -name "*.apk" -exec cp {} release_files/ \;
+          # Tüm release dosyalarını içeren bir ZIP oluştur
+          zip -r release_files/all-assets.zip release_files/
+          
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag_name }}
+          name: ${{ github.event.inputs.release_title }}
+          body: |
+            ## MikuBox Android Build
+            Bu sürüm GitHub Actions tarafından otomatik olarak oluşturulmuştur.
+            
+            - **Sürüm:** ${{ github.event.inputs.tag_name }}
+            - **Tarih:** ${{ github.event.repository.updated_at }}
+            - **Değişiklikler:** Otomatik derleme (imzasız sürüm).
+          files: |
+            release_files/*.apk
+            release_files/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
