@@ -1,0 +1,1 @@
+Yapılandırma (insecure) tespit edilebilir ve tanımlanabilir; iletim, sansür mekanizması tarafından tamamen görülebilir durumdadır ve iletişimin içeriğine yönelik aradaki adam (man-in-the-middle) müdahalelerine karşı dirençli değildir.
