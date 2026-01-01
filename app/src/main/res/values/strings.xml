@@ -577,6 +577,7 @@
     <string name="language_en_display_name">English</string>
     <string name="language_id_display_name">Indonesia</string>
     <string name="language_zh_Hans_CN_display_name">简体中文（中国）</string>
+    <string name="language_tr_display_name">Türkçe</string>
     <string name="clear_cache">Clear Cache</string>
     <string name="clear_cache_confirm">Are you sure you want to clear the cache?</string>
     <string name="clear_cache_failed">Failed to clear cache: %s</string>
