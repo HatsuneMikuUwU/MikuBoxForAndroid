@@ -1,0 +1,2 @@
+Bu yapılandırma (Shadowsocks streaming cipher), şifre gerektirmeksizin sansür mekanizmaları (censors) tarafından doğru bir şekilde proaktif olarak tespit edilip deşifre edilebilir (decrypted) ve sunucu tarafında IV replay filtrelerini açmak bu durumu hafifletemez (cannot be mitigated).
+Daha fazla bilgi için: https://github.com/net4people/bbs/issues/24

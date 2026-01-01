@@ -1,0 +1,1 @@
+Bu yapılandırma (not encrypted), tespit edilmesi ve tanımlanması son derece kolaydır; iletim, sansür mekanizması (censor) tarafından tamamen görülebilir durumdadır ve iletişimin içeriğine yönelik man-in-the-middle müdahalelerine karşı hiçbir direnç yoktur.

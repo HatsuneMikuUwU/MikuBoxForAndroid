@@ -1,0 +1,2 @@
+Bu yapılandırma (VMess MD5 authentication), kurcalamaya (tampering) ve gizlemeye (concealment) karşı şüpheli direnci nedeniyle upstream tarafından kullanımdan kaldırılmıştır (deprecated).
+1 Ocak 2022 itibarıyla, MD5 authentication bilgileriyle uyumluluk sunucu tarafında varsayılan olarak devre dışı bırakılacaktır. MD5 authentication bilgisi kullanan herhangi bir istemci (client), VMess MD5 authentication bilgisi devre dışı bırakılmış bir sunucuya bağlanamayacaktır.
