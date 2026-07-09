@@ -379,7 +379,6 @@ class MainActivity : ThemedActivity(),
         setClick(R.id.nav_settings)
         setClick(R.id.nav_traffic)
         setClick(R.id.nav_tools)
-        setClick(R.id.nav_theme)
         setClick(R.id.nav_logcat)
         setClick(R.id.nav_about)
 
@@ -415,7 +414,6 @@ class MainActivity : ThemedActivity(),
             is SettingsFragment -> R.id.nav_settings
             is WebviewFragment -> R.id.nav_traffic
             is ToolsFragment -> R.id.nav_tools
-            is ThemeSettingsFragment -> R.id.nav_theme
             is LogcatFragment -> R.id.nav_logcat
             is AboutFragment -> R.id.nav_about
             else -> null
@@ -433,7 +431,6 @@ class MainActivity : ThemedActivity(),
             R.id.nav_settings -> displayFragment(SettingsFragment())
             R.id.nav_traffic -> displayFragment(WebviewFragment())
             R.id.nav_tools -> displayFragment(ToolsFragment())
-            R.id.nav_theme -> displayFragment(ThemeSettingsFragment())
             R.id.nav_logcat -> displayFragment(LogcatFragment())
             R.id.nav_about -> displayFragment(AboutFragment())
             else -> return false

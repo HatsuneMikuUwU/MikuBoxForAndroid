@@ -2,72 +2,45 @@ package io.nekohasekai.sagernet.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.ViewCompat
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.appbar.CollapsingToolbarLayout
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import io.nekohasekai.sagernet.R
-import io.nekohasekai.sagernet.bg.BaseService
-import io.nekohasekai.sagernet.database.DataStore
-import io.nekohasekai.sagernet.widget.ListListener
-import io.nekohasekai.sagernet.widget.StatsBar
+import io.nekohasekai.sagernet.databinding.LayoutSettingsBinding
 
-class SettingsFragment : ToolbarFragment(R.layout.uwu_collapse_layout) {
+class SettingsFragment : ToolbarFragment(R.layout.layout_settings) {
+
+    private lateinit var binding: LayoutSettingsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ViewCompat.setOnApplyWindowInsetsListener(view, ListListener)
+        binding = LayoutSettingsBinding.bind(view)
+        binding.collapsingToolbar.title = getString(R.string.settings)
+        binding.toolbar.title = null
 
-        val collapsingToolbar =
-            view.findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
-        collapsingToolbar.title = getString(R.string.settings)
+        val pages = listOf(
+            SettingsPreferenceFragment(),
+            ThemeSettingsPreferenceFragment()
+        )
 
-        val fragment = SettingsPreferenceFragment()
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.settings, fragment)
-            .commitAllowingStateLoss()
+        binding.settingsPager.adapter = SettingsAdapter(pages)
+        binding.settingsPager.offscreenPageLimit = pages.size
 
-        view.post {
-            val prefFragment = childFragmentManager.findFragmentById(R.id.settings)
-                    as? SettingsPreferenceFragment ?: fragment
-
-            val prefRecycler = prefFragment.listView
-            val bottomAppBar = requireActivity().findViewById<StatsBar>(R.id.stats)
-                ?: return@post
-
-            fun updateBottomBarVisibility() {
-                val isConnected = DataStore.serviceState == BaseService.State.Connected
-                val showController = DataStore.showBottomBar
-
-                if (!isConnected) {
-                    bottomAppBar.performHide()
-                } else {
-                    if (showController) bottomAppBar.performShow()
-                    else bottomAppBar.performHide()
-                }
+        TabLayoutMediator(binding.settingsTab, binding.settingsPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> getString(R.string.settings)
+                1 -> getString(R.string.uwu_miku_ui)
+                else -> "Tab $position"
             }
+        }.attach()
+    }
 
-            updateBottomBarVisibility()
+    private inner class SettingsAdapter(
+        private val pages: List<Fragment>
+    ) : FragmentStateAdapter(this) {
+        override fun getItemCount() = pages.size
 
-            if (prefRecycler != null) {
-                ViewCompat.setNestedScrollingEnabled(prefRecycler, true)
-
-                prefRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-
-                        val isConnected = DataStore.serviceState == BaseService.State.Connected
-                        val showController = DataStore.showBottomBar
-
-                        if (isConnected && showController) {
-                            if (dy > 6) bottomAppBar.performHide()
-                            else if (dy < -6) bottomAppBar.performShow()
-                        } else {
-                            bottomAppBar.performHide()
-                        }
-                    }
-                })
-            }
-        }
+        override fun createFragment(position: Int): Fragment = pages[position]
     }
 }

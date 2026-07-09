@@ -26,10 +26,6 @@
     <group
         android:id="@+id/misc"
         android:checkableBehavior="single">
-    	<item
-            android:id="@+id/nav_theme"
-            android:icon="@drawable/ic_baseline_color_lens_24"
-            android:title="@string/uwu_miku_ui" />
         <item
             android:id="@+id/nav_logcat"
             android:icon="@drawable/ic_baseline_bug_report_24"
