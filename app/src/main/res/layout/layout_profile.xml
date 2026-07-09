@@ -12,8 +12,10 @@
     android:clickable="true"
     android:focusable="true"
     app:cardBackgroundColor="?colorCard"
-    app:cardCornerRadius="14.0dip"
-    app:cardElevation="0.0dip">
+    app:cardCornerRadius="20.0dip"
+    app:cardElevation="1.0dip"
+    app:strokeColor="?attr/colorOutlineVariant"
+    app:strokeWidth="1.0dip">
 
     <LinearLayout
         android:id="@+id/selected_view"
@@ -75,16 +77,16 @@
                     android:layout_weight="1.0"
                     android:gravity="center_vertical"
                     android:paddingStart="12.0dip"
-                    android:paddingTop="8.0dip"
-                    android:paddingBottom="8.0dip">
+                    android:paddingTop="10.0dip"
+                    android:paddingBottom="10.0dip">
 
                     <TextView
                         android:id="@+id/profile_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                        android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleLarge"
                         android:textColor="?colorOnSurface"
-                        android:textSize="17.0sp" />
+                        android:textSize="18.0sp" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -130,7 +132,7 @@
                 android:orientation="horizontal"
                 android:paddingStart="12.0dip"
                 android:paddingEnd="8.0dip"
-                android:paddingBottom="4.0dip"
+                android:paddingBottom="6.0dip"
                 android:visibility="gone">
 
                 <TextView
@@ -138,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/server_address"
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodyMedium"
                     android:textColor="?colorOnSurfaceVariant"
                     android:textSize="14.0sp" />
 
@@ -152,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/traffic"
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodySmall"
                     android:textColor="?colorOnSurfaceVariant"
                     android:textSize="12.0sp" />
             </LinearLayout>
@@ -169,7 +171,10 @@
                     android:id="@+id/profile_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                    android:background="@drawable/uwu_badge"
+                    android:gravity="center"
+                    android:minHeight="28dp"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodySmall"
                     android:textColor="?colorPrimary"
                     android:textSize="12.0sp" />
 
@@ -183,7 +188,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4.0dip"
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                    android:background="@drawable/uwu_badge"
+                    android:gravity="center"
+                    android:minHeight="28dp"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodySmall"
                     android:textColor="?colorPrimary"
                     android:textSize="12.0sp" />
             </LinearLayout>

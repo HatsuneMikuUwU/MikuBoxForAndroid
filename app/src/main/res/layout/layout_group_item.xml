@@ -8,8 +8,10 @@
     android:layout_marginRight="16.0dip"
     android:layout_marginBottom="0.0dip"
     app:cardBackgroundColor="?attr/colorCard"
-    app:cardCornerRadius="14.0dip"
-    app:cardElevation="0.0dip"
+    app:cardCornerRadius="20.0dip"
+    app:cardElevation="1.0dip"
+    app:strokeColor="?attr/colorOutlineVariant"
+    app:strokeWidth="1.0dip"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
@@ -30,24 +32,24 @@
             android:layout_height="wrap_content">
             <LinearLayout
                 android:gravity="center_vertical"
-                android:paddingTop="15.0dip"
+                android:paddingTop="16.0dip"
                 android:paddingBottom="12.0dip"
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:paddingStart="15.0dip"
+                android:paddingStart="16.0dip"
                 android:paddingEnd="8.0dip">
                 <TextView
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
-                    android:textSize="17.0sp"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleLarge"
+                    android:textSize="18.0sp"
                     android:textColor="?attr/colorOnSurface"
                     android:id="@+id/group_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8.0dip" />
                 <TextView
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
-                    android:textSize="14.0sp"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodyMedium"
+                    android:textSize="13.0sp"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:id="@+id/group_user"
                     android:layout_width="wrap_content"
@@ -86,22 +88,25 @@
             <LinearLayout
                 android:gravity="bottom"
                 android:orientation="vertical"
-                android:paddingTop="8.0dip"
+                android:paddingTop="6.0dip"
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8.0dip"
+                android:layout_marginBottom="10.0dip"
                 android:layout_weight="1.0"
-                android:paddingStart="12.5dip">
+                android:paddingStart="16.0dip">
                 <TextView
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
-                    android:textSize="14.0sp"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodyMedium"
+                    android:textSize="13.0sp"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:id="@+id/group_traffic"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                    android:background="@drawable/uwu_badge"
+                    android:gravity="center"
+                    android:minHeight="28dp"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodySmall"
                     android:textSize="12.0sp"
                     android:textColor="?attr/colorPrimary"
                     android:id="@+id/group_status"
@@ -109,13 +114,14 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <com.google.android.material.button.MaterialButton
-                android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodySmall"
                 android:textColor="?attr/colorPrimary"
                 android:id="@+id/group_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/group_update"
                 android:layout_marginEnd="8.0dip"
+                android:layout_marginBottom="4.0dip"
                 style="@style/Widget.AppCompat.Button.Borderless" />
         </LinearLayout>
     </LinearLayout>

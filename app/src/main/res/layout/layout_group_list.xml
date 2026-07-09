@@ -123,7 +123,7 @@
             android:layout_marginStart="16.0dip"
             android:layout_marginEnd="16.0dip"
             app:cardBackgroundColor="#00000000"
-            app:cardCornerRadius="14.0dip"
+            app:cardCornerRadius="24.0dip"
             app:cardElevation="0.0dip">
             <LinearLayout
                 android:orientation="vertical"
@@ -140,7 +140,7 @@
                     android:layout_marginRight="16.0dip"
                     android:layout_marginHorizontal="16.0dip"
                     app:cardBackgroundColor="?colorCard"
-                    app:cardCornerRadius="14.0dip"
+                    app:cardCornerRadius="20.0dip"
                     app:cardElevation="0.0dip"
                     app:strokeWidth="0.0dip">
                     <com.google.android.material.tabs.TabLayout

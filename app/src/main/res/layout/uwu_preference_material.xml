@@ -5,16 +5,16 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:baselineAligned="false"
-    android:minHeight="?android:listPreferredItemHeightSmall"
+    android:minHeight="72dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.neko.widget.LayoutOff
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16.0dip"
-        android:layout_marginBottom="16.0dip"
-        android:layout_marginStart="8.0dip"
+        android:layout_marginTop="14.0dip"
+        android:layout_marginBottom="14.0dip"
+        android:layout_marginStart="10.0dip"
         android:layout_marginEnd="0.0dip"
         key="uwu_icon">
         <FrameLayout
@@ -45,8 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
-        android:layout_marginStart="16.0dip"
-        android:layout_marginEnd="16.0dip">
+        android:layout_marginStart="18.0dip"
+        android:layout_marginEnd="18.0dip">
         <Spinner
             android:id="@+id/spinner"
             android:visibility="invisible"
@@ -55,7 +55,7 @@
             android:layout_weight="0.0" />
         <TextView
             android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
-            android:textSize="17.0sp"
+            android:textSize="18.0sp"
             android:textColor="?android:textColorPrimary"
             android:ellipsize="marquee"
             android:id="@android:id/title"
@@ -70,7 +70,7 @@
             key="uwu_summary">
             <TextView
                 android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
-                android:textSize="14.0sp"
+                android:textSize="13.0sp"
                 android:textColor="?android:textColorSecondary"
                 android:ellipsize="marquee"
                 android:id="@android:id/summary"

@@ -149,9 +149,7 @@ class ConfigurationFragment @JvmOverloads constructor(
     }
 
     val updateSelectedCallback = object : ViewPager2.OnPageChangeCallback() {
-        override fun onPageScrolled(
-            position: Int, positionOffset: Float, positionOffsetPixels: Int
-        ) {
+        override fun onPageSelected(position: Int) {
             if (adapter.groupList.size > position) {
                 DataStore.selectedGroup = adapter.groupList[position].id
             }
