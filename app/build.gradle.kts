@@ -9,6 +9,10 @@ plugins {
 
 setupApp()
 
+kotlin {
+    jvmToolchain(21)
+}
+
 android {
 defaultConfig {
     vectorDrawables.useSupportLibrary = true

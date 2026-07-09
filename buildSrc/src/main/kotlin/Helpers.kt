@@ -57,11 +57,11 @@ fun Project.setupCommon() {
             }
         }
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_1_8
-            targetCompatibility = JavaVersion.VERSION_1_8
+            sourceCompatibility = JavaVersion.VERSION_21
+            targetCompatibility = JavaVersion.VERSION_21
         }
         (android as ExtensionAware).extensions.getByName<KotlinJvmOptions>("kotlinOptions").apply {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
+            jvmTarget = JavaVersion.VERSION_21.toString()
         }
         lint {
             showAll = true
