@@ -8,15 +8,15 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.location.Geocoder
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Bundle
+import android.os.Looper
 import android.util.AttributeSet
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
 import kotlinx.coroutines.*
@@ -32,8 +32,10 @@ class Greetings @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
-    private val fusedClient by lazy { LocationServices.getFusedLocationProviderClient(context) }
-    
+    private val locationManager by lazy {
+        context.getSystemService(Context.LOCATION_SERVICE) as? LocationManager
+    }
+
     private var weatherJob: Job? = null
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     
@@ -57,10 +59,6 @@ class Greetings @JvmOverloads constructor(
     private val KEY_TIME = "w_time"
     private val KEY_IS_MANUAL = "w_is_manual"
     private val KEY_MANUAL_NAME = "w_manual_name"
-
-    private val locationRequest = LocationRequest.Builder(
-        Priority.PRIORITY_BALANCED_POWER_ACCURACY, 10_000L
-    ).setMinUpdateIntervalMillis(60_000L).build()
 
     private val timeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -202,24 +200,62 @@ class Greetings @JvmOverloads constructor(
 
     @SuppressLint("MissingPermission")
     private suspend fun fetchWeatherByGPS() {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
+        val hasFine = ContextCompat.checkSelfPermission(
+            context, Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+        val hasCoarse = ContextCompat.checkSelfPermission(
+            context, Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+        val lm = locationManager
+        if ((!hasFine && !hasCoarse) || lm == null) {
             fetchWeatherByCity("Tokyo")
             return
         }
-        
+
+        // Prefer a cached fix from any enabled provider to avoid waking the GPS.
+        var best: Location? = null
+        for (provider in lm.getProviders(true)) {
+            val loc = try {
+                lm.getLastKnownLocation(provider)
+            } catch (e: SecurityException) {
+                null
+            } ?: continue
+            if (best == null || loc.accuracy < best!!.accuracy) best = loc
+        }
+        if (best != null) {
+            fetchWeatherByCoords(best!!.latitude, best!!.longitude, null)
+            return
+        }
+
+        // No cached fix: request a single update, falling back to a default city.
         withContext(Dispatchers.Main) {
-             fusedClient.requestLocationUpdates(locationRequest, object : LocationCallback() {
-                override fun onLocationResult(result: LocationResult) {
-                    fusedClient.removeLocationUpdates(this)
-                    val loc = result.lastLocation
+            val provider = when {
+                lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) -> LocationManager.NETWORK_PROVIDER
+                lm.isProviderEnabled(LocationManager.GPS_PROVIDER) -> LocationManager.GPS_PROVIDER
+                else -> null
+            }
+            if (provider == null) {
+                scope.launch(Dispatchers.IO) { fetchWeatherByCity("Tokyo") }
+                return@withContext
+            }
+            val listener = object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    lm.removeUpdates(this)
                     scope.launch(Dispatchers.IO) {
-                        if (loc != null) fetchWeatherByCoords(loc.latitude, loc.longitude, null)
-                        else fetchWeatherByCity("Tokyo")
+                        fetchWeatherByCoords(location.latitude, location.longitude, null)
                     }
                 }
-            }, android.os.Looper.getMainLooper())
+
+                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+                override fun onProviderEnabled(provider: String) {}
+                override fun onProviderDisabled(provider: String) {}
+            }
+            try {
+                @Suppress("DEPRECATION")
+                lm.requestSingleUpdate(provider, listener, Looper.getMainLooper())
+            } catch (e: Exception) {
+                scope.launch(Dispatchers.IO) { fetchWeatherByCity("Tokyo") }
+            }
         }
     }
 
