@@ -1,7 +1,8 @@
 package io.nekohasekai.sagernet.bg.proto
 
+import libcore.Libcore
+
 class TrafficUpdater(
-    private val box: libcore.BoxInstance,
     val items: List<TrafficLooperData>, // contain "bypass"
 ) {
 
@@ -29,8 +30,8 @@ class TrafficUpdater(
         }
 
         // query
-        val tx = box.queryStats(item.tag, "uplink")
-        val rx = box.queryStats(item.tag, "downlink")
+        val tx = Libcore.queryStats(item.tag, "uplink")
+        val rx = Libcore.queryStats(item.tag, "downlink")
 
         // add diff
         item.rx += rx

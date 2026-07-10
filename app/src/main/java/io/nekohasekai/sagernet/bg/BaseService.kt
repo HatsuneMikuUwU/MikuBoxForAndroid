@@ -21,6 +21,7 @@ import io.nekohasekai.sagernet.utils.DefaultNetworkListener
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import io.nekohasekai.sagernet.fmt.TAG_PROXY
 import libcore.Libcore
 import moe.matsuri.nb4a.Protocols
 import moe.matsuri.nb4a.utils.Util
@@ -54,9 +55,9 @@ class BaseService {
                 PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (SagerNet.power.isDeviceIdleMode) {
-                            proxy?.box?.sleep()
+                            if (proxy != null) Libcore.pauseService()
                         } else {
-                            proxy?.box?.wake()
+                            if (proxy != null) Libcore.wakeService()
                             if (DataStore.wakeResetConnections) {
                                 Libcore.resetAllConnections(true)
                             }
@@ -140,13 +141,11 @@ class BaseService {
         }
 
         override fun urlTest(): Int {
-            if (data?.proxy?.box == null) {
+            if (data?.proxy == null) {
                 error("core not started")
             }
             try {
-                return Libcore.urlTest(
-                    data!!.proxy!!.box, DataStore.connectionTestURL, 3000
-                )
+                return Libcore.urlTestMain(DataStore.connectionTestURL, 3000)
             } catch (e: Exception) {
                 error(Protocols.genFriendlyMsg(e.readableMessage))
             }
@@ -186,9 +185,7 @@ class BaseService {
                 val tag = data.proxy!!.config.profileTagMap[ent?.id] ?: ""
                 if (tag.isNotBlank() && ent != null) {
                     // select from GUI
-                    data.proxy!!.box.selectOutbound(tag)
-                    // or select from webui
-                    // => selector_OnProxySelected
+                    Libcore.selectOutbound(TAG_PROXY, tag)
                 }
                 return
             }

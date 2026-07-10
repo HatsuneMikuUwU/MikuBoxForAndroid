@@ -1,166 +1,81 @@
-// libbox/dns.go
-
 package libcore
 
 import (
 	"context"
-	"net/netip"
-	"strings"
-	"sync"
-	"syscall"
-
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/dns"
-	"github.com/sagernet/sing-box/option"
-	"github.com/sagernet/sing/common"
-	E "github.com/sagernet/sing/common/exceptions"
-	M "github.com/sagernet/sing/common/metadata"
-	"github.com/sagernet/sing/common/task"
+	"os"
+	"sync/atomic"
 
 	mDNS "github.com/miekg/dns"
+	"github.com/sagernet/sing-box/adapter"
+	C "github.com/sagernet/sing-box/constant"
+	sbdns "github.com/sagernet/sing-box/dns"
+	"github.com/sagernet/sing-box/experimental/libbox"
+	"github.com/sagernet/sing-box/option"
 )
 
+// LocalDNSTransport re-exports libbox.LocalDNSTransport for convenience.
+type LocalDNSTransport = libbox.LocalDNSTransport
+
+// ExchangeContext re-exports libbox.ExchangeContext for convenience.
+type ExchangeContext = libbox.ExchangeContext
+
+// Func re-exports libbox.Func for convenience.
+type Func = libbox.Func
+
+// rawQueryFunc performs a raw DNS exchange through android_res_nsend.
+// Set by dns_android.go's init on Android 10+; nil elsewhere.
 var rawQueryFunc func(networkHandle int64, request []byte) ([]byte, error)
 
-type LocalDNSTransport interface {
-	Raw() bool
-	NetworkHandle() int64
-	Lookup(ctx *ExchangeContext, network string, domain string) error
-	Exchange(ctx *ExchangeContext, message []byte) error
+var networkHandle atomic.Int64
+
+// SetNetworkHandle publishes the underlying (non-VPN) network so raw DNS
+// queries bypass the tunnel. Pass 0 for the system default network.
+func SetNetworkHandle(handle int64) {
+	networkHandle.Store(handle)
 }
 
-var gLocalDNSTransport *platformLocalDNSTransport = nil
+// gLocalDNSTransport supplies DNS for ECH config lookups in http.go.
+var gLocalDNSTransport adapter.DNSTransport = nil
 
-type platformLocalDNSTransport struct {
-	dns.TransportAdapter
-	iif LocalDNSTransport
-	raw bool
+var _ adapter.DNSTransport = (*androidLocalTransport)(nil)
+
+// androidLocalTransport resolves through Android's own resolver.
+//
+// The main service gets its local transport from libbox, which wraps the
+// Kotlin LocalDNSTransport. That wrapper reads unexported fields of
+// libbox.ExchangeContext, so it cannot be reused here; the standalone test box
+// and the ECH lookup path use this transport instead.
+type androidLocalTransport struct {
+	sbdns.TransportAdapter
 }
 
-func newPlatformTransport(iif LocalDNSTransport, tag string, options option.LocalDNSServerOptions) *platformLocalDNSTransport {
-	return &platformLocalDNSTransport{
-		TransportAdapter: dns.NewTransportAdapterWithLocalOptions(constant.DNSTypeLocal, tag, options),
-		iif:              iif,
-		raw:              iif.Raw(),
+func newAndroidLocalTransport(tag string, options option.LocalDNSServerOptions) *androidLocalTransport {
+	return &androidLocalTransport{
+		TransportAdapter: sbdns.NewTransportAdapterWithLocalOptions(C.DNSTypeLocal, tag, options),
 	}
 }
 
-func (p *platformLocalDNSTransport) Start(stage adapter.StartStage) error {
-	return nil
-}
+func (t *androidLocalTransport) Start(stage adapter.StartStage) error { return nil }
 
-func (p *platformLocalDNSTransport) Close() error {
-	return nil
-}
+func (t *androidLocalTransport) Close() error { return nil }
 
-func (p *platformLocalDNSTransport) Exchange(ctx context.Context, message *mDNS.Msg) (*mDNS.Msg, error) {
-	if p.raw && rawQueryFunc != nil {
-		// Raw - Android 10 及以上才有
+func (t *androidLocalTransport) Reset() {}
 
-		messageBytes, err := message.Pack()
-		if err != nil {
-			return nil, err
-		}
-		msg, err := rawQueryFunc(p.iif.NetworkHandle(), messageBytes)
-		if err != nil {
-			return nil, err
-		}
-		responseMessage := new(mDNS.Msg)
-		err = responseMessage.Unpack(msg)
-		if err != nil {
-			return nil, err
-		}
-		return responseMessage, nil
-	} else {
-		// Lookup - Android 10 以下
-
-		question := message.Question[0]
-		var network string
-		switch question.Qtype {
-		case mDNS.TypeA:
-			network = "ip4"
-		case mDNS.TypeAAAA:
-			network = "ip6"
-		default:
-			return nil, E.New("only IP queries are supported by current version of Android")
-		}
-
-		done := make(chan struct{})
-		response := &ExchangeContext{
-			context: ctx,
-			done: sync.OnceFunc(func() {
-				close(done)
-			}),
-		}
-
-		var responseAddrs []netip.Addr
-		var group task.Group
-		group.Append0(func(ctx context.Context) error {
-			err := p.iif.Lookup(response, network, question.Name)
-			if err != nil {
-				return err
-			}
-			select {
-			case <-done:
-			case <-ctx.Done():
-				return context.Canceled
-			}
-			if response.error != nil {
-				return response.error
-			}
-			responseAddrs = response.addresses
-			return nil
-		})
-		err := group.Run(ctx)
-		if err != nil {
-			return nil, err
-		}
-		return dns.FixedResponse(message.Id, question, responseAddrs, constant.DefaultDNSTTL), nil
+func (t *androidLocalTransport) Exchange(ctx context.Context, message *mDNS.Msg) (*mDNS.Msg, error) {
+	if rawQueryFunc == nil {
+		return nil, os.ErrInvalid
 	}
-}
-
-type Func interface {
-	Invoke() error
-}
-
-type ExchangeContext struct {
-	context   context.Context
-	message   mDNS.Msg
-	addresses []netip.Addr
-	error     error
-	done      func()
-}
-
-func (c *ExchangeContext) OnCancel(callback Func) {
-	go func() {
-		<-c.context.Done()
-		callback.Invoke()
-	}()
-}
-
-func (c *ExchangeContext) Success(result string) {
-	c.addresses = common.Map(common.Filter(strings.Split(result, "\n"), func(it string) bool {
-		return !common.IsEmpty(it)
-	}), func(it string) netip.Addr {
-		return M.ParseSocksaddrHostPort(it, 0).Unwrap().Addr
-	})
-}
-
-func (c *ExchangeContext) RawSuccess(result []byte) {
-	err := c.message.Unpack(result)
+	request, err := message.Pack()
 	if err != nil {
-		c.error = E.Cause(err, "parse response")
+		return nil, err
 	}
-	c.done()
-}
-
-func (c *ExchangeContext) ErrorCode(code int32) {
-	c.error = dns.RcodeError(code)
-	c.done()
-}
-
-func (c *ExchangeContext) ErrnoCode(code int32) {
-	c.error = syscall.Errno(code)
-	c.done()
+	responseBytes, err := rawQueryFunc(networkHandle.Load(), request)
+	if err != nil {
+		return nil, err
+	}
+	var response mDNS.Msg
+	if err = response.Unpack(responseBytes); err != nil {
+		return nil, err
+	}
+	return &response, nil
 }

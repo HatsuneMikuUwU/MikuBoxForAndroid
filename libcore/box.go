@@ -2,37 +2,21 @@ package libcore
 
 import (
 	"context"
-	"errors"
 	"fmt"
-	"io"
 	"libcore/device"
 	"log"
 	"runtime"
 	"runtime/debug"
 	"strings"
-	"sync"
-
-	"github.com/matsuridayo/libneko/protect_server"
-	"github.com/matsuridayo/libneko/speedtest"
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/boxapi"
-	"github.com/sagernet/sing-box/experimental/libbox/platform"
-	"github.com/sagernet/sing-box/protocol/group"
 
 	box "github.com/sagernet/sing-box"
-	"github.com/sagernet/sing-box/common/conntrack"
-	"github.com/sagernet/sing-box/common/dialer"
 	"github.com/sagernet/sing-box/constant"
+	"github.com/sagernet/sing-box/daemon"
+	"github.com/sagernet/sing-box/experimental/libbox"
+	"github.com/sagernet/sing-box/experimental/v2rayapi"
 	"github.com/sagernet/sing-box/option"
-	"github.com/sagernet/sing/service"
-	"github.com/sagernet/sing/service/pause"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
-
-func init() {
-	dialer.DoNotSelectInterface = true
-}
-
-var mainInstance *BoxInstance
 
 func VersionBox() string {
 	version := []string{
@@ -59,191 +43,146 @@ func VersionBox() string {
 }
 
 func ResetAllConnections(system bool) {
+	if commandServer == nil {
+		return
+	}
 	if system {
-		conntrack.Close()
+		commandServer.ResetNetwork()
 		log.Println("Reset system connections done")
-	} else {
-		log.Println("TODO: Reset user connections")
+		return
 	}
-}
-
-type BoxInstance struct {
-	access sync.Mutex
-
-	*box.Box
-	cancel context.CancelFunc
-	state  int
-
-	v2api        *boxapi.SbV2rayServer
-	selector     *group.Selector
-	pauseManager pause.Manager
-}
-
-func NewSingBoxInstance(config string, localTransport LocalDNSTransport) (b *BoxInstance, err error) {
-	defer device.DeferPanicToError("NewSingBoxInstance", func(err_ error) { err = err_ })
-
-	// create box context
-	ctx, cancel := context.WithCancel(context.Background())
-	ctx = box.Context(ctx,
-		nekoboxAndroidInboundRegistry(), nekoboxAndroidOutboundRegistry(), nekoboxAndroidEndpointRegistry(),
-		nekoboxAndroidDNSTransportRegistry(localTransport), nekoboxAndroidServiceRegistry(),
-	)
-	ctx = service.ContextWithDefaultRegistry(ctx)
-	service.MustRegister[platform.Interface](ctx, boxPlatformInterfaceInstance)
-
-	// parse options
-	var options option.Options
-	err = options.UnmarshalJSONContext(ctx, []byte(config))
+	_, err := commandServer.StartedService.CloseAllConnections(context.Background(), &emptypb.Empty{})
 	if err != nil {
-		return nil, fmt.Errorf("decode config: %v", err)
+		log.Println("Reset user connections:", err)
 	}
+}
 
-	// create box
-	instance, err := box.New(box.Options{
-		Options:           options,
-		Context:           ctx,
-		PlatformLogWriter: boxPlatformLogWriter,
-	})
+// --- CommandServer management ---
+
+var commandServer *libbox.CommandServer
+
+func NewCommandServer(handler libbox.CommandServerHandler, platform libbox.PlatformInterface) *libbox.CommandServer {
+	var err error
+	commandServer, err = libbox.NewCommandServer(handler, platform)
 	if err != nil {
-		cancel()
-		return nil, fmt.Errorf("create service: %v", err)
-	}
-
-	b = &BoxInstance{
-		Box:          instance,
-		cancel:       cancel,
-		pauseManager: service.FromContext[pause.Manager](ctx),
-	}
-
-	// selector
-	if proxy, ok := b.Outbound().Outbound("proxy"); ok {
-		if selector, ok := proxy.(*group.Selector); ok {
-			b.selector = selector
-		}
-	}
-
-	return b, nil
-}
-
-func (b *BoxInstance) Start() (err error) {
-	b.access.Lock()
-	defer b.access.Unlock()
-
-	defer device.DeferPanicToError("box.Start", func(err_ error) { err = err_ })
-
-	if b.state == 0 {
-		b.state = 1
-		return b.Box.Start()
-	}
-	return errors.New("already started")
-}
-
-func (b *BoxInstance) Close() (err error) {
-	b.access.Lock()
-	defer b.access.Unlock()
-
-	defer device.DeferPanicToError("box.Close", func(err_ error) { err = err_ })
-
-	// no double close
-	if b.state == 2 {
+		log.Println("NewCommandServer error:", err)
 		return nil
 	}
-	b.state = 2
-
-	// clear main instance
-	if mainInstance == b {
-		mainInstance = nil
-		goServeProtect(false)
-	}
-
-	// close box
-	if b.cancel != nil {
-		b.cancel()
-	}
-	if b.Box != nil {
-		b.Box.Close()
-	}
-
-	return nil
+	return commandServer
 }
 
-func (b *BoxInstance) Sleep() {
-	if b.pauseManager != nil {
-		b.pauseManager.DevicePause()
+func StartCommandServer() error {
+	if commandServer == nil {
+		return fmt.Errorf("command server not created")
 	}
-	// _ = b.Box.Router().ResetNetwork()
+	return commandServer.Start()
 }
 
-func (b *BoxInstance) Wake() {
-	if b.pauseManager != nil {
-		b.pauseManager.DeviceWake()
+func StartOrReloadService(configContent string, options *libbox.OverrideOptions) error {
+	// A reload builds a new router; the old tracker stays attached to the old
+	// one. Drop it so the next SetV2rayStats re-attaches.
+	v2api = nil
+	return commandServer.StartOrReloadService(configContent, options)
+}
+
+func CloseService() error {
+	v2api = nil
+	return commandServer.CloseService()
+}
+
+func CloseCommandServer() {
+	if commandServer != nil {
+		commandServer.Close()
 	}
 }
 
-func (b *BoxInstance) SetAsMain() {
-	mainInstance = b
-	goServeProtect(true)
+func PauseService() {
+	if commandServer != nil {
+		commandServer.Pause()
+	}
 }
 
-func (b *BoxInstance) SetV2rayStats(outbounds string) {
-	b.access.Lock()
-	defer b.access.Unlock()
-	if b.v2api != nil {
+func WakeService() {
+	if commandServer != nil {
+		commandServer.Wake()
+	}
+}
+
+func SelectOutbound(groupTag string, outboundTag string) error {
+	_, err := commandServer.StartedService.SelectOutbound(
+		context.Background(),
+		&daemon.SelectOutboundRequest{
+			GroupTag:    groupTag,
+			OutboundTag: outboundTag,
+		},
+	)
+	return err
+}
+
+// UrlTestGroup triggers an asynchronous URL test on an outbound group of the
+// running service. The daemon reports results through SubscribeStatus; it does
+// not return a latency. For a latency measurement use UrlTest / UrlTestMain.
+func UrlTestGroup(groupTag string) (err error) {
+	defer device.DeferPanicToError("box.UrlTestGroup", func(err_ error) { err = err_ })
+	if commandServer == nil {
+		return fmt.Errorf("command server not created")
+	}
+	_, err = commandServer.StartedService.URLTest(
+		context.Background(),
+		&daemon.URLTestRequest{
+			OutboundTag: groupTag,
+		},
+	)
+	return err
+}
+
+// runningBox returns the box of the service started through the CommandServer,
+// or nil when no service is running.
+func runningBox() *box.Box {
+	if commandServer == nil {
+		return nil
+	}
+	instance := commandServer.StartedService.Instance()
+	if instance == nil {
+		return nil
+	}
+	return instance.Box()
+}
+
+// v2api tracks per-outbound traffic. libbox's TrafficManager only reports
+// global totals, so the v2ray stats service is attached to the running router
+// the same way the old boxapi.SbV2rayServer was.
+var v2api *v2rayapi.StatsService
+
+func SetV2rayStats(outbounds string) {
+	instance := runningBox()
+	if instance == nil {
+		return
+	}
+	if v2api != nil {
 		log.Println("duplicate call of SetV2rayStats")
 		return
 	}
-	b.v2api = boxapi.NewSbV2rayServer(option.V2RayStatsServiceOptions{
+	v2api = v2rayapi.NewStatsService(option.V2RayStatsServiceOptions{
 		Enabled:   true,
 		Outbounds: strings.Split(outbounds, "\n"),
 	})
-	b.Box.Router().AppendTracker(b.v2api.StatsService())
+	if v2api == nil {
+		return
+	}
+	instance.Router().AppendTracker(v2api)
 }
 
-func (b *BoxInstance) QueryStats(tag, direct string) int64 {
-	if b.v2api == nil {
+func QueryStats(tag, direct string) int64 {
+	if v2api == nil {
 		return 0
 	}
-	return b.v2api.QueryStats(fmt.Sprintf("outbound>>>%s>>>traffic>>>%s", tag, direct))
-}
-
-func (b *BoxInstance) SelectOutbound(tag string) bool {
-	if b.selector != nil {
-		return b.selector.SelectOutbound(tag)
+	response, err := v2api.GetStats(context.Background(), &v2rayapi.GetStatsRequest{
+		Name:   fmt.Sprintf("outbound>>>%s>>>traffic>>>%s", tag, direct),
+		Reset_: true,
+	})
+	if err != nil {
+		return 0
 	}
-	return false
-}
-
-func UrlTest(i *BoxInstance, link string, timeout int32) (latency int32, err error) {
-	defer device.DeferPanicToError("box.UrlTest", func(err_ error) { err = err_ })
-	var connectionTracker adapter.ConnectionTracker
-	// test i
-	if i != nil {
-		if i.v2api != nil {
-			connectionTracker = i.v2api.StatsService()
-		}
-		return speedtest.UrlTest(boxapi.CreateProxyHttpClient(i.Box, connectionTracker), link, timeout, speedtest.UrlTestStandard_RTT)
-	}
-	// test direct
-	if mainInstance == nil {
-		return speedtest.UrlTest(boxapi.CreateProxyHttpClient(nil, nil), link, timeout, speedtest.UrlTestStandard_RTT)
-	}
-	// test mainInstance
-	if mainInstance.v2api != nil {
-		connectionTracker = mainInstance.v2api.StatsService()
-	}
-	return speedtest.UrlTest(boxapi.CreateProxyHttpClient(mainInstance.Box, connectionTracker), link, timeout, speedtest.UrlTestStandard_RTT)
-}
-
-var protectCloser io.Closer
-
-func goServeProtect(start bool) {
-	if protectCloser != nil {
-		protectCloser.Close()
-		protectCloser = nil
-	}
-	if start {
-		protectCloser = protect_server.ServeProtect("protect_path", false, 0, func(fd int) {
-			intfBox.AutoDetectInterfaceControl(int32(fd))
-		})
-	}
+	return response.Stat.Value
 }

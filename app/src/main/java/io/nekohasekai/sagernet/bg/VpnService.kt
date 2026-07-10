@@ -16,6 +16,7 @@ import io.nekohasekai.sagernet.fmt.hysteria.HysteriaBean
 import io.nekohasekai.sagernet.ktx.*
 import io.nekohasekai.sagernet.ui.VpnRequestActivity
 import io.nekohasekai.sagernet.utils.Subnet
+import libbox.TunOptions
 import android.net.VpnService as BaseVpnService
 import io.nekohasekai.sagernet.utils.SoundPlayer
 
@@ -90,11 +91,8 @@ class VpnService : BaseVpnService(),
         override fun getLocalizedMessage() = getString(R.string.reboot_required)
     }
 
-    fun startVpn(tunOptionsJson: String, tunPlatformOptionsJson: String): Int {
-//        Logs.d(tunOptionsJson)
-//        Logs.d(tunPlatformOptionsJson)
-//        val tunOptions = JSONObject(tunOptionsJson)
-
+    @Suppress("UNUSED_PARAMETER")
+    fun startVpn(options: TunOptions): Int {
         // address & route & MTU ...... use NB4A GUI config
         val builder = Builder().setConfigureIntent(SagerNet.configureIntent(this))
             .setSession(getString(R.string.app_name))

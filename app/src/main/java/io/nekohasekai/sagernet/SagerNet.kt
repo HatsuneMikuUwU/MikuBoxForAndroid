@@ -29,7 +29,6 @@ import kotlinx.coroutines.DEBUG_PROPERTY_NAME
 import kotlinx.coroutines.DEBUG_PROPERTY_VALUE_ON
 import libcore.Libcore
 import moe.matsuri.nb4a.NativeInterface
-import moe.matsuri.nb4a.net.LocalResolverImpl
 import moe.matsuri.nb4a.utils.JavaUtil
 import moe.matsuri.nb4a.utils.cleanWebview
 import java.io.File
@@ -44,7 +43,7 @@ class SagerNet : Application(),
         application = this
     }
 
-    private val nativeInterface = NativeInterface()
+    private val nativeInterface = NativeInterface(this)
 
     val externalAssets: File by lazy { getExternalFilesDir(null) ?: filesDir }
     val process: String = JavaUtil.getProcessName()
@@ -59,15 +58,20 @@ class SagerNet : Application(),
         if (isMainProcess || isBgProcess) {
             externalAssets.mkdirs()
             Seq.setContext(this)
-            Libcore.initCore(
+            Libcore.setup(
                 process,
                 cacheDir.absolutePath + "/",
                 filesDir.absolutePath + "/",
                 externalAssets.absolutePath + "/",
                 DataStore.logBufSize,
                 DataStore.logLevel > 0,
-                nativeInterface, nativeInterface, LocalResolverImpl
             )
+
+            // The core runs in :bg; only that process may own the command server.
+            if (isBgProcess) {
+                Libcore.newCommandServer(nativeInterface, nativeInterface)
+                Libcore.startCommandServer()
+            }
 
             // fix multi process issue in Android 9+
             JavaUtil.handleWebviewDir(this)
@@ -108,11 +112,10 @@ class SagerNet : Application(),
         updateNotificationChannels()
     }
 
-    override fun getWorkManagerConfiguration(): WorkConfiguration {
-        return WorkConfiguration.Builder()
+    override val workManagerConfiguration: WorkConfiguration
+        get() = WorkConfiguration.Builder()
             .setDefaultProcessName("${BuildConfig.APPLICATION_ID}:bg")
             .build()
-    }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
@@ -200,7 +203,17 @@ class SagerNet : Application(),
         fun stopService() =
             application.sendBroadcast(Intent(Action.CLOSE).setPackage(application.packageName))
 
+        // Raw DNS queries in libcore go through android_res_nsend, which needs the
+        // underlying network handle to bypass the tunnel. 0 means system default.
         var underlyingNetwork: Network? = null
+            set(value) {
+                field = value
+                Libcore.setNetworkHandle(
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        value?.networkHandle ?: 0L
+                    } else 0L
+                )
+            }
 
         var appVersionNameForDisplay = {
             var n = BuildConfig.VERSION_NAME

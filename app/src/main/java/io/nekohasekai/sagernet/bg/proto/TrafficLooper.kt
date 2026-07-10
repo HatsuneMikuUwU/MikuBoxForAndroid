@@ -11,6 +11,7 @@ import io.nekohasekai.sagernet.fmt.TAG_PROXY
 import io.nekohasekai.sagernet.ktx.Logs
 import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
 import kotlinx.coroutines.*
+import libcore.Libcore
 
 class TrafficLooper
     (
@@ -126,9 +127,9 @@ class TrafficLooper
                 }
                 //
                 trafficUpdater = TrafficUpdater(
-                    box = proxy.box, items = idMap.values.toList()
+                    items = idMap.values.toList()
                 )
-                proxy.box.setV2rayStats(tags.joinToString("\n"))
+                Libcore.setV2rayStats(tags.joinToString("\n"))
             }
 
             trafficUpdater.updateAll()

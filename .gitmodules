@@ -1,0 +1,4 @@
+[submodule "sing-box"]
+	path = sing-box
+	branch = mikubox-main
+	url = https://github.com/HSSkyBoy/sing-box.git

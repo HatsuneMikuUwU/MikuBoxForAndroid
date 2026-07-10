@@ -10,8 +10,8 @@ import io.nekohasekai.sagernet.ktx.Logs
 import io.nekohasekai.sagernet.ktx.runOnIoDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
-import libcore.ExchangeContext
-import libcore.LocalDNSTransport
+import libbox.ExchangeContext
+import libbox.LocalDNSTransport
 import java.net.InetAddress
 import java.net.UnknownHostException
 
@@ -23,13 +23,6 @@ object LocalResolverImpl : LocalDNSTransport {
 
     override fun raw(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-    }
-
-    override fun networkHandle(): Long {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            return SagerNet.underlyingNetwork?.networkHandle ?: 0
-        }
-        return 0
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)

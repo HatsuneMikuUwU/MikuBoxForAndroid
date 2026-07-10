@@ -10,11 +10,13 @@ import io.nekohasekai.sagernet.ktx.tryResume
 import io.nekohasekai.sagernet.ktx.tryResumeWithException
 import kotlinx.coroutines.delay
 import libcore.Libcore
-import moe.matsuri.nb4a.net.LocalResolverImpl
+import libcore.TestBox
 import kotlin.coroutines.suspendCoroutine
 
 class TestInstance(profile: ProxyEntity, val link: String, private val timeout: Int) :
     BoxInstance(profile) {
+
+    private var box: TestBox? = null
 
     suspend fun doTest(): Int {
         return suspendCoroutine { c ->
@@ -47,7 +49,16 @@ class TestInstance(profile: ProxyEntity, val link: String, private val timeout: 
     override suspend fun loadConfig() {
         // don't call destroyAllJsi here
         if (BuildConfig.DEBUG) Logs.d(config.config)
-        box = Libcore.newSingBoxInstance(config.config, LocalResolverImpl)
+        box = Libcore.newTestBox(config.config)
+    }
+
+    override fun startCore() {
+        box?.start()
+    }
+
+    override fun closeCore() {
+        box?.close()
+        box = null
     }
 
 }

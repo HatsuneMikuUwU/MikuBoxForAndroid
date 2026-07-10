@@ -19,9 +19,6 @@ import io.nekohasekai.sagernet.fmt.trojan_go.buildTrojanGoConfig
 import io.nekohasekai.sagernet.ktx.*
 import io.nekohasekai.sagernet.plugin.PluginManager
 import kotlinx.coroutines.*
-import libcore.BoxInstance
-import libcore.Libcore
-import moe.matsuri.nb4a.net.LocalResolverImpl
 import java.io.File
 
 abstract class BoxInstance(
@@ -29,7 +26,6 @@ abstract class BoxInstance(
 ) : AbstractInstance {
 
     lateinit var config: ConfigBuildResult
-    lateinit var box: BoxInstance
 
     val pluginPath = hashMapOf<String, PluginManager.InitResult>()
     val pluginConfigs = hashMapOf<Int, Pair<Int, String>>()
@@ -37,8 +33,14 @@ abstract class BoxInstance(
     open lateinit var processes: GuardedProcessPool
     private var cacheFiles = ArrayList<File>()
     fun isInitialized(): Boolean {
-        return ::config.isInitialized && ::box.isInitialized
+        return ::config.isInitialized
     }
+
+    /** Start the sing-box core: the shared service for ProxyInstance, a standalone box for TestInstance. */
+    protected abstract fun startCore()
+
+    /** Stop whatever startCore started. Must tolerate never having been started. */
+    protected abstract fun closeCore()
 
     protected fun initPlugin(name: String): PluginManager.InitResult {
         return pluginPath.getOrPut(name) { PluginManager.init(name)!! }
@@ -49,7 +51,6 @@ abstract class BoxInstance(
     }
 
     protected open suspend fun loadConfig() {
-        box = Libcore.newSingBoxInstance(config.config, LocalResolverImpl)
     }
 
     open suspend fun init() {
@@ -199,7 +200,7 @@ abstract class BoxInstance(
             }
         }
 
-        box.start()
+        startCore()
     }
 
     @Suppress("EXPERIMENTAL_API_USAGE")
@@ -214,9 +215,7 @@ abstract class BoxInstance(
 
         if (::processes.isInitialized) processes.close(GlobalScope + Dispatchers.IO)
 
-        if (::box.isInitialized) {
-            box.close()
-        }
+        closeCore()
     }
 
 }

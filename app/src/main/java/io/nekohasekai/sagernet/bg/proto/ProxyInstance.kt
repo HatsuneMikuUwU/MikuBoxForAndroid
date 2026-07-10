@@ -7,12 +7,15 @@ import io.nekohasekai.sagernet.database.ProxyEntity
 import io.nekohasekai.sagernet.ktx.Logs
 import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
 import kotlinx.coroutines.runBlocking
+import libbox.OverrideOptions
+import libcore.Libcore
 import moe.matsuri.nb4a.utils.JavaUtil
 
 class ProxyInstance(profile: ProxyEntity, var service: BaseService.Interface? = null) :
     BoxInstance(profile) {
 
     var notTmp = true
+    private var started = false
 
     var lastSelectorGroupId = -1L
     var displayProfileName = ServiceNotification.genTitle(profile)
@@ -42,13 +45,19 @@ class ProxyInstance(profile: ProxyEntity, var service: BaseService.Interface? = 
         }
     }
 
-    override suspend fun loadConfig() {
-        super.loadConfig()
+    override fun startCore() {
+        Libcore.startOrReloadService(config.config, OverrideOptions())
+        started = true
+    }
+
+    override fun closeCore() {
+        if (!started) return
+        started = false
+        Libcore.closeService()
     }
 
     override fun launch() {
-        box.setAsMain()
-        super.launch() // start box
+        super.launch() // start core
         runOnDefaultDispatcher {
             looper = service?.let { TrafficLooper(it.data, this) }
             looper?.start()
