@@ -35,7 +35,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: ./run lib core
   build:
-    name: Build OSS APK
+    name: Build MikuBox APK
     runs-on: ubuntu-latest
     needs:
       - libcore
@@ -56,7 +56,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.gradle
-          key: gradle-oss-${{ hashFiles('**/*.gradle.kts') }}
+          key: gradle-mikubox-${{ hashFiles('**/*.gradle.kts') }}
       - name: Gradle Build
         env:
           BUILD_PLUGIN: none
@@ -65,7 +65,7 @@ jobs:
           echo "ndk.dir=${ANDROID_HOME}/ndk/27.3.13750724" >> local.properties
           export LOCAL_PROPERTIES="${{ secrets.LOCAL_PROPERTIES }}"
           ./run init action gradle
-          KEYSTORE_PASS="${{ secrets.KEYSTORE_PASS }}" ALIAS_NAME="${{ secrets.ALIAS_NAME }}" ALIAS_PASS="${{ secrets.ALIAS_PASS}}" ./gradlew app:assembleOssRelease
+          KEYSTORE_PASS="${{ secrets.KEYSTORE_PASS }}" ALIAS_NAME="${{ secrets.ALIAS_NAME }}" ALIAS_PASS="${{ secrets.ALIAS_PASS}}" ./gradlew app:assembleMikuboxRelease
           APK=$(find app/build/outputs/apk -name '*arm64-v8a*.apk')
           APK=$(dirname $APK)
           echo "APK=$APK" >> $GITHUB_ENV

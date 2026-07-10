@@ -205,9 +205,7 @@ fun Project.setupApp() {
 
         flavorDimensions += "vendor"
         productFlavors {
-            create("oss")
-            create("fdroid")
-            create("play")
+            create("mikubox")
             create("preview") {
                 buildConfigField(
                     "String",
@@ -220,23 +218,17 @@ fun Project.setupApp() {
         applicationVariants.all {
             outputs.all {
                 this as BaseVariantOutputImpl
-                val isPreview = outputFileName.contains("-preview")
-                outputFileName = if (isPreview) {
-                    outputFileName.replace(
-                        project.name,
-                        "MikuBox-" + requireMetadata().getProperty("PRE_VERSION_NAME")
-                    ).replace("-preview", "")
-                } else {
-                    outputFileName.replace(project.name, "MikuBox-$versionName")
-                        .replace("-release", "")
-                        .replace("-oss", "")
-                }
+                outputFileName = outputFileName
+                    .replace(project.name, "MikuBox-$versionName")
+                    .replace("-mikubox", "")
+                    .replace("-preview", "")
+                    .replace("-release", "")
             }
         }
 
         for (abi in listOf("Arm64", "Arm", "X64", "X86")) {
-            tasks.create("assemble" + abi + "FdroidRelease") {
-                dependsOn("assembleFdroidRelease")
+            tasks.create("assemble" + abi + "MikuboxRelease") {
+                dependsOn("assembleMikuboxRelease")
             }
         }
 
