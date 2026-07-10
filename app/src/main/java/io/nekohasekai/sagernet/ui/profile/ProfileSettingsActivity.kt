@@ -9,9 +9,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.Toast
-import androidx.activity.result.component1
-import androidx.activity.result.component2
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
@@ -231,21 +228,6 @@ abstract class ProfileSettingsActivity<T : AbstractBean>(
             }
         }
 
-        var callbackCustom: ((String) -> Unit)? = null
-        var callbackCustomOutbound: ((String) -> Unit)? = null
-
-        val resultCallbackCustom = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { (_, _) ->
-            callbackCustom?.let { it(DataStore.serverCustom) }
-        }
-
-        val resultCallbackCustomOutbound = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { (_, _) ->
-            callbackCustomOutbound?.let { it(DataStore.serverCustomOutbound) }
-        }
-
         @SuppressLint("CheckResult")
         fun handleOptionClick(itemId: Int) {
             when (itemId) {
@@ -274,14 +256,12 @@ abstract class ProfileSettingsActivity<T : AbstractBean>(
                     activity?.proxyEntity?.apply {
                         val bean = requireBean()
                         DataStore.serverCustomOutbound = bean.customOutboundJson
-                        callbackCustomOutbound = { bean.customOutboundJson = it }
-                        resultCallbackCustomOutbound.launch(
-                            Intent(
-                                requireContext(),
-                                ConfigEditActivity::class.java
-                            ).apply {
-                                putExtra("key", Key.SERVER_CUSTOM_OUTBOUND)
-                            })
+                        ProfileJsonEditorDialogFragment.newInstance(
+                            Key.SERVER_CUSTOM_OUTBOUND,
+                            R.string.custom_outbound_json
+                        ).apply {
+                            onSaved = { bean.customOutboundJson = it }
+                        }.show(parentFragmentManager, "profile_json_editor")
                     }
                 }
 
@@ -289,14 +269,12 @@ abstract class ProfileSettingsActivity<T : AbstractBean>(
                     activity?.proxyEntity?.apply {
                         val bean = requireBean()
                         DataStore.serverCustom = bean.customConfigJson
-                        callbackCustom = { bean.customConfigJson = it }
-                        resultCallbackCustom.launch(
-                            Intent(
-                                requireContext(),
-                                ConfigEditActivity::class.java
-                            ).apply {
-                                putExtra("key", Key.SERVER_CUSTOM)
-                            })
+                        ProfileJsonEditorDialogFragment.newInstance(
+                            Key.SERVER_CUSTOM,
+                            R.string.custom_config_json
+                        ).apply {
+                            onSaved = { bean.customConfigJson = it }
+                        }.show(parentFragmentManager, "profile_json_editor")
                     }
                 }
 
