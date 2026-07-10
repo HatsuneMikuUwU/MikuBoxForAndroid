@@ -317,8 +317,6 @@
     <string name="profile_requiring_plugin" formatted="false">Profil %s, %s eklentisinin yüklü olmasını gerektiriyor, ancak bulunamadı.</string>
     <string name="action_learn_more">DAHA FAZLA BİLGİ</string>
     <string name="action_download">İNDİR</string>
-    <string name="install_from_play_store">Play Store\'dan Yükle</string>
-    <string name="install_from_fdroid">F-Droid\'den Yükle</string>
     <string name="download">İndir</string>
     <string name="ooc_subscription_token" translatable="false">OOCv1 API Token</string>
     <string name="ooc_subscription_token_invalid">Geçersiz OOCv1 Token</string>

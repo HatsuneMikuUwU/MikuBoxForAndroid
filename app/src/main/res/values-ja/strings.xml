@@ -315,8 +315,6 @@
     <string name="profile_requiring_plugin" formatted="false">プロファイル %s にはプラグイン %s のインストールが必要ですが、見つかりませんでした。</string>
     <string name="action_learn_more">詳細を見る</string>
     <string name="action_download">ダウンロード</string>
-    <string name="install_from_play_store">Playストアからインストール</string>
-    <string name="install_from_fdroid">F-Droidからインストール</string>
     <string name="download">ダウンロード</string>
     <string name="ooc_subscription_token">OOCv1 APIトークン</string>
     <string name="ooc_subscription_token_invalid">無効なOOCv1トークン</string>

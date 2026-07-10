@@ -299,8 +299,6 @@
     <string name="profile_requiring_plugin" formatted="false">Profil %s butuh plugin %s, tapi gak ketemu.</string>
     <string name="action_learn_more">Pelajari lebih lanjut</string>
     <string name="action_download">Download</string>
-    <string name="install_from_play_store">Install dari Play Store</string>
-    <string name="install_from_fdroid">Install dari F-Droid</string>
     <string name="download">Download</string>
     <string name="ooc_subscription_token_invalid">Token OOCv1 gak valid</string>
     <string name="ooc_warning">Peringatan</string>
