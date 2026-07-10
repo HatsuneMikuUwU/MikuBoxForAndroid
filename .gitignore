@@ -15,6 +15,5 @@ jniLibs/
 /library/libcore_build/
 .idea/deploymentTargetDropDown.xml
 /nkmr
-
-# submodules
-/external
+release.keystore
+build.bat

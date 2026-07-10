@@ -7,22 +7,12 @@ if [ -z "$GOPATH" ]; then
     GOPATH=$(go env GOPATH)
 fi
 
-# Install gomobile
-if [ ! -f "$GOPATH/bin/gomobile-matsuri" ]; then
-    git clone https://github.com/MatsuriDayo/gomobile.git
-    pushd gomobile
-	git checkout origin/master2
-    pushd cmd
-    pushd gomobile
-    go install -v
-    popd
-    pushd gobind
-    go install -v
-    popd
-    popd
-    rm -rf gomobile
-    mv "$GOPATH/bin/gomobile" "$GOPATH/bin/gomobile-matsuri"
-    mv "$GOPATH/bin/gobind" "$GOPATH/bin/gobind-matsuri"
+# sing-box's own gomobile fork. Upstream golang.org/x/mobile lacks the -libname
+# flag and the binding fixes libbox depends on; sing-box pins this version in
+# its Makefile (lib_install).
+if [ ! -f "$GOPATH/bin/gomobile" ]; then
+    go install -v github.com/sagernet/gomobile/cmd/gomobile@v0.1.13
+    go install -v github.com/sagernet/gomobile/cmd/gobind@v0.1.13
 fi
 
-GOBIND=gobind-matsuri gomobile-matsuri init
+"$GOPATH"/bin/gomobile init

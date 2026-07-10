@@ -14,6 +14,16 @@ _NDK="$ANDROID_HOME/ndk/25.0.8775105"
 [ -f "$_NDK/source.properties" ] || _NDK="$ANDROID_NDK_HOME"
 [ -f "$_NDK/source.properties" ] || _NDK="$NDK"
 [ -f "$_NDK/source.properties" ] || _NDK="$ANDROID_HOME/ndk-bundle"
+# Newest installed NDK that is actually complete (partial downloads have no
+# source.properties).
+if [ ! -f "$_NDK/source.properties" ]; then
+  for _candidate in $(ls -d "$ANDROID_HOME"/ndk/*/ 2>/dev/null | sort -Vr); do
+    if [ -f "$_candidate/source.properties" ]; then
+      _NDK="$_candidate"
+      break
+    fi
+  done
+fi
 
 if [ ! -f "$_NDK/source.properties" ]; then
   echo "Error: NDK not found."

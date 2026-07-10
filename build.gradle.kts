@@ -8,5 +8,9 @@ tasks.register<Delete>("clean") {
 }
 
 plugins {
-    id("com.google.devtools.ksp") version "2.3.6" apply false
+    id("com.google.devtools.ksp") version "2.3.9" apply false
+    id("com.android.application") apply false
+    id("com.android.library") apply false
+    id("org.jetbrains.kotlin.android") apply false
+    id("org.jetbrains.kotlin.plugin.compose") apply false
 }

@@ -5,7 +5,6 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.getByName
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import java.util.Base64
 import java.util.Properties
 import kotlin.system.exitProcess
@@ -59,9 +58,6 @@ fun Project.setupCommon() {
         compileOptions {
             sourceCompatibility = JavaVersion.VERSION_21
             targetCompatibility = JavaVersion.VERSION_21
-        }
-        (android as ExtensionAware).extensions.getByName<KotlinJvmOptions>("kotlinOptions").apply {
-            jvmTarget = JavaVersion.VERSION_21.toString()
         }
         lint {
             showAll = true
@@ -119,15 +115,32 @@ fun Project.setupAppCommon() {
     setupCommon()
 
     val lp = requireLocalProperties()
-    val keystorePwd = lp.getProperty("KEYSTORE_PASS") ?: System.getenv("KEYSTORE_PASS")
-    val alias = lp.getProperty("ALIAS_NAME") ?: System.getenv("ALIAS_NAME")
-    val pwd = lp.getProperty("ALIAS_PASS") ?: System.getenv("ALIAS_PASS")
+    fun prop(name: String): String? {
+        return findProperty(name)?.toString()?.takeIf { it.isNotBlank() }
+            ?: lp.getProperty(name)?.takeIf { it.isNotBlank() }
+            ?: System.getenv(name)?.takeIf { it.isNotBlank() }
+    }
+
+    val keystorePath = prop("KEYSTORE_PATH")
+    val keystorePwd = prop("KEYSTORE_PASS")
+    val alias = prop("ALIAS_NAME")
+    val pwd = prop("ALIAS_PASS")
 
     android.apply {
         if (keystorePwd != null) {
+            val signingKeystore = file(keystorePath ?: "release.keystore")
+            require(signingKeystore.exists()) {
+                "Keystore not found: ${signingKeystore.absolutePath}"
+            }
+            require(!alias.isNullOrBlank()) {
+                "ALIAS_NAME is required when KEYSTORE_PASS is set."
+            }
+            require(!pwd.isNullOrBlank()) {
+                "ALIAS_PASS is required when KEYSTORE_PASS is set."
+            }
             signingConfigs {
                 create("release") {
-                    storeFile = rootProject.file("release.keystore")
+                    storeFile = signingKeystore
                     storePassword = keystorePwd
                     keyAlias = alias
                     keyPassword = pwd

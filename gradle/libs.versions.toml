@@ -1,0 +1,83 @@
+[versions]
+agp = "8.13.2"
+hidden-api = "4.4.0"
+refine = "4.4.0"
+autoresconfig = "1.2.2"
+materialthemebuilder = "1.5.1"
+kotlin = "2.4.10-RC"
+androidx-annotation = "1.9.1"
+androidx-core = "1.16.0"
+androidx-browser = "1.8.0"
+androidx-activity-compose = "1.10.1"
+androidx-compose-bom = "2024.09.03"
+androidx-fragment-ktx = "1.8.7"
+androidx-lifecycle = "2.9.0"
+androidx-work = "2.10.1"
+kotlinx-coroutines = "1.10.2"
+google-material = "1.12.0"
+libsu = "6.0.0"
+rikka-appcompat = "1.6.1"
+rikka-compatibility = "2.0.0"
+rikka-core-ktx = "1.4.1"
+rikka-material = "2.7.2"
+rikka-html-ktx = "1.1.2"
+rikka-borderview = "1.1.0"
+rikka-lifecycle = "1.0.1"
+rikka-lifecycle-viewmodel-lazy = "2.0.0"
+boringssl = "20250114"
+libcxx = "27.0.12077973"
+hiddenapibypass = "6.1"
+bouncycastle = "1.80"
+appiconloader = "1.5.0"
+gson = "2.13.1"
+parcelablelist = "2.0.1"
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+refine = { id = "dev.rikka.tools.refine", version.ref = "refine" }
+rikka-autoresconfig = { id = "dev.rikka.tools.autoresconfig", version.ref = "autoresconfig" }
+rikka-materialthemebuilder = { id = "dev.rikka.tools.materialthemebuilder", version.ref = "materialthemebuilder" }
+
+[libraries]
+hidden-compat = { group = "dev.rikka.hidden", name = "compat", version.ref = "hidden-api" }
+hidden-stub = { group = "dev.rikka.hidden", name = "stub", version.ref = "hidden-api" }
+refine-runtime = { group = "dev.rikka.tools.refine", name = "runtime", version.ref = "refine" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
+androidx-core = { group = "androidx.core", name = "core", version.ref = "androidx-core" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidx-browser" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidx-fragment-ktx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
+libsu-core = { group = "com.github.topjohnwu.libsu", name = "core", version.ref = "libsu" }
+appcompat = { group = "dev.rikka.rikkax.appcompat", name = "appcompat", version.ref = "rikka-appcompat" }
+compatibility = { group = "dev.rikka.rikkax.compatibility", name = "compatibility", version.ref = "rikka-compatibility" }
+rikka-core-ktx = { group = "dev.rikka.rikkax.core", name = "core-ktx", version.ref = "rikka-core-ktx" }
+rikka-material = { group = "dev.rikka.rikkax.material", name = "material", version.ref = "rikka-material" }
+rikka-html-ktx = { group = "dev.rikka.rikkax.html", name = "html-ktx", version.ref = "rikka-html-ktx" }
+borderview = { group = "dev.rikka.rikkax.widget", name = "borderview", version.ref = "rikka-borderview" }
+rikka-lifecycle-resource-livedata = { group = "dev.rikka.rikkax.lifecycle", name = "lifecycle-resource-livedata", version.ref = "rikka-lifecycle" }
+rikka-lifecycle-shared-viewmodel = { group = "dev.rikka.rikkax.lifecycle", name = "lifecycle-shared-viewmodel", version.ref = "rikka-lifecycle" }
+rikka-lifecycle-viewmodel-lazy = { group = "dev.rikka.rikkax.lifecycle", name = "lifecycle-viewmodel-lazy", version.ref = "rikka-lifecycle-viewmodel-lazy" }
+boringssl = { group = "io.github.vvb2060.ndk", name = "boringssl", version.ref = "boringssl" }
+libcxx = { group = "org.lsposed.libcxx", name = "libcxx", version.ref = "libcxx" }
+hiddenapibypass = { group = "org.lsposed.hiddenapibypass", name = "hiddenapibypass", version.ref = "hiddenapibypass" }
+bouncycastle-bcpkix = { group = "org.bouncycastle", name = "bcpkix-jdk18on", version.ref = "bouncycastle" }
+appiconloader = { group = "me.zhanghai.android.appiconloader", name = "appiconloader", version.ref = "appiconloader" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+parcelablelist = { group = "dev.rikka.rikkax.parcelablelist", name = "parcelablelist", version.ref = "parcelablelist" }
