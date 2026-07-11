@@ -1,7 +1,8 @@
 package moe.matsuri.nb4a
 
 import android.content.Context
-import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -13,9 +14,11 @@ import io.nekohasekai.sagernet.ktx.Logs
 import io.nekohasekai.sagernet.ktx.app
 import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
 import io.nekohasekai.sagernet.utils.PackageCache
+import io.nekohasekai.sagernet.utils.DefaultNetworkListener
 import libbox.*
 import moe.matsuri.nb4a.net.LocalResolverImpl
 import java.net.InetSocketAddress
+import java.net.NetworkInterface as JavaNetworkInterface
 
 class NativeInterface(
     private val context: Context
@@ -87,15 +90,56 @@ class NativeInterface(
     }
 
     override fun startDefaultInterfaceMonitor(listener: InterfaceUpdateListener) {
-        // No-op for Android (handled by ConnectivityManager callbacks in SagerNet)
+        runOnDefaultDispatcher {
+            DefaultNetworkListener.start(listener) { network ->
+                network?.let { updateDefaultInterface(listener, it) }
+            }
+        }
     }
 
     override fun closeDefaultInterfaceMonitor(listener: InterfaceUpdateListener) {
-        // No-op
+        runOnDefaultDispatcher {
+            DefaultNetworkListener.stop(listener)
+        }
+    }
+
+    private fun updateDefaultInterface(listener: InterfaceUpdateListener, network: Network) {
+        val link = SagerNet.connectivity.getLinkProperties(network) ?: return
+        val interfaceName = link.interfaceName ?: return
+        val capabilities = SagerNet.connectivity.getNetworkCapabilities(network)
+        listener.updateDefaultInterface(
+            interfaceName,
+            JavaNetworkInterface.getByName(interfaceName)?.index ?: 0,
+            capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) == false,
+            false,
+        )
     }
 
     override fun getInterfaces(): NetworkInterfaceIterator? {
-        return null // Not used on Android
+        val interfaces = JavaNetworkInterface.getNetworkInterfaces()?.toList().orEmpty().map { networkInterface ->
+            NetworkInterface().apply {
+                index = networkInterface.index
+                mtu = runCatching { networkInterface.mtu }.getOrDefault(0)
+                name = networkInterface.name
+                addresses = stringIterator(networkInterface.inetAddresses.toList().map { it.hostAddress ?: "" })
+                flags = 0
+                type = 0
+                dnsServer = stringIterator(emptyList())
+                metered = false
+            }
+        }
+        return object : NetworkInterfaceIterator {
+            private var index = 0
+            override fun hasNext(): Boolean = index < interfaces.size
+            override fun next(): NetworkInterface? = interfaces.getOrNull(index++)
+        }
+    }
+
+    private fun stringIterator(values: List<String>) = object : StringIterator {
+        private var index = 0
+        override fun len(): Int = values.size
+        override fun hasNext(): Boolean = index < values.size
+        override fun next(): String? = values.getOrNull(index++)
     }
 
     override fun underNetworkExtension(): Boolean = false
