@@ -1,41 +1,48 @@
 package io.nekohasekai.sagernet.fmt.wireguard
 
 import moe.matsuri.nb4a.SingBoxOptions
-import moe.matsuri.nb4a.utils.Util
 import moe.matsuri.nb4a.utils.listByLineOrComma
 
-fun genReserved(anyStr: String): String {
-    try {
-        val list = anyStr.listByLineOrComma()
-        val ba = ByteArray(3)
-        if (list.size == 3) {
-            list.forEachIndexed { index, s ->
-                val i = s
-                    .replace("[", "")
-                    .replace("]", "")
-                    .replace(" ", "")
-                    .toIntOrNull() ?: return anyStr
-                ba[index] = i.toByte()
-            }
-            return Util.b64EncodeOneLine(ba)
-        } else {
-            return anyStr
+// Parse the user-supplied reserved value into the 3-byte array the WireGuard
+// endpoint expects. Accepts either a comma/line separated list of three ints
+// ("0, 0, 0" / "[0,0,0]") or a base64-encoded 3-byte string.
+fun parseReserved(anyStr: String): List<Int>? {
+    val trimmed = anyStr.trim()
+    if (trimmed.isEmpty()) return null
+    val list = trimmed.listByLineOrComma()
+    if (list.size == 3) {
+        val ints = list.map {
+            it.replace("[", "").replace("]", "").replace(" ", "").toIntOrNull()
         }
-    } catch (e: Exception) {
-        return anyStr
+        if (ints.all { it != null }) {
+            return ints.map { it!! and 0xFF }
+        }
+    }
+    return parseReservedBase64(trimmed)
+}
+
+private fun parseReservedBase64(anyStr: String): List<Int>? {
+    return try {
+        val ba = android.util.Base64.decode(anyStr, android.util.Base64.DEFAULT)
+        if (ba.size == 3) ba.map { it.toInt() and 0xFF } else null
+    } catch (_: Exception) {
+        null
     }
 }
 
-fun buildSingBoxOutboundWireguardBean(bean: WireGuardBean): SingBoxOptions.Outbound_WireGuardOptions {
-    return SingBoxOptions.Outbound_WireGuardOptions().apply {
+fun buildSingBoxEndpointWireGuardBean(bean: WireGuardBean): SingBoxOptions.Endpoint_WireGuardOptions {
+    return SingBoxOptions.Endpoint_WireGuardOptions().apply {
         type = "wireguard"
-        server = bean.serverAddress
-        server_port = bean.serverPort
-        local_address = bean.localAddress.listByLineOrComma()
+        address = bean.localAddress.listByLineOrComma()
         private_key = bean.privateKey
-        peer_public_key = bean.peerPublicKey
-        pre_shared_key = bean.peerPreSharedKey
         mtu = bean.mtu
-        if (bean.reserved.isNotBlank()) reserved = genReserved(bean.reserved)
+        peers = listOf(SingBoxOptions.WireGuardPeer().apply {
+            address = bean.serverAddress
+            port = bean.serverPort
+            public_key = bean.peerPublicKey
+            pre_shared_key = bean.peerPreSharedKey
+            allowed_ips = listOf("0.0.0.0/0", "::/0")
+            if (bean.reserved.isNotBlank()) parseReserved(bean.reserved)?.let { reserved = it }
+        })
     }
 }

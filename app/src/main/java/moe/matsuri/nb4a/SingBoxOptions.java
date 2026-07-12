@@ -123,6 +123,8 @@ public class SingBoxOptions {
 
         public List<SingBoxOption> outbounds;
 
+        public List<SingBoxOption> endpoints;
+
         public RouteOptions route;
 
         public ExperimentalOptions experimental;
@@ -358,6 +360,8 @@ public class SingBoxOptions {
         public String strategy;
 
         public String detour;
+
+        public String domain_resolver;
 
     }
 
@@ -1078,6 +1082,8 @@ public class SingBoxOptions {
         public String default_interface;
 
         public Integer default_mark;
+
+        public String default_domain_resolver;
 
     }
 
@@ -2794,12 +2800,9 @@ public class SingBoxOptions {
 
     public static class WireGuardPeer extends SingBoxOption {
 
-        // Generate note: nested type ServerOptions
-        public String server;
+        public String address;
 
-        public Integer server_port;
-
-        // End of public ServerOptions ;
+        public Integer port;
 
         public String public_key;
 
@@ -2808,8 +2811,10 @@ public class SingBoxOptions {
         // Generate note: Listable
         public List<String> allowed_ips;
 
-        // Generate note: Base64 String
-        public String reserved;
+        public Integer persistent_keepalive_interval;
+
+        // Generate note: Listable byte array, e.g. [0, 0, 0]
+        public List<Integer> reserved;
 
     }
 
@@ -3932,6 +3937,61 @@ public class SingBoxOptions {
 
     }
 
+    // sing-box 1.13.0 removed the WireGuard outbound; it is now an endpoint.
+    public static class Endpoint_WireGuardOptions extends SingBoxOption {
+
+        public String type;
+
+        public String tag;
+
+        // Generate note: nested type DialerOptions
+        public String detour;
+
+        public String bind_interface;
+
+        public String inet4_bind_address;
+
+        public String inet6_bind_address;
+
+        public String protect_path;
+
+        public Integer routing_mark;
+
+        public Boolean reuse_addr;
+
+        public Long connect_timeout;
+
+        public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
+
+        public Boolean udp_fragment;
+
+        public String domain_strategy;
+
+        public Long fallback_delay;
+
+        // End of public DialerOptions ;
+
+        public Boolean system;
+
+        public String name;
+
+        public Integer mtu;
+
+        // Generate note: Listable
+        public List<String> address;
+
+        public String private_key;
+
+        public Integer listen_port;
+
+        public List<WireGuardPeer> peers;
+
+        public Integer workers;
+
+    }
+
     public static class Outbound_HysteriaOptions extends Outbound {
 
         // Generate note: nested type DialerOptions
@@ -4522,6 +4582,9 @@ public class SingBoxOptions {
 
         public String outbound;
 
+        // route "resolve" action strategy (sing-box 1.11+ inbound migration)
+        public String strategy;
+
     }
 
     public static class DNSRule_DefaultOptions extends DNSRule {
@@ -4599,6 +4662,8 @@ public class SingBoxOptions {
         public Boolean disable_cache;
 
         public Integer rewrite_ttl;
+
+        public String strategy;
 
         public String action;
 

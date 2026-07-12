@@ -273,16 +273,6 @@
             app:entries="@array/dns_network_select"
             app:entryValues="@array/dns_network_select"
             app:icon="@drawable/ic_domain"
-            app:key="domain_strategy_for_direct"
-            app:title="@string/domain_strategy_for_direct"
-            app:useSimpleSummaryProvider="true" />
-        
-        <com.takisoft.preferencex.SimpleMenuPreference
-            android:layout="@layout/uwu_mid"
-            app:defaultValue="auto"
-            app:entries="@array/dns_network_select"
-            app:entryValues="@array/dns_network_select"
-            app:icon="@drawable/ic_domain"
             app:key="domain_strategy_for_server"
             app:title="@string/domain_strategy_for_server"
             app:useSimpleSummaryProvider="true" />

@@ -24,7 +24,7 @@ import io.nekohasekai.sagernet.fmt.juicity.buildSingBoxOutboundJuicityBean
 import io.nekohasekai.sagernet.fmt.v2ray.StandardV2RayBean
 import io.nekohasekai.sagernet.fmt.v2ray.buildSingBoxOutboundStandardV2RayBean
 import io.nekohasekai.sagernet.fmt.wireguard.WireGuardBean
-import io.nekohasekai.sagernet.fmt.wireguard.buildSingBoxOutboundWireguardBean
+import io.nekohasekai.sagernet.fmt.wireguard.buildSingBoxEndpointWireGuardBean
 import io.nekohasekai.sagernet.ktx.isIpAddress
 import io.nekohasekai.sagernet.ktx.mkPort
 import io.nekohasekai.sagernet.utils.PackageCache
@@ -143,7 +143,6 @@ fun buildConfig(
     val enableDnsRouting = DataStore.enableDnsRouting
     val useFakeDns = DataStore.enableFakeDns && !forTest
     val needSniff = DataStore.trafficSniffing > 0
-    val needSniffOverride = DataStore.trafficSniffing == 2
     val externalIndexMap = ArrayList<IndexEntity>()
     val ipv6Mode = if (forTest) IPv6Mode.ENABLE else DataStore.ipv6Mode
 
@@ -195,6 +194,14 @@ fun buildConfig(
             }
         }
 
+        // sing-box 1.12+ removed the per-server `strategy` field. The query
+        // result domain strategy now lives on the top-level `dns.strategy`.
+        // A per-rule route-action `strategy` cannot be used here: combined with
+        // the fakeip rule's `query_type` it forces the removed "legacy DNS
+        // mode" and the config is rejected at startup. dns-remote is the
+        // `final` server, so its strategy becomes the global default.
+        dns.strategy = autoDnsDomainStrategy(SingBoxOptionsUtil.domainStrategy("dns-remote"))
+
         inbounds = mutableListOf()
 
         if (!forTest) {
@@ -209,9 +216,8 @@ fun buildConfig(
                 }
                 endpoint_independent_nat = true
                 mtu = DataStore.mtu
-                domain_strategy = genDomainStrategy(DataStore.resolveDestination)
-                sniff = needSniff
-                sniff_override_destination = needSniffOverride
+                // sing-box 1.13 removed inbound sniff/domain_strategy fields;
+                // migrated to route sniff/resolve rule actions below.
                 auto_route = true
                 strict_route = true
                 when (ipv6Mode) {
@@ -234,13 +240,11 @@ fun buildConfig(
                 tag = TAG_MIXED
                 listen = bind
                 listen_port = DataStore.mixedPort
-                domain_strategy = genDomainStrategy(DataStore.resolveDestination)
-                sniff = needSniff
-                sniff_override_destination = needSniffOverride
             })
         }
 
         outbounds = mutableListOf()
+        endpoints = mutableListOf()
 
         // init routing object
         route = RouteOptions().apply {
@@ -248,6 +252,12 @@ fun buildConfig(
             override_android_vpn = true
             rules = mutableListOf()
             rule_set = mutableListOf()
+            // sing-box 1.12+ replaced per-server `address_resolver` with dial
+            // `domain_resolver`. Outbound (and DNS server) domain addresses are
+            // resolved through the direct DNS by default, matching the previous
+            // behaviour where the `outbound: any` DNS rule pinned them to
+            // dns-direct.
+            default_domain_resolver = "dns-direct"
         }
 
         // returns outbound tag
@@ -366,7 +376,7 @@ fun buildConfig(
                             buildSingBoxOutboundShadowsocksBean(bean)
 
                         is WireGuardBean ->
-                            buildSingBoxOutboundWireguardBean(bean)
+                            buildSingBoxEndpointWireGuardBean(bean)
 
                         is SSHBean ->
                             buildSingBoxOutboundSSHBean(bean)
@@ -458,7 +468,13 @@ fun buildConfig(
                     }
                 }
 
-                outbounds.add(currentOutbound)
+                // WireGuard is an endpoint (sing-box 1.13+), not an outbound,
+                // but it is still referenced by tag exactly like an outbound.
+                if (currentOutbound is Endpoint_WireGuardOptions) {
+                    endpoints.add(currentOutbound)
+                } else {
+                    outbounds.add(currentOutbound)
+                }
                 chainOutbounds.add(currentOutbound)
                 pastOutbound = currentOutbound
                 pastEntity = proxyEntity
@@ -581,10 +597,11 @@ fun buildConfig(
                     }
 
                     -2L -> {
+                        // Block: respond with an empty NOERROR. `disable_cache`
+                        // is not valid on a predefined action.
                         userDNSRuleList += makeDnsRuleObj().apply {
                             action = "predefined"
                             rcode = "NOERROR"
-                            disable_cache = true
                         }
                     }
                 }
@@ -687,7 +704,27 @@ fun buildConfig(
                 server_port = rest.substringAfterLast(':', defaultPort.toString()).toIntOrNull() ?: defaultPort
             }
 
+            // Legacy keyword transports that carried no "scheme://" prefix.
+            when (address) {
+                "local" -> {
+                    type = "local"
+                    return
+                }
+
+                "fakeip" -> {
+                    type = "fakeip"
+                    return
+                }
+            }
+
             when (scheme) {
+                "dhcp" -> {
+                    // "dhcp://auto" auto-detects the interface. A named
+                    // interface would need an `interface` field, which the
+                    // simple direct/remote DNS input does not expose.
+                    type = "dhcp"
+                }
+
                 "tcp" -> {
                     type = "tcp"
                     setHost(53)
@@ -733,7 +770,9 @@ fun buildConfig(
                 setTransport(it ?: throw Exception("No direct DNS, check your settings!"))
                 tag = "dns-direct"
                 detour = TAG_DIRECT
-                strategy = autoDnsDomainStrategy(SingBoxOptionsUtil.domainStrategy(tag))
+                // Resolve this server's own domain via the system resolver to
+                // avoid a loop through the default (dns-direct) resolver.
+                domain_resolver = "dns-local"
             })
         }
 
@@ -742,7 +781,7 @@ fun buildConfig(
             if (!forTest) dns.servers.add(DNSServerOptions().apply {
                 setTransport(it ?: throw Exception("No remote DNS, check your settings!"))
                 tag = "dns-remote"
-                strategy = autoDnsDomainStrategy(SingBoxOptionsUtil.domainStrategy(tag))
+                domain_resolver = "dns-direct"
             })
         }
 
@@ -767,6 +806,26 @@ fun buildConfig(
                 port = listOf(53)
                 action = "hijack-dns"
             })
+
+            // sing-box 1.13 removed inbound sniff/domain_strategy fields; they
+            // are migrated to route sniff/resolve actions here. Inserted last
+            // with add(0, ...) so sniff runs before everything else.
+            val listenInbounds = mutableListOf<String>()
+            if (isVPN) listenInbounds.add("tun-in")
+            listenInbounds.add(TAG_MIXED)
+            if (DataStore.resolveDestination) {
+                route.rules.add(0, Rule_DefaultOptions().apply {
+                    inbound = listenInbounds.toList()
+                    action = "resolve"
+                    strategy = genDomainStrategy(true)
+                })
+            }
+            if (needSniff) {
+                route.rules.add(0, Rule_DefaultOptions().apply {
+                    inbound = listenInbounds.toList()
+                    action = "sniff"
+                })
+            }
             if (DataStore.bypassLanInCore) {
                 route.rules.add(Rule_DefaultOptions().apply {
                     outbound = TAG_BYPASS
