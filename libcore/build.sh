@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./env_java.sh || true
+[ -f ./env_java.sh ] && source ./env_java.sh
 source ../buildScript/init/env_ndk.sh
 
 BUILD=".build"
@@ -25,7 +25,11 @@ fi
 #
 # -checklinkname=0 and the badlinkname/tfogo_checklinkname0 tags are required to
 # link sing-box 1.14 (tfo-go and tailscale rely on //go:linkname).
-"$GOPATH"/bin/gomobile bind -v -androidapi 21 -cache "$(realpath $BUILD)" -trimpath \
+#
+# NOTE: sagernet/gomobile v0.1.13 (installed by init.sh) has no `-cache` flag;
+# passing it aborts with "flag provided but not defined: -cache". gomobile
+# falls back to the default GOCACHE, so caching still works.
+"$GOPATH"/bin/gomobile bind -v -androidapi 21 -trimpath \
   -ldflags="-s -w -checklinkname=0 -X github.com/sagernet/sing-box/constant.Version=${SING_BOX_VERSION}" \
   -tags='with_gvisor,with_quic,with_wireguard,with_utls,with_clash_api,badlinkname,tfogo_checklinkname0' \
   -o libcore.aar \

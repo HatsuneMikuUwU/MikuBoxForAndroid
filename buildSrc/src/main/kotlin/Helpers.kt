@@ -47,7 +47,7 @@ fun Project.setupCommon() {
         buildToolsVersion = "36.1.0"
         compileSdk = 36
         defaultConfig {
-            minSdk = 21
+            minSdk = 24
             targetSdk = 36
         }
         buildTypes {
@@ -144,7 +144,7 @@ fun Project.setupAppCommon() {
                     storePassword = keystorePwd
                     keyAlias = alias
                     keyPassword = pwd
-                    enableV1Signing = true
+                    enableV1Signing = false
                     enableV2Signing = true
                     enableV3Signing = true
                 }
