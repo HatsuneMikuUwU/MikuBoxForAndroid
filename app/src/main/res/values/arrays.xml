@@ -660,10 +660,11 @@
         <item>3</item>
     </string-array>
 
+    <!-- sing-box 1.13 removed inbound sniff_override_destination; sniffing is
+         now a route action that only feeds routing, so this is a plain on/off. -->
     <string-array name="traffic_sniffing_values">
         <item>@string/off</item>
-        <item>@string/sniff_routing</item>
-        <item>@string/sniff_override</item>
+        <item>@string/on</item>
     </string-array>
 
 </resources>
