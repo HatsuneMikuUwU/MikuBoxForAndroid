@@ -582,7 +582,8 @@ fun buildConfig(
 
                     -2L -> {
                         userDNSRuleList += makeDnsRuleObj().apply {
-                            server = "dns-block"
+                            action = "predefined"
+                            rcode = "NOERROR"
                             disable_cache = true
                         }
                     }
@@ -677,23 +678,61 @@ fun buildConfig(
             }
         }
 
-        dns.servers.add(DNSServerOptions().apply {
-            address = "rcode://success"
-            tag = "dns-block"
-        })
+        fun DNSServerOptions.setTransport(address: String) {
+            val scheme = if (address.contains("://")) address.substringBefore("://") else ""
+            val rest = if (scheme.isNotEmpty()) address.substringAfter("://") else address
+
+            fun setHost(defaultPort: Int) {
+                server = rest.substringBeforeLast(':', rest)
+                server_port = rest.substringAfterLast(':', defaultPort.toString()).toIntOrNull() ?: defaultPort
+            }
+
+            when (scheme) {
+                "tcp" -> {
+                    type = "tcp"
+                    setHost(53)
+                }
+
+                "tls" -> {
+                    type = "tls"
+                    setHost(853)
+                }
+
+                "quic" -> {
+                    type = "quic"
+                    setHost(853)
+                }
+
+                "https", "http", "h3" -> {
+                    val url = "https://$rest".toHttpUrlOrNull()
+                    type = if (scheme == "h3") "h3" else "https"
+                    if (url != null) {
+                        server = url.host
+                        server_port = url.port
+                        path = url.encodedPath.takeIf { it.isNotEmpty() && it != "/" }
+                    } else {
+                        setHost(443)
+                    }
+                }
+
+                else -> {
+                    type = "udp"
+                    setHost(53)
+                }
+            }
+        }
 
         dns.servers.add(DNSServerOptions().apply {
-            address = "local"
+            type = "local"
             tag = "dns-local"
             detour = TAG_DIRECT
         })
 
         directDNS.firstOrNull().let {
             dns.servers.add(DNSServerOptions().apply {
-                address = it ?: throw Exception("No direct DNS, check your settings!")
+                setTransport(it ?: throw Exception("No direct DNS, check your settings!"))
                 tag = "dns-direct"
                 detour = TAG_DIRECT
-                address_resolver = "dns-local"
                 strategy = autoDnsDomainStrategy(SingBoxOptionsUtil.domainStrategy(tag))
             })
         }
@@ -701,9 +740,8 @@ fun buildConfig(
         remoteDns.firstOrNull().let {
             // Always use direct DNS for urlTest
             if (!forTest) dns.servers.add(DNSServerOptions().apply {
-                address = it ?: throw Exception("No remote DNS, check your settings!")
+                setTransport(it ?: throw Exception("No remote DNS, check your settings!"))
                 tag = "dns-remote"
-                address_resolver = "dns-direct"
                 strategy = autoDnsDomainStrategy(SingBoxOptionsUtil.domainStrategy(tag))
             })
         }
@@ -743,15 +781,11 @@ fun buildConfig(
             })
             // FakeDNS obj
             if (useFakeDns) {
-                dns.fakeip = DNSFakeIPOptions().apply {
-                    enabled = true
+                dns.servers.add(DNSServerOptions().apply {
+                    type = "fakeip"
+                    tag = "dns-fake"
                     inet4_range = "198.18.0.0/15"
                     inet6_range = "fc00::/18"
-                }
-                dns.servers.add(DNSServerOptions().apply {
-                    address = "fakeip"
-                    tag = "dns-fake"
-                    strategy = "ipv4_only"
                 })
                 dns.rules.add(DNSRule_DefaultOptions().apply {
                     inbound = listOf("tun-in")

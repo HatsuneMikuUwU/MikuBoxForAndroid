@@ -82,12 +82,37 @@ func StartOrReloadService(configContent string, options *libbox.OverrideOptions)
 	// A reload builds a new router; the old tracker stays attached to the old
 	// one. Drop it so the next SetV2rayStats re-attaches.
 	v2api = nil
-	return commandServer.StartOrReloadService(configContent, options)
+	// Starting the service builds the gVisor TUN stack. This entrypoint is
+	// invoked through JNI, so its goroutine stack is pinned to the host pthread
+	// size (8188KB on Android); gVisor's initialization overruns that bound and
+	// aborts the process with "stack size 8188KB". Re-dispatch onto a fresh
+	// goroutine, whose Go-managed stack grows on demand. Mirrors sing-box's
+	// FixAndroidStack workaround (golang.org/go#68760).
+	return runOnFreshStack(func() error {
+		return commandServer.StartOrReloadService(configContent, options)
+	})
 }
 
 func CloseService() error {
 	v2api = nil
-	return commandServer.CloseService()
+	// Tearing down the gVisor TUN stack runs the same deep code on the
+	// JNI-entered goroutine, so keep it off the capped stack as well.
+	return runOnFreshStack(func() error {
+		return commandServer.CloseService()
+	})
+}
+
+// runOnFreshStack runs fn on a newly spawned goroutine and returns its result.
+// Unlike the goroutine Go creates to service an incoming JNI/cgo call, a fresh
+// goroutine's stack is not bounded by the host thread's pthread stack size and
+// grows on demand, avoiding the Android "stack size 8188KB" abort.
+func runOnFreshStack(fn func() error) error {
+	result := make(chan error, 1)
+	go func() {
+		defer device.DeferPanicToError("box.runOnFreshStack", func(err error) { result <- err })
+		result <- fn()
+	}()
+	return <-result
 }
 
 func CloseCommandServer() {

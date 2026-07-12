@@ -46,11 +46,12 @@ func Setup(process, cachePath, internalAssets, externalAssets string,
 		logMaxLines = 50
 	}
 	err := libbox.Setup(&libbox.SetupOptions{
-		BasePath:    cachePath,
-		WorkingPath: filepath.Join(cachePath, "working"),
-		TempPath:    tmp,
-		Debug:       logEnable,
-		LogMaxLines: logMaxLines,
+		BasePath:         cachePath,
+		WorkingPath:      filepath.Join(cachePath, "working"),
+		TempPath:         tmp,
+		FixAndroidStack:  true,
+		Debug:            logEnable,
+		LogMaxLines:      logMaxLines,
 	})
 	if err != nil {
 		log.Println("libbox.Setup error:", err)
@@ -60,7 +61,16 @@ func Setup(process, cachePath, internalAssets, externalAssets string,
 		gLocalDNSTransport = newAndroidLocalTransport("local", option.LocalDNSServerOptions{})
 	}
 
-	// Load custom CA certs + extract assets
+	// golang.org/x/mobile/asset needs the JNI environment of the Java thread
+	// that entered Go. Calling asset.Open from a detached goroutine terminates
+	// the Android :bg process with "asset: no current JVM" before VpnService
+	// can start. Extract while Setup is still executing on Application.onCreate.
+	if isBgProcess {
+		extractAssets()
+	}
+
+	// The remaining initialization does not call Android/JNI APIs and can run
+	// asynchronously.
 	go func() {
 		defer device.DeferPanicToError("Setup-go", func(err error) { log.Println(err) })
 		device.GoDebug(process)
@@ -70,9 +80,6 @@ func Setup(process, cachePath, internalAssets, externalAssets string,
 			updateRootCACerts(pem)
 		}
 
-		if isBgProcess {
-			extractAssets()
-		}
 	}()
 }
 

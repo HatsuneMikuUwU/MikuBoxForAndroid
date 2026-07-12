@@ -22,6 +22,16 @@ public class SingBoxOptions {
 
     // base
 
+    // This Gson deliberately has no SingBoxOption hierarchy adapter.  Looking
+    // up a "delegate" from gsonSingbox selects the hierarchy adapter again and
+    // recursively invokes this serializer until Android exhausts its stack.
+    private static final Gson gsonDefault = new GsonBuilder()
+            .setNumberToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
+            .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
+            .setLenient()
+            .disableHtmlEscaping()
+            .create();
+
     private static final Gson gsonSingbox = new GsonBuilder()
             .registerTypeHierarchyAdapter(SingBoxOption.class, new SingBoxOptionSerializer())
             .setPrettyPrinting()
@@ -83,7 +93,7 @@ public class SingBoxOptions {
             if (src instanceof CustomSingBoxOption) {
                 map = ((CustomSingBoxOption) src).getBasicMap();
             } else {
-                map = gsonSingbox.fromJson(((TypeAdapter<SingBoxOption>) delegate).toJson(src), Map.class);
+                map = gsonDefault.fromJson(gsonDefault.toJson(src), Map.class);
             }
             if (src._hack_config_map != null && !src._hack_config_map.isEmpty()) {
                 Util.INSTANCE.mergeMap(map, src._hack_config_map);
@@ -329,15 +339,21 @@ public class SingBoxOptions {
 
     public static class DNSServerOptions extends SingBoxOption {
 
+        public String type;
+
         public String tag;
 
-        public String address;
+        public String server;
 
-        public String address_resolver;
+        public Integer server_port;
 
-        public String address_strategy;
+        public String path;
 
-        public Long address_fallback_delay;
+        public String rcode;
+
+        public String inet4_range;
+
+        public String inet6_range;
 
         public String strategy;
 
@@ -4583,6 +4599,10 @@ public class SingBoxOptions {
         public Boolean disable_cache;
 
         public Integer rewrite_ttl;
+
+        public String action;
+
+        public String rcode;
 
     }
 

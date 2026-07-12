@@ -16,6 +16,7 @@ import io.nekohasekai.sagernet.fmt.hysteria.HysteriaBean
 import io.nekohasekai.sagernet.ktx.*
 import io.nekohasekai.sagernet.ui.VpnRequestActivity
 import io.nekohasekai.sagernet.utils.Subnet
+import libbox.Libbox
 import libbox.TunOptions
 import android.net.VpnService as BaseVpnService
 import io.nekohasekai.sagernet.utils.SoundPlayer
@@ -73,14 +74,18 @@ class VpnService : BaseVpnService(),
         ServiceNotification(this, profileName, "service-vpn")
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (DataStore.serviceMode == Key.MODE_VPN) {
-            if (prepare(this) != null) {
-                startActivity(
-                    Intent(
-                        this, VpnRequestActivity::class.java
-                    ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
-            } else return super<BaseService.Interface>.onStartCommand(intent, flags, startId)
+        // This service is selected only for VPN mode. Reading serviceMode again
+        // from the separate :bg process can briefly return a stale preference
+        // value after an app update, which previously made a valid VPN launch
+        // stop silently before the core was started.
+        if (prepare(this) != null) {
+            startActivity(
+                Intent(
+                    this, VpnRequestActivity::class.java
+                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
+        } else {
+            return super<BaseService.Interface>.onStartCommand(intent, flags, startId)
         }
         stopRunner()
         return Service.START_NOT_STICKY
@@ -91,20 +96,33 @@ class VpnService : BaseVpnService(),
         override fun getLocalizedMessage() = getString(R.string.reboot_required)
     }
 
-    @Suppress("UNUSED_PARAMETER")
     fun startVpn(options: TunOptions): Int {
-        // address & route & MTU ...... use NB4A GUI config
+        if (prepare(this) != null) throw NullConnectionException()
+
+        // libbox owns the TUN configuration after the 1.14 migration.  Passing
+        // only the old UI defaults here leaves the core and Android interface
+        // with different addresses, DNS and MTU, which prevents the service
+        // from coming up reliably.
         val builder = Builder().setConfigureIntent(SagerNet.configureIntent(this))
             .setSession(getString(R.string.app_name))
-            .setMtu(DataStore.mtu)
+            .setMtu(options.mtu)
         val ipv6Mode = DataStore.ipv6Mode
 
         // address
-        builder.addAddress(PRIVATE_VLAN4_CLIENT, 30)
-        if (ipv6Mode != IPv6Mode.DISABLE) {
-            builder.addAddress(PRIVATE_VLAN6_CLIENT, 126)
+        val inet4Address = options.inet4Address
+        while (inet4Address.hasNext()) {
+            val address = inet4Address.next()
+            builder.addAddress(address.address(), address.prefix())
         }
-        builder.addDnsServer(PRIVATE_VLAN4_ROUTER)
+        val inet6Address = options.inet6Address
+        while (inet6Address.hasNext()) {
+            val address = inet6Address.next()
+            builder.addAddress(address.address(), address.prefix())
+        }
+        if (options.autoRoute && options.dnsMode.value != Libbox.DNSModeDisabled) {
+            val dnsServers = options.dnsServerAddress
+            while (dnsServers.hasNext()) builder.addDnsServer(dnsServers.next())
+        }
 
         // route
         if (DataStore.bypassLan) {
