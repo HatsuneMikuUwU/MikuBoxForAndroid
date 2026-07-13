@@ -2,11 +2,50 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--
-        Miku base theme. A Material3 DayNight theme seeded from Hatsune Miku's
-        teal with a pink accent, providing the brand colour roles the UwU-style
-        home shell consumes (?colorPrimary, ?colorSecondaryContainer, …).
+        Base theme ported from MikuBoxForSingbox: Material3 Expressive with the
+        MikuRay colour-role shims (colorBg / colorCard / accentOr* / …) that the
+        ported layouts reference. The concrete palette is applied by the child
+        Theme.MikuBoxCla below.
     -->
-    <style name="Theme.MikuBoxCla" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="AppThemeBase" parent="Theme.Material3Expressive.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
+        <item name="android:colorBackground">?colorBg</item>
+        <item name="android:windowBackground">?colorBg</item>
+        <item name="colorBg">?colorSurfaceVariant</item>
+        <item name="colorCard">?colorSurfaceContainerLow</item>
+        <item name="android:scrollbarSize">0.0dip</item>
+        <item name="android:listDivider">@null</item>
+        <item name="android:colorEdgeEffect">@null</item>
+        <item name="elevation">0.0dip</item>
+
+        <item name="colorMaterial100">?attr/colorPrimaryContainer</item>
+        <item name="colorMaterial300">?attr/colorSecondaryContainer</item>
+        <item name="accentOrTextSecondary">?attr/colorSecondary</item>
+        <item name="accentOrTextPrimary">?attr/colorSecondary</item>
+        <item name="primaryOrTextSecondary">?attr/colorPrimary</item>
+        <item name="primaryOrTextPrimary">?attr/colorPrimary</item>
+        <item name="fabColorBackground">?attr/colorPrimary</item>
+        <item name="selectedColorPrimary">?attr/colorPrimary</item>
+        <item name="whiteOrTextPrimary">?attr/colorOnPrimary</item>
+        <item name="itemShapeFillColor">?attr/colorSecondaryContainer</item>
+        <item name="tabTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="tabSelectedTextColor">?attr/colorPrimary</item>
+        <item name="tabIndicatorColor">?attr/colorPrimary</item>
+        <item name="tabRippleColor">?attr/colorPrimary</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="itemShapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+    <!-- Hatsune Miku teal/cyan palette on top of the Expressive base. -->
+    <style name="Theme.MikuBoxCla" parent="AppThemeBase">
         <item name="colorPrimary">@color/miku_primary</item>
         <item name="colorOnPrimary">@color/miku_on_primary</item>
         <item name="colorPrimaryContainer">@color/miku_primary_container</item>
@@ -16,14 +55,26 @@
         <item name="colorOnSecondaryContainer">@color/miku_on_secondary_container</item>
         <item name="colorTertiary">@color/miku_tertiary</item>
         <item name="colorTertiaryContainer">@color/miku_tertiary_container</item>
-
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
     <!-- Invisible host for the VpnService consent handshake. -->
-    <style name="Theme.MikuBoxCla.Translucent" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.MikuBoxCla.Translucent" parent="Theme.Material3Expressive.DayNight.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>

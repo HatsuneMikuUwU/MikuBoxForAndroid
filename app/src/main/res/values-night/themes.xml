@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.MikuBoxCla" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.MikuBoxCla" parent="AppThemeBase">
         <item name="colorPrimary">@color/miku_primary_dark</item>
         <item name="colorOnPrimary">@color/miku_on_primary_dark</item>
         <item name="colorPrimaryContainer">@color/miku_primary_container_dark</item>
@@ -11,9 +11,6 @@
         <item name="colorOnSecondaryContainer">@color/miku_on_secondary_container_dark</item>
         <item name="colorTertiary">@color/miku_tertiary_dark</item>
         <item name="colorTertiaryContainer">@color/miku_tertiary_container_dark</item>
-
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
