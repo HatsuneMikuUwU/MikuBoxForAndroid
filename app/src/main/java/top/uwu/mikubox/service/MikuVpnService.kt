@@ -12,6 +12,10 @@ import android.os.Build
 import android.os.ParcelFileDescriptor
 import androidx.core.app.NotificationCompat
 import top.uwu.mikubox.R
+import top.uwu.mikubox.core.MihomoConfigStore
+import top.uwu.mikubox.core.MihomoCore
+import top.uwu.mikubox.profile.MihomoProfileStore
+import top.uwu.mikubox.profile.MihomoTrafficStore
 import top.uwu.mikubox.ui.MainActivity
 
 /**
@@ -50,13 +54,29 @@ class MikuVpnService : VpnService() {
 
     private fun startVpn() {
         if (tun != null) return
+        MikuProxyService.stop(this)
         startForegroundNotification()
-        tun = establishTun() ?: return
+        val descriptor = establishTun() ?: return
+        val startResult = MihomoCore.start(
+            this,
+            MihomoConfigStore.activeConfig(this),
+            descriptor.fd,
+        )
+        if (startResult.isFailure) {
+            runCatching { descriptor.close() }
+            stopForegroundCompat()
+            stopSelf()
+            return
+        }
+        tun = descriptor
+        MihomoTrafficStore.begin(MihomoProfileStore.selected(this))
         running = true
     }
 
     private fun stopVpn() {
         running = false
+        runCatching { MihomoTrafficStore.finish(this) }
+        runCatching { MihomoCore.stop() }
         runCatching { tun?.close() }
         tun = null
         stopForegroundCompat()
@@ -64,13 +84,30 @@ class MikuVpnService : VpnService() {
     }
 
     private fun establishTun(): ParcelFileDescriptor? {
+        val appMode = MihomoVpnSettings.appMode(this)
         val builder = Builder()
             .setSession(getString(R.string.app_name))
-            .setMtu(TUN_MTU)
+            .setMtu(MihomoVpnSettings.mtu(this))
             .addAddress(PRIVATE_VLAN4_CLIENT, PRIVATE_VLAN4_PREFIX)
-            // No default route yet: the core (later unit) owns routing. Allowing
-            // bypass keeps existing connectivity intact during this milestone.
+            .addAddress(PRIVATE_VLAN6_CLIENT, PRIVATE_VLAN6_PREFIX)
+            .addRoute("0.0.0.0", 0)
+            .addRoute("::", 0)
             .allowBypass()
+        // The core shares this application's UID. Excluding it prevents
+        // Mihomo's own sockets from being fed back into the VPN TUN. In
+        // allow-list mode it is implicitly excluded by not being allowed.
+        if (appMode != MihomoVpnSettings.AppMode.ALLOW_LIST) {
+            builder.addDisallowedApplication(packageName)
+        }
+        when (appMode) {
+            MihomoVpnSettings.AppMode.ALL -> Unit
+            MihomoVpnSettings.AppMode.ALLOW_LIST -> MihomoVpnSettings.packages(this).forEach { packageName ->
+                runCatching { builder.addAllowedApplication(packageName) }
+            }
+            MihomoVpnSettings.AppMode.DISALLOW_LIST -> MihomoVpnSettings.packages(this).forEach { packageName ->
+                runCatching { builder.addDisallowedApplication(packageName) }
+            }
+        }
         builder.setConfigureIntent(configurePendingIntent())
         return try {
             builder.establish()
@@ -160,9 +197,10 @@ class MikuVpnService : VpnService() {
         private const val CHANNEL_ID = "miku_vpn_status"
         private const val NOTIFICATION_ID = 1
 
-        private const val TUN_MTU = 9000
         private const val PRIVATE_VLAN4_CLIENT = "172.19.0.1"
         private const val PRIVATE_VLAN4_PREFIX = 30
+        private const val PRIVATE_VLAN6_CLIENT = "fdfe:dcba:9876::1"
+        private const val PRIVATE_VLAN6_PREFIX = 126
 
         /** Coarse running flag for the UI/controller to reflect state. */
         @Volatile
