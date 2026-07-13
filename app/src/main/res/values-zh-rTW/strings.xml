@@ -36,6 +36,8 @@
     <string name="action_update">更新</string>
     <string name="action_delete">刪除</string>
     <string name="action_share">分享</string>
+    <string name="action_select">選用</string>
+    <string name="action_more">更多</string>
     <string name="badge_subscription">訂閱</string>
     <string name="badge_local">本機</string>
     <string name="badge_selected">已選取</string>

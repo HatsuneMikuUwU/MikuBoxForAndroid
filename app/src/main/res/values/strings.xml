@@ -44,6 +44,8 @@
     <string name="action_update">Update</string>
     <string name="action_delete">Delete</string>
     <string name="action_share">Share</string>
+    <string name="action_select">Select</string>
+    <string name="action_more">More</string>
     <string name="profile_traffic" translatable="false">↑ %1$s  ↓ %2$s</string>
     <string name="badge_subscription">Subscription</string>
     <string name="badge_local">Local</string>

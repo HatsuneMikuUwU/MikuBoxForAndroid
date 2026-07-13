@@ -165,9 +165,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun pull(profile: MihomoProfileStore.Profile) {
         lifecycleScope.launch {
+            adapter.setUpdating(profile.id)
             val result = withContext(Dispatchers.IO) {
                 runCatching { MihomoSubscriptionUpdater.update(this@MainActivity, profile) }
             }
+            adapter.setUpdating(null)
             result
                 .onSuccess { toast(getString(R.string.toast_subscription_updated)) }
                 .onFailure { toast(getString(R.string.toast_update_failed, it.message ?: "")) }

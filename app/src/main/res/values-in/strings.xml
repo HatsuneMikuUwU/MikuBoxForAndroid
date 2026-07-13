@@ -36,6 +36,8 @@
     <string name="action_update">Perbarui</string>
     <string name="action_delete">Hapus</string>
     <string name="action_share">Bagikan</string>
+    <string name="action_select">Pilih</string>
+    <string name="action_more">Lainnya</string>
     <string name="badge_subscription">Langganan</string>
     <string name="badge_local">Lokal</string>
     <string name="badge_selected">Dipilih</string>

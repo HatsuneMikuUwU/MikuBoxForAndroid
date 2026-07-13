@@ -38,6 +38,8 @@
     <string name="action_update">Обновить</string>
     <string name="action_delete">Удалить</string>
     <string name="action_share">Поделиться</string>
+    <string name="action_select">Выбрать</string>
+    <string name="action_more">Ещё</string>
     <string name="badge_subscription">Подписка</string>
     <string name="badge_local">Локальный</string>
     <string name="badge_selected">Выбран</string>

@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import top.uwu.mikubox.R
 import top.uwu.mikubox.profile.MihomoProfileStore
 import top.uwu.mikubox.profile.MihomoTrafficStore
@@ -20,11 +22,19 @@ class ProfileAdapter(
 
     private var profiles: List<MihomoProfileStore.Profile> = emptyList()
     private var selectedId: String? = null
+    private var updatingId: String? = null
 
     @SuppressWarnings("NotifyDataSetChanged")
     fun submit(list: List<MihomoProfileStore.Profile>, selectedId: String?) {
         this.profiles = list
         this.selectedId = selectedId
+        notifyDataSetChanged()
+    }
+
+    /** Show/hide the indeterminate progress bar on the card being refreshed. */
+    @SuppressWarnings("NotifyDataSetChanged")
+    fun setUpdating(profileId: String?) {
+        this.updatingId = profileId
         notifyDataSetChanged()
     }
 
@@ -35,20 +45,20 @@ class ProfileAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val profile = profiles[position]
-        holder.bind(profile, profile.id == selectedId)
+        holder.bind(profile, profile.id == selectedId, profile.id == updatingId)
     }
 
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val card = itemView as MaterialCardView
+        private val progress: LinearProgressIndicator = itemView.findViewById(R.id.update_progress)
         private val selectedBar: View = itemView.findViewById(R.id.selected_view)
         private val name: TextView = itemView.findViewById(R.id.tv_name)
         private val meta: TextView = itemView.findViewById(R.id.tv_meta)
         private val traffic: TextView = itemView.findViewById(R.id.tv_traffic)
-        private val share: MaterialButton = itemView.findViewById(R.id.btn_share)
         private val update: MaterialButton = itemView.findViewById(R.id.btn_update)
-        private val delete: MaterialButton = itemView.findViewById(R.id.btn_delete)
+        private val overflow: MaterialButton = itemView.findViewById(R.id.btn_overflow)
 
-        fun bind(profile: MihomoProfileStore.Profile, selected: Boolean) {
+        fun bind(profile: MihomoProfileStore.Profile, selected: Boolean, updating: Boolean) {
             val ctx = itemView.context
             name.text = profile.name
             val type = ctx.getString(
@@ -70,12 +80,27 @@ class ProfileAdapter(
             } else {
                 traffic.visibility = View.GONE
             }
+            progress.visibility = if (updating) View.VISIBLE else View.GONE
             selectedBar.visibility = if (selected) View.VISIBLE else View.INVISIBLE
             update.visibility = if (profile.isSubscription) View.VISIBLE else View.GONE
             card.setOnClickListener { onSelect(profile) }
-            share.setOnClickListener { onShare(profile) }
             update.setOnClickListener { onUpdate(profile) }
-            delete.setOnClickListener { onDelete(profile) }
+            overflow.setOnClickListener { showMenu(it, profile) }
+        }
+
+        private fun showMenu(anchor: View, profile: MihomoProfileStore.Profile) {
+            PopupMenu(anchor.context, anchor).apply {
+                menuInflater.inflate(R.menu.menu_profile, menu)
+                setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.action_select -> onSelect(profile)
+                        R.id.action_share -> onShare(profile)
+                        R.id.action_delete -> onDelete(profile)
+                    }
+                    true
+                }
+                show()
+            }
         }
 
         private fun formatBytes(bytes: Long): String {
