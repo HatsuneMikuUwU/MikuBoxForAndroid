@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import top.uwu.mikubox.R
@@ -42,7 +41,9 @@ class MenuBottomSheet : BottomSheetDialogFragment() {
         view.findViewById<View>(R.id.menu_logcat).setOnClickListener {
             open(LogcatActivity::class.java)
         }
-        view.findViewById<View>(R.id.menu_tools).setOnClickListener { comingSoon() }
+        view.findViewById<View>(R.id.menu_tools).setOnClickListener {
+            open(ToolsActivity::class.java)
+        }
         view.findViewById<View>(R.id.menu_about).setOnClickListener {
             open(AboutActivity::class.java)
         }
@@ -51,10 +52,6 @@ class MenuBottomSheet : BottomSheetDialogFragment() {
     private fun open(activity: Class<*>) {
         startActivity(Intent(requireContext(), activity))
         dismiss()
-    }
-
-    private fun comingSoon() {
-        Toast.makeText(requireContext(), R.string.toast_coming_soon, Toast.LENGTH_SHORT).show()
     }
 
     private fun bindRow(root: View, rowId: Int, iconRes: Int, titleRes: Int) {

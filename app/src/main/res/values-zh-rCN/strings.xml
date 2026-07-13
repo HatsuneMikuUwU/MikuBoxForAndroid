@@ -78,6 +78,18 @@
     <string name="settings_boot_summary">重启后重新连接所选配置文件</string>
     <string name="settings_mtu">MTU</string>
 
+    <!-- Tools -->
+    <string name="tools_connection_test">连接测试</string>
+    <string name="tools_test_url">测试网址</string>
+    <string name="tools_run_test">开始测试</string>
+    <string name="tools_testing">测试中…</string>
+    <string name="tools_test_ok">HTTP %1$d · %2$d ms</string>
+    <string name="tools_test_failed">失败：%1$s</string>
+    <string name="tools_network_info">网络信息</string>
+    <string name="tools_net_transport">连接类型：%1$s</string>
+    <string name="tools_net_none">无连接</string>
+    <string name="tools_net_other">其他</string>
+
     <!-- About / Miku intro -->
     <string name="menu_about">关于</string>
     <string name="about_title">关于</string>

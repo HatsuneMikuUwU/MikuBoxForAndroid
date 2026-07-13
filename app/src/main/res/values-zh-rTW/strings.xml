@@ -78,6 +78,18 @@
     <string name="settings_boot_summary">重開機後重新連線所選設定檔</string>
     <string name="settings_mtu">MTU</string>
 
+    <!-- Tools -->
+    <string name="tools_connection_test">連線測試</string>
+    <string name="tools_test_url">測試網址</string>
+    <string name="tools_run_test">開始測試</string>
+    <string name="tools_testing">測試中…</string>
+    <string name="tools_test_ok">HTTP %1$d · %2$d ms</string>
+    <string name="tools_test_failed">失敗：%1$s</string>
+    <string name="tools_network_info">網路資訊</string>
+    <string name="tools_net_transport">連線類型：%1$s</string>
+    <string name="tools_net_none">無連線</string>
+    <string name="tools_net_other">其他</string>
+
     <!-- About / Miku intro -->
     <string name="menu_about">關於</string>
     <string name="about_title">關於</string>

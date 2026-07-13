@@ -80,6 +80,19 @@
     <string name="settings_boot_summary">Reconnect the selected profile after reboot</string>
     <string name="settings_mtu">MTU</string>
 
+    <!-- Tools -->
+    <string name="tools_connection_test">Connection test</string>
+    <string name="tools_test_url">Test URL</string>
+    <string name="tools_test_url_default" translatable="false">https://www.gstatic.com/generate_204</string>
+    <string name="tools_run_test">Run test</string>
+    <string name="tools_testing">Testing…</string>
+    <string name="tools_test_ok">HTTP %1$d · %2$d ms</string>
+    <string name="tools_test_failed">Failed: %1$s</string>
+    <string name="tools_network_info">Network info</string>
+    <string name="tools_net_transport">Transport: %1$s</string>
+    <string name="tools_net_none">No connection</string>
+    <string name="tools_net_other">Other</string>
+
     <!-- About / Miku intro -->
     <string name="menu_about">About</string>
     <string name="about_title">About</string>

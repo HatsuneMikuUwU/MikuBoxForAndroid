@@ -80,6 +80,18 @@
     <string name="settings_boot_summary">Переподключать выбранный профиль после перезагрузки</string>
     <string name="settings_mtu">MTU</string>
 
+    <!-- Tools -->
+    <string name="tools_connection_test">Проверка соединения</string>
+    <string name="tools_test_url">URL для проверки</string>
+    <string name="tools_run_test">Запустить проверку</string>
+    <string name="tools_testing">Проверка…</string>
+    <string name="tools_test_ok">HTTP %1$d · %2$d мс</string>
+    <string name="tools_test_failed">Ошибка: %1$s</string>
+    <string name="tools_network_info">Сведения о сети</string>
+    <string name="tools_net_transport">Тип соединения: %1$s</string>
+    <string name="tools_net_none">Нет соединения</string>
+    <string name="tools_net_other">Другое</string>
+
     <!-- About / Miku intro -->
     <string name="menu_about">О программе</string>
     <string name="about_title">О программе</string>

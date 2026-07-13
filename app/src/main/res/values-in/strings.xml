@@ -78,6 +78,18 @@
     <string name="settings_boot_summary">Sambungkan ulang profil terpilih setelah reboot</string>
     <string name="settings_mtu">MTU</string>
 
+    <!-- Tools -->
+    <string name="tools_connection_test">Tes koneksi</string>
+    <string name="tools_test_url">URL tes</string>
+    <string name="tools_run_test">Jalankan tes</string>
+    <string name="tools_testing">Menguji…</string>
+    <string name="tools_test_ok">HTTP %1$d · %2$d ms</string>
+    <string name="tools_test_failed">Gagal: %1$s</string>
+    <string name="tools_network_info">Info jaringan</string>
+    <string name="tools_net_transport">Jenis koneksi: %1$s</string>
+    <string name="tools_net_none">Tidak ada koneksi</string>
+    <string name="tools_net_other">Lainnya</string>
+
     <!-- About / Miku intro -->
     <string name="menu_about">Tentang</string>
     <string name="about_title">Tentang</string>
