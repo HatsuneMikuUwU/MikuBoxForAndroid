@@ -29,10 +29,6 @@ android {
         versionCode = 10
         versionName = "UwU-1.0.0"
 
-        ndk {
-            abiFilters += setOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-        }
-
         externalNativeBuild {
             cmake {
                 arguments += "-DMIHOMO_JNI_LIBS_DIR=${layout.buildDirectory.get().asFile}/generated/mihomo-jniLibs"
@@ -57,6 +53,21 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("armeabi-v7a", "arm64-v8a", "x86_64")
+            isUniversalApk = false
+        }
+    }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 
     externalNativeBuild {
@@ -105,7 +116,6 @@ val buildMihomoBridge by tasks.registering {
         val targets = mapOf(
             "armeabi-v7a" to "armv7a-linux-androideabi24-clang.cmd",
             "arm64-v8a" to "aarch64-linux-android24-clang.cmd",
-            "x86" to "i686-linux-android24-clang.cmd",
             "x86_64" to "x86_64-linux-android24-clang.cmd",
         )
 
