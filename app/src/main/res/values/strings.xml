@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">MikuBox</string>
     <string name="scaffold_subtitle">Mihomo · UwU-Cla scaffold</string>
+
+    <!-- VPN service -->
+    <string name="vpn_channel_name">VPN status</string>
+    <string name="vpn_notification_running">Connected</string>
+    <string name="vpn_action_stop">Stop</string>
 </resources>
