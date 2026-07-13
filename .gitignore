@@ -16,3 +16,4 @@ signing.properties
 *.iml
 .kotlin/
 .claude/
+build.bat
