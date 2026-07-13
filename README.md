@@ -1,7 +1,7 @@
-# MikuBox for Android — Cla
+# MikuBox for Android
 
-An Android universal proxy toolchain powered by **Mihomo (Clash.Meta)**.  
-*一款使用 Mihomo (Clash.Meta) 的 Android 通用代理程式*
+An Android universal proxy toolchain powered by **Mihomo**.  
+*一款使用 Mihomo 的 Android 通用代理程式*
 
 
 [![Platform](https://img.shields.io/badge/android-platform?style=flat&label=platform&labelColor=21262d&color=6e7681)](https://www.android.com) [![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24)  
@@ -55,7 +55,7 @@ A preview of MikuBox themes.
 
 ## Supported Protocols / 支援的協議
 
-MikuBox embeds [HSSkyBoy/mihomo](https://github.com/HSSkyBoy/mihomo/tree/Alpha) `Alpha` through a JNI bridge. Android owns the VPN TUN interface while Mihomo receives its file descriptor and parses the complete YAML configuration.
+MikuBox embeds [HSSkyBoy/Mihomo](https://github.com/HSSkyBoy/Mihomo/tree/Alpha) `Alpha` through a JNI bridge. Android owns the VPN TUN interface while Mihomo receives its file descriptor and parses the complete YAML configuration.
 *MikuBox 整合了 Mihomo 的核心功能，支援多種代理協議*
 
 | Protocol Category (協議分類) |Protocols Name (協議名稱) |
@@ -66,7 +66,7 @@ MikuBox embeds [HSSkyBoy/mihomo](https://github.com/HSSkyBoy/mihomo/tree/Alpha) 
 | **Groups/策略組** | select, url-test, fallback, load-balance |
 
 > [!NOTE]
-> Protocol support tracks the bundled `HSSkyBoy/mihomo` `Alpha` commit recorded in the Git submodule. ShadowTLS is available as a Shadowsocks or Snell transport/plugin, not as its own `type: shadowtls` proxy node.
+> Protocol support tracks the bundled `HSSkyBoy/Mihomo` `Alpha` commit recorded in the Git submodule. ShadowTLS is available as a Shadowsocks or Snell transport/plugin, not as its own `type: shadowtls` proxy node.
 > The Alpha branch has removed the legacy `relay` proxy-group; use a node's `dialer-proxy` option for chaining instead.
 > *協議支援以內建的 Mihomo 核心版本為準.*
 
@@ -102,13 +102,12 @@ This project is built upon the great work of the following open-source communiti
 *該項目建立在以下開源項目的出色工作之上:*
 
 **Core:**
-- [HSSkyBoy/mihomo — Alpha](https://github.com/HSSkyBoy/mihomo/tree/Alpha)
-
-**Core Embedding / 核心嵌入:**
-- [MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid)
+- [HSSkyBoy/Mihomo](https://github.com/HSSkyBoy/Mihomo/tree/Alpha)
+- [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo)
 
 **Android UI:**
 - [HatsuneMikuUwU/MikuRay](https://github.com/HatsuneMikuUwU/MikuRay)
+- [shadowsocks/shadowsocks-android](https://github.com/shadowsocks/shadowsocks-android)
 - [2dust/v2rayNG](https://github.com/2dust/v2rayNG)
 
 **Web Dashboard:**

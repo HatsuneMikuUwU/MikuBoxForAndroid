@@ -21,4 +21,59 @@
     <string name="error_subscription_empty">Подписка пуста</string>
     <string name="error_no_compatible_proxy_links">Совместимые с Mihomo ссылки на прокси не найдены</string>
     <string name="error_subscription_http">HTTP подписки %1$d</string>
+
+    <!-- Traffic footer -->
+    <string name="traffic_idle_up">▲ 0 B/s</string>
+    <string name="traffic_idle_down">▼ 0 B/s</string>
+    <string name="traffic_up">▲ %1$s/s</string>
+    <string name="traffic_down">▼ %1$s/s</string>
+
+    <!-- Home UI -->
+    <string name="status_connected">Подключено · %1$s</string>
+    <string name="status_connected_no_profile">Подключено</string>
+    <string name="status_disconnected">Отключено</string>
+    <string name="status_no_profile">Нет профиля — добавьте подписку или конфигурацию ниже</string>
+    <string name="action_connect">Подключить</string>
+    <string name="action_disconnect">Отключить</string>
+    <string name="hint_subscription_url">URL подписки (Clash)</string>
+    <string name="hint_profile_name">Имя (необязательно)</string>
+    <string name="action_add_subscription">Добавить и загрузить подписку</string>
+    <string name="action_import_clipboard">Импорт конфигурации из буфера обмена</string>
+    <string name="profiles_header">Профили</string>
+    <string name="profiles_empty">Профилей пока нет.</string>
+    <string name="action_update">Обновить</string>
+    <string name="action_delete">Удалить</string>
+    <string name="badge_subscription">Подписка</string>
+    <string name="badge_local">Локальный</string>
+    <string name="badge_selected">Выбран</string>
+    <string name="toast_subscription_added">Подписка добавлена, загрузка…</string>
+    <string name="toast_subscription_updated">Подписка обновлена</string>
+    <string name="toast_update_failed">Ошибка обновления: %1$s</string>
+    <string name="toast_config_imported">Конфигурация импортирована</string>
+    <string name="toast_clipboard_empty">Буфер обмена пуст</string>
+    <string name="toast_select_profile_first">Сначала выберите или добавьте профиль</string>
+    <string name="toast_import_failed">Ошибка импорта: %1$s</string>
+
+    <!-- About / Miku intro -->
+    <string name="menu_about">О программе</string>
+    <string name="about_title">О программе</string>
+    <string name="about_app_title">MikuBox for Android</string>
+    <string name="about_app_desc">Прокси-клиент на базе Mihomo в теме Hatsune Miku. Модифицировано из NekoBox for Android.</string>
+    <string name="about_version">Версия %1$s</string>
+    <string name="uwu_about_miku_title">Кто такая Хацунэ Мику?</string>
+    <string name="uwu_about_miku_summary">Хацунэ Мику — виртуальная певица на основе Vocaloid, выпущенная компанией Crypton Future Media под кодом CV01. Известная своими длинными бирюзовыми хвостиками и чистым голосом, она — 16-летняя девушка и всемирно известный виртуальный идол. Она активна в музыке, на концертах и в аниме, и её очень любят поклонники.</string>
+    <string name="uwu_miku_gender_title">Пол</string>
+    <string name="uwu_miku_gender_summary">Женский</string>
+    <string name="uwu_miku_birthday_title">День рождения</string>
+    <string name="uwu_miku_birthday_summary">31 августа</string>
+    <string name="uwu_miku_age_title">Возраст</string>
+    <string name="uwu_miku_age_summary">16</string>
+    <string name="uwu_miku_voice_title">Голос</string>
+    <string name="uwu_miku_voice_summary">Саки Фудзита</string>
+    <string name="uwu_miku_weight_title">Вес</string>
+    <string name="uwu_miku_weight_summary">42 кг</string>
+    <string name="uwu_miku_height_title">Рост</string>
+    <string name="uwu_miku_height_summary">158 см</string>
+    <string name="license">Лицензия</string>
+    <string name="about_license_summary">MikuBox распространяется по лицензии GPL-3.0. Mihomo, NekoBox for Android и другие входящие компоненты остаются под своими лицензиями.</string>
 </resources>

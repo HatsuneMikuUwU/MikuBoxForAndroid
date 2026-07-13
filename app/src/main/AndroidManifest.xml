@@ -26,6 +26,11 @@
         </activity>
 
         <activity
+            android:name=".ui.AboutActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity" />
+
+        <activity
             android:name=".service.VpnRequestActivity"
             android:exported="false"
             android:theme="@style/Theme.MikuBoxCla.Translucent" />

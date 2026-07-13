@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import top.uwu.mikubox.R
+import top.uwu.mikubox.core.MihomoCore
 import top.uwu.mikubox.databinding.ActivityMainBinding
 import top.uwu.mikubox.profile.MihomoProfileImporter
 import top.uwu.mikubox.profile.MihomoProfileStore
@@ -31,6 +34,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ProfileAdapter
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val trafficTick = object : Runnable {
+        override fun run() {
+            updateTraffic()
+            handler.postDelayed(this, 1000)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +64,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnAddSub.setOnClickListener { addSubscription() }
         binding.btnImportClipboard.setOnClickListener { importClipboard() }
-        binding.btnConnect.setOnClickListener { toggleConnection() }
+        binding.fab.setOnClickListener { toggleConnection() }
+        binding.cardBottomStatus.setOnClickListener { toggleConnection() }
+        binding.btnAbout.setOnClickListener {
+            startActivity(android.content.Intent(this, AboutActivity::class.java))
+        }
 
         requestNotificationPermission()
     }
@@ -61,6 +76,12 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         refresh()
+        handler.post(trafficTick)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(trafficTick)
     }
 
     private fun refresh() {
@@ -70,13 +91,37 @@ class MainActivity : AppCompatActivity() {
         binding.tvEmpty.visibility = if (profiles.isEmpty()) View.VISIBLE else View.GONE
 
         val running = VpnController.isRunning
-        binding.btnConnect.setText(if (running) R.string.action_disconnect else R.string.action_connect)
-        binding.tvStatus.text = when {
+        binding.fab.setImageResource(if (running) R.drawable.ic_service_busy else R.drawable.ic_service_idle)
+        binding.status.text = when {
             running && selected != null -> getString(R.string.status_connected, selected.name)
             running -> getString(R.string.status_connected_no_profile)
             selected == null -> getString(R.string.status_no_profile)
             else -> getString(R.string.status_disconnected)
         }
+        updateTraffic()
+    }
+
+    private fun updateTraffic() {
+        if (!VpnController.isRunning) {
+            binding.tx.text = getString(R.string.traffic_up, formatBytes(0))
+            binding.rx.text = getString(R.string.traffic_down, formatBytes(0))
+            return
+        }
+        val traffic = runCatching { MihomoCore.traffic() }.getOrNull() ?: return
+        binding.tx.text = getString(R.string.traffic_up, formatBytes(traffic.uploadPerSecond))
+        binding.rx.text = getString(R.string.traffic_down, formatBytes(traffic.downloadPerSecond))
+    }
+
+    private fun formatBytes(bytes: Long): String {
+        if (bytes < 1024) return "$bytes B"
+        val units = arrayOf("KiB", "MiB", "GiB", "TiB")
+        var value = bytes.toDouble() / 1024
+        var unit = 0
+        while (value >= 1024 && unit < units.lastIndex) {
+            value /= 1024
+            unit++
+        }
+        return String.format(java.util.Locale.US, "%.1f %s", value, units[unit])
     }
 
     private fun addSubscription() {
@@ -139,7 +184,7 @@ class MainActivity : AppCompatActivity() {
             }
             VpnController.connect(this)
         }
-        binding.btnConnect.postDelayed({ refresh() }, 600)
+        binding.fab.postDelayed({ refresh() }, 600)
     }
 
     private fun toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

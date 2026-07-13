@@ -19,4 +19,59 @@
     <string name="error_subscription_empty">Langganan kosong</string>
     <string name="error_no_compatible_proxy_links">Tidak ditemukan tautan proksi yang kompatibel dengan Mihomo</string>
     <string name="error_subscription_http">HTTP langganan %1$d</string>
+
+    <!-- Traffic footer -->
+    <string name="traffic_idle_up">▲ 0 B/s</string>
+    <string name="traffic_idle_down">▼ 0 B/s</string>
+    <string name="traffic_up">▲ %1$s/s</string>
+    <string name="traffic_down">▼ %1$s/s</string>
+
+    <!-- Home UI -->
+    <string name="status_connected">Terhubung · %1$s</string>
+    <string name="status_connected_no_profile">Terhubung</string>
+    <string name="status_disconnected">Terputus</string>
+    <string name="status_no_profile">Belum ada profil — tambahkan langganan atau konfigurasi di bawah</string>
+    <string name="action_connect">Hubungkan</string>
+    <string name="action_disconnect">Putuskan</string>
+    <string name="hint_subscription_url">URL langganan (Clash)</string>
+    <string name="hint_profile_name">Nama (opsional)</string>
+    <string name="action_add_subscription">Tambah &amp; ambil langganan</string>
+    <string name="action_import_clipboard">Impor konfigurasi dari papan klip</string>
+    <string name="profiles_header">Profil</string>
+    <string name="profiles_empty">Belum ada profil.</string>
+    <string name="action_update">Perbarui</string>
+    <string name="action_delete">Hapus</string>
+    <string name="badge_subscription">Langganan</string>
+    <string name="badge_local">Lokal</string>
+    <string name="badge_selected">Dipilih</string>
+    <string name="toast_subscription_added">Langganan ditambahkan, mengambil…</string>
+    <string name="toast_subscription_updated">Langganan diperbarui</string>
+    <string name="toast_update_failed">Pembaruan gagal: %1$s</string>
+    <string name="toast_config_imported">Konfigurasi diimpor</string>
+    <string name="toast_clipboard_empty">Papan klip kosong</string>
+    <string name="toast_select_profile_first">Pilih atau tambahkan profil dahulu</string>
+    <string name="toast_import_failed">Impor gagal: %1$s</string>
+
+    <!-- About / Miku intro -->
+    <string name="menu_about">Tentang</string>
+    <string name="about_title">Tentang</string>
+    <string name="about_app_title">MikuBox for Android</string>
+    <string name="about_app_desc">Klien proksi bertenaga Mihomo dengan tema Hatsune Miku. Dimodifikasi dari NekoBox for Android.</string>
+    <string name="about_version">Versi %1$s</string>
+    <string name="uwu_about_miku_title">Siapa Hatsune Miku?</string>
+    <string name="uwu_about_miku_summary">Hatsune Miku adalah penyanyi virtual berbasis Vocaloid yang dirilis oleh Crypton Future Media, dengan kode CV01. Dikenal dengan rambut twintail toska panjang dan suaranya yang jernih, ia adalah gadis berusia 16 tahun dan idola virtual yang terkenal di seluruh dunia. Ia aktif di bidang musik, konser, dan anime, serta sangat dicintai para penggemarnya.</string>
+    <string name="uwu_miku_gender_title">Jenis kelamin</string>
+    <string name="uwu_miku_gender_summary">Perempuan</string>
+    <string name="uwu_miku_birthday_title">Ulang tahun</string>
+    <string name="uwu_miku_birthday_summary">31 Agustus</string>
+    <string name="uwu_miku_age_title">Usia</string>
+    <string name="uwu_miku_age_summary">16</string>
+    <string name="uwu_miku_voice_title">Pengisi suara</string>
+    <string name="uwu_miku_voice_summary">Saki Fujita</string>
+    <string name="uwu_miku_weight_title">Berat</string>
+    <string name="uwu_miku_weight_summary">42 kg</string>
+    <string name="uwu_miku_height_title">Tinggi</string>
+    <string name="uwu_miku_height_summary">158 cm</string>
+    <string name="license">Lisensi</string>
+    <string name="about_license_summary">MikuBox dirilis di bawah lisensi GPL-3.0. Mihomo, NekoBox for Android, dan komponen lain yang disertakan tetap berada di bawah lisensinya masing-masing.</string>
 </resources>

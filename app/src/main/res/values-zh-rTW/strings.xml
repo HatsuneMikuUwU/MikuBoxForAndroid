@@ -19,4 +19,59 @@
     <string name="error_subscription_empty">訂閱內容為空</string>
     <string name="error_no_compatible_proxy_links">找不到相容於 Mihomo 的代理連結</string>
     <string name="error_subscription_http">訂閱 HTTP 狀態碼 %1$d</string>
+
+    <!-- Traffic footer -->
+    <string name="traffic_idle_up">▲ 0 B/s</string>
+    <string name="traffic_idle_down">▼ 0 B/s</string>
+    <string name="traffic_up">▲ %1$s/s</string>
+    <string name="traffic_down">▼ %1$s/s</string>
+
+    <!-- Home UI -->
+    <string name="status_connected">已連線 · %1$s</string>
+    <string name="status_connected_no_profile">已連線</string>
+    <string name="status_disconnected">未連線</string>
+    <string name="status_no_profile">尚無設定檔 — 請於下方新增訂閱或設定</string>
+    <string name="action_connect">連線</string>
+    <string name="action_disconnect">中斷連線</string>
+    <string name="hint_subscription_url">訂閱網址（Clash）</string>
+    <string name="hint_profile_name">名稱（選填）</string>
+    <string name="action_add_subscription">新增並抓取訂閱</string>
+    <string name="action_import_clipboard">從剪貼簿匯入設定</string>
+    <string name="profiles_header">設定檔</string>
+    <string name="profiles_empty">尚無設定檔。</string>
+    <string name="action_update">更新</string>
+    <string name="action_delete">刪除</string>
+    <string name="badge_subscription">訂閱</string>
+    <string name="badge_local">本機</string>
+    <string name="badge_selected">已選取</string>
+    <string name="toast_subscription_added">已新增訂閱，抓取中…</string>
+    <string name="toast_subscription_updated">訂閱已更新</string>
+    <string name="toast_update_failed">更新失敗：%1$s</string>
+    <string name="toast_config_imported">已匯入設定</string>
+    <string name="toast_clipboard_empty">剪貼簿是空的</string>
+    <string name="toast_select_profile_first">請先選擇或新增設定檔</string>
+    <string name="toast_import_failed">匯入失敗：%1$s</string>
+
+    <!-- About / Miku intro -->
+    <string name="menu_about">關於</string>
+    <string name="about_title">關於</string>
+    <string name="about_app_title">MikuBox for Android</string>
+    <string name="about_app_desc">以 Mihomo 為核心、換上初音未來主題的代理用戶端。改自 NekoBox for Android。</string>
+    <string name="about_version">版本 %1$s</string>
+    <string name="uwu_about_miku_title">初音未來是誰？</string>
+    <string name="uwu_about_miku_summary">初音未來是 Crypton Future Media 推出、以 Vocaloid 為基礎的虛擬歌手，代號 CV01。她以一頭青綠色雙馬尾與清亮的歌聲聞名，是一位 16 歲的少女，也是享譽全球的虛擬偶像。她活躍於音樂、演唱會與動畫領域，深受粉絲喜愛。</string>
+    <string name="uwu_miku_gender_title">性別</string>
+    <string name="uwu_miku_gender_summary">女</string>
+    <string name="uwu_miku_birthday_title">生日</string>
+    <string name="uwu_miku_birthday_summary">8 月 31 日</string>
+    <string name="uwu_miku_age_title">年齡</string>
+    <string name="uwu_miku_age_summary">16</string>
+    <string name="uwu_miku_voice_title">聲源</string>
+    <string name="uwu_miku_voice_summary">藤田咲</string>
+    <string name="uwu_miku_weight_title">體重</string>
+    <string name="uwu_miku_weight_summary">42 公斤</string>
+    <string name="uwu_miku_height_title">身高</string>
+    <string name="uwu_miku_height_summary">158 公分</string>
+    <string name="license">授權</string>
+    <string name="about_license_summary">MikuBox 以 GPL-3.0 授權釋出。Mihomo、NekoBox for Android 及其他隨附元件仍依其各自的授權條款。</string>
 </resources>

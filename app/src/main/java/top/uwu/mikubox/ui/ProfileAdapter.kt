@@ -38,6 +38,7 @@ class ProfileAdapter(
 
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val card = itemView as MaterialCardView
+        private val selectedBar: View = itemView.findViewById(R.id.selected_view)
         private val name: TextView = itemView.findViewById(R.id.tv_name)
         private val meta: TextView = itemView.findViewById(R.id.tv_meta)
         private val update: MaterialButton = itemView.findViewById(R.id.btn_update)
@@ -54,7 +55,7 @@ class ProfileAdapter(
             } else {
                 type
             }
-            card.isChecked = selected
+            selectedBar.visibility = if (selected) View.VISIBLE else View.INVISIBLE
             update.visibility = if (profile.isSubscription) View.VISIBLE else View.GONE
             card.setOnClickListener { onSelect(profile) }
             update.setOnClickListener { onUpdate(profile) }

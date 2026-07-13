@@ -3,6 +3,12 @@
     <string name="app_name">MikuBox</string>
     <string name="scaffold_subtitle">Mihomo · UwU</string>
 
+    <!-- Traffic footer -->
+    <string name="traffic_idle_up">▲ 0 B/s</string>
+    <string name="traffic_idle_down">▼ 0 B/s</string>
+    <string name="traffic_up">▲ %1$s/s</string>
+    <string name="traffic_down">▼ %1$s/s</string>
+
     <!-- VPN service -->
     <string name="vpn_channel_name">VPN status</string>
     <string name="vpn_notification_running">Connected</string>
@@ -47,4 +53,27 @@
     <string name="toast_clipboard_empty">Clipboard is empty</string>
     <string name="toast_select_profile_first">Select or add a profile first</string>
     <string name="toast_import_failed">Import failed: %1$s</string>
+
+    <!-- About / Miku intro -->
+    <string name="menu_about">About</string>
+    <string name="about_title">About</string>
+    <string name="about_app_title">MikuBox for Android</string>
+    <string name="about_app_desc">A Mihomo-powered proxy client, dressed in a Hatsune Miku theme. Modified from NekoBox for Android.</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>
+    <string name="uwu_about_miku_summary">Hatsune Miku is a Vocaloid-based virtual singer released by Crypton Future Media, code-named CV01. Known for her long turquoise twintails and clear voice, she is a 16-year-old girl and a globally renowned virtual idol. She is active in music, concerts, and anime, and is deeply loved by her fans.</string>
+    <string name="uwu_miku_gender_title">Gender</string>
+    <string name="uwu_miku_gender_summary">Female</string>
+    <string name="uwu_miku_birthday_title">Birthday</string>
+    <string name="uwu_miku_birthday_summary">August 31</string>
+    <string name="uwu_miku_age_title">Age</string>
+    <string name="uwu_miku_age_summary">16</string>
+    <string name="uwu_miku_voice_title">Voice</string>
+    <string name="uwu_miku_voice_summary">Saki Fujita</string>
+    <string name="uwu_miku_weight_title">Weight</string>
+    <string name="uwu_miku_weight_summary">42 kg</string>
+    <string name="uwu_miku_height_title">Height</string>
+    <string name="uwu_miku_height_summary">158 cm</string>
+    <string name="license">License</string>
+    <string name="about_license_summary">MikuBox is released under the GPL-3.0 license. Mihomo, NekoBox for Android, and other bundled components remain under their respective licenses.</string>
 </resources>

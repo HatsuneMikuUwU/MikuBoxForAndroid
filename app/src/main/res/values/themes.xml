@@ -2,12 +2,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--
-        Baseline app theme. Intentionally plain Material3 for the scaffold; this
-        will be superseded by the ported MikuRay Material3-Expressive theme
-        family (18 selectable palettes) when the UI layer lands.
+        Miku base theme. A Material3 DayNight theme seeded from Hatsune Miku's
+        teal with a pink accent, providing the brand colour roles the UwU-style
+        home shell consumes (?colorPrimary, ?colorSecondaryContainer, …).
     -->
     <style name="Theme.MikuBoxCla" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/miku_orange</item>
+        <item name="colorPrimary">@color/miku_primary</item>
+        <item name="colorOnPrimary">@color/miku_on_primary</item>
+        <item name="colorPrimaryContainer">@color/miku_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/miku_on_primary_container</item>
+        <item name="colorSecondary">@color/miku_secondary</item>
+        <item name="colorSecondaryContainer">@color/miku_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/miku_on_secondary_container</item>
+        <item name="colorTertiary">@color/miku_tertiary</item>
+        <item name="colorTertiaryContainer">@color/miku_tertiary_container</item>
+
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
