@@ -6,7 +6,7 @@ captures/
 .externalNativeBuild/
 .cxx/
 
-# Local config / secrets (machine-specific; keep out of the repo)
+# Local config / secrets
 local.properties
 release.keystore
 signing.properties
