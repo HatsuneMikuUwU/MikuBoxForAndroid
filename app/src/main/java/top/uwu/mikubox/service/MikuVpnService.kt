@@ -1,4 +1,4 @@
-package moe.mikubox.cla.service
+package top.uwu.mikubox.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -11,8 +11,8 @@ import android.net.VpnService
 import android.os.Build
 import android.os.ParcelFileDescriptor
 import androidx.core.app.NotificationCompat
-import moe.mikubox.cla.R
-import moe.mikubox.cla.ui.MainActivity
+import top.uwu.mikubox.R
+import top.uwu.mikubox.ui.MainActivity
 
 /**
  * The MikuBox VPN service.
@@ -155,7 +155,7 @@ class MikuVpnService : VpnService() {
     // endregion
 
     companion object {
-        const val ACTION_STOP = "moe.mikubox.cla.action.STOP_VPN"
+        const val ACTION_STOP = "top.uwu.mikubox.action.STOP_VPN"
 
         private const val CHANNEL_ID = "miku_vpn_status"
         private const val NOTIFICATION_ID = 1

@@ -1,21 +1,47 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
 
+val localProps = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+
+fun secret(name: String): String? =
+    (findProperty(name) as String?)?.takeIf { it.isNotBlank() }
+        ?: localProps.getProperty(name)?.takeIf { it.isNotBlank() }
+        ?: System.getenv(name)?.takeIf { it.isNotBlank() }
+
 android {
-    namespace = "moe.mikubox.cla"
+    namespace = "top.uwu.mikubox"
     compileSdk = 36
     buildToolsVersion = "36.1.0"
 
     defaultConfig {
-        applicationId = "moe.mikubox.cla"
+        applicationId = "top.uwu.mikubox"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 10
+        versionName = "UwU-1.0.0"
+    }
+
+    val keystorePass = secret("KEYSTORE_PASS")
+    if (keystorePass != null) {
+        signingConfigs {
+            create("release") {
+                storeFile = file(secret("KEYSTORE_PATH") ?: "release.keystore")
+                storePassword = keystorePass
+                keyAlias = secret("ALIAS_NAME")
+                keyPassword = secret("ALIAS_PASS")
+                enableV1Signing = false
+                enableV2Signing = true
+                enableV3Signing = true
+            }
+        }
     }
 
     buildFeatures {
@@ -27,8 +53,12 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
+            signingConfigs.findByName("release")?.let { signingConfig = it }
+        }
+        debug {
+            signingConfigs.findByName("release")?.let { signingConfig = it }
         }
     }
 

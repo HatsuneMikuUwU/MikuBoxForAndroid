@@ -95,23 +95,6 @@ MikuBox natively consumes Mihomo (Clash) configuration — nodes, policy groups 
 
 ---
 
-## Build / 建置
-
-Requires JDK 21 and the Android SDK (build-tools 36.1.0).  
-*需要 JDK 21 與 Android SDK (build-tools 36.1.0).*
-
-```bash
-./gradlew :app:assembleDebug
-```
-
-| | |
-| :--- | :--- |
-| Language | Kotlin (XML Views + viewBinding) |
-| minSdk / targetSdk / compileSdk | 24 / 36 / 36 |
-| Gradle / AGP / Kotlin / JDK | 8.14.4 / 8.13.2 / 2.4.10-RC / 21 |
-
----
-
 ## Credits / 致謝
 
 This project is built upon the great work of the following open-source communities:  

@@ -1,4 +1,4 @@
-package moe.mikubox.cla.service
+package top.uwu.mikubox.service
 
 import android.content.Context
 import android.content.Intent

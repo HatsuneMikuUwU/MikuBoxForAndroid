@@ -1,4 +1,4 @@
-package moe.mikubox.cla.service
+package top.uwu.mikubox.service
 
 import android.app.Activity
 import android.os.Bundle

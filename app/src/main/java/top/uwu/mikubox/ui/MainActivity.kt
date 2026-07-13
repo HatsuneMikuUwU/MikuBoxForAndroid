@@ -1,8 +1,8 @@
-package moe.mikubox.cla.ui
+package top.uwu.mikubox.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import moe.mikubox.cla.databinding.ActivityMainBinding
+import top.uwu.mikubox.databinding.ActivityMainBinding
 
 /**
  * Temporary launch screen for the UwU-Cla (Mihomo) rebuild scaffold.
