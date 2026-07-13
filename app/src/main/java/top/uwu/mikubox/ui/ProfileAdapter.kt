@@ -9,11 +9,13 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import top.uwu.mikubox.R
 import top.uwu.mikubox.profile.MihomoProfileStore
+import top.uwu.mikubox.profile.MihomoTrafficStore
 
 class ProfileAdapter(
     private val onSelect: (MihomoProfileStore.Profile) -> Unit,
     private val onUpdate: (MihomoProfileStore.Profile) -> Unit,
     private val onDelete: (MihomoProfileStore.Profile) -> Unit,
+    private val onShare: (MihomoProfileStore.Profile) -> Unit,
 ) : RecyclerView.Adapter<ProfileAdapter.VH>() {
 
     private var profiles: List<MihomoProfileStore.Profile> = emptyList()
@@ -41,6 +43,8 @@ class ProfileAdapter(
         private val selectedBar: View = itemView.findViewById(R.id.selected_view)
         private val name: TextView = itemView.findViewById(R.id.tv_name)
         private val meta: TextView = itemView.findViewById(R.id.tv_meta)
+        private val traffic: TextView = itemView.findViewById(R.id.tv_traffic)
+        private val share: MaterialButton = itemView.findViewById(R.id.btn_share)
         private val update: MaterialButton = itemView.findViewById(R.id.btn_update)
         private val delete: MaterialButton = itemView.findViewById(R.id.btn_delete)
 
@@ -55,11 +59,35 @@ class ProfileAdapter(
             } else {
                 type
             }
+            val totals = MihomoTrafficStore.totals(ctx, profile.id)
+            if (totals.upload > 0 || totals.download > 0) {
+                traffic.visibility = View.VISIBLE
+                traffic.text = ctx.getString(
+                    R.string.profile_traffic,
+                    formatBytes(totals.upload),
+                    formatBytes(totals.download),
+                )
+            } else {
+                traffic.visibility = View.GONE
+            }
             selectedBar.visibility = if (selected) View.VISIBLE else View.INVISIBLE
             update.visibility = if (profile.isSubscription) View.VISIBLE else View.GONE
             card.setOnClickListener { onSelect(profile) }
+            share.setOnClickListener { onShare(profile) }
             update.setOnClickListener { onUpdate(profile) }
             delete.setOnClickListener { onDelete(profile) }
+        }
+
+        private fun formatBytes(bytes: Long): String {
+            if (bytes < 1024) return "$bytes B"
+            val units = arrayOf("KiB", "MiB", "GiB", "TiB")
+            var value = bytes.toDouble() / 1024
+            var unit = 0
+            while (value >= 1024 && unit < units.lastIndex) {
+                value /= 1024
+                unit++
+            }
+            return String.format(java.util.Locale.US, "%.1f %s", value, units[unit])
         }
     }
 }

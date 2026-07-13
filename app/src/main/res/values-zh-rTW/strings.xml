@@ -20,12 +20,6 @@
     <string name="error_no_compatible_proxy_links">找不到相容於 Mihomo 的代理連結</string>
     <string name="error_subscription_http">訂閱 HTTP 狀態碼 %1$d</string>
 
-    <!-- Traffic footer -->
-    <string name="traffic_idle_up">▲ 0 B/s</string>
-    <string name="traffic_idle_down">▼ 0 B/s</string>
-    <string name="traffic_up">▲ %1$s/s</string>
-    <string name="traffic_down">▼ %1$s/s</string>
-
     <!-- Home UI -->
     <string name="status_connected">已連線 · %1$s</string>
     <string name="status_connected_no_profile">已連線</string>
@@ -41,6 +35,7 @@
     <string name="profiles_empty">尚無設定檔。</string>
     <string name="action_update">更新</string>
     <string name="action_delete">刪除</string>
+    <string name="action_share">分享</string>
     <string name="badge_subscription">訂閱</string>
     <string name="badge_local">本機</string>
     <string name="badge_selected">已選取</string>

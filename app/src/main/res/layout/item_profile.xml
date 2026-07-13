@@ -57,7 +57,27 @@
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="12sp"
                 tools:text="Selected · Subscription" />
+
+            <TextView
+                android:id="@+id/tv_traffic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:text="↑ 1.2 MiB  ↓ 8.4 MiB"
+                tools:visibility="visible" />
         </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_share"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/action_share"
+            app:icon="@drawable/ic_social_share"
+            app:iconTint="?attr/colorPrimary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_update"

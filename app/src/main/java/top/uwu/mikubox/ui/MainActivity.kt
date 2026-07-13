@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                 MihomoProfileStore.remove(this, profile.id)
                 refresh()
             },
+            onShare = { profile -> shareProfile(profile) },
         )
         binding.rvProfiles.layoutManager = LinearLayoutManager(this)
         binding.rvProfiles.adapter = adapter
@@ -185,6 +186,22 @@ class MainActivity : AppCompatActivity() {
             VpnController.connect(this)
         }
         binding.fab.postDelayed({ refresh() }, 600)
+    }
+
+    private fun shareProfile(profile: MihomoProfileStore.Profile) {
+        val url = profile.subscriptionUrl
+        if (!url.isNullOrBlank()) {
+            QrCode.show(this, profile.name, url)
+        } else {
+            startActivity(
+                android.content.Intent.createChooser(
+                    android.content.Intent(android.content.Intent.ACTION_SEND)
+                        .setType("text/plain")
+                        .putExtra(android.content.Intent.EXTRA_TEXT, profile.config),
+                    profile.name,
+                )
+            )
+        }
     }
 
     private fun toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

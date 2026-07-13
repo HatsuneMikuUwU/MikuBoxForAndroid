@@ -4,10 +4,10 @@
     <string name="scaffold_subtitle">Mihomo · UwU</string>
 
     <!-- Traffic footer -->
-    <string name="traffic_idle_up">▲ 0 B/s</string>
-    <string name="traffic_idle_down">▼ 0 B/s</string>
-    <string name="traffic_up">▲ %1$s/s</string>
-    <string name="traffic_down">▼ %1$s/s</string>
+    <string name="traffic_idle_up" translatable="false">▲ 0 B/s</string>
+    <string name="traffic_idle_down" translatable="false">▼ 0 B/s</string>
+    <string name="traffic_up" translatable="false">▲ %1$s/s</string>
+    <string name="traffic_down" translatable="false">▼ %1$s/s</string>
 
     <!-- VPN service -->
     <string name="vpn_channel_name">VPN status</string>
@@ -43,6 +43,8 @@
     <string name="profiles_empty">No profiles yet.</string>
     <string name="action_update">Update</string>
     <string name="action_delete">Delete</string>
+    <string name="action_share">Share</string>
+    <string name="profile_traffic" translatable="false">↑ %1$s  ↓ %2$s</string>
     <string name="badge_subscription">Subscription</string>
     <string name="badge_local">Local</string>
     <string name="badge_selected">Selected</string>

@@ -22,12 +22,6 @@
     <string name="error_no_compatible_proxy_links">Совместимые с Mihomo ссылки на прокси не найдены</string>
     <string name="error_subscription_http">HTTP подписки %1$d</string>
 
-    <!-- Traffic footer -->
-    <string name="traffic_idle_up">▲ 0 B/s</string>
-    <string name="traffic_idle_down">▼ 0 B/s</string>
-    <string name="traffic_up">▲ %1$s/s</string>
-    <string name="traffic_down">▼ %1$s/s</string>
-
     <!-- Home UI -->
     <string name="status_connected">Подключено · %1$s</string>
     <string name="status_connected_no_profile">Подключено</string>
@@ -43,6 +37,7 @@
     <string name="profiles_empty">Профилей пока нет.</string>
     <string name="action_update">Обновить</string>
     <string name="action_delete">Удалить</string>
+    <string name="action_share">Поделиться</string>
     <string name="badge_subscription">Подписка</string>
     <string name="badge_local">Локальный</string>
     <string name="badge_selected">Выбран</string>
