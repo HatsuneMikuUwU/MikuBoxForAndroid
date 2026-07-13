@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MikuBox</string>
+    <string name="scaffold_subtitle">Mihomo · UwU</string>
+
+    <!-- Служба VPN -->
+    <string name="vpn_channel_name">Статус VPN</string>
+    <string name="vpn_notification_running">Подключено</string>
+    <string name="vpn_action_stop">Остановить</string>
+    <string name="subscription_channel_name">Обновления подписок</string>
+    <string name="subscription_update_title">Обновление подписок</string>
+    <string name="vpn_tile_title">MikuBox VPN</string>
+    <string name="mihomo_start_failed">Не удалось запустить Mihomo</string>
+    <string name="local_proxy_notification_running">Локальный прокси Mihomo запущен</string>
+    <string name="profile_default_name">Профиль</string>
+    <string name="profile_subscription_default_name">Подписка</string>
+    <string name="profile_imported_default_name">Импортированный профиль</string>
+    <string name="error_mihomo_config_blank">Конфигурация Mihomo не может быть пустой</string>
+    <string name="error_subscription_url_blank">URL-адрес подписки не может быть пустым</string>
+    <string name="error_unknown_profile">Неизвестный профиль %1$s</string>
+    <string name="error_subscription_empty">Подписка пуста</string>
+    <string name="error_no_compatible_proxy_links">Совместимые с Mihomo ссылки на прокси не найдены</string>
+    <string name="error_subscription_http">HTTP подписки %1$d</string>
+</resources>

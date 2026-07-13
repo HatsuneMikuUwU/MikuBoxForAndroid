@@ -2,6 +2,7 @@ package top.uwu.mikubox.core
 
 import android.content.Context
 import org.json.JSONObject
+import top.uwu.mikubox.R
 import java.io.File
 
 /** JNI entry point for the bundled Mihomo Alpha core. */
@@ -24,7 +25,7 @@ object MihomoCore {
     fun start(context: Context, config: String, tunFd: Int): Result<Unit> = runCatching {
         val home = File(context.filesDir, "mihomo").apply { mkdirs() }
         check(nativeStart(config, home.absolutePath, tunFd) == 0) {
-            nativeLastError().ifBlank { "Mihomo failed to start" }
+            nativeLastError().ifBlank { context.getString(R.string.mihomo_start_failed) }
         }
     }
 

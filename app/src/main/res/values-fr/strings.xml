@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MikuBox</string>
+    <string name="scaffold_subtitle">Mihomo · UwU</string>
+
+    <!-- Service VPN -->
+    <string name="vpn_channel_name">État du VPN</string>
+    <string name="vpn_notification_running">Connecté</string>
+    <string name="vpn_action_stop">Arrêter</string>
+    <string name="subscription_channel_name">Mises à jour des abonnements</string>
+    <string name="subscription_update_title">Mise à jour des abonnements</string>
+    <string name="vpn_tile_title">MikuBox VPN</string>
+    <string name="mihomo_start_failed">Échec du démarrage de Mihomo</string>
+    <string name="local_proxy_notification_running">Le proxy Mihomo local est en cours d\'exécution</string>
+    <string name="profile_default_name">Profil</string>
+    <string name="profile_subscription_default_name">Abonnement</string>
+    <string name="profile_imported_default_name">Profil importé</string>
+    <string name="error_mihomo_config_blank">La configuration Mihomo ne doit pas être vide</string>
+    <string name="error_subscription_url_blank">L\'URL de l\'abonnement ne doit pas être vide</string>
+    <string name="error_unknown_profile">Profil inconnu %1$s</string>
+    <string name="error_subscription_empty">L\'abonnement est vide</string>
+    <string name="error_no_compatible_proxy_links">Aucun lien proxy compatible avec Mihomo trouvé</string>
+    <string name="error_subscription_http">HTTP de l\'abonnement %1$d</string>
+</resources>

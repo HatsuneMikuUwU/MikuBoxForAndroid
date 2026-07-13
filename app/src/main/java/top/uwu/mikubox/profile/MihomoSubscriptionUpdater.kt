@@ -44,9 +44,11 @@ object MihomoSubscriptionUpdater {
             setRequestProperty("User-Agent", "MikuBox-Mihomo")
         }
         try {
-            check(connection.responseCode in 200..299) { "Subscription HTTP ${connection.responseCode}" }
+            check(connection.responseCode in 200..299) {
+                context.getString(R.string.error_subscription_http, connection.responseCode)
+            }
             val body = connection.inputStream.bufferedReader().use { it.readText() }
-            val config = MihomoSubscriptionDecoder.toMihomoConfig(body)
+            val config = MihomoSubscriptionDecoder.toMihomoConfig(context, body)
             MihomoProfileStore.update(
                 context,
                 profile.copy(config = config, updatedAtMillis = System.currentTimeMillis()),

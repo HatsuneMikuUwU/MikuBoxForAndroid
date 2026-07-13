@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MikuBox</string>
+    <string name="scaffold_subtitle">Mihomo · UwU</string>
+    <string name="vpn_channel_name">VPN 状态</string>
+    <string name="vpn_notification_running">已连接</string>
+    <string name="vpn_action_stop">停止</string>
+    <string name="subscription_channel_name">订阅更新</string>
+    <string name="subscription_update_title">正在更新订阅</string>
+    <string name="vpn_tile_title">MikuBox VPN</string>
+    <string name="mihomo_start_failed">Mihomo 启动失败</string>
+    <string name="local_proxy_notification_running">本地 Mihomo 代理正在运行</string>
+    <string name="profile_default_name">配置文件</string>
+    <string name="profile_subscription_default_name">订阅</string>
+    <string name="profile_imported_default_name">导入的配置文件</string>
+    <string name="error_mihomo_config_blank">Mihomo 配置不能为空</string>
+    <string name="error_subscription_url_blank">订阅地址不能为空</string>
+    <string name="error_unknown_profile">未知配置文件 %1$s</string>
+    <string name="error_subscription_empty">订阅为空</string>
+    <string name="error_no_compatible_proxy_links">未找到兼容 Mihomo 的代理链接</string>
+    <string name="error_subscription_http">订阅 HTTP 状态码 %1$d</string>
+</resources>

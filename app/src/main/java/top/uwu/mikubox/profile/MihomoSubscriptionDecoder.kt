@@ -1,15 +1,17 @@
 package top.uwu.mikubox.profile
 
+import android.content.Context
 import android.net.Uri
 import android.util.Base64
 import org.json.JSONObject
+import top.uwu.mikubox.R
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
 /** Converts the common non-UI subscription formats used by UwU into Mihomo YAML. */
 object MihomoSubscriptionDecoder {
 
-    fun toMihomoConfig(source: String): String {
+    fun toMihomoConfig(context: Context, source: String): String {
         val text = source.trim().removePrefix("\uFEFF")
         if (text.contains("proxies:") || text.contains("proxy-providers:") || text.contains("proxy-groups:")) {
             return text
@@ -20,9 +22,11 @@ object MihomoSubscriptionDecoder {
             .map(String::trim)
             .filter(String::isNotEmpty)
             .toList()
-        check(links.isNotEmpty()) { "Subscription is empty" }
+        check(links.isNotEmpty()) { context.getString(R.string.error_subscription_empty) }
         val proxies = links.mapNotNull(::parseLink)
-        check(proxies.isNotEmpty()) { "No Mihomo-compatible proxy links found" }
+        check(proxies.isNotEmpty()) {
+            context.getString(R.string.error_no_compatible_proxy_links)
+        }
         return buildString {
             appendLine("mode: rule")
             appendLine("proxies:")

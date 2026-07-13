@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import org.json.JSONArray
 import org.json.JSONObject
+import top.uwu.mikubox.R
 import java.util.UUID
 
 /**
@@ -35,7 +36,7 @@ object MihomoProfileStore {
         val raw = prefs(context).getString(KEY_PROFILES, "[]") ?: "[]"
         runCatching {
             JSONArray(raw).let { array ->
-                List(array.length()) { index -> array.getJSONObject(index).toProfile() }
+                List(array.length()) { index -> array.getJSONObject(index).toProfile(context) }
             }
         }.getOrDefault(emptyList())
     }
@@ -49,10 +50,10 @@ object MihomoProfileStore {
         selected(context)?.config ?: DEFAULT_CONFIG
 
     fun create(context: Context, name: String, config: String): Profile {
-        require(config.isNotBlank()) { "Mihomo configuration must not be blank" }
+        require(config.isNotBlank()) { context.getString(R.string.error_mihomo_config_blank) }
         val profile = Profile(
             id = UUID.randomUUID().toString(),
-            name = name.ifBlank { "Profile" },
+            name = name.ifBlank { context.getString(R.string.profile_default_name) },
             config = config,
             updatedAtMillis = System.currentTimeMillis(),
         )
@@ -68,10 +69,10 @@ object MihomoProfileStore {
         intervalMinutes: Long = 24 * 60,
         updateWhenConnectedOnly: Boolean = false,
     ): Profile {
-        require(url.isNotBlank()) { "Subscription URL must not be blank" }
+        require(url.isNotBlank()) { context.getString(R.string.error_subscription_url_blank) }
         val profile = Profile(
             id = UUID.randomUUID().toString(),
-            name = name.ifBlank { "Subscription" },
+            name = name.ifBlank { context.getString(R.string.profile_subscription_default_name) },
             config = DEFAULT_CONFIG,
             subscriptionUrl = url,
             updateIntervalMinutes = intervalMinutes.coerceAtLeast(15),
@@ -85,13 +86,17 @@ object MihomoProfileStore {
 
     fun update(context: Context, profile: Profile) {
         val updated = profiles(context).map { if (it.id == profile.id) profile else it }
-        require(updated.any { it.id == profile.id }) { "Unknown profile ${profile.id}" }
+        require(updated.any { it.id == profile.id }) {
+            context.getString(R.string.error_unknown_profile, profile.id)
+        }
         replaceProfiles(context, updated)
         MihomoSubscriptionUpdater.reconfigure(context)
     }
 
     fun select(context: Context, profileId: String) {
-        require(profiles(context).any { it.id == profileId }) { "Unknown profile $profileId" }
+        require(profiles(context).any { it.id == profileId }) {
+            context.getString(R.string.error_unknown_profile, profileId)
+        }
         prefs(context).edit().putString(KEY_SELECTED, profileId).commit()
     }
 
@@ -107,7 +112,7 @@ object MihomoProfileStore {
     fun replaceActiveConfig(context: Context, config: String) {
         val active = selected(context)
         if (active == null) {
-            create(context, "Default", config)
+            create(context, context.getString(R.string.profile_default_name), config)
         } else {
             update(context, active.copy(config = config, updatedAtMillis = System.currentTimeMillis()))
         }
@@ -125,7 +130,7 @@ object MihomoProfileStore {
     fun restoreBackup(context: Context, backup: String) {
         val root = JSONObject(backup)
         val imported = root.getJSONArray("profiles")
-        val restored = List(imported.length()) { imported.getJSONObject(it).toProfile() }
+        val restored = List(imported.length()) { imported.getJSONObject(it).toProfile(context) }
         replaceProfiles(context, restored)
         val selected = root.optString("selected").takeIf { id -> restored.any { it.id == id } }
         prefs(context).edit()
@@ -159,9 +164,9 @@ object MihomoProfileStore {
         put("updatedAtMillis", updatedAtMillis)
     }
 
-    private fun JSONObject.toProfile() = Profile(
+    private fun JSONObject.toProfile(context: Context) = Profile(
         id = getString("id"),
-        name = optString("name", "Profile"),
+        name = optString("name", context.getString(R.string.profile_default_name)),
         config = getString("config"),
         subscriptionUrl = optString("subscriptionUrl").ifBlank { null },
         updateIntervalMinutes = optLong("updateIntervalMinutes"),

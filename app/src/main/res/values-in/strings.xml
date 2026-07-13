@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MikuBox</string>
+    <string name="scaffold_subtitle">Mihomo · UwU</string>
+    <string name="vpn_channel_name">Status VPN</string>
+    <string name="vpn_notification_running">Terhubung</string>
+    <string name="vpn_action_stop">Berhenti</string>
+    <string name="subscription_channel_name">Pembaruan langganan</string>
+    <string name="subscription_update_title">Memperbarui langganan</string>
+    <string name="vpn_tile_title">VPN MikuBox</string>
+    <string name="mihomo_start_failed">Mihomo gagal dimulai</string>
+    <string name="local_proxy_notification_running">Proksi Mihomo lokal sedang berjalan</string>
+    <string name="profile_default_name">Profil</string>
+    <string name="profile_subscription_default_name">Langganan</string>
+    <string name="profile_imported_default_name">Profil yang diimpor</string>
+    <string name="error_mihomo_config_blank">Konfigurasi Mihomo tidak boleh kosong</string>
+    <string name="error_subscription_url_blank">URL langganan tidak boleh kosong</string>
+    <string name="error_unknown_profile">Profil tidak dikenal %1$s</string>
+    <string name="error_subscription_empty">Langganan kosong</string>
+    <string name="error_no_compatible_proxy_links">Tidak ditemukan tautan proksi yang kompatibel dengan Mihomo</string>
+    <string name="error_subscription_http">HTTP langganan %1$d</string>
+</resources>

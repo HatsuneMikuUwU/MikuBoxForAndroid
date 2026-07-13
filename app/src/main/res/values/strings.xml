@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="scaffold_subtitle">Mihomo · UwU-Cla scaffold</string>
+    <string name="scaffold_subtitle">Mihomo · UwU</string>
 
     <!-- VPN service -->
     <string name="vpn_channel_name">VPN status</string>
@@ -10,4 +10,15 @@
     <string name="subscription_channel_name">Subscription updates</string>
     <string name="subscription_update_title">Updating subscriptions</string>
     <string name="vpn_tile_title">MikuBox VPN</string>
+    <string name="mihomo_start_failed">Mihomo failed to start</string>
+    <string name="local_proxy_notification_running">Local Mihomo proxy is running</string>
+    <string name="profile_default_name">Profile</string>
+    <string name="profile_subscription_default_name">Subscription</string>
+    <string name="profile_imported_default_name">Imported profile</string>
+    <string name="error_mihomo_config_blank">Mihomo configuration must not be blank</string>
+    <string name="error_subscription_url_blank">Subscription URL must not be blank</string>
+    <string name="error_unknown_profile">Unknown profile %1$s</string>
+    <string name="error_subscription_empty">Subscription is empty</string>
+    <string name="error_no_compatible_proxy_links">No Mihomo-compatible proxy links found</string>
+    <string name="error_subscription_http">Subscription HTTP %1$d</string>
 </resources>
