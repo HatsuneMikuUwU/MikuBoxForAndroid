@@ -162,6 +162,53 @@
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                style="@style/SettingsSectionHeader"
+                android:text="@string/settings_section_backup" />
+
+            <com.google.android.material.card.MaterialCardView style="@style/SettingsCard">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/row_export"
+                        style="@style/SettingsRow">
+
+                        <LinearLayout style="@style/SettingsRowText">
+
+                            <TextView
+                                style="@style/SettingsRowTitle"
+                                android:text="@string/settings_export" />
+
+                            <TextView
+                                style="@style/SettingsRowSummary"
+                                android:text="@string/settings_export_summary" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View style="@style/SettingsDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/row_import"
+                        style="@style/SettingsRow">
+
+                        <LinearLayout style="@style/SettingsRowText">
+
+                            <TextView
+                                style="@style/SettingsRowTitle"
+                                android:text="@string/settings_import" />
+
+                            <TextView
+                                style="@style/SettingsRowSummary"
+                                android:text="@string/settings_import_summary" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

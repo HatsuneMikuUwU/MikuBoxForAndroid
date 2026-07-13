@@ -115,4 +115,12 @@
     <string name="uwu_miku_height_summary">158 cm</string>
     <string name="license">Lisensi</string>
     <string name="about_license_summary">MikuBox dirilis di bawah lisensi GPL-3.0. Mihomo, NekoBox for Android, dan komponen lain yang disertakan tetap berada di bawah lisensinya masing-masing.</string>
+    <string name="settings_section_backup">Cadangan</string>
+    <string name="settings_export">Ekspor</string>
+    <string name="settings_export_summary">Simpan profil dan pengaturan ke berkas</string>
+    <string name="settings_import">Impor</string>
+    <string name="settings_import_summary">Pulihkan profil dan pengaturan dari berkas</string>
+    <string name="toast_backup_exported">Cadangan diekspor</string>
+    <string name="toast_backup_imported">Cadangan diimpor</string>
+    <string name="toast_backup_failed">Cadangan gagal</string>
 </resources>

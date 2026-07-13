@@ -115,4 +115,12 @@
     <string name="uwu_miku_height_summary">158 公分</string>
     <string name="license">授權</string>
     <string name="about_license_summary">MikuBox 以 GPL-3.0 授權釋出。Mihomo、NekoBox for Android 及其他隨附元件仍依其各自的授權條款。</string>
+    <string name="settings_section_backup">備份</string>
+    <string name="settings_export">匯出</string>
+    <string name="settings_export_summary">將設定檔與偏好儲存為檔案</string>
+    <string name="settings_import">匯入</string>
+    <string name="settings_import_summary">從檔案還原設定檔與偏好</string>
+    <string name="toast_backup_exported">已匯出備份</string>
+    <string name="toast_backup_imported">已匯入備份</string>
+    <string name="toast_backup_failed">備份失敗</string>
 </resources>

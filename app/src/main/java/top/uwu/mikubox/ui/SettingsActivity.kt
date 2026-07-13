@@ -10,6 +10,10 @@ import top.uwu.mikubox.R
 import top.uwu.mikubox.core.AppSettings
 import top.uwu.mikubox.databinding.ActivitySettingsBinding
 import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import top.uwu.mikubox.core.BackupManager
 import top.uwu.mikubox.profile.MihomoProfileStore
 import top.uwu.mikubox.service.MihomoVpnSettings
 import top.uwu.mikubox.service.MihomoVpnSettings.AppMode
@@ -24,6 +28,14 @@ class SettingsActivity : AppCompatActivity() {
         AppCompatDelegate.MODE_NIGHT_YES,
     )
 
+    private val exportBackup = registerForActivityResult(
+        ActivityResultContracts.CreateDocument("application/json")
+    ) { uri -> uri?.let { writeBackup(it) } }
+
+    private val importBackup = registerForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri -> uri?.let { readBackup(it) } }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -35,6 +47,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.rowApps.setOnClickListener {
             startActivity(Intent(this, AppListActivity::class.java))
         }
+        binding.rowExport.setOnClickListener { exportBackup.launch("mikubox-backup.json") }
+        binding.rowImport.setOnClickListener { importBackup.launch(arrayOf("application/json", "text/*")) }
 
         binding.swParticles.isChecked = AppSettings.particlesEnabled(this)
         binding.rowParticles.setOnClickListener {
@@ -87,6 +101,37 @@ class SettingsActivity : AppCompatActivity() {
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
+    }
+
+    private fun writeBackup(uri: Uri) {
+        val ok = runCatching {
+            contentResolver.openOutputStream(uri)?.use {
+                it.write(BackupManager.export(this).toByteArray())
+            } ?: error("no stream")
+        }.isSuccess
+        Toast.makeText(
+            this,
+            if (ok) R.string.toast_backup_exported else R.string.toast_backup_failed,
+            Toast.LENGTH_SHORT,
+        ).show()
+    }
+
+    private fun readBackup(uri: Uri) {
+        val ok = runCatching {
+            val json = contentResolver.openInputStream(uri)?.use {
+                it.readBytes().decodeToString()
+            } ?: error("no stream")
+            BackupManager.import(this, json)
+        }.isSuccess
+        if (ok) {
+            AppCompatDelegate.setDefaultNightMode(AppSettings.nightMode(this))
+            render()
+        }
+        Toast.makeText(
+            this,
+            if (ok) R.string.toast_backup_imported else R.string.toast_backup_failed,
+            Toast.LENGTH_SHORT,
+        ).show()
     }
 
     private fun editMtu() {
