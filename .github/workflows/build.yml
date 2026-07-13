@@ -1,0 +1,62 @@
+name: Build
+
+on:
+  push:
+    branches: [ Miku ]
+  pull_request:
+    branches: [ Miku ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-debug:
+    name: Build debug APKs
+    runs-on: ubuntu-latest
+    steps:
+      # The core/mihomo submodule is pinned to a HSSkyBoy/mihomo fork commit.
+      # Make sure that fork's `Alpha` branch (with the naive outbound) is pushed
+      # to the remote, otherwise this checkout can't fetch the pinned commit.
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+          cache-dependency-path: core/mihomo-bridge/go.sum
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NDK and CMake
+        run: sdkmanager --install "ndk;29.0.13599879" "cmake;3.22.1"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build debug APKs (per-ABI)
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleDebug --stacktrace --no-daemon
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: mikubox-cla-debug-apks
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error

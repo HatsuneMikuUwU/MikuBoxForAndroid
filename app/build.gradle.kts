@@ -112,11 +112,19 @@ val buildMihomoBridge by tasks.registering {
 
     doLast {
         val ndk = android.ndkDirectory
-        val clangDir = ndk.resolve("toolchains/llvm/prebuilt/windows-x86_64/bin")
+        // Pick the NDK prebuilt toolchain for the build host (Windows uses .cmd
+        // wrappers) so this works both locally and on Linux/macOS CI runners.
+        val hostOs = System.getProperty("os.name").lowercase()
+        val (hostTag, exeExt) = when {
+            hostOs.contains("win") -> "windows-x86_64" to ".cmd"
+            hostOs.contains("mac") || hostOs.contains("darwin") -> "darwin-x86_64" to ""
+            else -> "linux-x86_64" to ""
+        }
+        val clangDir = ndk.resolve("toolchains/llvm/prebuilt/$hostTag/bin")
         val targets = mapOf(
-            "armeabi-v7a" to "armv7a-linux-androideabi24-clang.cmd",
-            "arm64-v8a" to "aarch64-linux-android24-clang.cmd",
-            "x86_64" to "x86_64-linux-android24-clang.cmd",
+            "armeabi-v7a" to "armv7a-linux-androideabi24-clang",
+            "arm64-v8a" to "aarch64-linux-android24-clang",
+            "x86_64" to "x86_64-linux-android24-clang",
         )
 
         targets.forEach { (abi, compiler) ->
@@ -134,7 +142,7 @@ val buildMihomoBridge by tasks.registering {
                 })
                 environment("GOARM", if (abi == "armeabi-v7a") "7" else "")
                 environment("CGO_ENABLED", "1")
-                environment("CC", clangDir.resolve(compiler).absolutePath)
+                environment("CC", clangDir.resolve(compiler + exeExt).absolutePath)
                 commandLine(
                     "go", "build", "-trimpath", "-buildmode=c-shared",
                     "-ldflags=-s -w", "-o", output.absolutePath, ".",
