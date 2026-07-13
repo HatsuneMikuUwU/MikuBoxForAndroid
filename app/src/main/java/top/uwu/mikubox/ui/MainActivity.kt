@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
         binding.btnMenu.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
+        binding.navView.setCheckedItem(R.id.nav_home)
         binding.navView.setNavigationItemSelectedListener { item ->
             val target: Class<*>? = when (item.itemId) {
                 R.id.nav_settings -> SettingsActivity::class.java
@@ -83,9 +84,10 @@ class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
                 R.id.nav_logcat -> LogcatActivity::class.java
                 R.id.nav_tools -> ToolsActivity::class.java
                 R.id.nav_about -> AboutActivity::class.java
-                else -> null
+                else -> null // nav_home: already here
             }
             target?.let { startActivity(Intent(this, it)) }
+            binding.navView.setCheckedItem(R.id.nav_home)
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }

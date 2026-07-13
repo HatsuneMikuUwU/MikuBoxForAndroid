@@ -53,6 +53,7 @@
     <!-- Navigation menu (bottom sheet) -->
     <string name="app_settings">Pengaturan aplikasi</string>
     <string name="tools_and_info">Alat &amp; info</string>
+    <string name="menu_home">Beranda</string>
     <string name="settings">Pengaturan</string>
     <string name="menu_log">Logcat</string>
     <string name="desc_menu_log">Lihat log aplikasi</string>

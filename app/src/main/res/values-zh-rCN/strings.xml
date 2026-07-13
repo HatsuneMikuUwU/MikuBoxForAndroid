@@ -53,6 +53,7 @@
     <!-- Navigation menu (bottom sheet) -->
     <string name="app_settings">应用设置</string>
     <string name="tools_and_info">工具与信息</string>
+    <string name="menu_home">主页</string>
     <string name="settings">设置</string>
     <string name="menu_log">Logcat</string>
     <string name="desc_menu_log">查看应用日志</string>

@@ -62,6 +62,7 @@
     <!-- Navigation menu (bottom sheet) -->
     <string name="app_settings">App settings</string>
     <string name="tools_and_info">Tools &amp; info</string>
+    <string name="menu_home">Home</string>
     <string name="settings">Settings</string>
     <string name="menu_log">Logcat</string>
     <string name="desc_menu_log">View app logs</string>

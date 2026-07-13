@@ -53,6 +53,7 @@
     <!-- Navigation menu (bottom sheet) -->
     <string name="app_settings">程式設定</string>
     <string name="tools_and_info">工具與資訊</string>
+    <string name="menu_home">首頁</string>
     <string name="settings">設定</string>
     <string name="menu_log">Logcat</string>
     <string name="desc_menu_log">檢視應用程式紀錄</string>

@@ -55,6 +55,7 @@
     <!-- Navigation menu (bottom sheet) -->
     <string name="app_settings">Настройки приложения</string>
     <string name="tools_and_info">Инструменты и информация</string>
+    <string name="menu_home">Главная</string>
     <string name="settings">Настройки</string>
     <string name="menu_log">Logcat</string>
     <string name="desc_menu_log">Просмотр логов приложения</string>
