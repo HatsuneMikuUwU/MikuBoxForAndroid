@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MikuRay brand accents (carried over for visual continuity). -->
+    <color name="miku_orange">#F97910</color>
+    <color name="ping_green">#009966</color>
+    <color name="ping_magenta">#FF0099</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

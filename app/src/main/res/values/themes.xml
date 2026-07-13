@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        Baseline app theme. Intentionally plain Material3 for the scaffold; this
+        will be superseded by the ported MikuRay Material3-Expressive theme
+        family (18 selectable palettes) when the UI layer lands.
+    -->
+    <style name="Theme.MikuBoxCla" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/miku_orange</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+</resources>
