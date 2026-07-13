@@ -29,6 +29,7 @@
     <string name="action_disconnect">中斷連線</string>
     <string name="hint_subscription_url">訂閱網址（Clash）</string>
     <string name="hint_profile_name">名稱（選填）</string>
+    <string name="action_add_profile">新增設定檔</string>
     <string name="action_add_subscription">新增並抓取訂閱</string>
     <string name="action_import_clipboard">從剪貼簿匯入設定</string>
     <string name="profiles_header">設定檔</string>

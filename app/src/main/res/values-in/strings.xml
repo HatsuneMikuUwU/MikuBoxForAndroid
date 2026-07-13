@@ -29,6 +29,7 @@
     <string name="action_disconnect">Putuskan</string>
     <string name="hint_subscription_url">URL langganan (Clash)</string>
     <string name="hint_profile_name">Nama (opsional)</string>
+    <string name="action_add_profile">Tambah profil</string>
     <string name="action_add_subscription">Tambah &amp; ambil langganan</string>
     <string name="action_import_clipboard">Impor konfigurasi dari papan klip</string>
     <string name="profiles_header">Profil</string>

@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import top.uwu.mikubox.R
+import top.uwu.mikubox.core.AppSettings
 import top.uwu.mikubox.core.MihomoCore
 import top.uwu.mikubox.databinding.ActivityMainBinding
 import top.uwu.mikubox.profile.MihomoProfileImporter
@@ -30,7 +31,7 @@ import top.uwu.mikubox.service.VpnController
  * the VPN. A faithful MikuRay-style redesign comes later; this restores the
  * core MikuBox workflow (import a subscription/config, then connect).
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ProfileAdapter
@@ -63,8 +64,9 @@ class MainActivity : AppCompatActivity() {
         binding.rvProfiles.layoutManager = LinearLayoutManager(this)
         binding.rvProfiles.adapter = adapter
 
-        binding.btnAddSub.setOnClickListener { addSubscription() }
-        binding.btnImportClipboard.setOnClickListener { importClipboard() }
+        binding.btnAdd.setOnClickListener {
+            AddProfileBottomSheet().show(supportFragmentManager, AddProfileBottomSheet.TAG)
+        }
         binding.fab.setOnClickListener { toggleConnection() }
         binding.cardBottomStatus.setOnClickListener { toggleConnection() }
         binding.btnMenu.setOnClickListener {
@@ -89,7 +91,9 @@ class MainActivity : AppCompatActivity() {
         val profiles = MihomoProfileStore.profiles(this)
         val selected = MihomoProfileStore.selected(this)
         adapter.submit(profiles, selected?.id)
-        binding.tvEmpty.visibility = if (profiles.isEmpty()) View.VISIBLE else View.GONE
+        binding.emptyCard.visibility = if (profiles.isEmpty()) View.VISIBLE else View.GONE
+        binding.particlesView.visibility =
+            if (AppSettings.particlesEnabled(this)) View.VISIBLE else View.GONE
 
         val running = VpnController.isRunning
         binding.fab.setImageResource(if (running) R.drawable.ic_service_busy else R.drawable.ic_service_idle)
@@ -125,9 +129,7 @@ class MainActivity : AppCompatActivity() {
         return String.format(java.util.Locale.US, "%.1f %s", value, units[unit])
     }
 
-    private fun addSubscription() {
-        val url = binding.etSubUrl.text?.toString()?.trim().orEmpty()
-        val name = binding.etName.text?.toString()?.trim().orEmpty()
+    override fun onAddSubscription(url: String, name: String) {
         if (url.isEmpty()) {
             toast(getString(R.string.error_subscription_url_blank))
             return
@@ -138,24 +140,20 @@ class MainActivity : AppCompatActivity() {
             toast(getString(R.string.toast_import_failed, e.message ?: ""))
             return
         }
-        binding.etSubUrl.text = null
-        binding.etName.text = null
         toast(getString(R.string.toast_subscription_added))
         refresh()
         pull(profile)
     }
 
-    private fun importClipboard() {
+    override fun onImportClipboard(name: String) {
         val clip = (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
             .primaryClip?.getItemAt(0)?.coerceToText(this)?.toString()?.trim().orEmpty()
         if (clip.isEmpty()) {
             toast(getString(R.string.toast_clipboard_empty))
             return
         }
-        val name = binding.etName.text?.toString()?.trim().orEmpty()
         try {
             MihomoProfileImporter.importConfig(this, name, clip)
-            binding.etName.text = null
             toast(getString(R.string.toast_config_imported))
             refresh()
         } catch (e: Exception) {

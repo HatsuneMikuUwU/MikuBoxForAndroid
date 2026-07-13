@@ -31,6 +31,7 @@
     <string name="action_disconnect">Отключить</string>
     <string name="hint_subscription_url">URL подписки (Clash)</string>
     <string name="hint_profile_name">Имя (необязательно)</string>
+    <string name="action_add_profile">Добавить профиль</string>
     <string name="action_add_subscription">Добавить и загрузить подписку</string>
     <string name="action_import_clipboard">Импорт конфигурации из буфера обмена</string>
     <string name="profiles_header">Профили</string>

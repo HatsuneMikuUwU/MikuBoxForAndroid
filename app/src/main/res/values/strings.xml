@@ -37,6 +37,7 @@
     <string name="action_disconnect">Disconnect</string>
     <string name="hint_subscription_url">Subscription URL (Clash)</string>
     <string name="hint_profile_name">Name (optional)</string>
+    <string name="action_add_profile">Add profile</string>
     <string name="action_add_subscription">Add &amp; fetch subscription</string>
     <string name="action_import_clipboard">Import config from clipboard</string>
     <string name="profiles_header">Profiles</string>

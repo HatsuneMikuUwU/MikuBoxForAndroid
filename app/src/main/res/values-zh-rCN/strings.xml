@@ -29,6 +29,7 @@
     <string name="action_disconnect">断开连接</string>
     <string name="hint_subscription_url">订阅地址（Clash）</string>
     <string name="hint_profile_name">名称（可选）</string>
+    <string name="action_add_profile">添加配置文件</string>
     <string name="action_add_subscription">添加并获取订阅</string>
     <string name="action_import_clipboard">从剪贴板导入配置</string>
     <string name="profiles_header">配置文件</string>
