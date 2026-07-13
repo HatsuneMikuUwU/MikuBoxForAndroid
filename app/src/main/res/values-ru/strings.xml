@@ -74,6 +74,10 @@
     <string name="settings_boot">Запуск при загрузке</string>
     <string name="settings_boot_summary">Переподключать выбранный профиль после перезагрузки</string>
     <string name="settings_mtu">MTU</string>
+    <string name="settings_per_app">Прокси по приложениям</string>
+    <string name="per_app_mode_all">Все приложения</string>
+    <string name="per_app_mode_allow">Список разрешённых</string>
+    <string name="per_app_mode_disallow">Список исключённых</string>
 
     <!-- Tools -->
     <string name="tools_connection_test">Проверка соединения</string>

@@ -142,6 +142,24 @@
                                 style="@style/SettingsRowSummary" />
                         </LinearLayout>
                     </LinearLayout>
+
+                    <View style="@style/SettingsDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/row_apps"
+                        style="@style/SettingsRow">
+
+                        <LinearLayout style="@style/SettingsRowText">
+
+                            <TextView
+                                style="@style/SettingsRowTitle"
+                                android:text="@string/settings_per_app" />
+
+                            <TextView
+                                android:id="@+id/tv_apps_value"
+                                style="@style/SettingsRowSummary" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

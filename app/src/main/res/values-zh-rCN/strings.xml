@@ -72,6 +72,10 @@
     <string name="settings_boot">开机自动启动</string>
     <string name="settings_boot_summary">重启后重新连接所选配置文件</string>
     <string name="settings_mtu">MTU</string>
+    <string name="settings_per_app">分应用代理</string>
+    <string name="per_app_mode_all">所有应用</string>
+    <string name="per_app_mode_allow">允许列表</string>
+    <string name="per_app_mode_disallow">排除列表</string>
 
     <!-- Tools -->
     <string name="tools_connection_test">连接测试</string>

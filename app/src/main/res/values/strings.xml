@@ -81,6 +81,10 @@
     <string name="settings_boot">Start on boot</string>
     <string name="settings_boot_summary">Reconnect the selected profile after reboot</string>
     <string name="settings_mtu">MTU</string>
+    <string name="settings_per_app">Per-app proxy</string>
+    <string name="per_app_mode_all">All apps</string>
+    <string name="per_app_mode_allow">Allow list</string>
+    <string name="per_app_mode_disallow">Disallow list</string>
 
     <!-- Tools -->
     <string name="tools_connection_test">Connection test</string>

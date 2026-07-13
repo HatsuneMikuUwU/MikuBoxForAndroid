@@ -72,6 +72,10 @@
     <string name="settings_boot">開機自動啟動</string>
     <string name="settings_boot_summary">重開機後重新連線所選設定檔</string>
     <string name="settings_mtu">MTU</string>
+    <string name="settings_per_app">分應用程式代理</string>
+    <string name="per_app_mode_all">所有應用程式</string>
+    <string name="per_app_mode_allow">允許清單</string>
+    <string name="per_app_mode_disallow">排除清單</string>
 
     <!-- Tools -->
     <string name="tools_connection_test">連線測試</string>

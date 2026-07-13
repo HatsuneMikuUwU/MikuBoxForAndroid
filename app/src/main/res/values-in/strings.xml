@@ -72,6 +72,10 @@
     <string name="settings_boot">Mulai saat boot</string>
     <string name="settings_boot_summary">Sambungkan ulang profil terpilih setelah reboot</string>
     <string name="settings_mtu">MTU</string>
+    <string name="settings_per_app">Proksi per-aplikasi</string>
+    <string name="per_app_mode_all">Semua aplikasi</string>
+    <string name="per_app_mode_allow">Daftar izin</string>
+    <string name="per_app_mode_disallow">Daftar larangan</string>
 
     <!-- Tools -->
     <string name="tools_connection_test">Tes koneksi</string>

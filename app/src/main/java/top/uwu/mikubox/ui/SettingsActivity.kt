@@ -9,8 +9,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.AppSettings
 import top.uwu.mikubox.databinding.ActivitySettingsBinding
+import android.content.Intent
 import top.uwu.mikubox.profile.MihomoProfileStore
 import top.uwu.mikubox.service.MihomoVpnSettings
+import top.uwu.mikubox.service.MihomoVpnSettings.AppMode
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -30,6 +32,9 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.rowTheme.setOnClickListener { pickTheme() }
         binding.rowMtu.setOnClickListener { editMtu() }
+        binding.rowApps.setOnClickListener {
+            startActivity(Intent(this, AppListActivity::class.java))
+        }
 
         binding.swParticles.isChecked = AppSettings.particlesEnabled(this)
         binding.rowParticles.setOnClickListener {
@@ -45,12 +50,23 @@ class SettingsActivity : AppCompatActivity() {
             MihomoProfileStore.setAutoStart(this, enabled)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         render()
     }
 
     private fun render() {
         binding.tvThemeValue.text = getString(themeLabel(AppSettings.nightMode(this)))
         binding.tvMtuValue.text = MihomoVpnSettings.mtu(this).toString()
+        binding.tvAppsValue.setText(appModeLabel(MihomoVpnSettings.appMode(this)))
+    }
+
+    private fun appModeLabel(mode: AppMode): Int = when (mode) {
+        AppMode.ALLOW_LIST -> R.string.per_app_mode_allow
+        AppMode.DISALLOW_LIST -> R.string.per_app_mode_disallow
+        else -> R.string.per_app_mode_all
     }
 
     private fun themeLabel(mode: Int): Int = when (mode) {
