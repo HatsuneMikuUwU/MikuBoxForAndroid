@@ -131,6 +131,8 @@ fun buildConfig(
             rule.outbound.takeIf { it > 0 && it != proxy.id }
         }.toHashSet().toList()).associateBy { it.id }
     val buildSelector = !forTest && group?.isSelector == true && !forExport
+    val buildLoadBalance = !forTest && group?.isLoadBalance == true && group.isSelector != true && !forExport
+    val buildOutboundGroup = buildSelector || buildLoadBalance
     val userDNSRuleList = mutableListOf<DNSRule_DefaultOptions>()
     val domainListDNSDirectForce = mutableListOf<String>()
     val bypassDNSBeans = hashSetOf<AbstractBean>()
@@ -220,19 +222,13 @@ fun buildConfig(
                 // migrated to route sniff/resolve rule actions below.
                 auto_route = true
                 strict_route = true
-                when (ipv6Mode) {
-                    IPv6Mode.DISABLE -> {
-                        inet4_address = listOf(VpnService.PRIVATE_VLAN4_CLIENT + "/28")
-                    }
-
-                    IPv6Mode.ONLY -> {
-                        inet6_address = listOf(VpnService.PRIVATE_VLAN6_CLIENT + "/126")
-                    }
-
-                    else -> {
-                        inet4_address = listOf(VpnService.PRIVATE_VLAN4_CLIENT + "/28")
-                        inet6_address = listOf(VpnService.PRIVATE_VLAN6_CLIENT + "/126")
-                    }
+                address = when (ipv6Mode) {
+                    IPv6Mode.DISABLE -> listOf(VpnService.PRIVATE_VLAN4_CLIENT + "/28")
+                    IPv6Mode.ONLY -> listOf(VpnService.PRIVATE_VLAN6_CLIENT + "/126")
+                    else -> listOf(
+                        VpnService.PRIVATE_VLAN4_CLIENT + "/28",
+                        VpnService.PRIVATE_VLAN6_CLIENT + "/126"
+                    )
                 }
             })
             inbounds.add(Inbound_MixedOptions().apply {
@@ -256,8 +252,18 @@ fun buildConfig(
             // `domain_resolver`. Outbound (and DNS server) domain addresses are
             // resolved through the direct DNS by default, matching the previous
             // behaviour where the `outbound: any` DNS rule pinned them to
-            // dns-direct.
-            default_domain_resolver = "dns-direct"
+            // dns-direct. The per-server strategy is carried here too: the
+            // per-outbound `domain_strategy` field is deprecated and now fatal
+            // at startup (sing-box 1.14), so it must not be set on outbounds.
+            val serverDomainStrategy = if (forTest) "" else SingBoxOptionsUtil.domainStrategy("server")
+            if (serverDomainStrategy.isEmpty()) {
+                default_domain_resolver = "dns-direct"
+            } else {
+                _hack_config_map["default_domain_resolver"] = mapOf(
+                    "server" to "dns-direct",
+                    "strategy" to serverDomainStrategy
+                )
+            }
         }
 
         // returns outbound tag
@@ -310,7 +316,7 @@ fun buildConfig(
                 }
 
                 // selector human readable name
-                if (buildSelector && index == 0) {
+                if (buildOutboundGroup && index == 0) {
                     tagOut = selectorName(bean.displayName())
                 }
 
@@ -408,15 +414,12 @@ fun buildConfig(
                     } catch (_: Exception) {
                     }
 
-                    // domain_strategy
+                    // don't loopback
                     pastEntity?.requireBean()?.apply {
-                        // don't loopback
                         if (defaultServerDomainStrategy != "" && !serverAddress.isIpAddress()) {
                             domainListDNSDirectForce.add("full:$serverAddress")
                         }
                     }
-                    _hack_config_map["domain_strategy"] =
-                        if (forTest) "" else defaultServerDomainStrategy
 
                     _hack_config_map["tag"] = tagOut
 
@@ -485,17 +488,30 @@ fun buildConfig(
         }
 
         // build outbounds
-        if (buildSelector) {
+        if (buildOutboundGroup) {
             val list = group.id.let { SagerDatabase.proxyDao.getByGroup(it) }
             list.forEach {
                 tagMap[it.id] = buildChain(it.id, it)
             }
-            outbounds.add(0, Outbound_SelectorOptions().apply {
-                type = "selector"
-                tag = TAG_PROXY
-                default_ = tagMap[proxy.id]
-                outbounds = tagMap.values.toList()
-            })
+            if (buildLoadBalance) {
+                outbounds.add(0, Outbound_LoadBalanceOptions().apply {
+                    type = "loadbalance"
+                    tag = TAG_PROXY
+                    strategy = group.loadBalanceStrategy.takeIf { it.isNotBlank() } ?: "consistent-hashing"
+                    url = group.loadBalanceUrl.takeIf { it.isNotBlank() }
+                    interval = group.loadBalanceInterval.takeIf { it.isNotBlank() }
+                    idle_timeout = group.loadBalanceIdleTimeout.takeIf { it.isNotBlank() }
+                    interrupt_exist_connections = group.loadBalanceInterruptExistConnections
+                    outbounds = tagMap.values.toList()
+                })
+            } else {
+                outbounds.add(0, Outbound_SelectorOptions().apply {
+                    type = "selector"
+                    tag = TAG_PROXY
+                    default_ = tagMap[proxy.id]
+                    outbounds = tagMap.values.toList()
+                })
+            }
         } else {
             buildChain(0, proxy)
         }
@@ -877,7 +893,7 @@ fun buildConfig(
             proxy.id,
             trafficMap,
             tagMap,
-            if (buildSelector) group.id else -1L
+            if (buildOutboundGroup) group.id else -1L
         )
     }
 

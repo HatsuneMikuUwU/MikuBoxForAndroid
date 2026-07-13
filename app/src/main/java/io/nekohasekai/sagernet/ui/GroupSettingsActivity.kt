@@ -51,6 +51,12 @@ class GroupSettingsActivity(
         DataStore.groupType = type
         DataStore.groupOrder = order
         DataStore.groupIsSelector = isSelector
+        DataStore.groupIsLoadBalance = isLoadBalance
+        DataStore.groupLoadBalanceStrategy = loadBalanceStrategy
+        DataStore.groupLoadBalanceUrl = loadBalanceUrl
+        DataStore.groupLoadBalanceInterval = loadBalanceInterval
+        DataStore.groupLoadBalanceIdleTimeout = loadBalanceIdleTimeout
+        DataStore.groupLoadBalanceInterruptExistConnections = loadBalanceInterruptExistConnections
 
         DataStore.frontProxy = frontProxy
         DataStore.landingProxy = landingProxy
@@ -72,6 +78,12 @@ class GroupSettingsActivity(
         type = DataStore.groupType
         order = DataStore.groupOrder
         isSelector = DataStore.groupIsSelector
+        isLoadBalance = DataStore.groupIsLoadBalance && !isSelector
+        loadBalanceStrategy = DataStore.groupLoadBalanceStrategy.ifBlank { "consistent-hashing" }
+        loadBalanceUrl = DataStore.groupLoadBalanceUrl
+        loadBalanceInterval = DataStore.groupLoadBalanceInterval
+        loadBalanceIdleTimeout = DataStore.groupLoadBalanceIdleTimeout
+        loadBalanceInterruptExistConnections = DataStore.groupLoadBalanceInterruptExistConnections
 
         frontProxy = if (DataStore.frontProxyTmp == 3) DataStore.frontProxy else -1
         landingProxy = if (DataStore.landingProxyTmp == 3) DataStore.landingProxy else -1
@@ -149,6 +161,15 @@ class GroupSettingsActivity(
         updateGroupType()
         groupType.setOnPreferenceChangeListener { _, newValue ->
             updateGroupType((newValue as String).toInt())
+            true
+        }
+
+        findPreference<SwitchPreference>(Key.GROUP_IS_SELECTOR)?.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue as Boolean) DataStore.groupIsLoadBalance = false
+            true
+        }
+        findPreference<SwitchPreference>(Key.GROUP_IS_LOAD_BALANCE)?.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue as Boolean) DataStore.groupIsSelector = false
             true
         }
 

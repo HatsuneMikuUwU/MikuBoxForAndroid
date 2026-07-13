@@ -526,6 +526,14 @@
     <string name="bypass_lan_in_core">Bypass LAN in Core</string>
     <string name="need_restart">Restart APP to apply changes</string>
     <string name="use_selector">Use selector</string>
+    <string name="use_load_balance">Use load balance</string>
+    <string name="load_balance_strategy">Load balance strategy</string>
+    <string name="load_balance_round_robin">Round robin</string>
+    <string name="load_balance_consistent_hashing">Consistent hashing</string>
+    <string name="load_balance_url">Health check URL</string>
+    <string name="load_balance_interval">Health check interval</string>
+    <string name="load_balance_idle_timeout">Health check idle timeout</string>
+    <string name="load_balance_interrupt_exist_connections">Interrupt existing connections</string>
     <string name="front_proxy">Front proxy</string>
     <string name="landing_proxy">Landing Proxy</string>
     <string name="action_shadowtls" translatable="false">ShadowTLS</string>

@@ -2825,10 +2825,7 @@ public class SingBoxOptions {
         public Integer mtu;
 
         // Generate note: Listable
-        public List<String> inet4_address;
-
-        // Generate note: Listable
-        public List<String> inet6_address;
+        public List<String> address;
 
         public Boolean auto_route;
 
@@ -4501,9 +4498,29 @@ public class SingBoxOptions {
 
         public String url;
 
-        public Long interval;
+        public String interval;
 
         public Integer tolerance;
+
+        public String idle_timeout;
+
+        public Boolean interrupt_exist_connections;
+
+    }
+
+    public static class Outbound_LoadBalanceOptions extends Outbound {
+
+        public List<String> outbounds;
+
+        public String strategy;
+
+        public String url;
+
+        public String interval;
+
+        public String idle_timeout;
+
+        public Boolean interrupt_exist_connections;
 
     }
 

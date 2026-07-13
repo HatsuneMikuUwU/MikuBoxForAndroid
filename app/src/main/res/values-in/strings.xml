@@ -441,6 +441,14 @@
     <string name="log_level">Level Log</string>
     <string name="need_restart">Restart aplikasi buat nerapin perubahan</string>
     <string name="use_selector">Aktifin pemilih (ganti node tanpa reload)</string>
+    <string name="use_load_balance">Aktifkan load balance</string>
+    <string name="load_balance_strategy">Strategi load balance</string>
+    <string name="load_balance_round_robin">Round robin</string>
+    <string name="load_balance_consistent_hashing">Consistent hashing</string>
+    <string name="load_balance_url">URL pemeriksaan kesehatan</string>
+    <string name="load_balance_interval">Interval pemeriksaan kesehatan</string>
+    <string name="load_balance_idle_timeout">Batas waktu idle pemeriksaan kesehatan</string>
+    <string name="load_balance_interrupt_exist_connections">Putuskan koneksi yang ada</string>
     <string name="front_proxy">Proksi depan</string>
     <string name="landing_proxy">Proksi pendaratan</string>
     <string name="protocol_version">Versi protokol</string>

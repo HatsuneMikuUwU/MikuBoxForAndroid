@@ -138,6 +138,12 @@ object Key {
     const val GROUP_TYPE = "groupType"
     const val GROUP_ORDER = "groupOrder"
     const val GROUP_IS_SELECTOR = "groupIsSelector"
+    const val GROUP_IS_LOAD_BALANCE = "groupIsLoadBalance"
+    const val GROUP_LOAD_BALANCE_STRATEGY = "groupLoadBalanceStrategy"
+    const val GROUP_LOAD_BALANCE_URL = "groupLoadBalanceUrl"
+    const val GROUP_LOAD_BALANCE_INTERVAL = "groupLoadBalanceInterval"
+    const val GROUP_LOAD_BALANCE_IDLE_TIMEOUT = "groupLoadBalanceIdleTimeout"
+    const val GROUP_LOAD_BALANCE_INTERRUPT_EXIST_CONNECTIONS = "groupLoadBalanceInterruptExistConnections"
     const val GROUP_FRONT_PROXY = "groupFrontProxy"
     const val GROUP_LANDING_PROXY = "groupLandingProxy"
 

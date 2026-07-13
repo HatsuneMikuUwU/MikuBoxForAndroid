@@ -20,6 +20,18 @@ data class ProxyGroup(
     var subscription: SubscriptionBean? = null,
     var order: Int = GroupOrder.ORIGIN,
     var isSelector: Boolean = false,
+    @ColumnInfo(defaultValue = "0")
+    var isLoadBalance: Boolean = false,
+    @ColumnInfo(defaultValue = "'consistent-hashing'")
+    var loadBalanceStrategy: String = "consistent-hashing",
+    @ColumnInfo(defaultValue = "")
+    var loadBalanceUrl: String = "",
+    @ColumnInfo(defaultValue = "")
+    var loadBalanceInterval: String = "",
+    @ColumnInfo(defaultValue = "")
+    var loadBalanceIdleTimeout: String = "",
+    @ColumnInfo(defaultValue = "0")
+    var loadBalanceInterruptExistConnections: Boolean = false,
     var frontProxy: Long = -1L,
     var landingProxy: Long = -1L
 ) : Serializable() {
@@ -41,7 +53,7 @@ data class ProxyGroup(
             subscription.serializeForShare(output)
 
         } else {
-            output.writeInt(0)
+            output.writeInt(1)
             output.writeLong(id)
             output.writeLong(userOrder)
             output.writeBoolean(ungrouped)
@@ -52,6 +64,13 @@ data class ProxyGroup(
                 subscription?.serializeToBuffer(output)
             }
             output.writeInt(order)
+            output.writeBoolean(isSelector)
+            output.writeBoolean(isLoadBalance)
+            output.writeString(loadBalanceStrategy)
+            output.writeString(loadBalanceUrl)
+            output.writeString(loadBalanceInterval)
+            output.writeString(loadBalanceIdleTimeout)
+            output.writeBoolean(loadBalanceInterruptExistConnections)
         }
     }
 
@@ -81,6 +100,15 @@ data class ProxyGroup(
                 subscription.deserializeFromBuffer(input)
             }
             order = input.readInt()
+            if (version >= 1) {
+                isSelector = input.readBoolean()
+                isLoadBalance = input.readBoolean()
+                loadBalanceStrategy = input.readString()
+                loadBalanceUrl = input.readString()
+                loadBalanceInterval = input.readString()
+                loadBalanceIdleTimeout = input.readString()
+                loadBalanceInterruptExistConnections = input.readBoolean()
+            }
         }
     }
 

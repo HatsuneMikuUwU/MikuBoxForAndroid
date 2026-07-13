@@ -523,6 +523,16 @@
         <item>@string/subscription</item>
     </string-array>
 
+    <string-array name="load_balance_strategies">
+        <item>@string/load_balance_consistent_hashing</item>
+        <item>@string/load_balance_round_robin</item>
+    </string-array>
+
+    <string-array name="load_balance_strategy_values">
+        <item>consistent-hashing</item>
+        <item>round-robin</item>
+    </string-array>
+
     <string-array name="hysteria_auth_type">
         <item>@string/plugin_disabled</item>
         <item>STRING</item>

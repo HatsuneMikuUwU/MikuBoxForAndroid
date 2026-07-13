@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 6,
-    "identityHash": "0d6ca4af6031545a1d1378d0b781dc43",
+    "version": 7,
+    "identityHash": "e07fec894a879d8219e5c1b3a87e893f",
     "entities": [
       {
         "tableName": "proxy_groups",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userOrder` INTEGER NOT NULL, `ungrouped` INTEGER NOT NULL, `name` TEXT, `type` INTEGER NOT NULL, `subscription` BLOB, `order` INTEGER NOT NULL, `isSelector` INTEGER NOT NULL, `frontProxy` INTEGER NOT NULL, `landingProxy` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userOrder` INTEGER NOT NULL, `ungrouped` INTEGER NOT NULL, `name` TEXT, `type` INTEGER NOT NULL, `subscription` BLOB, `order` INTEGER NOT NULL, `isSelector` INTEGER NOT NULL, `isLoadBalance` INTEGER NOT NULL DEFAULT 0, `loadBalanceStrategy` TEXT NOT NULL DEFAULT 'consistent-hashing', `loadBalanceUrl` TEXT NOT NULL DEFAULT '', `loadBalanceInterval` TEXT NOT NULL DEFAULT '', `loadBalanceIdleTimeout` TEXT NOT NULL DEFAULT '', `loadBalanceInterruptExistConnections` INTEGER NOT NULL DEFAULT 0, `frontProxy` INTEGER NOT NULL, `landingProxy` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -29,8 +29,7 @@
           {
             "fieldPath": "name",
             "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "type",
@@ -41,8 +40,7 @@
           {
             "fieldPath": "subscription",
             "columnName": "subscription",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "order",
@@ -55,6 +53,48 @@
             "columnName": "isSelector",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "isLoadBalance",
+            "columnName": "isLoadBalance",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "loadBalanceStrategy",
+            "columnName": "loadBalanceStrategy",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'consistent-hashing'"
+          },
+          {
+            "fieldPath": "loadBalanceUrl",
+            "columnName": "loadBalanceUrl",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "loadBalanceInterval",
+            "columnName": "loadBalanceInterval",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "loadBalanceIdleTimeout",
+            "columnName": "loadBalanceIdleTimeout",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "loadBalanceInterruptExistConnections",
+            "columnName": "loadBalanceInterruptExistConnections",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           },
           {
             "fieldPath": "frontProxy",
@@ -74,9 +114,7 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       },
       {
         "tableName": "proxy_entities",
@@ -139,116 +177,97 @@
           {
             "fieldPath": "error",
             "columnName": "error",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "socksBean",
             "columnName": "socksBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "httpBean",
             "columnName": "httpBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "ssBean",
             "columnName": "ssBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "vmessBean",
             "columnName": "vmessBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "trojanBean",
             "columnName": "trojanBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "trojanGoBean",
             "columnName": "trojanGoBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "mieruBean",
             "columnName": "mieruBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "naiveBean",
             "columnName": "naiveBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "hysteriaBean",
             "columnName": "hysteriaBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "tuicBean",
             "columnName": "tuicBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "juicityBean",
             "columnName": "juicityBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "sshBean",
             "columnName": "sshBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "wgBean",
             "columnName": "wgBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "shadowTLSBean",
             "columnName": "shadowTLSBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "anyTLSBean",
             "columnName": "anyTLSBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "chainBean",
             "columnName": "chainBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "nekoBean",
             "columnName": "nekoBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           },
           {
             "fieldPath": "configBean",
             "columnName": "configBean",
-            "affinity": "BLOB",
-            "notNull": false
+            "affinity": "BLOB"
           }
         ],
         "primaryKey": {
@@ -267,8 +286,7 @@
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `groupId` ON `${TABLE_NAME}` (`groupId`)"
           }
-        ],
-        "foreignKeys": []
+        ]
       },
       {
         "tableName": "rules",
@@ -365,15 +383,12 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       }
     ],
-    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0d6ca4af6031545a1d1378d0b781dc43')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e07fec894a879d8219e5c1b3a87e893f')"
     ]
   }
 }

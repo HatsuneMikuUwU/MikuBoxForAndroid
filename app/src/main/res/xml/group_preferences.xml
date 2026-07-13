@@ -38,6 +38,49 @@
             app:icon="@drawable/ic_baseline_manage_search_24"
             app:key="groupIsSelector"
             app:title="@string/use_selector" />
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:summaryOn="@string/on"
+            android:summaryOff="@string/off"
+            app:icon="@drawable/ic_baseline_manage_search_24"
+            app:key="groupIsLoadBalance"
+            app:title="@string/use_load_balance" />
+        <com.takisoft.preferencex.SimpleMenuPreference
+            android:layout="@layout/uwu_mid"
+            app:defaultValue="consistent-hashing"
+            app:entries="@array/load_balance_strategies"
+            app:entryValues="@array/load_balance_strategy_values"
+            app:icon="@drawable/ic_baseline_low_priority_24"
+            app:key="groupLoadBalanceStrategy"
+            app:title="@string/load_balance_strategy"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:layout="@layout/uwu_mid"
+            app:icon="@drawable/ic_baseline_link_24"
+            app:key="groupLoadBalanceUrl"
+            app:title="@string/load_balance_url"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:layout="@layout/uwu_mid"
+            app:icon="@drawable/ic_baseline_timelapse_24"
+            app:key="groupLoadBalanceInterval"
+            app:title="@string/load_balance_interval"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:layout="@layout/uwu_mid"
+            app:icon="@drawable/ic_baseline_timelapse_24"
+            app:key="groupLoadBalanceIdleTimeout"
+            app:title="@string/load_balance_idle_timeout"
+            app:useSimpleSummaryProvider="true" />
+        <SwitchPreference
+            android:layout="@layout/uwu_bot_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:summaryOn="@string/on"
+            android:summaryOff="@string/off"
+            app:icon="@drawable/ic_sync"
+            app:key="groupLoadBalanceInterruptExistConnections"
+            app:title="@string/load_balance_interrupt_exist_connections" />
         <io.nekohasekai.sagernet.widget.OutboundPreference
             android:layout="@layout/uwu_mid"
             app:icon="@drawable/ic_hardware_router"

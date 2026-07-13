@@ -290,6 +290,12 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var groupType by profileCacheStore.stringToInt(Key.GROUP_TYPE)
     var groupOrder by profileCacheStore.stringToInt(Key.GROUP_ORDER)
     var groupIsSelector by profileCacheStore.boolean(Key.GROUP_IS_SELECTOR)
+    var groupIsLoadBalance by profileCacheStore.boolean(Key.GROUP_IS_LOAD_BALANCE)
+    var groupLoadBalanceStrategy by profileCacheStore.string(Key.GROUP_LOAD_BALANCE_STRATEGY)
+    var groupLoadBalanceUrl by profileCacheStore.string(Key.GROUP_LOAD_BALANCE_URL)
+    var groupLoadBalanceInterval by profileCacheStore.string(Key.GROUP_LOAD_BALANCE_INTERVAL)
+    var groupLoadBalanceIdleTimeout by profileCacheStore.string(Key.GROUP_LOAD_BALANCE_IDLE_TIMEOUT)
+    var groupLoadBalanceInterruptExistConnections by profileCacheStore.boolean(Key.GROUP_LOAD_BALANCE_INTERRUPT_EXIST_CONNECTIONS)
 
     var subscriptionLink by profileCacheStore.string(Key.SUBSCRIPTION_LINK)
     var subscriptionForceResolve by profileCacheStore.boolean(Key.SUBSCRIPTION_FORCE_RESOLVE)
