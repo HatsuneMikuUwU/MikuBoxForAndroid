@@ -52,6 +52,32 @@
     <string name="toast_select_profile_first">請先選擇或新增設定檔</string>
     <string name="toast_import_failed">匯入失敗：%1$s</string>
 
+    <!-- Navigation menu (bottom sheet) -->
+    <string name="app_settings">程式設定</string>
+    <string name="tools_and_info">工具與資訊</string>
+    <string name="settings">設定</string>
+    <string name="menu_log">Logcat</string>
+    <string name="desc_menu_log">檢視應用程式紀錄</string>
+    <string name="menu_tools">工具</string>
+    <string name="desc_menu_tools">Ping、測速等</string>
+    <string name="desc_menu_about">關於此應用程式</string>
+    <string name="action_clear">清除</string>
+    <string name="logcat_read_failed">讀取紀錄失敗：%1$s</string>
+    <string name="toast_coming_soon">即將推出</string>
+
+    <!-- Settings -->
+    <string name="settings_section_appearance">外觀</string>
+    <string name="settings_section_connection">連線</string>
+    <string name="settings_theme">主題</string>
+    <string name="settings_theme_system">跟隨系統</string>
+    <string name="settings_theme_light">淺色</string>
+    <string name="settings_theme_dark">深色</string>
+    <string name="settings_particles">粒子動畫</string>
+    <string name="settings_particles_summary">選單橫幅的動態效果</string>
+    <string name="settings_boot">開機自動啟動</string>
+    <string name="settings_boot_summary">重開機後重新連線所選設定檔</string>
+    <string name="settings_mtu">MTU</string>
+
     <!-- About / Miku intro -->
     <string name="menu_about">關於</string>
     <string name="about_title">關於</string>

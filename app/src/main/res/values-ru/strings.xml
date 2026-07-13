@@ -54,6 +54,32 @@
     <string name="toast_select_profile_first">Сначала выберите или добавьте профиль</string>
     <string name="toast_import_failed">Ошибка импорта: %1$s</string>
 
+    <!-- Navigation menu (bottom sheet) -->
+    <string name="app_settings">Настройки приложения</string>
+    <string name="tools_and_info">Инструменты и информация</string>
+    <string name="settings">Настройки</string>
+    <string name="menu_log">Logcat</string>
+    <string name="desc_menu_log">Просмотр логов приложения</string>
+    <string name="menu_tools">Инструменты</string>
+    <string name="desc_menu_tools">Пинг, скорость и другое</string>
+    <string name="desc_menu_about">Об этом приложении</string>
+    <string name="action_clear">Очистить</string>
+    <string name="logcat_read_failed">Не удалось прочитать лог: %1$s</string>
+    <string name="toast_coming_soon">Скоро</string>
+
+    <!-- Settings -->
+    <string name="settings_section_appearance">Внешний вид</string>
+    <string name="settings_section_connection">Подключение</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_theme_system">Как в системе</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Тёмная</string>
+    <string name="settings_particles">Анимация частиц</string>
+    <string name="settings_particles_summary">Анимированный баннер в меню</string>
+    <string name="settings_boot">Запуск при загрузке</string>
+    <string name="settings_boot_summary">Переподключать выбранный профиль после перезагрузки</string>
+    <string name="settings_mtu">MTU</string>
+
     <!-- About / Miku intro -->
     <string name="menu_about">О программе</string>
     <string name="about_title">О программе</string>

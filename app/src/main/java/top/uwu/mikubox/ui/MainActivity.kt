@@ -66,8 +66,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnImportClipboard.setOnClickListener { importClipboard() }
         binding.fab.setOnClickListener { toggleConnection() }
         binding.cardBottomStatus.setOnClickListener { toggleConnection() }
-        binding.btnAbout.setOnClickListener {
-            startActivity(android.content.Intent(this, AboutActivity::class.java))
+        binding.btnMenu.setOnClickListener {
+            MenuBottomSheet().show(supportFragmentManager, MenuBottomSheet.TAG)
         }
 
         requestNotificationPermission()
