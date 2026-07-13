@@ -21,4 +21,30 @@
     <string name="error_subscription_empty">Subscription is empty</string>
     <string name="error_no_compatible_proxy_links">No Mihomo-compatible proxy links found</string>
     <string name="error_subscription_http">Subscription HTTP %1$d</string>
+
+    <!-- Home UI -->
+    <string name="status_connected">Connected · %1$s</string>
+    <string name="status_connected_no_profile">Connected</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_no_profile">No profile — add a subscription or config below</string>
+    <string name="action_connect">Connect</string>
+    <string name="action_disconnect">Disconnect</string>
+    <string name="hint_subscription_url">Subscription URL (Clash)</string>
+    <string name="hint_profile_name">Name (optional)</string>
+    <string name="action_add_subscription">Add &amp; fetch subscription</string>
+    <string name="action_import_clipboard">Import config from clipboard</string>
+    <string name="profiles_header">Profiles</string>
+    <string name="profiles_empty">No profiles yet.</string>
+    <string name="action_update">Update</string>
+    <string name="action_delete">Delete</string>
+    <string name="badge_subscription">Subscription</string>
+    <string name="badge_local">Local</string>
+    <string name="badge_selected">Selected</string>
+    <string name="toast_subscription_added">Subscription added, fetching…</string>
+    <string name="toast_subscription_updated">Subscription updated</string>
+    <string name="toast_update_failed">Update failed: %1$s</string>
+    <string name="toast_config_imported">Config imported</string>
+    <string name="toast_clipboard_empty">Clipboard is empty</string>
+    <string name="toast_select_profile_first">Select or add a profile first</string>
+    <string name="toast_import_failed">Import failed: %1$s</string>
 </resources>

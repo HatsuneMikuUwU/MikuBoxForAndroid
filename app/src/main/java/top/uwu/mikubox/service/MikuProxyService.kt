@@ -51,7 +51,7 @@ class MikuProxyService : Service() {
     }
 
     private fun notification(): Notification = NotificationCompat.Builder(this, "miku_vpn_status")
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.mipmap.ic_launcher)
         .setContentTitle(getString(R.string.app_name))
         .setContentText(getString(R.string.local_proxy_notification_running))
         .setOngoing(true)

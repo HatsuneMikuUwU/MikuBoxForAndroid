@@ -154,7 +154,7 @@ class MikuVpnService : VpnService() {
             pendingFlags(),
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(getString(R.string.app_name))
             .setContentText(getString(R.string.vpn_notification_running))
             .setContentIntent(configurePendingIntent())
