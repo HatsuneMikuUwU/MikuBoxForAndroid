@@ -1,0 +1,4 @@
+[submodule "core/mihomo"]
+	path = core/mihomo
+	url = https://github.com/HSSkyBoy/mihomo.git
+	branch = Alpha

@@ -55,18 +55,19 @@ A preview of MikuBox themes.
 
 ## Supported Protocols / 支援的協議
 
-MikuBox integrates the core capabilities of Mihomo, supporting a wide array of proxy protocols.  
+MikuBox embeds [HSSkyBoy/mihomo](https://github.com/HSSkyBoy/mihomo/tree/Alpha) `Alpha` through a JNI bridge. Android owns the VPN TUN interface while Mihomo receives its file descriptor and parses the complete YAML configuration.
 *MikuBox 整合了 Mihomo 的核心功能，支援多種代理協議*
 
 | Protocol Category (協議分類) |Protocols Name (協議名稱) |
 | :--- | :--- |
 | **Standard/標準** | SOCKS5, HTTP(S), SSH |
 | **Established/常見** | Shadowsocks, ShadowsocksR, VMess, VLESS, Trojan |
-| **Advanced/擴展** | AnyTLS, ShadowTLS, TUIC, Hysteria 1/2, WireGuard, Snell, Mieru |
-| **Groups/策略組** | select, url-test, fallback, load-balance, relay |
+| **Advanced/擴展** | AnyTLS, ShadowTLS (Shadowsocks/Snell plugin), TUIC, Hysteria 1/2, WireGuard, Snell, Mieru |
+| **Groups/策略組** | select, url-test, fallback, load-balance |
 
 > [!NOTE]
-> Protocol support tracks the bundled Mihomo core version.  
+> Protocol support tracks the bundled `HSSkyBoy/mihomo` `Alpha` commit recorded in the Git submodule. ShadowTLS is available as a Shadowsocks or Snell transport/plugin, not as its own `type: shadowtls` proxy node.
+> The Alpha branch has removed the legacy `relay` proxy-group; use a node's `dialer-proxy` option for chaining instead.
 > *協議支援以內建的 Mihomo 核心版本為準.*
 
 ---
@@ -101,7 +102,7 @@ This project is built upon the great work of the following open-source communiti
 *該項目建立在以下開源項目的出色工作之上:*
 
 **Core:**
-- [MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo)
+- [HSSkyBoy/mihomo — Alpha](https://github.com/HSSkyBoy/mihomo/tree/Alpha)
 
 **Core Embedding / 核心嵌入:**
 - [MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid)

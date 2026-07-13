@@ -7,4 +7,7 @@
     <string name="vpn_channel_name">VPN status</string>
     <string name="vpn_notification_running">Connected</string>
     <string name="vpn_action_stop">Stop</string>
+    <string name="subscription_channel_name">Subscription updates</string>
+    <string name="subscription_update_title">Updating subscriptions</string>
+    <string name="vpn_tile_title">MikuBox VPN</string>
 </resources>

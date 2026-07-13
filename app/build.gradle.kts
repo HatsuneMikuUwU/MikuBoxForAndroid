@@ -20,6 +20,7 @@ android {
     namespace = "top.uwu.mikubox"
     compileSdk = 36
     buildToolsVersion = "36.1.0"
+    ndkVersion = "29.0.13599879"
 
     defaultConfig {
         applicationId = "top.uwu.mikubox"
@@ -27,6 +28,16 @@ android {
         targetSdk = 36
         versionCode = 10
         versionName = "UwU-1.0.0"
+
+        ndk {
+            abiFilters += setOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+        }
+
+        externalNativeBuild {
+            cmake {
+                arguments += "-DMIHOMO_JNI_LIBS_DIR=${layout.buildDirectory.get().asFile}/generated/mihomo-jniLibs"
+            }
+        }
     }
 
     val keystorePass = secret("KEYSTORE_PASS")
@@ -46,6 +57,13 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
     }
 
     buildTypes {
@@ -68,6 +86,60 @@ android {
     }
 }
 
+val mihomoBridgeDir = rootProject.file("core/mihomo-bridge")
+val mihomoSourceDir = rootProject.file("core/mihomo")
+val mihomoJniLibsDir = layout.buildDirectory.dir("generated/mihomo-jniLibs")
+
+android.sourceSets.getByName("main").jniLibs.srcDir(mihomoJniLibsDir)
+
+val buildMihomoBridge by tasks.registering {
+    group = "build"
+    description = "Builds the bundled HSSkyBoy/mihomo Alpha JNI bridge for every Android ABI."
+    inputs.dir(mihomoBridgeDir)
+    inputs.dir(mihomoSourceDir)
+    outputs.dir(mihomoJniLibsDir)
+
+    doLast {
+        val ndk = android.ndkDirectory
+        val clangDir = ndk.resolve("toolchains/llvm/prebuilt/windows-x86_64/bin")
+        val targets = mapOf(
+            "armeabi-v7a" to "armv7a-linux-androideabi24-clang.cmd",
+            "arm64-v8a" to "aarch64-linux-android24-clang.cmd",
+            "x86" to "i686-linux-android24-clang.cmd",
+            "x86_64" to "x86_64-linux-android24-clang.cmd",
+        )
+
+        targets.forEach { (abi, compiler) ->
+            val output = mihomoJniLibsDir.get().file("$abi/libmihomo.so").asFile
+            output.parentFile.mkdirs()
+            exec {
+                workingDir = mihomoBridgeDir
+                environment("GOOS", "android")
+                environment("GOARCH", when (abi) {
+                    "armeabi-v7a" -> "arm"
+                    "arm64-v8a" -> "arm64"
+                    "x86" -> "386"
+                    "x86_64" -> "amd64"
+                    else -> error("Unsupported Android ABI: $abi")
+                })
+                environment("GOARM", if (abi == "armeabi-v7a") "7" else "")
+                environment("CGO_ENABLED", "1")
+                environment("CC", clangDir.resolve(compiler).absolutePath)
+                commandLine(
+                    "go", "build", "-trimpath", "-buildmode=c-shared",
+                    "-ldflags=-s -w", "-o", output.absolutePath, ".",
+                )
+            }
+        }
+    }
+}
+
+tasks.configureEach {
+    if (name.contains("CMake") || name.endsWith("JniLibFolders")) {
+        dependsOn(buildMihomoBridge)
+    }
+}
+
 kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_21)
@@ -81,4 +153,5 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.work.runtime.ktx)
 }
