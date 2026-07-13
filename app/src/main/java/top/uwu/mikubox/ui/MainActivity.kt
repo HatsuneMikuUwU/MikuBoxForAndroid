@@ -3,15 +3,19 @@ package top.uwu.mikubox.ui
 import android.Manifest
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.drawerlayout.widget.DrawerLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
@@ -70,8 +74,32 @@ class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
         binding.fab.setOnClickListener { toggleConnection() }
         binding.cardBottomStatus.setOnClickListener { toggleConnection() }
         binding.btnMenu.setOnClickListener {
-            MenuBottomSheet().show(supportFragmentManager, MenuBottomSheet.TAG)
+            binding.drawerLayout.openDrawer(GravityCompat.START)
         }
+        binding.navView.setNavigationItemSelectedListener { item ->
+            val target: Class<*>? = when (item.itemId) {
+                R.id.nav_settings -> SettingsActivity::class.java
+                R.id.nav_apps -> AppListActivity::class.java
+                R.id.nav_logcat -> LogcatActivity::class.java
+                R.id.nav_tools -> ToolsActivity::class.java
+                R.id.nav_about -> AboutActivity::class.java
+                else -> null
+            }
+            target?.let { startActivity(Intent(this, it)) }
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
+        val backCallback = object : OnBackPressedCallback(false) {
+            override fun handleOnBackPressed() {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, backCallback)
+        binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerOpened(drawerView: View) { backCallback.isEnabled = true }
+            override fun onDrawerClosed(drawerView: View) { backCallback.isEnabled = false }
+        })
 
         requestNotificationPermission()
     }

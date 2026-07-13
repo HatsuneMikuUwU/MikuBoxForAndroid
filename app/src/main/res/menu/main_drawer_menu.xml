@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_24dp"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_apps"
+            android:icon="@drawable/ic_subscriptions_24dp"
+            android:title="@string/settings_per_app" />
+    </group>
+
+    <group
+        android:id="@+id/misc"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logcat"
+            android:icon="@drawable/ic_logcat_24dp"
+            android:title="@string/menu_log" />
+        <item
+            android:id="@+id/nav_tools"
+            android:icon="@drawable/baseline_construction_24"
+            android:title="@string/menu_tools" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_about_24dp"
+            android:title="@string/menu_about" />
+    </group>
+
+</menu>
