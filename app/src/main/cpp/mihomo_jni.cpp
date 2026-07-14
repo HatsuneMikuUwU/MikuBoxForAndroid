@@ -5,6 +5,7 @@ extern "C" {
 int MihomoStart(char* config, char* home, int tun_fd);
 void MihomoStop();
 char* MihomoLastError();
+char* MihomoVersion();
 char* MihomoTraffic();
 }
 
@@ -31,6 +32,12 @@ Java_top_uwu_mikubox_core_MihomoCore_nativeLastError(JNIEnv* env, jobject /* thi
     jstring result = env->NewStringUTF(error == nullptr ? "" : error);
     std::free(error);
     return result;
+}
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_top_uwu_mikubox_core_MihomoCore_nativeVersion(JNIEnv* env, jobject /* thiz */) {
+    char* version = MihomoVersion();
+    return env->NewStringUTF(version == nullptr ? "unknown" : version);
 }
 
 extern "C" JNIEXPORT jstring JNICALL

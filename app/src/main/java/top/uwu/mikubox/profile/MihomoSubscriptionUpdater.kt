@@ -12,6 +12,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import top.uwu.mikubox.R
+import top.uwu.mikubox.core.MihomoCore
 import top.uwu.mikubox.service.VpnController
 import java.net.HttpURLConnection
 import java.net.URL
@@ -41,7 +42,7 @@ object MihomoSubscriptionUpdater {
             connectTimeout = 15_000
             readTimeout = 30_000
             instanceFollowRedirects = true
-            setRequestProperty("User-Agent", "MikuBox-Mihomo")
+            setRequestProperty("User-Agent", subscriptionUserAgent(context))
         }
         try {
             check(connection.responseCode in 200..299) {
@@ -56,6 +57,15 @@ object MihomoSubscriptionUpdater {
         } finally {
             connection.disconnect()
         }
+    }
+
+    private fun subscriptionUserAgent(context: Context): String {
+        val appVersion = context.packageManager
+            .getPackageInfo(context.packageName, 0)
+            .versionName
+            ?.removePrefix("UwU-")
+            ?: "unknown"
+        return "MikuBox/$appVersion mihomo/${MihomoCore.version()} android/${Build.VERSION.RELEASE}"
     }
 
     class UpdateWorker(

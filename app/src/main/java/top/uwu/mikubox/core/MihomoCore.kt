@@ -33,6 +33,8 @@ object MihomoCore {
         nativeStop()
     }
 
+    fun version(): String = nativeVersion()
+
     fun traffic(): Traffic = JSONObject(nativeTraffic()).let {
         Traffic(
             uploadPerSecond = it.optLong("upload"),
@@ -45,5 +47,6 @@ object MihomoCore {
     private external fun nativeStart(config: String, home: String, tunFd: Int): Int
     private external fun nativeStop()
     private external fun nativeLastError(): String
+    private external fun nativeVersion(): String
     private external fun nativeTraffic(): String
 }

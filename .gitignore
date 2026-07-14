@@ -6,10 +6,9 @@ captures/
 .externalNativeBuild/
 .cxx/
 
-# Local config / secrets
+# Local config
 local.properties
 release.keystore
-signing.properties
 
 # IDE / tooling
 .idea/

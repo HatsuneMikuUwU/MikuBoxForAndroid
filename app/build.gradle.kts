@@ -174,11 +174,42 @@ val stripDebugApkMetadata by tasks.registering {
     doLast {
         val outputDir = layout.buildDirectory.dir("outputs/apk/debug").get().asFile
         val debugKeystore = file("${System.getProperty("user.home")}/.android/debug.keystore")
-        check(debugKeystore.isFile) { "Debug keystore was not found: $debugKeystore" }
+        val releaseKeystore = rootProject.file(secret("KEYSTORE_PATH") ?: "release.keystore")
+        val releaseStorePass = secret("KEYSTORE_PASS")
+        val releaseAlias = secret("ALIAS_NAME")
+        val releaseKeyPass = secret("ALIAS_PASS")
+        val isWindows = System.getProperty("os.name").lowercase().contains("win")
+        val executableSuffix = if (isWindows) ".exe" else ""
+        val keytool = File(System.getProperty("java.home"), "bin/keytool$executableSuffix")
+        val useReleaseKey = releaseKeystore.isFile &&
+            releaseStorePass != null && releaseAlias != null && releaseKeyPass != null
+        if (!useReleaseKey && !debugKeystore.isFile) {
+            debugKeystore.parentFile.mkdirs()
+            check(keytool.isFile) { "JDK keytool was not found: $keytool" }
+            exec {
+                commandLine(
+                    keytool.absolutePath,
+                    "-genkeypair",
+                    "-keystore", debugKeystore.absolutePath,
+                    "-storepass", "android",
+                    "-keypass", "android",
+                    "-alias", "androiddebugkey",
+                    "-keyalg", "RSA",
+                    "-keysize", "2048",
+                    "-validity", "10000",
+                    "-dname", "CN=Android Debug,O=Android,C=US",
+                    "-noprompt",
+                )
+            }
+        }
+        val signingKeystore = if (useReleaseKey) releaseKeystore else debugKeystore
+        val signingStorePass = if (useReleaseKey) releaseStorePass!! else "android"
+        val signingAlias = if (useReleaseKey) releaseAlias!! else "androiddebugkey"
+        val signingKeyPass = if (useReleaseKey) releaseKeyPass!! else "android"
 
         val buildToolsDir = android.sdkDirectory.resolve("build-tools/${android.buildToolsVersion}")
-        val zipalign = buildToolsDir.resolve("zipalign.exe")
-        val apksigner = buildToolsDir.resolve("apksigner.bat")
+        val zipalign = buildToolsDir.resolve("zipalign$executableSuffix")
+        val apksigner = buildToolsDir.resolve("apksigner${if (isWindows) ".bat" else ""}")
         check(zipalign.isFile && apksigner.isFile) { "Android build-tools are incomplete in $buildToolsDir" }
 
         outputDir.listFiles { file -> file.extension == "apk" }?.forEach { apk ->
@@ -201,9 +232,10 @@ val stripDebugApkMetadata by tasks.registering {
                 commandLine(
                     apksigner.absolutePath,
                     "sign",
-                    "--ks", debugKeystore.absolutePath,
-                    "--ks-pass", "pass:android",
-                    "--key-pass", "pass:android",
+                    "--ks", signingKeystore.absolutePath,
+                    "--ks-key-alias", signingAlias,
+                    "--ks-pass", "pass:$signingStorePass",
+                    "--key-pass", "pass:$signingKeyPass",
                     "--v1-signing-enabled", "false",
                     "--out", apk.absolutePath,
                     aligned.absolutePath,

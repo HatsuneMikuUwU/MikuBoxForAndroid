@@ -68,6 +68,13 @@ func MihomoLastError() *C.char {
 	return C.CString(core.lastErr)
 }
 
+// MihomoVersion exposes the bundled core version for user-agent and diagnostics.
+//
+//export MihomoVersion
+func MihomoVersion() *C.char {
+	return C.CString("v" + constant.Version)
+}
+
 // MihomoTraffic exposes the core's traffic accounting without requiring an
 // HTTP controller to be enabled in a user configuration.
 //
