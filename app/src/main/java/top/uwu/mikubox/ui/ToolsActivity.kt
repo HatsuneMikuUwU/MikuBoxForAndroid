@@ -4,7 +4,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.SystemClock
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +17,7 @@ import java.net.NetworkInterface
 import java.net.URL
 
 /** Core-independent diagnostics: a URL/latency test and a network-info dump. */
-class ToolsActivity : AppCompatActivity() {
+class ToolsActivity : EdgeToEdgeActivity() {
 
     private lateinit var binding: ActivityToolsBinding
 
@@ -26,6 +25,7 @@ class ToolsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityToolsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applySystemBarInsets(binding.root)
 
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.toolsTab.addTab(

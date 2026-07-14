@@ -3,7 +3,6 @@ package top.uwu.mikubox.ui
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import top.uwu.mikubox.R
@@ -18,7 +17,7 @@ import top.uwu.mikubox.profile.MihomoProfileStore
 import top.uwu.mikubox.service.MihomoVpnSettings
 import top.uwu.mikubox.service.MihomoVpnSettings.AppMode
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : EdgeToEdgeActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -40,6 +39,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applySystemBarInsets(binding.root)
         binding.toolbar.setNavigationOnClickListener { finish() }
 
         binding.rowTheme.setOnClickListener { pickTheme() }

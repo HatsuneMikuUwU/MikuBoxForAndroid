@@ -12,8 +12,10 @@ import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +34,7 @@ import top.uwu.mikubox.service.VpnController
  * the VPN. A faithful MikuRay-style redesign comes later; this restores the
  * core MikuBox workflow (import a subscription/config, then connect).
  */
-class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
+class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ProfileAdapter
@@ -49,6 +51,7 @@ class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applyMainSystemBarInsets()
 
         adapter = ProfileAdapter(
             onSelect = { profile ->
@@ -78,6 +81,21 @@ class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
         binding.cardBottomStatus.setOnClickListener { toggleConnection() }
 
         requestNotificationPermission()
+    }
+
+    private fun applyMainSystemBarInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.mainContent) { view, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val cutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+            view.updatePadding(
+                left = maxOf(bars.left, cutout.left),
+                right = maxOf(bars.right, cutout.right),
+                bottom = maxOf(bars.bottom, cutout.bottom),
+            )
+            binding.headerContent.updatePadding(top = maxOf(bars.top, cutout.top))
+            insets
+        }
+        ViewCompat.requestApplyInsets(binding.mainContent)
     }
 
     override fun onResume() {

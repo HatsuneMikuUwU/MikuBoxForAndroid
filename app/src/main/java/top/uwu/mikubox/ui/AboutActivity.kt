@@ -3,7 +3,6 @@ package top.uwu.mikubox.ui
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import top.uwu.mikubox.R
 import top.uwu.mikubox.databinding.ActivityAboutBinding
 
@@ -12,7 +11,7 @@ import top.uwu.mikubox.databinding.ActivityAboutBinding
  * Hatsune Miku?" profile, a horizontal row of Miku facts, and the license.
  * Mirrors the UwU branch's about design with stock Material components.
  */
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : EdgeToEdgeActivity() {
 
     private data class Fact(val icon: Int, val title: Int, val summary: Int)
 
@@ -29,6 +28,7 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applySystemBarInsets(binding.root)
 
         binding.toolbar.setNavigationOnClickListener { finish() }
 

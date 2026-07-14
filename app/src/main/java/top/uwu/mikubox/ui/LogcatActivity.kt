@@ -1,7 +1,6 @@
 package top.uwu.mikubox.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -10,7 +9,7 @@ import top.uwu.mikubox.R
 import top.uwu.mikubox.databinding.ActivityLogcatBinding
 
 /** Minimal in-app logcat viewer for the app's own process. */
-class LogcatActivity : AppCompatActivity() {
+class LogcatActivity : EdgeToEdgeActivity() {
 
     private lateinit var binding: ActivityLogcatBinding
 
@@ -18,6 +17,7 @@ class LogcatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLogcatBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applySystemBarInsets(binding.root)
 
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.fabClear.setOnClickListener {

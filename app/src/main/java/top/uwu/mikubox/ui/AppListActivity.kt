@@ -3,7 +3,6 @@ package top.uwu.mikubox.ui
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +13,7 @@ import top.uwu.mikubox.service.MihomoVpnSettings
 import top.uwu.mikubox.service.MihomoVpnSettings.AppMode
 
 /** Per-app proxy picker, wired to [MihomoVpnSettings] (mode + package set). */
-class AppListActivity : AppCompatActivity() {
+class AppListActivity : EdgeToEdgeActivity() {
 
     private lateinit var binding: ActivityAppListBinding
     private lateinit var adapter: AppListAdapter
@@ -24,6 +23,7 @@ class AppListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAppListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applySystemBarInsets(binding.root)
         binding.toolbar.setNavigationOnClickListener { finish() }
 
         selected.addAll(MihomoVpnSettings.packages(this))
