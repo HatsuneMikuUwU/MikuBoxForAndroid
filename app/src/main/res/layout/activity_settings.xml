@@ -186,6 +186,24 @@
                     <View style="@style/SettingsDivider" />
 
                     <LinearLayout
+                        android:id="@+id/row_dns"
+                        style="@style/SettingsRow">
+
+                        <LinearLayout style="@style/SettingsRowText">
+
+                            <TextView
+                                style="@style/SettingsRowTitle"
+                                android:text="@string/settings_dns" />
+
+                            <TextView
+                                style="@style/SettingsRowSummary"
+                                android:text="@string/settings_dns_summary" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View style="@style/SettingsDivider" />
+
+                    <LinearLayout
                         android:id="@+id/row_apps"
                         style="@style/SettingsRow">
 

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.MihomoConfigStore
 import top.uwu.mikubox.core.MihomoCore
+import top.uwu.mikubox.core.MihomoDnsSettings
 
 /** Starts Mihomo's local mixed proxy listener without creating a VPN interface. */
 class MikuProxyService : Service() {
@@ -26,7 +27,12 @@ class MikuProxyService : Service() {
             VpnController.disconnect(this)
             ensureChannel()
             startForeground(NOTIFICATION_ID, notification())
-            val result = MihomoCore.start(this, MihomoConfigStore.activeConfig(this), MihomoCore.NO_TUN)
+            val result = MihomoCore.start(
+                this,
+                MihomoConfigStore.activeConfig(this),
+                MihomoCore.NO_TUN,
+                MihomoDnsSettings.effectiveOverride(this),
+            )
             if (result.isFailure) {
                 stopProxy()
                 return START_NOT_STICKY

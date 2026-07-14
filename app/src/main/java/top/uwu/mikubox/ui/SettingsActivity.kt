@@ -44,6 +44,9 @@ class SettingsActivity : EdgeToEdgeActivity() {
 
         binding.rowTheme.setOnClickListener { pickTheme() }
         binding.rowMtu.setOnClickListener { editMtu() }
+        binding.rowDns.setOnClickListener {
+            startActivity(Intent(this, DnsActivity::class.java))
+        }
         binding.rowApps.setOnClickListener {
             startActivity(Intent(this, AppListActivity::class.java))
         }

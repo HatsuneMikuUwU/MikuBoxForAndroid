@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 extern "C" {
-int MihomoStart(char* config, char* home, int tun_fd);
+int MihomoStart(char* config, char* home, int tun_fd, char* dns_override);
 void MihomoStop();
 char* MihomoLastError();
 char* MihomoVersion();
@@ -14,13 +14,17 @@ char* MihomoProxyDelay(char* name, char* url, int timeout_ms);
 
 extern "C" JNIEXPORT jint JNICALL
 Java_top_uwu_mikubox_core_MihomoCore_nativeStart(
-        JNIEnv* env, jobject /* thiz */, jstring config, jstring home, jint tun_fd) {
+        JNIEnv* env, jobject /* thiz */, jstring config, jstring home, jint tun_fd,
+        jstring dns_override) {
     const char* config_chars = env->GetStringUTFChars(config, nullptr);
     const char* home_chars = env->GetStringUTFChars(home, nullptr);
+    const char* dns_chars = env->GetStringUTFChars(dns_override, nullptr);
     const int result = MihomoStart(
-            const_cast<char*>(config_chars), const_cast<char*>(home_chars), tun_fd);
+            const_cast<char*>(config_chars), const_cast<char*>(home_chars), tun_fd,
+            const_cast<char*>(dns_chars));
     env->ReleaseStringUTFChars(config, config_chars);
     env->ReleaseStringUTFChars(home, home_chars);
+    env->ReleaseStringUTFChars(dns_override, dns_chars);
     return result;
 }
 

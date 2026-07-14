@@ -33,7 +33,7 @@ var core = struct {
 // VPN interface and passes its already-open descriptor to Mihomo's TUN inbound.
 //
 //export MihomoStart
-func MihomoStart(configText *C.char, homeDir *C.char, tunFD C.int) C.int {
+func MihomoStart(configText *C.char, homeDir *C.char, tunFD C.int, dnsOverride *C.char) C.int {
 	core.Lock()
 	defer core.Unlock()
 
@@ -42,7 +42,7 @@ func MihomoStart(configText *C.char, homeDir *C.char, tunFD C.int) C.int {
 		core.running = false
 	}
 
-	err := start(C.GoString(configText), C.GoString(homeDir), int(tunFD))
+	err := start(C.GoString(configText), C.GoString(homeDir), int(tunFD), C.GoString(dnsOverride))
 	if err != nil {
 		core.lastErr = err.Error()
 		return 1
@@ -167,7 +167,7 @@ func MihomoProxyDelay(proxyName *C.char, testURL *C.char, timeoutMS C.int) *C.ch
 	return C.CString(string(payload))
 }
 
-func start(configText, homeDir string, tunFD int) error {
+func start(configText, homeDir string, tunFD int, dnsOverride string) error {
 	constant.SetHomeDir(homeDir)
 	if err := config.Init(homeDir); err != nil {
 		return err
@@ -202,6 +202,14 @@ func start(configText, homeDir string, tunFD int) error {
 		if _, configured := raw["mixed-port"]; !configured {
 			raw["mixed-port"] = 7890
 		}
+	}
+
+	if dnsOverride != "" {
+		dns := map[string]any{}
+		if err := yaml.Unmarshal([]byte(dnsOverride), &dns); err != nil {
+			return err
+		}
+		raw["dns"] = dns
 	}
 
 	configBytes, err := yaml.Marshal(raw)

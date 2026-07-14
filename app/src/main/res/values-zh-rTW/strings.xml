@@ -114,7 +114,7 @@
     <string name="uwu_miku_height_title">身高</string>
     <string name="uwu_miku_height_summary">158 公分</string>
     <string name="license">授權</string>
-    <string name="about_license_summary">MikuBox 以 GPL-3.0 授權釋出。Mihomo、NekoBox for Android 及其他隨附元件仍依其各自的授權條款。</string>
+    <string name="about_license_summary">MikuBox 以 Apache-2.0 授權釋出。Mihomo 及其他隨附元件仍依其各自的授權條款。</string>
     <string name="settings_section_backup">備份</string>
     <string name="settings_export">匯出</string>
     <string name="settings_export_summary">將設定檔與偏好儲存為檔案</string>
@@ -136,6 +136,19 @@
     <string name="toast_node_selected">已切換至 %1$s</string>
     <string name="toast_node_select_failed">無法切換節點</string>
     <string name="splash_version">UwU %1$s</string>
+
+    <!-- DNS override -->
+    <string name="settings_dns">DNS</string>
+    <string name="settings_dns_summary">以自訂 DNS 覆寫設定檔的 DNS</string>
+    <string name="dns_title">DNS</string>
+    <string name="dns_override">覆寫 DNS</string>
+    <string name="dns_override_summary">以下方的區塊取代每個設定檔的 dns 區段</string>
+    <string name="dns_yaml_hint">DNS（YAML）</string>
+    <string name="dns_restart_hint">重新連線以套用變更。</string>
+    <string name="action_save">儲存</string>
+    <string name="action_reset">重設</string>
+    <string name="toast_dns_saved">已儲存 DNS 覆寫</string>
+    <string name="toast_dns_reset">已重設為預設 DNS</string>
 
     <!-- Navigation drawer -->
     <string name="drawer_greeting">嗨，Miku 💕</string>

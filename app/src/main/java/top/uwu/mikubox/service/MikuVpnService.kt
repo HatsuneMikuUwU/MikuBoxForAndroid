@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.MihomoConfigStore
 import top.uwu.mikubox.core.MihomoCore
+import top.uwu.mikubox.core.MihomoDnsSettings
 import top.uwu.mikubox.profile.MihomoProfileStore
 import top.uwu.mikubox.profile.MihomoTrafficStore
 import top.uwu.mikubox.ui.MainActivity
@@ -21,12 +22,11 @@ import top.uwu.mikubox.ui.MainActivity
 /**
  * The MikuBox VPN service.
  *
- * At this milestone it proves the full VpnService lifecycle: consent → TUN
- * establishment → foreground notification → stop. It does **not** yet route
- * traffic — the Mihomo core that consumes the TUN file descriptor lands in a
- * later unit. To avoid disrupting connectivity while "on", the TUN is
- * established with an address but **no catch-all route**, so nothing is
- * captured until the core is wired in.
+ * Full lifecycle: consent → foreground notification → TUN establishment →
+ * hand the TUN file descriptor to the Mihomo core → stop. The TUN installs a
+ * catch-all route (0.0.0.0/0 and ::/0) so all traffic is captured and routed
+ * through the core, minus this app's own UID to avoid feeding Mihomo's own
+ * sockets back into the tunnel.
  */
 class MikuVpnService : VpnService() {
 
@@ -56,11 +56,17 @@ class MikuVpnService : VpnService() {
         if (tun != null) return
         MikuProxyService.stop(this)
         startForegroundNotification()
-        val descriptor = establishTun() ?: return
+        val descriptor = establishTun() ?: run {
+            // establish() can return null (e.g. consent revoked) without throwing;
+            // make sure the foreground service is torn down in that case too.
+            stopVpn()
+            return
+        }
         val startResult = MihomoCore.start(
             this,
             MihomoConfigStore.activeConfig(this),
             descriptor.fd,
+            MihomoDnsSettings.effectiveOverride(this),
         )
         if (startResult.isFailure) {
             runCatching { descriptor.close() }

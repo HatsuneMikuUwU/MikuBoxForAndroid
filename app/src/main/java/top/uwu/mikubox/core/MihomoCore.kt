@@ -39,9 +39,14 @@ object MihomoCore {
         System.loadLibrary("mikubox_core")
     }
 
-    fun start(context: Context, config: String, tunFd: Int): Result<Unit> = runCatching {
+    fun start(
+        context: Context,
+        config: String,
+        tunFd: Int,
+        dnsOverride: String = "",
+    ): Result<Unit> = runCatching {
         val home = File(context.filesDir, "mihomo").apply { mkdirs() }
-        check(nativeStart(config, home.absolutePath, tunFd) == 0) {
+        check(nativeStart(config, home.absolutePath, tunFd, dnsOverride) == 0) {
             nativeLastError().ifBlank { context.getString(R.string.mihomo_start_failed) }
         }
     }
@@ -99,7 +104,7 @@ object MihomoCore {
         return optJSONObject(length() - 1)?.optInt("delay", 0) ?: 0
     }
 
-    private external fun nativeStart(config: String, home: String, tunFd: Int): Int
+    private external fun nativeStart(config: String, home: String, tunFd: Int, dnsOverride: String): Int
     private external fun nativeStop()
     private external fun nativeLastError(): String
     private external fun nativeVersion(): String

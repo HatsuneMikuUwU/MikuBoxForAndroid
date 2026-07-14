@@ -125,7 +125,7 @@
     <string name="uwu_miku_height_title">Height</string>
     <string name="uwu_miku_height_summary">158 cm</string>
     <string name="license">License</string>
-    <string name="about_license_summary">MikuBox is released under the GPL-3.0 license. Mihomo, NekoBox for Android, and other bundled components remain under their respective licenses.</string>
+    <string name="about_license_summary">MikuBox is released under the Apache-2.0 license. Mihomo and other bundled components remain under their respective licenses.</string>
     <string name="settings_section_backup">Backup</string>
     <string name="settings_export">Export</string>
     <string name="settings_export_summary">Save profiles and settings to a file</string>
@@ -146,6 +146,19 @@
     <string name="proxies_delay_timeout">timeout</string>
     <string name="toast_node_selected">Switched to %1$s</string>
     <string name="toast_node_select_failed">Could not switch node</string>
+
+    <!-- DNS override -->
+    <string name="settings_dns">DNS</string>
+    <string name="settings_dns_summary">Override the profile DNS with your own</string>
+    <string name="dns_title">DNS</string>
+    <string name="dns_override">Override DNS</string>
+    <string name="dns_override_summary">Replace each profile\'s dns section with the block below</string>
+    <string name="dns_yaml_hint">DNS (YAML)</string>
+    <string name="dns_restart_hint">Reconnect to apply changes.</string>
+    <string name="action_save">Save</string>
+    <string name="action_reset">Reset</string>
+    <string name="toast_dns_saved">DNS override saved</string>
+    <string name="toast_dns_reset">Reset to default DNS</string>
 
     <!-- Navigation drawer -->
     <string name="drawer_greeting">Hi, Miku 💕</string>
