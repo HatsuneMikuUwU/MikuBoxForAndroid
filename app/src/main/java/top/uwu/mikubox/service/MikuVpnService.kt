@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.MihomoConfigStore
 import top.uwu.mikubox.core.MihomoCore
+import top.uwu.mikubox.core.MihomoCoreSettings
 import top.uwu.mikubox.core.MihomoDnsSettings
 import top.uwu.mikubox.profile.MihomoProfileStore
 import top.uwu.mikubox.profile.MihomoTrafficStore
@@ -67,6 +68,7 @@ class MikuVpnService : VpnService() {
             MihomoConfigStore.activeConfig(this),
             descriptor.fd,
             MihomoDnsSettings.effectiveOverride(this),
+            MihomoCoreSettings.overridesJson(this),
         )
         if (startResult.isFailure) {
             runCatching { descriptor.close() }
@@ -95,10 +97,12 @@ class MikuVpnService : VpnService() {
             .setSession(getString(R.string.app_name))
             .setMtu(MihomoVpnSettings.mtu(this))
             .addAddress(PRIVATE_VLAN4_CLIENT, PRIVATE_VLAN4_PREFIX)
-            .addAddress(PRIVATE_VLAN6_CLIENT, PRIVATE_VLAN6_PREFIX)
             .addRoute("0.0.0.0", 0)
-            .addRoute("::", 0)
             .allowBypass()
+        if (MihomoCoreSettings.ipv6(this)) {
+            builder.addAddress(PRIVATE_VLAN6_CLIENT, PRIVATE_VLAN6_PREFIX)
+            builder.addRoute("::", 0)
+        }
         // The core shares this application's UID. Excluding it prevents
         // Mihomo's own sockets from being fed back into the VPN TUN. In
         // allow-list mode it is implicitly excluded by not being allowed.

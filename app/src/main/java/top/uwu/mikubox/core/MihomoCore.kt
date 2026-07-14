@@ -44,9 +44,10 @@ object MihomoCore {
         config: String,
         tunFd: Int,
         dnsOverride: String = "",
+        overridesJson: String = "",
     ): Result<Unit> = runCatching {
         val home = File(context.filesDir, "mihomo").apply { mkdirs() }
-        check(nativeStart(config, home.absolutePath, tunFd, dnsOverride) == 0) {
+        check(nativeStart(config, home.absolutePath, tunFd, dnsOverride, overridesJson) == 0) {
             nativeLastError().ifBlank { context.getString(R.string.mihomo_start_failed) }
         }
     }
@@ -107,7 +108,7 @@ object MihomoCore {
         return optJSONObject(length() - 1)?.optInt("delay", 0) ?: 0
     }
 
-    private external fun nativeStart(config: String, home: String, tunFd: Int, dnsOverride: String): Int
+    private external fun nativeStart(config: String, home: String, tunFd: Int, dnsOverride: String, overridesJson: String): Int
     private external fun nativeStop()
     private external fun nativeLastError(): String
     private external fun nativeVersion(): String

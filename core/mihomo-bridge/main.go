@@ -34,7 +34,7 @@ var core = struct {
 // VPN interface and passes its already-open descriptor to Mihomo's TUN inbound.
 //
 //export MihomoStart
-func MihomoStart(configText *C.char, homeDir *C.char, tunFD C.int, dnsOverride *C.char) C.int {
+func MihomoStart(configText *C.char, homeDir *C.char, tunFD C.int, dnsOverride *C.char, overridesJson *C.char) C.int {
 	core.Lock()
 	defer core.Unlock()
 
@@ -43,7 +43,7 @@ func MihomoStart(configText *C.char, homeDir *C.char, tunFD C.int, dnsOverride *
 		core.running = false
 	}
 
-	err := start(C.GoString(configText), C.GoString(homeDir), int(tunFD), C.GoString(dnsOverride))
+	err := start(C.GoString(configText), C.GoString(homeDir), int(tunFD), C.GoString(dnsOverride), C.GoString(overridesJson))
 	if err != nil {
 		core.lastErr = err.Error()
 		return 1
@@ -185,7 +185,7 @@ func MihomoValidateDns(dnsYaml *C.char) *C.char {
 	return C.CString("")
 }
 
-func start(configText, homeDir string, tunFD int, dnsOverride string) error {
+func start(configText, homeDir string, tunFD int, dnsOverride, overridesJson string) error {
 	constant.SetHomeDir(homeDir)
 	if err := config.Init(homeDir); err != nil {
 		return err
@@ -228,6 +228,26 @@ func start(configText, homeDir string, tunFD int, dnsOverride string) error {
 			return err
 		}
 		raw["dns"] = dns
+	}
+
+	// App-level config overrides (log level, mode, allow-lan, tun stack). The
+	// "tun-stack" key nests under the tun map built above; everything else is a
+	// top-level replacement.
+	if overridesJson != "" {
+		overrides := map[string]any{}
+		if err := json.Unmarshal([]byte(overridesJson), &overrides); err == nil {
+			for key, value := range overrides {
+				if key == "tun-stack" {
+					if stack, ok := value.(string); ok && stack != "" {
+						if tun, ok := raw["tun"].(map[string]any); ok {
+							tun["stack"] = stack
+						}
+					}
+					continue
+				}
+				raw[key] = value
+			}
+		}
 	}
 
 	configBytes, err := yaml.Marshal(raw)

@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 extern "C" {
-int MihomoStart(char* config, char* home, int tun_fd, char* dns_override);
+int MihomoStart(char* config, char* home, int tun_fd, char* dns_override, char* overrides_json);
 void MihomoStop();
 char* MihomoLastError();
 char* MihomoVersion();
@@ -16,16 +16,18 @@ char* MihomoValidateDns(char* dns_yaml);
 extern "C" JNIEXPORT jint JNICALL
 Java_top_uwu_mikubox_core_MihomoCore_nativeStart(
         JNIEnv* env, jobject /* thiz */, jstring config, jstring home, jint tun_fd,
-        jstring dns_override) {
+        jstring dns_override, jstring overrides_json) {
     const char* config_chars = env->GetStringUTFChars(config, nullptr);
     const char* home_chars = env->GetStringUTFChars(home, nullptr);
     const char* dns_chars = env->GetStringUTFChars(dns_override, nullptr);
+    const char* overrides_chars = env->GetStringUTFChars(overrides_json, nullptr);
     const int result = MihomoStart(
             const_cast<char*>(config_chars), const_cast<char*>(home_chars), tun_fd,
-            const_cast<char*>(dns_chars));
+            const_cast<char*>(dns_chars), const_cast<char*>(overrides_chars));
     env->ReleaseStringUTFChars(config, config_chars);
     env->ReleaseStringUTFChars(home, home_chars);
     env->ReleaseStringUTFChars(dns_override, dns_chars);
+    env->ReleaseStringUTFChars(overrides_json, overrides_chars);
     return result;
 }
 

@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.MihomoCore
+import top.uwu.mikubox.core.MihomoCoreSettings
 import top.uwu.mikubox.databinding.ActivityProxiesBinding
 import top.uwu.mikubox.service.VpnController
 
@@ -120,7 +121,9 @@ class ProxiesActivity : EdgeToEdgeActivity() {
         toast(getString(R.string.proxies_testing))
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                members.map { name -> async { name to MihomoCore.delay(name) } }
+                val testUrl = MihomoCoreSettings.testUrl(this@ProxiesActivity)
+                val timeout = MihomoCoreSettings.testTimeout(this@ProxiesActivity)
+                members.map { name -> async { name to MihomoCore.delay(name, testUrl, timeout) } }
                     .awaitAll()
                     .forEach { (name, result) -> delayCache[name] = if (result < 0) -1 else result }
             }

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.AppSettings
+import top.uwu.mikubox.core.MihomoCoreSettings
 import top.uwu.mikubox.databinding.ActivitySettingsBinding
 import android.content.Intent
 import android.net.Uri
@@ -67,6 +68,30 @@ class SettingsActivity : EdgeToEdgeActivity() {
             MihomoProfileStore.setAutoStart(this, enabled)
         }
 
+        binding.rowMode.setOnClickListener { pickMode() }
+        binding.rowLog.setOnClickListener { pickLog() }
+        binding.rowTunStack.setOnClickListener { pickStack() }
+        binding.rowTestUrl.setOnClickListener { editTestUrl() }
+        binding.rowTestTimeout.setOnClickListener { editTestTimeout() }
+
+        binding.swAllowLan.isChecked = MihomoCoreSettings.allowLan(this)
+        binding.rowAllowLan.setOnClickListener {
+            val enabled = !binding.swAllowLan.isChecked
+            binding.swAllowLan.isChecked = enabled
+            MihomoCoreSettings.setAllowLan(this, enabled)
+        }
+        binding.swIpv6.isChecked = MihomoCoreSettings.ipv6(this)
+        binding.rowIpv6.setOnClickListener {
+            val enabled = !binding.swIpv6.isChecked
+            binding.swIpv6.isChecked = enabled
+            MihomoCoreSettings.setIpv6(this, enabled)
+        }
+        binding.swAutoconnect.isChecked = MihomoCoreSettings.autoConnectOnStart(this)
+        binding.rowAutoconnect.setOnClickListener {
+            val enabled = !binding.swAutoconnect.isChecked
+            binding.swAutoconnect.isChecked = enabled
+            MihomoCoreSettings.setAutoConnectOnStart(this, enabled)
+        }
     }
 
     override fun onResume() {
@@ -78,6 +103,109 @@ class SettingsActivity : EdgeToEdgeActivity() {
         binding.tvThemeValue.text = getString(themeLabel(AppSettings.nightMode(this)))
         binding.tvMtuValue.text = MihomoVpnSettings.mtu(this).toString()
         binding.tvAppsValue.setText(appModeLabel(MihomoVpnSettings.appMode(this)))
+        binding.tvModeValue.setText(modeLabel(MihomoCoreSettings.mode(this)))
+        binding.tvLogValue.setText(logLabel(MihomoCoreSettings.logLevel(this)))
+        binding.tvStackValue.setText(stackLabel(MihomoCoreSettings.tunStack(this)))
+        binding.tvTestUrlValue.text = MihomoCoreSettings.testUrl(this)
+        binding.tvTestTimeoutValue.text = getString(R.string.settings_test_timeout_value, MihomoCoreSettings.testTimeout(this))
+    }
+
+    private fun modeLabel(mode: MihomoCoreSettings.ProxyMode): Int = when (mode) {
+        MihomoCoreSettings.ProxyMode.RULE -> R.string.mode_rule
+        MihomoCoreSettings.ProxyMode.GLOBAL -> R.string.mode_global
+        MihomoCoreSettings.ProxyMode.DIRECT -> R.string.mode_direct
+        else -> R.string.mode_follow
+    }
+
+    private fun logLabel(level: MihomoCoreSettings.LogLevel): Int = when (level) {
+        MihomoCoreSettings.LogLevel.SILENT -> R.string.log_silent
+        MihomoCoreSettings.LogLevel.WARNING -> R.string.log_warning
+        MihomoCoreSettings.LogLevel.DEBUG -> R.string.log_debug
+        else -> R.string.log_info
+    }
+
+    private fun stackLabel(stack: MihomoCoreSettings.TunStack): Int = when (stack) {
+        MihomoCoreSettings.TunStack.GVISOR -> R.string.stack_gvisor
+        MihomoCoreSettings.TunStack.MIXED -> R.string.stack_mixed
+        else -> R.string.stack_system
+    }
+
+    private fun pickMode() {
+        val modes = MihomoCoreSettings.ProxyMode.values()
+        val labels = modes.map { getString(modeLabel(it)) }.toTypedArray()
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.settings_mode)
+            .setSingleChoiceItems(labels, modes.indexOf(MihomoCoreSettings.mode(this))) { dialog, which ->
+                MihomoCoreSettings.setMode(this, modes[which])
+                dialog.dismiss()
+                render()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun pickLog() {
+        val levels = MihomoCoreSettings.LogLevel.values()
+        val labels = levels.map { getString(logLabel(it)) }.toTypedArray()
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.settings_log)
+            .setSingleChoiceItems(labels, levels.indexOf(MihomoCoreSettings.logLevel(this))) { dialog, which ->
+                MihomoCoreSettings.setLogLevel(this, levels[which])
+                dialog.dismiss()
+                render()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun pickStack() {
+        val stacks = MihomoCoreSettings.TunStack.values()
+        val labels = stacks.map { getString(stackLabel(it)) }.toTypedArray()
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.settings_tun_stack)
+            .setSingleChoiceItems(labels, stacks.indexOf(MihomoCoreSettings.tunStack(this))) { dialog, which ->
+                MihomoCoreSettings.setTunStack(this, stacks[which])
+                dialog.dismiss()
+                render()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun editTestUrl() {
+        val input = EditText(this).apply {
+            inputType = InputType.TYPE_TEXT_VARIATION_URI
+            setText(MihomoCoreSettings.testUrl(this@SettingsActivity))
+        }
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.settings_test_url)
+            .setView(input)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                input.text.toString().trim().takeIf { it.isNotEmpty() }?.let {
+                    MihomoCoreSettings.setTestUrl(this, it)
+                    render()
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun editTestTimeout() {
+        val input = EditText(this).apply {
+            inputType = InputType.TYPE_CLASS_NUMBER
+            setText(MihomoCoreSettings.testTimeout(this@SettingsActivity).toString())
+        }
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.settings_test_timeout)
+            .setView(input)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                input.text.toString().toIntOrNull()?.let {
+                    MihomoCoreSettings.setTestTimeout(this, it)
+                    render()
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun appModeLabel(mode: AppMode): Int = when (mode) {
