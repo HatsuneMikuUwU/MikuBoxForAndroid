@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -67,7 +68,7 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
                 MihomoProfileStore.select(this, profile.id)
                 refresh()
             },
-            onUpdate = { profile -> pull(profile) },
+            onUpdate = { profile -> confirmUpdate(profile) },
             onDelete = { profile ->
                 MihomoProfileStore.remove(this, profile.id)
                 refresh()
@@ -83,7 +84,7 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
             AddProfileBottomSheet().show(supportFragmentManager, AddProfileBottomSheet.TAG)
         }
         binding.btnHome.setOnClickListener { openDrawer() }
-        binding.btnMoreMenu.setOnClickListener { refreshAllSubscriptions() }
+        binding.btnMoreMenu.setOnClickListener { confirmRefreshAllSubscriptions() }
         binding.etSearch.doAfterTextChanged {
             query = it?.toString().orEmpty()
             refresh()
@@ -156,6 +157,20 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
             toast(getString(R.string.toast_subscriptions_updated, updated, subscriptions.size))
             refresh()
         }
+    }
+
+    private fun confirmRefreshAllSubscriptions() {
+        val count = MihomoProfileStore.profiles(this).count { it.isSubscription }
+        if (count == 0) {
+            toast(getString(R.string.toast_no_subscriptions))
+            return
+        }
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.dialog_refresh_subscriptions_title)
+            .setMessage(getString(R.string.dialog_refresh_subscriptions_message, count))
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.action_update) { _, _ -> refreshAllSubscriptions() }
+            .show()
     }
 
     private fun showSortMenu(anchor: View) {
@@ -231,6 +246,15 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
         toast(getString(R.string.toast_subscription_added))
         refresh()
         pull(profile)
+    }
+
+    private fun confirmUpdate(profile: MihomoProfileStore.Profile) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.dialog_update_subscription_title)
+            .setMessage(getString(R.string.dialog_update_subscription_message, profile.name))
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.action_update) { _, _ -> pull(profile) }
+            .show()
     }
 
     override fun onImportClipboard(name: String) {

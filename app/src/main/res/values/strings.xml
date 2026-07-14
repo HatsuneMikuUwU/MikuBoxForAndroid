@@ -170,6 +170,10 @@
     <string name="action_refresh">Refresh subscriptions</string>
     <string name="toast_no_subscriptions">No subscriptions to refresh</string>
     <string name="toast_subscriptions_updated">Updated %1$d/%2$d subscriptions</string>
+    <string name="dialog_refresh_subscriptions_title">Refresh subscriptions?</string>
+    <string name="dialog_refresh_subscriptions_message">Refresh %1$d subscriptions now?</string>
+    <string name="dialog_update_subscription_title">Update subscription?</string>
+    <string name="dialog_update_subscription_message">Update %1$s from its subscription URL?</string>
 
     <!-- Core / connection settings -->
     <string name="settings_section_core">Core</string>
@@ -206,4 +210,8 @@
     <string name="drawer_subtitle">Let\'s do our best!</string>
     <string name="drawer_section_manage">Manage</string>
     <string name="drawer_section_tools">Tools &amp; info</string>
+    <string name="about_links_title">Links</string>
+    <string name="about_link_github">GitHub repository</string>
+    <string name="about_link_telegram">Telegram channel</string>
+    <string name="about_link_telegram_chinese">Telegram Chinese channel</string>
 </resources>

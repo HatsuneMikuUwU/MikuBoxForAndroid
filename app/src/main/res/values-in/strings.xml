@@ -166,6 +166,10 @@
     <string name="action_refresh">Segarkan langganan</string>
     <string name="toast_no_subscriptions">Tidak ada langganan untuk disegarkan</string>
     <string name="toast_subscriptions_updated">%1$d/%2$d langganan diperbarui</string>
+    <string name="dialog_refresh_subscriptions_title">Segarkan langganan?</string>
+    <string name="dialog_refresh_subscriptions_message">Segarkan %1$d langganan sekarang?</string>
+    <string name="dialog_update_subscription_title">Perbarui langganan?</string>
+    <string name="dialog_update_subscription_message">Perbarui %1$s dari URL langganannya?</string>
 
     <!-- Core / connection settings -->
     <string name="settings_section_core">Inti</string>
@@ -185,4 +189,8 @@
     <string name="greeting_afternoon">Selamat siang…</string>
     <string name="greeting_evening">Selamat sore…</string>
     <string name="greeting_night">Selamat malam…</string>
+    <string name="about_links_title">Tautan</string>
+    <string name="about_link_github">Repositori GitHub</string>
+    <string name="about_link_telegram">Kanal Telegram</string>
+    <string name="about_link_telegram_chinese">Kanal Telegram Tionghoa</string>
 </resources>

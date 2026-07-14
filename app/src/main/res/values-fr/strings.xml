@@ -64,6 +64,10 @@
     <string name="action_refresh">Actualiser les abonnements</string>
     <string name="toast_no_subscriptions">Aucun abonnement à actualiser</string>
     <string name="toast_subscriptions_updated">%1$d/%2$d abonnements mis à jour</string>
+    <string name="dialog_refresh_subscriptions_title">Actualiser les abonnements ?</string>
+    <string name="dialog_refresh_subscriptions_message">Actualiser %1$d abonnements maintenant ?</string>
+    <string name="dialog_update_subscription_title">Mettre à jour l’abonnement ?</string>
+    <string name="dialog_update_subscription_message">Mettre à jour %1$s depuis son URL d’abonnement ?</string>
 
     <!-- Core / connection settings -->
     <string name="settings_section_core">Cœur</string>
@@ -83,4 +87,8 @@
     <string name="greeting_afternoon">Bon après-midi…</string>
     <string name="greeting_evening">Bonsoir…</string>
     <string name="greeting_night">Bonne nuit…</string>
+    <string name="about_links_title">Liens</string>
+    <string name="about_link_github">Dépôt GitHub</string>
+    <string name="about_link_telegram">Canal Telegram</string>
+    <string name="about_link_telegram_chinese">Canal Telegram chinois</string>
 </resources>

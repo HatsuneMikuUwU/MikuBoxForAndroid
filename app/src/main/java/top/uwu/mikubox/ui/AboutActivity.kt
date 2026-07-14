@@ -1,5 +1,7 @@
 package top.uwu.mikubox.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -44,5 +46,19 @@ class AboutActivity : EdgeToEdgeActivity() {
             view.findViewById<TextView>(R.id.fact_summary).setText(fact.summary)
             binding.mikuFacts.addView(view)
         }
+
+        binding.linkGithub.setOnClickListener {
+            openLink("https://github.com/HatsuneMikuUwU/MikuBoxForAndroid")
+        }
+        binding.linkTelegram.setOnClickListener {
+            openLink("https://t.me/uwuowoumuchannel")
+        }
+        binding.linkTelegramChinese.setOnClickListener {
+            openLink("https://t.me/np_nbcn")
+        }
+    }
+
+    private fun openLink(url: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 }

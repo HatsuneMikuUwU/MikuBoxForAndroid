@@ -168,6 +168,10 @@
     <string name="action_refresh">Обновить подписки</string>
     <string name="toast_no_subscriptions">Нет подписок для обновления</string>
     <string name="toast_subscriptions_updated">Обновлено %1$d/%2$d подписок</string>
+    <string name="dialog_refresh_subscriptions_title">Обновить подписки?</string>
+    <string name="dialog_refresh_subscriptions_message">Обновить %1$d подписок сейчас?</string>
+    <string name="dialog_update_subscription_title">Обновить подписку?</string>
+    <string name="dialog_update_subscription_message">Обновить «%1$s» по URL подписки?</string>
 
     <!-- Core / connection settings -->
     <string name="settings_section_core">Ядро</string>
@@ -187,4 +191,8 @@
     <string name="greeting_afternoon">Добрый день…</string>
     <string name="greeting_evening">Добрый вечер…</string>
     <string name="greeting_night">Спокойной ночи…</string>
+    <string name="about_links_title">Ссылки</string>
+    <string name="about_link_github">Репозиторий GitHub</string>
+    <string name="about_link_telegram">Канал Telegram</string>
+    <string name="about_link_telegram_chinese">Китайский канал Telegram</string>
 </resources>

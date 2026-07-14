@@ -160,6 +160,10 @@
     <string name="action_refresh">刷新訂閱</string>
     <string name="toast_no_subscriptions">沒有可刷新的訂閱</string>
     <string name="toast_subscriptions_updated">已更新 %1$d/%2$d 個訂閱</string>
+    <string name="dialog_refresh_subscriptions_title">要刷新訂閱嗎？</string>
+    <string name="dialog_refresh_subscriptions_message">要立即刷新 %1$d 個訂閱嗎？</string>
+    <string name="dialog_update_subscription_title">要更新訂閱嗎？</string>
+    <string name="dialog_update_subscription_message">要從訂閱網址更新「%1$s」嗎？</string>
 
     <!-- Core / connection settings -->
     <string name="settings_section_core">核心</string>
@@ -185,4 +189,8 @@
     <string name="drawer_subtitle">一起加油吧！</string>
     <string name="drawer_section_manage">管理</string>
     <string name="drawer_section_tools">工具與資訊</string>
+    <string name="about_links_title">相關連結</string>
+    <string name="about_link_github">GitHub 原始碼</string>
+    <string name="about_link_telegram">Telegram 頻道</string>
+    <string name="about_link_telegram_chinese">Telegram 中文頻道</string>
 </resources>
