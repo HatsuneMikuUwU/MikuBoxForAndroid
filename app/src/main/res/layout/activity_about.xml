@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurfaceVariant">
+    android:background="?attr/colorPrimary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -65,6 +65,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/uwu_background_collapse"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -81,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="8dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+                app:cardBackgroundColor="?attr/colorCard"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
@@ -138,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                app:cardBackgroundColor="?attr/colorCard"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">
@@ -172,7 +173,7 @@
                         android:layout_marginTop="12dp"
                         android:gravity="center"
                         android:text="@string/uwu_about_miku_title"
-                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -182,7 +183,7 @@
                         android:layout_marginTop="8dp"
                         android:lineSpacingMultiplier="1.15"
                         android:text="@string/uwu_about_miku_summary"
-                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="13sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -208,7 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+                app:cardBackgroundColor="?attr/colorCard"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp">

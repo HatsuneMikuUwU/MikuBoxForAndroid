@@ -3,30 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+    android:background="?attr/colorPrimary"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:fitsSystemWindows="true"
+        android:background="?attr/colorPrimary"
         app:elevation="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:navigationIcon="@drawable/ic_arrow_back"
-            app:navigationIconTint="?attr/colorOnPrimary"
-            app:title="@string/menu_log"
-            app:titleTextColor="?attr/colorOnPrimary" />
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.42"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/uwu_banner_image_2"
+                app:layout_collapseMode="parallax" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#40000000" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:navigationIconTint="?attr/colorOnPrimary"
+                app:title="@string/menu_log"
+                app:titleTextColor="?attr/colorOnPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="28dp"
+                android:text="LOGCAT"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="31sp"
+                android:textStyle="bold" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/logcat_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="12dp"
+        android:layout_marginTop="-24dp"
+        android:background="@drawable/uwu_background_collapse"
+        android:clipToPadding="false"
+        android:padding="18dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <HorizontalScrollView
@@ -39,10 +76,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="monospace"
-                android:paddingBottom="88dp"
+                android:paddingBottom="92dp"
                 android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="11sp"
-                android:textIsSelectable="true" />
+                android:textIsSelectable="true"
+                android:textSize="11sp" />
         </HorizontalScrollView>
     </androidx.core.widget.NestedScrollView>
 
@@ -51,8 +88,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="20dp"
         android:text="@string/action_clear"
-        app:icon="@drawable/ic_action_delete" />
+        app:backgroundTint="?attr/colorCard"
+        app:icon="@drawable/ic_action_delete"
+        app:iconTint="?attr/colorOnSurface"
+        app:strokeColor="?attr/colorOutline"
+        app:strokeWidth="1dp"
+        android:textColor="?attr/colorOnSurface" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

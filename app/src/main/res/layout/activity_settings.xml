@@ -4,19 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+    android:background="?attr/colorPrimary"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true"
         app:elevation="0dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.35"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/uwu_banner_image_2" />
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:navigationIconTint="?attr/colorOnPrimary"
             app:title="@string/settings"
@@ -26,6 +35,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="-24dp"
+        android:background="@drawable/uwu_background_collapse"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -35,6 +46,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="16dp">
+
+            <include layout="@layout/uwu_banner_settings_port" />
 
             <TextView
                 style="@style/SettingsSectionHeader"

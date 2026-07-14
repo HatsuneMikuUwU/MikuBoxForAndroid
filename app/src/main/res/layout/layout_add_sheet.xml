@@ -1,32 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
+    android:background="@drawable/uwu_background_bottom_sheet"
     android:orientation="vertical"
-    android:paddingHorizontal="20dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="24dp">
+    android:paddingTop="10dp"
+    android:paddingBottom="28dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/action_add_profile"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <View
+        android:layout_width="38dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/uwu_slider_bar" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="136dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardBackgroundColor="?attr/colorCard"
+        app:cardCornerRadius="26dp"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.62"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/uwu_banner_image" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#52000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新增設定檔"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="MikuBox for Android"
+                android:textColor="#DFFFFFFF"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="18dp"
+        android:hint="@string/hint_subscription_url">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_sub_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_subscription_url"
             android:inputType="textUri"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -35,29 +81,46 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/hint_profile_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_profile_name"
             android:inputType="text"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_add_sub"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/action_add_subscription" />
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_import_clipboard"
-        style="@style/Widget.Material3.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/action_import_clipboard" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_sub"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/uwu_bg_top"
+            android:text="@string/action_add_subscription"
+            android:textColor="?attr/colorOnPrimary"
+            app:backgroundTint="?attr/colorPrimary"
+            app:cornerRadius="18dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_import_clipboard"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/uwu_bg_bot"
+            android:text="@string/action_import_clipboard"
+            android:textColor="?attr/colorOnSurface"
+            app:backgroundTint="?attr/colorCard"
+            app:cornerRadius="18dp"
+            app:strokeColor="?attr/colorOutline"
+            app:strokeWidth="1dp" />
+    </LinearLayout>
 </LinearLayout>
