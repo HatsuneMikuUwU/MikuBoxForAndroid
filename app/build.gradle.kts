@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.io.File
 import java.util.Properties
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
@@ -15,7 +16,7 @@ val localProps = Properties().apply {
 }
 
 fun secret(name: String): String? =
-    (findProperty(name) as String?)?.takeIf { it.isNotBlank() }
+    (findProperty(name) as? String)?.takeIf { it.isNotBlank() }
         ?: localProps.getProperty(name)?.takeIf { it.isNotBlank() }
         ?: System.getenv(name)?.takeIf { it.isNotBlank() }
 
@@ -69,11 +70,10 @@ android {
 
     packaging {
         resources {
-            // Coroutine debug probes are useful only to a debugger and should
-            // not be packaged in production or debug APKs.
-            excludes += "DebugProbesKt.bin"
-            excludes += "META-INF/**"
-            excludes += "/META-INF/**"
+            excludes += listOf(
+                "DebugProbesKt.bin",
+                "META-INF/**"
+            )
         }
         jniLibs {
             useLegacyPackaging = true
@@ -92,7 +92,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
             signingConfigs.findByName("release")?.let { signingConfig = it }
         }
@@ -121,41 +121,42 @@ val buildMihomoBridge by tasks.registering {
     outputs.dir(mihomoJniLibsDir)
 
     doLast {
-        val ndk = android.ndkDirectory
-        // Pick the NDK prebuilt toolchain for the build host (Windows uses .cmd
-        // wrappers) so this works both locally and on Linux/macOS CI runners.
+        val ndkDir = android.ndkDirectory
         val hostOs = System.getProperty("os.name").lowercase()
         val (hostTag, exeExt) = when {
             hostOs.contains("win") -> "windows-x86_64" to ".cmd"
             hostOs.contains("mac") || hostOs.contains("darwin") -> "darwin-x86_64" to ""
             else -> "linux-x86_64" to ""
         }
-        val clangDir = ndk.resolve("toolchains/llvm/prebuilt/$hostTag/bin")
+        val clangDir = ndkDir.resolve("toolchains/llvm/prebuilt/$hostTag/bin")
         val targets = mapOf(
             "armeabi-v7a" to "armv7a-linux-androideabi24-clang",
             "arm64-v8a" to "aarch64-linux-android24-clang",
-            "x86_64" to "x86_64-linux-android24-clang",
+            "x86_64" to "x86_64-linux-android24-clang"
         )
 
         targets.forEach { (abi, compiler) ->
             val output = mihomoJniLibsDir.get().file("$abi/libmihomo.so").asFile
             output.parentFile.mkdirs()
+
+            val goArch = when (abi) {
+                "armeabi-v7a" -> "arm"
+                "arm64-v8a" -> "arm64"
+                "x86_64" -> "amd64"
+                else -> error("Unsupported Android ABI: $abi")
+            }
+
             exec {
                 workingDir = mihomoBridgeDir
                 environment("GOOS", "android")
-                environment("GOARCH", when (abi) {
-                    "armeabi-v7a" -> "arm"
-                    "arm64-v8a" -> "arm64"
-                    "x86" -> "386"
-                    "x86_64" -> "amd64"
-                    else -> error("Unsupported Android ABI: $abi")
-                })
-                environment("GOARM", if (abi == "armeabi-v7a") "7" else "")
+                environment("GOARCH", goArch)
+                if (abi == "armeabi-v7a") environment("GOARM", "7")
                 environment("CGO_ENABLED", "1")
                 environment("CC", clangDir.resolve(compiler + exeExt).absolutePath)
+
                 commandLine(
                     "go", "build", "-trimpath", "-buildmode=c-shared",
-                    "-ldflags=-s -w", "-o", output.absolutePath, ".",
+                    "-ldflags=-s -w", "-o", output.absolutePath, "."
                 )
             }
         }
@@ -179,8 +180,9 @@ val stripDebugApkMetadata by tasks.registering {
         val releaseAlias = secret("ALIAS_NAME")
         val releaseKeyPass = secret("ALIAS_PASS")
         val isWindows = System.getProperty("os.name").lowercase().contains("win")
-        val executableSuffix = if (isWindows) ".exe" else ""
-        val keytool = File(System.getProperty("java.home"), "bin/keytool$executableSuffix")
+        val exeExt = if (isWindows) ".exe" else ""
+        val keytool = File(System.getProperty("java.home"), "bin/keytool$exeExt")
+
         val useReleaseKey = releaseKeystore.isFile &&
             releaseStorePass != null && releaseAlias != null && releaseKeyPass != null
         if (!useReleaseKey && !debugKeystore.isFile) {
@@ -198,7 +200,7 @@ val stripDebugApkMetadata by tasks.registering {
                     "-keysize", "2048",
                     "-validity", "10000",
                     "-dname", "CN=Android Debug,O=Android,C=US",
-                    "-noprompt",
+                    "-noprompt"
                 )
             }
         }
@@ -208,7 +210,7 @@ val stripDebugApkMetadata by tasks.registering {
         val signingKeyPass = if (useReleaseKey) releaseKeyPass!! else "android"
 
         val buildToolsDir = android.sdkDirectory.resolve("build-tools/${android.buildToolsVersion}")
-        val zipalign = buildToolsDir.resolve("zipalign$executableSuffix")
+        val zipalign = buildToolsDir.resolve("zipalign$exeExt")
         val apksigner = buildToolsDir.resolve("apksigner${if (isWindows) ".bat" else ""}")
         check(zipalign.isFile && apksigner.isFile) { "Android build-tools are incomplete in $buildToolsDir" }
 
@@ -221,26 +223,40 @@ val stripDebugApkMetadata by tasks.registering {
                     while (entries.hasMoreElements()) {
                         val entry = entries.nextElement()
                         if (entry.name == "DebugProbesKt.bin" || entry.name.startsWith("META-INF/")) continue
-                        output.putNextEntry(ZipEntry(entry.name).apply { time = entry.time })
-                        if (!entry.isDirectory) input.getInputStream(entry).use { it.copyTo(output) }
+
+                        val newEntry = ZipEntry(entry.name).apply {
+                            time = entry.time
+                            method = entry.method
+                            if (entry.method == ZipEntry.STORED) {
+                                size = entry.size
+                                compressedSize = entry.compressedSize
+                                crc = entry.crc
+                            }
+                        }
+
+                        output.putNextEntry(newEntry)
+                        if (!entry.isDirectory) {
+                            input.getInputStream(entry).use { it.copyTo(output) }
+                        }
                         output.closeEntry()
                     }
                 }
             }
+
             exec { commandLine(zipalign.absolutePath, "-f", "4", unaligned.absolutePath, aligned.absolutePath) }
             exec {
                 commandLine(
-                    apksigner.absolutePath,
-                    "sign",
+                    apksigner.absolutePath, "sign",
                     "--ks", signingKeystore.absolutePath,
                     "--ks-key-alias", signingAlias,
                     "--ks-pass", "pass:$signingStorePass",
                     "--key-pass", "pass:$signingKeyPass",
                     "--v1-signing-enabled", "false",
                     "--out", apk.absolutePath,
-                    aligned.absolutePath,
+                    aligned.absolutePath
                 )
             }
+
             unaligned.delete()
             aligned.delete()
         }

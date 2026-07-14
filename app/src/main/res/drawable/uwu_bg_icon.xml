@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector
+    android:tint="?colorOnSurfaceVariant"
     android:height="32.0dip"
     android:width="31.0dip"
     android:viewportWidth="31.0"

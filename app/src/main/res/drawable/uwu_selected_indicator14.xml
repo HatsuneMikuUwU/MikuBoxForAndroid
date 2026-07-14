@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base card -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="?colorCard" />
+            <corners android:radius="16.0dip" />
+        </shape>
+    </item>
+    <!-- Diagonal gradient stripe kiri atas -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="?colorPrimary"
+                android:endColor="@android:color/transparent"
+                android:angle="135"
+                android:type="linear" />
+            <corners android:radius="16.0dip" />
+        </shape>
+    </item>
+    <!-- Card cover tengah -->
+    <item
+        android:top="3.0dip"
+        android:bottom="3.0dip"
+        android:left="3.0dip"
+        android:right="3.0dip">
+        <shape android:shape="rectangle">
+            <solid android:color="?colorCard" />
+            <corners android:radius="14.0dip" />
+        </shape>
+    </item>
+</layer-list>

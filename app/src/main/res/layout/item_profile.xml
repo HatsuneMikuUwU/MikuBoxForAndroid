@@ -11,7 +11,7 @@
     android:clickable="true"
     android:focusable="true"
     app:cardBackgroundColor="?attr/colorCard"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="28dp"
     app:cardElevation="1dp"
     app:strokeColor="?attr/colorOutlineVariant"
     app:strokeWidth="1dp">

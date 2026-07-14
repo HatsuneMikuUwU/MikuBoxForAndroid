@@ -1,298 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorBg">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator"
+    <FrameLayout
+        android:id="@+id/banner_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
-        android:clipChildren="false">
+        android:layout_height="170dp"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/uwu_banner_home" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/uwu_bg_fade_bottom" />
+    </FrameLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:fitsSystemWindows="true"
-                app:elevation="0dp">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:menu="@menu/main_toolbar_menu"
-                    app:navigationIcon="@drawable/ic_navigation_menu"
-                    app:navigationIconTint="?attr/colorOnPrimary"
-                    app:title="@string/app_name"
-                    app:titleTextColor="?attr/colorOnPrimary" />
-            </com.google.android.material.appbar.AppBarLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="186dp"
-                android:background="?attr/colorPrimary"
-                android:clipToPadding="false"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="3dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_home"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:contentDescription="@string/menu_home"
+                    app:backgroundTint="?attr/colorCard"
+                    app:icon="@drawable/ic_btn_home_color"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="@null" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_more_menu"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:contentDescription="@string/action_more"
+                    app:backgroundTint="?attr/colorCard"
+                    app:icon="@drawable/ic_btn_more_menu_color"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="@null" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/uwu_font_summary"
+                        android:text="M I H O M O   P R O X Y"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/uwu_font_title"
+                        android:text="MikuBox"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="?attr/colorCard"
-                    app:cardCornerRadius="28dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="25dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="?attr/colorCard"
+                    app:strokeColor="?attr/colorPrimary"
                     app:strokeWidth="3dp">
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/uwu_banner_home" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#33000000" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:padding="16dp">
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                app:cardCornerRadius="25dp"
-                                app:cardElevation="0dp"
-                                app:strokeColor="@android:color/white"
-                                app:strokeWidth="3dp">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:contentDescription="@null"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/uwu_banner_profile" />
-                            </com.google.android.material.card.MaterialCardView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
-                                android:fontFamily="@font/uwu_font_title"
-                                android:text="HI, MIKU 💕"
-                                android:textColor="@android:color/white"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/uwu_font_summary"
-                                android:text="G O O D   N I G H T . . ."
-                                android:textColor="@android:color/white"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="120dp"
-                            android:layout_height="152dp"
-                            android:layout_marginTop="18dp"
-                            android:layout_marginEnd="18dp"
-                            android:layout_marginBottom="18dp"
-                            app:cardCornerRadius="14dp"
-                            app:cardElevation="0dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:contentDescription="@null"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/uwu_banner_image" />
-                        </com.google.android.material.card.MaterialCardView>
-                    </LinearLayout>
+                        android:src="@drawable/uwu_banner_profile" />
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/uwu_background_collapse">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="16dp"
-                    app:cardBackgroundColor="#00000000"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="64dp"
-                            app:cardBackgroundColor="?attr/colorCard"
-                            app:cardCornerRadius="20dp"
-                            app:cardElevation="0dp">
-
-                            <com.google.android.material.tabs.TabLayout
-                                android:id="@+id/group_tab"
-                                android:layout_width="match_parent"
-                                android:layout_height="64dp"
-                                android:background="@android:color/transparent"
-                                app:tabIndicator="@drawable/uwu_tabs_rounded_indicator"
-                                app:tabIndicatorAnimationMode="elastic"
-                                app:tabIndicatorColor="?attr/colorPrimary"
-                                app:tabIndicatorFullWidth="true"
-                                app:tabIndicatorHeight="64dp"
-                                app:tabMode="fixed"
-                                app:tabRippleColor="@android:color/transparent"
-                                app:tabSelectedTextColor="?attr/colorSurface"
-                                app:tabTextColor="?attr/colorOnSurfaceVariant" />
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/empty_card"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:visibility="gone"
-                            app:cardBackgroundColor="?attr/colorCard"
-                            app:cardCornerRadius="20dp"
-                            app:cardElevation="0dp"
-                            tools:visibility="visible">
-
-                            <TextView
-                                android:id="@+id/tv_empty"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="28dp"
-                                android:text="@string/profiles_empty"
-                                android:textColor="?attr/colorOnSurfaceVariant" />
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_profiles"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:clipToPadding="false"
-                            android:paddingBottom="12dp"
-                            tools:listitem="@layout/item_profile" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </FrameLayout>
-        </LinearLayout>
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/card_bottom_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="?attr/colorPrimary"
-            app:elevation="0dp"
-            app:fabAlignmentMode="center"
-            app:fabCradleMargin="8dp"
-            app:fabCradleRoundedCornerRadius="28dp"
-            app:fabCradleVerticalOffset="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:paddingEnd="108dp">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp">
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_config"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="@string/action_add_profile"
+                    app:backgroundTint="?attr/colorCard"
+                    app:icon="@drawable/ic_btn_add_config_color"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="@null" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="?attr/colorCard"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp">
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_aim_color" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/profiles_header"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_profiles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="68dp"
+            android:paddingBottom="112dp"
+            tools:listitem="@layout/item_profile" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/uwu_bg_fade_top" />
+
+        <LinearLayout
+            android:id="@+id/layout_tab_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardBackgroundColor="?attr/colorCard"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp"
+                app:contentPadding="5dp">
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/group_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    app:tabIndicator="@drawable/uwu_tabs_rounded_indicator"
+                    app:tabIndicatorAnimationMode="elastic"
+                    app:tabIndicatorColor="?attr/colorPrimary"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorHeight="40dp"
+                    app:tabMode="scrollable"
+                    app:tabRippleColor="@android:color/transparent"
+                    app:tabSelectedTextColor="?attr/colorSurface"
+                    app:tabTextColor="?attr/colorOnSurfaceVariant" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_profile"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="4dp"
+                android:contentDescription="@string/action_add_profile"
+                app:backgroundTint="?attr/colorPrimary"
+                app:icon="@drawable/ic_add_circle_fill_24px"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="?attr/colorOnPrimary" />
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/empty_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_tab_wrapper"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="?attr/colorCard"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            tools:visibility="visible">
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="28dp"
+                android:text="@string/profiles_empty"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/uwu_bg_fade_bottom" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_bottom_status"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="?attr/colorCard"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@id/fab_container"
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView android:id="@+id/tx" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="?attr/colorOnPrimary" android:textSize="14sp" />
-                    <TextView android:id="@+id/rx" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:textColor="?attr/colorOnPrimary" android:textSize="14sp" />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/rx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="12sp" />
                 </LinearLayout>
-
                 <TextView
                     android:id="@+id/status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:singleLine="true"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="17sp" />
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </LinearLayout>
-        </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/action_connect"
-            app:backgroundTint="?attr/colorPrimary"
-            app:layout_anchor="@id/card_bottom_status"
-            app:layout_anchorGravity="center"
-            app:srcCompat="@drawable/ic_service_idle"
-            app:tint="?attr/colorOnPrimary" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <LinearLayout
-        android:layout_width="325dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/uwu_bg_navigationview"
-            android:orientation="vertical">
-
-            <include
-                layout="@layout/nav_header"
-                android:layout_width="match_parent"
+            <FrameLayout
+                android:id="@+id/fab_container"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp" />
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/uwu_bg_navigationview_2"
-                app:menu="@menu/main_drawer_menu" />
-        </LinearLayout>
-    </LinearLayout>
-</androidx.drawerlayout.widget.DrawerLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/action_connect"
+                    app:backgroundTint="?attr/colorPrimary"
+                    app:srcCompat="@drawable/ic_service_idle"
+                    app:tint="?attr/colorOnPrimary" />
+            </FrameLayout>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

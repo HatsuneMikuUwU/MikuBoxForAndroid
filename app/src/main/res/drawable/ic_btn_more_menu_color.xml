@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportWidth="960.0"
+    android:viewportHeight="960.0">
+
+    <path
+        android:fillColor="@color/qsb_icon_tint_primary"
+        android:pathData="M200,840q-33,0-56.5-23.5T120,760V200q0-33 23.5-56.5T200,120H441q17,0 28.5,11.5T481,160t-11.5,28.5T441,200H200V760H760V519q0-17 11.5-28.5T800,479t28.5,11.5T840,519V760q0,33-23.5,56.5T760,840H200Z" />
+
+    <path
+        android:fillColor="@color/qsb_icon_tint_secondary"
+        android:pathData="M348.5,668.5Q360,657 360,640t-11.5-28.5T320,600t-28.5,11.5T280,640t11.5,28.5T320,680t28.5-11.5Z M348.5,508.5Q360,497 360,480t-11.5-28.5T320,440t-28.5,11.5T280,480t11.5,28.5T320,520t28.5-11.5Z M348.5,348.5Q360,337 360,320t-11.5-28.5T320,280t-28.5,11.5T280,320t11.5,28.5T320,360t28.5-11.5Z" />
+
+    <path
+        android:fillColor="@color/qsb_icon_tint_tertiary"
+        android:pathData="M480,680H640q17,0 28.5-11.5T680,640t-11.5-28.5T640,600H480q-17,0-28.5,11.5T440,640t11.5,28.5T480,680Z M480,360h40q17,0 28.5-11.5T560,320t-11.5-28.5T520,280H480q-17,0-28.5,11.5T440,320t11.5,28.5T480,360Z M480,520H640q17,0 28.5-11.5T680,480t-11.5-28.5T640,440H480q-17,0-28.5,11.5T440,480t11.5,28.5T480,520Z" />
+
+    <path
+        android:fillColor="@color/qsb_icon_tint_quaternary"
+        android:pathData="M740,400q-6,0-8-6q-16-61-60.5-105.5T566,228q-6-2-6-8q0-7 6-8q61-16 105.5-60.5T732,46q2-6 8-6q7,0 8,6q17,61 61,105.5T914,212q6,1 6,8q0,6-6,8q-61,16-105.5,60.5T748,394q-1,6-8,6Z" />
+
+</vector>

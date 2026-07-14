@@ -9,7 +9,7 @@
         <shape
             android:shape="rectangle">
             <solid
-                android:color="?attr/colorCard" />
+                android:color="?colorCard" />
             <corners
                 android:topLeftRadius="28.0dip"
                 android:topRightRadius="28.0dip"

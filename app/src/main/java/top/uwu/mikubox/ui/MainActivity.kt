@@ -10,12 +10,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import androidx.activity.OnBackPressedCallback
-import androidx.drawerlayout.widget.DrawerLayout
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
@@ -68,42 +66,16 @@ class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
         binding.rvProfiles.adapter = adapter
         binding.groupTab.addTab(binding.groupTab.newTab().setText(getString(R.string.profiles_header)))
 
-        binding.toolbar.setOnMenuItemClickListener { item ->
-            if (item.itemId != R.id.action_add_profile) return@setOnMenuItemClickListener false
+        binding.btnAddConfig.setOnClickListener {
             AddProfileBottomSheet().show(supportFragmentManager, AddProfileBottomSheet.TAG)
-            true
         }
+        binding.btnAddProfile.setOnClickListener {
+            AddProfileBottomSheet().show(supportFragmentManager, AddProfileBottomSheet.TAG)
+        }
+        binding.btnHome.setOnClickListener(::showNavigationMenu)
+        binding.btnMoreMenu.setOnClickListener(::showNavigationMenu)
         binding.fab.setOnClickListener { toggleConnection() }
         binding.cardBottomStatus.setOnClickListener { toggleConnection() }
-        binding.toolbar.setNavigationOnClickListener {
-            binding.drawerLayout.openDrawer(GravityCompat.START)
-        }
-        binding.navView.setCheckedItem(R.id.nav_home)
-        binding.navView.setNavigationItemSelectedListener { item ->
-            val target: Class<*>? = when (item.itemId) {
-                R.id.nav_settings -> SettingsActivity::class.java
-                R.id.nav_apps -> AppListActivity::class.java
-                R.id.nav_logcat -> LogcatActivity::class.java
-                R.id.nav_tools -> ToolsActivity::class.java
-                R.id.nav_about -> AboutActivity::class.java
-                else -> null // nav_home: already here
-            }
-            target?.let { startActivity(Intent(this, it)) }
-            binding.navView.setCheckedItem(R.id.nav_home)
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-
-        val backCallback = object : OnBackPressedCallback(false) {
-            override fun handleOnBackPressed() {
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-            }
-        }
-        onBackPressedDispatcher.addCallback(this, backCallback)
-        binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
-            override fun onDrawerOpened(drawerView: View) { backCallback.isEnabled = true }
-            override fun onDrawerClosed(drawerView: View) { backCallback.isEnabled = false }
-        })
 
         requestNotificationPermission()
     }
@@ -215,6 +187,25 @@ class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
             VpnController.connect(this)
         }
         binding.fab.postDelayed({ refresh() }, 600)
+    }
+
+    private fun showNavigationMenu(anchor: View) {
+        PopupMenu(this, anchor).apply {
+            menuInflater.inflate(R.menu.main_drawer_menu, menu)
+            setOnMenuItemClickListener { item ->
+                val target = when (item.itemId) {
+                    R.id.nav_settings -> SettingsActivity::class.java
+                    R.id.nav_apps -> AppListActivity::class.java
+                    R.id.nav_logcat -> LogcatActivity::class.java
+                    R.id.nav_tools -> ToolsActivity::class.java
+                    R.id.nav_about -> AboutActivity::class.java
+                    else -> null
+                }
+                target?.let { startActivity(Intent(this@MainActivity, it)) }
+                true
+            }
+            show()
+        }
     }
 
     private fun shareProfile(profile: MihomoProfileStore.Profile) {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportWidth="960.0"
+    android:viewportHeight="960.0">
+
+    <path
+        android:fillColor="@color/qsb_icon_tint_quaternary"
+        android:pathData="M740,920q-6,0-8-6q-16-61-60.5-105.5T566,748q-6-2-6-8q0-7 6-8q61-16 105.5-60.5T732,566q2-6 8-6q7,0 8,6q17,61 61,105.5T914,732q6,1 6,8q0,6-6,8q-61,16-105.5,60.5T748,914q-1,6-8,6Z" />
+
+    <path
+        android:fillColor="@color/qsb_icon_tint_primary"
+        android:pathData="M120,280V200H840v80H120Z" />
+
+    <path
+        android:fillColor="@color/qsb_icon_tint_secondary"
+        android:pathData="M120,480V400H840v80H120Z" />
+
+    <path
+        android:fillColor="@color/qsb_icon_tint_tertiary"
+        android:pathData="M120,680V600H480v80H120Z" />
+
+</vector>

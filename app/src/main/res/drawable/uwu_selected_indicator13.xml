@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Top-left corner -->
+    <item
+        android:gravity="top|left"
+        android:width="64.0dip"
+        android:height="64.0dip">
+        <shape android:shape="rectangle">
+            <solid android:color="?colorPrimary" />
+            <corners android:radius="16.0dip" />
+        </shape>
+    </item>
+    <!-- Bottom-right corner -->
+    <item
+        android:gravity="bottom|right"
+        android:width="64.0dip"
+        android:height="64.0dip">
+        <shape android:shape="rectangle">
+            <solid android:color="?colorPrimary" />
+            <corners android:radius="16.0dip" />
+        </shape>
+    </item>
+    <!-- Card cover -->
+    <item
+        android:top="3.0dip"
+        android:bottom="3.0dip"
+        android:left="3.0dip"
+        android:right="3.0dip">
+        <shape android:shape="rectangle">
+            <solid android:color="?colorCard" />
+            <corners android:radius="14.0dip" />
+        </shape>
+    </item>
+</layer-list>

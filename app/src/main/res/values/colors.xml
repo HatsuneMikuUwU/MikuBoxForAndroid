@@ -63,4 +63,12 @@
     <color name="miku_surface_container_dark">#111D1C</color>
     <color name="miku_surface_container_high_dark">#172422</color>
     <color name="miku_surface_container_highest_dark">#202D2B</color>
+
+    <!-- MikuRay quick-search icon palette. -->
+    <color name="qsb_icon_tint_primary">#F97910</color>
+    <color name="qsb_icon_tint_secondary">#009966</color>
+    <color name="qsb_icon_tint_tertiary">#FF0099</color>
+    <color name="qsb_icon_tint_quaternary">#207A74</color>
+    <color name="color_fab_active">#F97910</color>
+    <color name="color_fab_inactive">#9C9C9C</color>
 </resources>
