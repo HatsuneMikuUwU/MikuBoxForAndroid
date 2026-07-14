@@ -2,7 +2,9 @@ package top.uwu.mikubox.ui
 
 import android.os.Bundle
 import android.widget.Toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import top.uwu.mikubox.R
+import top.uwu.mikubox.core.MihomoCore
 import top.uwu.mikubox.core.MihomoDnsSettings
 import top.uwu.mikubox.databinding.ActivityDnsBinding
 
@@ -27,7 +29,17 @@ class DnsActivity : EdgeToEdgeActivity() {
             applyEnabled(checked)
         }
         binding.btnSave.setOnClickListener {
-            MihomoDnsSettings.setYaml(this, binding.etDns.text?.toString().orEmpty())
+            val yaml = binding.etDns.text?.toString().orEmpty()
+            val error = MihomoCore.validateDns(yaml)
+            if (error != null) {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.dns_invalid_title)
+                    .setMessage(error)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show()
+                return@setOnClickListener
+            }
+            MihomoDnsSettings.setYaml(this, yaml)
             toast(R.string.toast_dns_saved)
         }
         binding.btnReset.setOnClickListener {

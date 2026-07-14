@@ -144,6 +144,7 @@
     <string name="dns_override">覆盖 DNS</string>
     <string name="dns_override_summary">用下方的内容替换每个配置的 dns 部分</string>
     <string name="dns_yaml_hint">DNS（YAML）</string>
+    <string name="dns_invalid_title">DNS 配置无效</string>
     <string name="dns_restart_hint">重新连接以应用更改。</string>
     <string name="action_save">保存</string>
     <string name="action_reset">重置</string>

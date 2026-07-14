@@ -96,6 +96,9 @@ object MihomoCore {
         runCatching { JSONObject(nativeProxyDelay(name, url, timeoutMs)).optInt("delay", -1) }
             .getOrDefault(-1)
 
+    /** Validates a DNS override block; returns null when valid, or an error message. */
+    fun validateDns(yaml: String): String? = nativeValidateDns(yaml).ifBlank { null }
+
     private fun JSONArray?.toStringList(): List<String> =
         if (this == null) emptyList() else List(length()) { optString(it) }
 
@@ -112,4 +115,5 @@ object MihomoCore {
     private external fun nativeProxies(): String
     private external fun nativeSelectProxy(group: String, name: String): Int
     private external fun nativeProxyDelay(name: String, url: String, timeoutMs: Int): String
+    private external fun nativeValidateDns(dnsYaml: String): String
 }

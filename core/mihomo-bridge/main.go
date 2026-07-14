@@ -8,6 +8,7 @@ import "C"
 import (
 	"context"
 	"encoding/json"
+	"strings"
 	"sync"
 	"time"
 
@@ -165,6 +166,23 @@ func MihomoProxyDelay(proxyName *C.char, testURL *C.char, timeoutMS C.int) *C.ch
 	}
 	payload, _ := json.Marshal(map[string]any{"delay": delay})
 	return C.CString(string(payload))
+}
+
+// MihomoValidateDns checks that a DNS override block is well-formed YAML that
+// unmarshals to a mapping. Returns an empty string when valid (or blank), or a
+// human-readable error otherwise, so the editor can reject bad input up front.
+//
+//export MihomoValidateDns
+func MihomoValidateDns(dnsYaml *C.char) *C.char {
+	text := strings.TrimSpace(C.GoString(dnsYaml))
+	if text == "" {
+		return C.CString("")
+	}
+	dns := map[string]any{}
+	if err := yaml.Unmarshal([]byte(text), &dns); err != nil {
+		return C.CString(err.Error())
+	}
+	return C.CString("")
 }
 
 func start(configText, homeDir string, tunFD int, dnsOverride string) error {

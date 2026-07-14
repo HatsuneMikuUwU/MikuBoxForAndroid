@@ -144,6 +144,7 @@
     <string name="dns_override">覆寫 DNS</string>
     <string name="dns_override_summary">以下方的區塊取代每個設定檔的 dns 區段</string>
     <string name="dns_yaml_hint">DNS（YAML）</string>
+    <string name="dns_invalid_title">DNS 設定無效</string>
     <string name="dns_restart_hint">重新連線以套用變更。</string>
     <string name="action_save">儲存</string>
     <string name="action_reset">重設</string>

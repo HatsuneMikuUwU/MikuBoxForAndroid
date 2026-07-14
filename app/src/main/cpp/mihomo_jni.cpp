@@ -10,6 +10,7 @@ char* MihomoTraffic();
 char* MihomoProxies();
 int MihomoSelectProxy(char* group, char* name);
 char* MihomoProxyDelay(char* name, char* url, int timeout_ms);
+char* MihomoValidateDns(char* dns_yaml);
 }
 
 extern "C" JNIEXPORT jint JNICALL
@@ -44,7 +45,9 @@ Java_top_uwu_mikubox_core_MihomoCore_nativeLastError(JNIEnv* env, jobject /* thi
 extern "C" JNIEXPORT jstring JNICALL
 Java_top_uwu_mikubox_core_MihomoCore_nativeVersion(JNIEnv* env, jobject /* thiz */) {
     char* version = MihomoVersion();
-    return env->NewStringUTF(version == nullptr ? "unknown" : version);
+    jstring result = env->NewStringUTF(version == nullptr ? "unknown" : version);
+    std::free(version);
+    return result;
 }
 
 extern "C" JNIEXPORT jstring JNICALL
@@ -86,5 +89,16 @@ Java_top_uwu_mikubox_core_MihomoCore_nativeProxyDelay(
     env->ReleaseStringUTFChars(url, url_chars);
     jstring result = env->NewStringUTF(delay == nullptr ? "{\"error\":\"null\"}" : delay);
     std::free(delay);
+    return result;
+}
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_top_uwu_mikubox_core_MihomoCore_nativeValidateDns(
+        JNIEnv* env, jobject /* thiz */, jstring dns_yaml) {
+    const char* dns_chars = env->GetStringUTFChars(dns_yaml, nullptr);
+    char* err = MihomoValidateDns(const_cast<char*>(dns_chars));
+    env->ReleaseStringUTFChars(dns_yaml, dns_chars);
+    jstring result = env->NewStringUTF(err == nullptr ? "" : err);
+    std::free(err);
     return result;
 }

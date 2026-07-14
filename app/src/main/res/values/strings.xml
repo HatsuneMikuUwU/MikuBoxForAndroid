@@ -154,6 +154,7 @@
     <string name="dns_override">Override DNS</string>
     <string name="dns_override_summary">Replace each profile\'s dns section with the block below</string>
     <string name="dns_yaml_hint">DNS (YAML)</string>
+    <string name="dns_invalid_title">Invalid DNS configuration</string>
     <string name="dns_restart_hint">Reconnect to apply changes.</string>
     <string name="action_save">Save</string>
     <string name="action_reset">Reset</string>
