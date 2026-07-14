@@ -43,7 +43,30 @@
         <item name="windowNoTitle">true</item>
         <item name="itemShapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
         <item name="collapsingToolbarLayoutLargeStyle">@style/Miku.CollapsingToolbar.Large</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Miku.MaterialAlertDialog</item>
     </style>
+
+    <!-- MikuRay-style dialogs: rounded surface-container background with a
+         filled primary confirm button. Applied app-wide via the theme. -->
+    <style name="ThemeOverlay.Miku.MaterialAlertDialog" parent="@style/ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurfaceContainerHigh">?attr/colorSurfaceContainer</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Miku.Dialog</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.Miku.Dialog.Button.Filled</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.Miku.Dialog.Button.Text</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.Miku.Dialog.Button.Text</item>
+    </style>
+
+    <style name="ShapeAppearance.Miku.Dialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="Widget.Miku.Dialog.Button.Filled" parent="@style/Widget.Material3.Button.TonalButton">
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
+    <style name="Widget.Miku.Dialog.Button.Text" parent="@style/Widget.Material3.Button.TextButton.Dialog" />
 
     <!-- MikuRay display font on the large collapsing page titles. -->
     <style name="Miku.CollapsingToolbar.Large" parent="@style/Widget.Material3.CollapsingToolbar.Large">
