@@ -24,8 +24,10 @@
             <item
                 android:gravity="fill_horizontal|center"
                 android:id="@android:id/progress">
-                <com.neko.widget.RoundedCornerProgressDrawable
-                    android:drawable="@drawable/uwu_progress_full_drawable" />
+                <clip
+                    android:clipOrientation="horizontal"
+                    android:drawable="@drawable/uwu_progress_full_drawable"
+                    android:gravity="start" />
             </item>
             <item
                 android:gravity="end|center">
@@ -65,8 +67,10 @@
             <item
                 android:gravity="fill_horizontal|center"
                 android:id="@android:id/progress">
-                <com.neko.widget.RoundedCornerProgressDrawable
-                    android:drawable="@drawable/uwu_progress_full_drawable" />
+                <clip
+                    android:clipOrientation="horizontal"
+                    android:drawable="@drawable/uwu_progress_full_drawable"
+                    android:gravity="start" />
             </item>
             <item
                 android:gravity="end|center">
