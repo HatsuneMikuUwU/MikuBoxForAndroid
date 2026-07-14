@@ -28,7 +28,7 @@
         <item name="colorSurfaceContainer">@color/miku_surface_container_dark</item>
         <item name="colorSurfaceContainerHigh">@color/miku_surface_container_high_dark</item>
         <item name="colorSurfaceContainerHighest">@color/miku_surface_container_highest_dark</item>
-        <item name="android:statusBarColor">@color/miku_primary_container_dark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/miku_background_dark</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
