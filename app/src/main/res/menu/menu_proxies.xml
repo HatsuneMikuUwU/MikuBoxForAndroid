@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_test_delay"
+        android:icon="@drawable/ic_baseline_speed_24"
+        android:title="@string/proxies_test"
+        app:showAsAction="ifRoom" />
+</menu>

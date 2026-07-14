@@ -134,4 +134,16 @@
     <string name="toast_backup_exported">Backup exported</string>
     <string name="toast_backup_imported">Backup imported</string>
     <string name="toast_backup_failed">Backup failed</string>
+
+    <!-- Proxies / node list -->
+    <string name="menu_proxies">Proxies</string>
+    <string name="proxies_title">Proxies</string>
+    <string name="proxies_empty_disconnected">Connect first to load and manage nodes.</string>
+    <string name="proxies_empty_none">The active profile has no selectable groups.</string>
+    <string name="proxies_test">Test latency</string>
+    <string name="proxies_testing">Testing…</string>
+    <string name="proxies_delay_ms">%1$d ms</string>
+    <string name="proxies_delay_timeout">timeout</string>
+    <string name="toast_node_selected">Switched to %1$s</string>
+    <string name="toast_node_select_failed">Could not switch node</string>
 </resources>

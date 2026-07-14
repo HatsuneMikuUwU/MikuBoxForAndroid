@@ -38,25 +38,44 @@ object MihomoSubscriptionUpdater {
 
     fun update(context: Context, profile: MihomoProfileStore.Profile) {
         val url = requireNotNull(profile.subscriptionUrl)
-        val connection = (URL(url).openConnection() as HttpURLConnection).apply {
-            connectTimeout = 15_000
-            readTimeout = 30_000
-            instanceFollowRedirects = true
-            setRequestProperty("User-Agent", subscriptionUserAgent(context))
-        }
-        try {
-            check(connection.responseCode in 200..299) {
-                context.getString(R.string.error_subscription_http, connection.responseCode)
+        val body = fetch(context, url)
+        val config = MihomoSubscriptionDecoder.toMihomoConfig(context, body)
+        MihomoProfileStore.update(
+            context,
+            profile.copy(config = config, updatedAtMillis = System.currentTimeMillis()),
+        )
+    }
+
+    /**
+     * HttpURLConnection does not follow redirects that switch between http and https,
+     * which many subscription providers rely on. Follow them manually.
+     */
+    private fun fetch(context: Context, initialUrl: String, maxRedirects: Int = 5): String {
+        var target = URL(initialUrl)
+        repeat(maxRedirects + 1) {
+            val connection = (target.openConnection() as HttpURLConnection).apply {
+                connectTimeout = 15_000
+                readTimeout = 30_000
+                instanceFollowRedirects = false
+                setRequestProperty("User-Agent", subscriptionUserAgent(context))
             }
-            val body = connection.inputStream.bufferedReader().use { it.readText() }
-            val config = MihomoSubscriptionDecoder.toMihomoConfig(context, body)
-            MihomoProfileStore.update(
-                context,
-                profile.copy(config = config, updatedAtMillis = System.currentTimeMillis()),
-            )
-        } finally {
-            connection.disconnect()
+            try {
+                val code = connection.responseCode
+                if (code in 300..399) {
+                    val location = connection.getHeaderField("Location")
+                        ?: error(context.getString(R.string.error_subscription_http, code))
+                    target = URL(target, location)
+                    return@repeat
+                }
+                check(code in 200..299) {
+                    context.getString(R.string.error_subscription_http, code)
+                }
+                return connection.inputStream.bufferedReader().use { it.readText() }
+            } finally {
+                connection.disconnect()
+            }
         }
+        error(context.getString(R.string.error_subscription_http, 310))
     }
 
     private fun subscriptionUserAgent(context: Context): String {

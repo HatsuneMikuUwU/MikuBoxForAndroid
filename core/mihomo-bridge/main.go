@@ -6,14 +6,20 @@ package main
 import "C"
 
 import (
+	"context"
 	"encoding/json"
 	"sync"
+	"time"
 
+	"github.com/metacubex/mihomo/adapter/outboundgroup"
+	"github.com/metacubex/mihomo/common/utils"
 	"github.com/metacubex/mihomo/common/yaml"
+	"github.com/metacubex/mihomo/component/profile/cachefile"
 	"github.com/metacubex/mihomo/config"
 	constant "github.com/metacubex/mihomo/constant"
 	"github.com/metacubex/mihomo/hub"
 	"github.com/metacubex/mihomo/hub/executor"
+	"github.com/metacubex/mihomo/tunnel"
 	"github.com/metacubex/mihomo/tunnel/statistic"
 )
 
@@ -88,6 +94,76 @@ func MihomoTraffic() *C.char {
 		UploadTotal   int64 `json:"uploadTotal"`
 		DownloadTotal int64 `json:"downloadTotal"`
 	}{uplink, downlink, uploadTotal, downloadTotal})
+	return C.CString(string(payload))
+}
+
+// MihomoProxies mirrors the RESTful controller's GET /proxies, returning every
+// proxy and group as JSON so the app can render a node list without opening a
+// controller port. Returns {"proxies": {...}} or an empty string on failure.
+//
+//export MihomoProxies
+func MihomoProxies() *C.char {
+	payload, err := json.Marshal(map[string]any{
+		"proxies": tunnel.Proxies(),
+	})
+	if err != nil {
+		return C.CString("")
+	}
+	return C.CString(string(payload))
+}
+
+// MihomoSelectProxy points a selector group at one of its members, mirroring
+// PUT /proxies/{group}. Returns 0 on success, 1 on failure (see MihomoLastError).
+//
+//export MihomoSelectProxy
+func MihomoSelectProxy(groupName *C.char, proxyName *C.char) C.int {
+	core.Lock()
+	defer core.Unlock()
+
+	group := C.GoString(groupName)
+	name := C.GoString(proxyName)
+
+	proxy, exist := tunnel.Proxies()[group]
+	if !exist {
+		core.lastErr = "unknown proxy group: " + group
+		return 1
+	}
+	selector, ok := proxy.Adapter().(outboundgroup.SelectAble)
+	if !ok {
+		core.lastErr = group + " is not a selector"
+		return 1
+	}
+	if err := selector.Set(name); err != nil {
+		core.lastErr = err.Error()
+		return 1
+	}
+	cachefile.Cache().SetSelected(group, name)
+	core.lastErr = ""
+	return 0
+}
+
+// MihomoProxyDelay URL-tests a single proxy, mirroring GET /proxies/{name}/delay.
+// Returns {"delay": ms} on success or {"error": "..."} on failure/timeout.
+//
+//export MihomoProxyDelay
+func MihomoProxyDelay(proxyName *C.char, testURL *C.char, timeoutMS C.int) *C.char {
+	name := C.GoString(proxyName)
+	url := C.GoString(testURL)
+
+	proxy, exist := tunnel.Proxies()[name]
+	if !exist {
+		return C.CString(`{"error":"unknown proxy"}`)
+	}
+
+	expectedStatus, _ := utils.NewUnsignedRanges[uint16]("")
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*time.Duration(int(timeoutMS)))
+	defer cancel()
+
+	delay, err := proxy.URLTest(ctx, url, expectedStatus)
+	if err != nil || delay == 0 {
+		return C.CString(`{"error":"timeout"}`)
+	}
+	payload, _ := json.Marshal(map[string]any{"delay": delay})
 	return C.CString(string(payload))
 }
 

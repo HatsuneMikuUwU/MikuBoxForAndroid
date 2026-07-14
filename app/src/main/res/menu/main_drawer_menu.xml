@@ -11,6 +11,10 @@
             android:icon="@drawable/ic_settings_24dp"
             android:title="@string/settings" />
         <item
+            android:id="@+id/nav_proxies"
+            android:icon="@drawable/ic_lan"
+            android:title="@string/menu_proxies" />
+        <item
             android:id="@+id/nav_apps"
             android:icon="@drawable/ic_subscriptions_24dp"
             android:title="@string/settings_per_app" />

@@ -11,13 +11,17 @@ import java.nio.charset.StandardCharsets
 /** Converts the common non-UI subscription formats used by UwU into Mihomo YAML. */
 object MihomoSubscriptionDecoder {
 
+    private const val PROXY_GROUP = "PROXY"
+
     fun toMihomoConfig(context: Context, source: String): String {
         val text = source.trim().removePrefix("\uFEFF")
-        if (text.contains("proxies:") || text.contains("proxy-providers:") || text.contains("proxy-groups:")) {
-            return text
-        }
+        if (isMihomoConfig(text)) return text
 
-        val links = decodeBase64Subscription(text)
+        // Some providers Base64-encode the whole Mihomo/Clash YAML, not a link list.
+        val decoded = decodeBase64Subscription(text)
+        if (isMihomoConfig(decoded)) return decoded
+
+        val links = decoded
             .lineSequence()
             .map(String::trim)
             .filter(String::isNotEmpty)
@@ -31,10 +35,18 @@ object MihomoSubscriptionDecoder {
             appendLine("mode: rule")
             appendLine("proxies:")
             proxies.forEach { append(it) }
+            appendLine("proxy-groups:")
+            appendLine("  - name: $PROXY_GROUP")
+            appendLine("    type: select")
+            appendLine("    proxies:")
+            proxies.forEach { appendLine("      - ${it.name.yaml()}") }
             appendLine("rules:")
-            appendLine("  - MATCH,${proxies.first().name.yaml()}")
+            appendLine("  - MATCH,$PROXY_GROUP")
         }
     }
+
+    private fun isMihomoConfig(text: String): Boolean =
+        text.contains("proxies:") || text.contains("proxy-providers:") || text.contains("proxy-groups:")
 
     private fun decodeBase64Subscription(text: String): String = runCatching {
         val normalized = text.replace("\\s".toRegex(), "")
@@ -98,9 +110,18 @@ object MihomoSubscriptionDecoder {
         )
         val network = objectJson.optString("net")
         if (network.isNotBlank()) fields += "network" to network
-        objectJson.optString("host").takeIf { it.isNotBlank() }?.let { fields += "servername" to it }
-        objectJson.optString("path").takeIf { it.isNotBlank() }?.let { fields += "ws-opts.path" to it }
-        if (objectJson.optString("tls").equals("tls", true)) fields += "tls" to "true"
+        val wsHost = objectJson.optString("host").takeIf { it.isNotBlank() }
+        val path = objectJson.optString("path").takeIf { it.isNotBlank() }
+        if (network.equals("ws", true)) {
+            path?.let { fields += "ws-opts.path" to it }
+            wsHost?.let { fields += "ws-opts.headers.Host" to it }
+        }
+        if (objectJson.optString("tls").equals("tls", true)) {
+            fields += "tls" to "true"
+            // SNI defaults to the disguise host when present.
+            objectJson.optString("sni").takeIf { it.isNotBlank() }?.let { fields += "servername" to it }
+                ?: wsHost?.let { fields += "servername" to it }
+        }
         return ProxyYaml(name(objectJson.optString("ps"), host), "vmess", fields)
     }
 
@@ -188,19 +209,44 @@ object MihomoSubscriptionDecoder {
         fragment?.let { URLDecoder.decode(it, StandardCharsets.UTF_8.name()) }?.ifBlank { fallback } ?: fallback
 
     private data class ProxyYaml(val name: String, val type: String, val fields: List<Pair<String, String>>) {
-        override fun toString(): String = buildString {
-            appendLine("  - name: ${name.yaml()}")
-            appendLine("    type: $type")
-            fields.forEach { (key, value) ->
-                if (key.contains('.')) {
-                    // Nested transport properties are intentionally skipped here;
-                    // full YAML imports retain every advanced transport option.
-                    return@forEach
-                }
-                appendLine("    $key: ${value.yaml()}")
+        override fun toString(): String {
+            // Dotted keys (e.g. "ws-opts.path", "ws-opts.headers.Host") become nested YAML.
+            val root = LinkedHashMap<String, Any>()
+            insert(root, listOf("type"), type)
+            fields.forEach { (key, value) -> insert(root, key.split('.'), value) }
+            return buildString {
+                appendLine("  - name: ${name.yaml()}")
+                emit(root, 2)
             }
         }
     }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun insert(map: LinkedHashMap<String, Any>, path: List<String>, value: String) {
+        if (path.size == 1) {
+            map[path[0]] = value
+            return
+        }
+        val child = map.getOrPut(path[0]) { LinkedHashMap<String, Any>() } as LinkedHashMap<String, Any>
+        insert(child, path.drop(1), value)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun StringBuilder.emit(map: Map<String, Any>, depth: Int) {
+        val pad = "  ".repeat(depth)
+        map.forEach { (key, value) ->
+            if (value is String) {
+                appendLine("$pad$key: ${scalar(value)}")
+            } else {
+                appendLine("$pad$key:")
+                emit(value as Map<String, Any>, depth + 1)
+            }
+        }
+    }
+
+    /** Numbers and booleans must stay unquoted or Mihomo rejects the whole config. */
+    private fun scalar(value: String): String =
+        if (value == "true" || value == "false" || value.matches(Regex("-?\\d+"))) value else value.yaml()
 
     private fun String.yaml(): String = "'${replace("'", "''")}'"
 }

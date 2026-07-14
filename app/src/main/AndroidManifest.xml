@@ -56,6 +56,11 @@
             android:parentActivityName=".ui.MainActivity" />
 
         <activity
+            android:name=".ui.ProxiesActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity" />
+
+        <activity
             android:name=".ui.AppListActivity"
             android:exported="false"
             android:parentActivityName=".ui.SettingsActivity" />

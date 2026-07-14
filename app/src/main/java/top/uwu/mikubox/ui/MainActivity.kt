@@ -213,6 +213,7 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
             setOnMenuItemClickListener { item ->
                 val target = when (item.itemId) {
                     R.id.nav_settings -> SettingsActivity::class.java
+                    R.id.nav_proxies -> ProxiesActivity::class.java
                     R.id.nav_apps -> AppListActivity::class.java
                     R.id.nav_logcat -> LogcatActivity::class.java
                     R.id.nav_tools -> ToolsActivity::class.java

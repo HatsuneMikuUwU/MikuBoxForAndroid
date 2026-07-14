@@ -7,6 +7,9 @@ void MihomoStop();
 char* MihomoLastError();
 char* MihomoVersion();
 char* MihomoTraffic();
+char* MihomoProxies();
+int MihomoSelectProxy(char* group, char* name);
+char* MihomoProxyDelay(char* name, char* url, int timeout_ms);
 }
 
 extern "C" JNIEXPORT jint JNICALL
@@ -45,5 +48,39 @@ Java_top_uwu_mikubox_core_MihomoCore_nativeTraffic(JNIEnv* env, jobject /* thiz 
     char* traffic = MihomoTraffic();
     jstring result = env->NewStringUTF(traffic == nullptr ? "{}" : traffic);
     std::free(traffic);
+    return result;
+}
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_top_uwu_mikubox_core_MihomoCore_nativeProxies(JNIEnv* env, jobject /* thiz */) {
+    char* proxies = MihomoProxies();
+    jstring result = env->NewStringUTF(proxies == nullptr ? "{}" : proxies);
+    std::free(proxies);
+    return result;
+}
+
+extern "C" JNIEXPORT jint JNICALL
+Java_top_uwu_mikubox_core_MihomoCore_nativeSelectProxy(
+        JNIEnv* env, jobject /* thiz */, jstring group, jstring name) {
+    const char* group_chars = env->GetStringUTFChars(group, nullptr);
+    const char* name_chars = env->GetStringUTFChars(name, nullptr);
+    const int result = MihomoSelectProxy(
+            const_cast<char*>(group_chars), const_cast<char*>(name_chars));
+    env->ReleaseStringUTFChars(group, group_chars);
+    env->ReleaseStringUTFChars(name, name_chars);
+    return result;
+}
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_top_uwu_mikubox_core_MihomoCore_nativeProxyDelay(
+        JNIEnv* env, jobject /* thiz */, jstring name, jstring url, jint timeout_ms) {
+    const char* name_chars = env->GetStringUTFChars(name, nullptr);
+    const char* url_chars = env->GetStringUTFChars(url, nullptr);
+    char* delay = MihomoProxyDelay(
+            const_cast<char*>(name_chars), const_cast<char*>(url_chars), timeout_ms);
+    env->ReleaseStringUTFChars(name, name_chars);
+    env->ReleaseStringUTFChars(url, url_chars);
+    jstring result = env->NewStringUTF(delay == nullptr ? "{\"error\":\"null\"}" : delay);
+    std::free(delay);
     return result;
 }
