@@ -22,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import top.uwu.mikubox.R
-import top.uwu.mikubox.core.AppSettings
 import top.uwu.mikubox.core.MihomoCore
 import top.uwu.mikubox.databinding.ActivityMainBinding
 import top.uwu.mikubox.profile.MihomoProfileImporter
@@ -67,13 +66,16 @@ class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
         )
         binding.rvProfiles.layoutManager = LinearLayoutManager(this)
         binding.rvProfiles.adapter = adapter
+        binding.groupTab.addTab(binding.groupTab.newTab().setText(getString(R.string.profiles_header)))
 
-        binding.btnAdd.setOnClickListener {
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            if (item.itemId != R.id.action_add_profile) return@setOnMenuItemClickListener false
             AddProfileBottomSheet().show(supportFragmentManager, AddProfileBottomSheet.TAG)
+            true
         }
         binding.fab.setOnClickListener { toggleConnection() }
         binding.cardBottomStatus.setOnClickListener { toggleConnection() }
-        binding.btnMenu.setOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
         binding.navView.setCheckedItem(R.id.nav_home)
@@ -122,9 +124,6 @@ class MainActivity : AppCompatActivity(), AddProfileBottomSheet.Listener {
         val selected = MihomoProfileStore.selected(this)
         adapter.submit(profiles, selected?.id)
         binding.emptyCard.visibility = if (profiles.isEmpty()) View.VISIBLE else View.GONE
-        binding.particlesView.visibility =
-            if (AppSettings.particlesEnabled(this)) View.VISIBLE else View.GONE
-
         val running = VpnController.isRunning
         binding.fab.setImageResource(if (running) R.drawable.ic_service_busy else R.drawable.ic_service_idle)
         binding.status.text = when {
