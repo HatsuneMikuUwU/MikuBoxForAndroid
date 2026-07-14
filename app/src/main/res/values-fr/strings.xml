@@ -21,4 +21,37 @@
     <string name="error_subscription_empty">L\'abonnement est vide</string>
     <string name="error_no_compatible_proxy_links">Aucun lien proxy compatible avec Mihomo trouvé</string>
     <string name="error_subscription_http">HTTP de l\'abonnement %1$d</string>
+
+    <!-- Proxies / node list -->
+    <string name="menu_proxies">Proxys</string>
+    <string name="proxies_title">Proxys</string>
+    <string name="proxies_empty_disconnected">Connectez-vous d\'abord pour charger et gérer les nœuds.</string>
+    <string name="proxies_empty_none">Le profil actif n\'a aucun groupe sélectionnable.</string>
+    <string name="proxies_test">Tester la latence</string>
+    <string name="proxies_testing">Test en cours…</string>
+    <string name="proxies_delay_ms">%1$d ms</string>
+    <string name="proxies_delay_timeout">expiré</string>
+    <string name="toast_node_selected">Basculé vers %1$s</string>
+    <string name="toast_node_select_failed">Impossible de changer de nœud</string>
+    <string name="splash_version">UwU %1$s</string>
+
+    <!-- Navigation drawer -->
+    <string name="drawer_greeting">Salut, Miku 💕</string>
+    <string name="drawer_subtitle">Faisons de notre mieux !</string>
+    <string name="drawer_section_manage">Gérer</string>
+    <string name="drawer_section_tools">Outils et infos</string>
+
+    <!-- DNS override -->
+    <string name="settings_dns">DNS</string>
+    <string name="settings_dns_summary">Remplacer le DNS du profil par le vôtre</string>
+    <string name="dns_title">DNS</string>
+    <string name="dns_override">Remplacer le DNS</string>
+    <string name="dns_override_summary">Remplacer la section dns de chaque profil par le bloc ci-dessous</string>
+    <string name="dns_yaml_hint">DNS (YAML)</string>
+    <string name="dns_invalid_title">Configuration DNS invalide</string>
+    <string name="dns_restart_hint">Reconnectez-vous pour appliquer les modifications.</string>
+    <string name="action_save">Enregistrer</string>
+    <string name="action_reset">Réinitialiser</string>
+    <string name="toast_dns_saved">Remplacement DNS enregistré</string>
+    <string name="toast_dns_reset">Réinitialisé au DNS par défaut</string>
 </resources>

@@ -125,4 +125,37 @@
     <string name="toast_backup_exported">Копия экспортирована</string>
     <string name="toast_backup_imported">Копия импортирована</string>
     <string name="toast_backup_failed">Сбой резервного копирования</string>
+
+    <!-- Proxies / node list -->
+    <string name="menu_proxies">Прокси</string>
+    <string name="proxies_title">Прокси</string>
+    <string name="proxies_empty_disconnected">Сначала подключитесь, чтобы загрузить и управлять узлами.</string>
+    <string name="proxies_empty_none">В активном профиле нет доступных для выбора групп.</string>
+    <string name="proxies_test">Проверить задержку</string>
+    <string name="proxies_testing">Проверка…</string>
+    <string name="proxies_delay_ms">%1$d мс</string>
+    <string name="proxies_delay_timeout">таймаут</string>
+    <string name="toast_node_selected">Переключено на %1$s</string>
+    <string name="toast_node_select_failed">Не удалось переключить узел</string>
+    <string name="splash_version">UwU %1$s</string>
+
+    <!-- Navigation drawer -->
+    <string name="drawer_greeting">Привет, Мику 💕</string>
+    <string name="drawer_subtitle">Постараемся!</string>
+    <string name="drawer_section_manage">Управление</string>
+    <string name="drawer_section_tools">Инструменты и сведения</string>
+
+    <!-- DNS override -->
+    <string name="settings_dns">DNS</string>
+    <string name="settings_dns_summary">Заменить DNS профиля своим</string>
+    <string name="dns_title">DNS</string>
+    <string name="dns_override">Переопределить DNS</string>
+    <string name="dns_override_summary">Заменить раздел dns каждого профиля блоком ниже</string>
+    <string name="dns_yaml_hint">DNS (YAML)</string>
+    <string name="dns_invalid_title">Неверная конфигурация DNS</string>
+    <string name="dns_restart_hint">Переподключитесь, чтобы применить изменения.</string>
+    <string name="action_save">Сохранить</string>
+    <string name="action_reset">Сброс</string>
+    <string name="toast_dns_saved">Переопределение DNS сохранено</string>
+    <string name="toast_dns_reset">Сброшено к DNS по умолчанию</string>
 </resources>

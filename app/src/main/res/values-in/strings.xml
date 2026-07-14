@@ -123,4 +123,37 @@
     <string name="toast_backup_exported">Cadangan diekspor</string>
     <string name="toast_backup_imported">Cadangan diimpor</string>
     <string name="toast_backup_failed">Cadangan gagal</string>
+
+    <!-- Proxies / node list -->
+    <string name="menu_proxies">Proksi</string>
+    <string name="proxies_title">Proksi</string>
+    <string name="proxies_empty_disconnected">Sambungkan dulu untuk memuat dan mengelola node.</string>
+    <string name="proxies_empty_none">Profil aktif tidak punya grup yang bisa dipilih.</string>
+    <string name="proxies_test">Uji latensi</string>
+    <string name="proxies_testing">Menguji…</string>
+    <string name="proxies_delay_ms">%1$d ms</string>
+    <string name="proxies_delay_timeout">waktu habis</string>
+    <string name="toast_node_selected">Beralih ke %1$s</string>
+    <string name="toast_node_select_failed">Tidak dapat mengganti node</string>
+    <string name="splash_version">UwU %1$s</string>
+
+    <!-- Navigation drawer -->
+    <string name="drawer_greeting">Hai, Miku 💕</string>
+    <string name="drawer_subtitle">Ayo lakukan yang terbaik!</string>
+    <string name="drawer_section_manage">Kelola</string>
+    <string name="drawer_section_tools">Alat &amp; info</string>
+
+    <!-- DNS override -->
+    <string name="settings_dns">DNS</string>
+    <string name="settings_dns_summary">Ganti DNS profil dengan milik Anda</string>
+    <string name="dns_title">DNS</string>
+    <string name="dns_override">Ganti DNS</string>
+    <string name="dns_override_summary">Ganti bagian dns tiap profil dengan blok di bawah</string>
+    <string name="dns_yaml_hint">DNS (YAML)</string>
+    <string name="dns_invalid_title">Konfigurasi DNS tidak valid</string>
+    <string name="dns_restart_hint">Sambungkan ulang untuk menerapkan perubahan.</string>
+    <string name="action_save">Simpan</string>
+    <string name="action_reset">Atur ulang</string>
+    <string name="toast_dns_saved">Penggantian DNS disimpan</string>
+    <string name="toast_dns_reset">Disetel ke DNS bawaan</string>
 </resources>
