@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorBg">
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorBg">
 
     <FrameLayout
         android:id="@+id/banner_home"
@@ -341,4 +346,115 @@
             </FrameLayout>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
-</RelativeLayout>
+    </RelativeLayout>
+
+    <!-- MikuRay-style card navigation drawer -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="304dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="?attr/colorBg"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="true"
+        android:paddingStart="12dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/uwu_banner_profile" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/uwu_bg_fade_bottom" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/uwu_font_title"
+                        android:text="@string/drawer_greeting"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/uwu_font_summary"
+                        android:text="@string/drawer_subtitle"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/uwu_font_summary"
+                android:text="@string/drawer_section_manage"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="13sp" />
+
+            <include
+                android:id="@+id/drawer_proxies"
+                layout="@layout/item_drawer_entry" />
+
+            <include
+                android:id="@+id/drawer_settings"
+                layout="@layout/item_drawer_entry" />
+
+            <include
+                android:id="@+id/drawer_apps"
+                layout="@layout/item_drawer_entry" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/uwu_font_summary"
+                android:text="@string/drawer_section_tools"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="13sp" />
+
+            <include
+                android:id="@+id/drawer_logcat"
+                layout="@layout/item_drawer_entry" />
+
+            <include
+                android:id="@+id/drawer_tools"
+                layout="@layout/item_drawer_entry" />
+
+            <include
+                android:id="@+id/drawer_about"
+                layout="@layout/item_drawer_entry" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.drawerlayout.widget.DrawerLayout>

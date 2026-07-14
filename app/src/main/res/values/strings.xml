@@ -146,4 +146,10 @@
     <string name="proxies_delay_timeout">timeout</string>
     <string name="toast_node_selected">Switched to %1$s</string>
     <string name="toast_node_select_failed">Could not switch node</string>
+
+    <!-- Navigation drawer -->
+    <string name="drawer_greeting">Hi, Miku 💕</string>
+    <string name="drawer_subtitle">Let\'s do our best!</string>
+    <string name="drawer_section_manage">Manage</string>
+    <string name="drawer_section_tools">Tools &amp; info</string>
 </resources>

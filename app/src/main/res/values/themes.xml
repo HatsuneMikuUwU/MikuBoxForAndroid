@@ -42,6 +42,23 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="itemShapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="collapsingToolbarLayoutLargeStyle">@style/Miku.CollapsingToolbar.Large</item>
+    </style>
+
+    <!-- MikuRay display font on the large collapsing page titles. -->
+    <style name="Miku.CollapsingToolbar.Large" parent="@style/Widget.Material3.CollapsingToolbar.Large">
+        <item name="expandedTitleTextAppearance">@style/TextAppearance.Miku.CollapsingExpanded</item>
+        <item name="collapsedTitleTextAppearance">@style/TextAppearance.Miku.CollapsingCollapsed</item>
+    </style>
+
+    <style name="TextAppearance.Miku.CollapsingExpanded" parent="@style/TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/uwu_font_title</item>
+        <item name="android:fontFamily">@font/uwu_font_title</item>
+    </style>
+
+    <style name="TextAppearance.Miku.CollapsingCollapsed" parent="@style/TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/uwu_font_title</item>
+        <item name="android:fontFamily">@font/uwu_font_title</item>
     </style>
 
     <!-- Hatsune Miku teal/cyan palette on top of the Expressive base. -->

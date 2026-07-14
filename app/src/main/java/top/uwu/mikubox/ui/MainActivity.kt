@@ -11,8 +11,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -24,6 +24,7 @@ import kotlinx.coroutines.withContext
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.MihomoCore
 import top.uwu.mikubox.databinding.ActivityMainBinding
+import top.uwu.mikubox.databinding.ItemDrawerEntryBinding
 import top.uwu.mikubox.profile.MihomoProfileImporter
 import top.uwu.mikubox.profile.MihomoProfileStore
 import top.uwu.mikubox.profile.MihomoSubscriptionUpdater
@@ -75,8 +76,9 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
         binding.btnAddProfile.setOnClickListener {
             AddProfileBottomSheet().show(supportFragmentManager, AddProfileBottomSheet.TAG)
         }
-        binding.btnHome.setOnClickListener(::showNavigationMenu)
-        binding.btnMoreMenu.setOnClickListener(::showNavigationMenu)
+        binding.btnHome.setOnClickListener { openDrawer() }
+        binding.btnMoreMenu.setOnClickListener { openDrawer() }
+        setupDrawer()
         binding.fab.setOnClickListener { toggleConnection() }
         binding.cardBottomStatus.setOnClickListener { toggleConnection() }
 
@@ -207,23 +209,33 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
         binding.fab.postDelayed({ refresh() }, 600)
     }
 
-    private fun showNavigationMenu(anchor: View) {
-        PopupMenu(this, anchor).apply {
-            menuInflater.inflate(R.menu.main_drawer_menu, menu)
-            setOnMenuItemClickListener { item ->
-                val target = when (item.itemId) {
-                    R.id.nav_settings -> SettingsActivity::class.java
-                    R.id.nav_proxies -> ProxiesActivity::class.java
-                    R.id.nav_apps -> AppListActivity::class.java
-                    R.id.nav_logcat -> LogcatActivity::class.java
-                    R.id.nav_tools -> ToolsActivity::class.java
-                    R.id.nav_about -> AboutActivity::class.java
-                    else -> null
-                }
-                target?.let { startActivity(Intent(this@MainActivity, it)) }
-                true
-            }
-            show()
+    private fun setupDrawer() {
+        bindEntry(binding.drawerProxies, R.drawable.ic_lan, R.string.menu_proxies, ProxiesActivity::class.java)
+        bindEntry(binding.drawerSettings, R.drawable.ic_settings_24dp, R.string.settings, SettingsActivity::class.java)
+        bindEntry(binding.drawerApps, R.drawable.ic_subscriptions_24dp, R.string.settings_per_app, AppListActivity::class.java)
+        bindEntry(binding.drawerLogcat, R.drawable.ic_logcat_24dp, R.string.menu_log, LogcatActivity::class.java)
+        bindEntry(binding.drawerTools, R.drawable.baseline_construction_24, R.string.menu_tools, ToolsActivity::class.java)
+        bindEntry(binding.drawerAbout, R.drawable.ic_about_24dp, R.string.menu_about, AboutActivity::class.java)
+    }
+
+    private fun bindEntry(entry: ItemDrawerEntryBinding, iconRes: Int, labelRes: Int, target: Class<*>) {
+        entry.icon.setImageResource(iconRes)
+        entry.label.setText(labelRes)
+        entry.root.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            startActivity(Intent(this, target))
+        }
+    }
+
+    private fun openDrawer() = binding.drawerLayout.openDrawer(GravityCompat.START)
+
+    @Deprecated("Handles drawer close before default back navigation")
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            @Suppress("DEPRECATION")
+            super.onBackPressed()
         }
     }
 

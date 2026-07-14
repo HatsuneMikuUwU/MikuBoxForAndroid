@@ -123,4 +123,23 @@
     <string name="toast_backup_exported">已匯出備份</string>
     <string name="toast_backup_imported">已匯入備份</string>
     <string name="toast_backup_failed">備份失敗</string>
+
+    <!-- Proxies / node list -->
+    <string name="menu_proxies">節點</string>
+    <string name="proxies_title">節點</string>
+    <string name="proxies_empty_disconnected">連線後才能載入與管理節點。</string>
+    <string name="proxies_empty_none">目前的設定檔沒有可選擇的群組。</string>
+    <string name="proxies_test">測試延遲</string>
+    <string name="proxies_testing">測試中…</string>
+    <string name="proxies_delay_ms">%1$d ms</string>
+    <string name="proxies_delay_timeout">逾時</string>
+    <string name="toast_node_selected">已切換至 %1$s</string>
+    <string name="toast_node_select_failed">無法切換節點</string>
+    <string name="splash_version">UwU %1$s</string>
+
+    <!-- Navigation drawer -->
+    <string name="drawer_greeting">嗨，Miku 💕</string>
+    <string name="drawer_subtitle">一起加油吧！</string>
+    <string name="drawer_section_manage">管理</string>
+    <string name="drawer_section_tools">工具與資訊</string>
 </resources>
