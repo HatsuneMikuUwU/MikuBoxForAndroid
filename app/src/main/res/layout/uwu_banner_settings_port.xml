@@ -1,61 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="250dp"
     android:layout_marginTop="16dp"
-    app:cardBackgroundColor="?attr/colorCard"
-    app:cardCornerRadius="28dp"
-    app:cardElevation="0dp">
+    android:layout_marginBottom="6dp"
+    android:background="@android:color/transparent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:adjustViewBounds="true"
-        android:alpha="0.88"
-        android:contentDescription="@null"
-        android:src="@drawable/uwu_banner_image_2" />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:cardBackgroundColor="?attr/colorCard"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="0dp">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:alpha="0.32"
-        android:contentDescription="@null"
-        android:scaleType="centerCrop"
-        android:src="@drawable/uwu_addon_logo"
-        android:tint="?attr/colorPrimary" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/uwu_addon_logo"
+            android:tint="?attr/colorPrimary" />
 
-    <LinearLayout
-        android:layout_width="210dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="20dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="-60dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/uwu_banner_image_2" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MIKUBOX"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="15sp" />
+            android:layout_margin="16dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="設定"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scaffold_subtitle"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="17sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="把 Miku 的色彩套用到每個角落。"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="13sp" />
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/settings"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="21sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

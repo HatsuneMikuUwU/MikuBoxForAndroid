@@ -28,6 +28,9 @@ class ToolsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.toolbar.setNavigationOnClickListener { finish() }
+        binding.toolsTab.addTab(
+            binding.toolsTab.newTab().setText(getString(R.string.tools_connection_test))
+        )
         binding.btnTest.setOnClickListener { runTest() }
         binding.tvNetworkInfo.text = networkInfo()
     }

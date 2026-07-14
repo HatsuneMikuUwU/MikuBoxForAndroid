@@ -40,9 +40,8 @@ class AppListActivity : AppCompatActivity() {
             AppMode.ALLOW_LIST -> binding.modeGroup.check(binding.modeAllow.id)
             AppMode.DISALLOW_LIST -> binding.modeGroup.check(binding.modeDisallow.id)
         }
-        binding.modeGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            if (!isChecked) return@addOnButtonCheckedListener
-            val mode = when (checkedId) {
+        binding.modeGroup.setOnCheckedStateChangeListener { _, checkedIds ->
+            val mode = when (checkedIds.firstOrNull()) {
                 binding.modeAllow.id -> AppMode.ALLOW_LIST
                 binding.modeDisallow.id -> AppMode.DISALLOW_LIST
                 else -> AppMode.ALL
