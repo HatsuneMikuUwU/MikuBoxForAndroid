@@ -151,6 +151,35 @@
     <string name="toast_dns_saved">已保存 DNS 覆盖</string>
     <string name="toast_dns_reset">已重置为默认 DNS</string>
 
+    <!-- Home search / sort -->
+    <string name="search_hint">想找点什么？</string>
+    <string name="sort_by_name">名称</string>
+    <string name="sort_by_updated">最近更新</string>
+    <string name="action_sort">排序</string>
+    <string name="action_menu">菜单</string>
+    <string name="action_refresh">刷新订阅</string>
+    <string name="toast_no_subscriptions">没有可刷新的订阅</string>
+    <string name="toast_subscriptions_updated">已更新 %1$d/%2$d 个订阅</string>
+
+    <!-- Core / connection settings -->
+    <string name="settings_section_core">核心</string>
+    <string name="settings_mode">出站模式</string>
+    <string name="settings_log">日志级别</string>
+    <string name="settings_tun_stack">TUN 堆栈</string>
+    <string name="settings_allow_lan">允许局域网</string>
+    <string name="settings_allow_lan_summary">让其他设备使用此代理</string>
+    <string name="settings_ipv6">IPv6</string>
+    <string name="settings_ipv6_summary">通过隧道路由 IPv6</string>
+    <string name="settings_autoconnect">启动时自动连接</string>
+    <string name="settings_autoconnect_summary">打开应用时启动 VPN</string>
+    <string name="settings_test_url">延迟测试链接</string>
+    <string name="settings_test_timeout">延迟测试超时</string>
+    <string name="mode_follow">跟随配置</string>
+    <string name="greeting_morning">早安…</string>
+    <string name="greeting_afternoon">午安…</string>
+    <string name="greeting_evening">晚上好…</string>
+    <string name="greeting_night">晚安…</string>
+
     <!-- Navigation drawer -->
     <string name="drawer_greeting">嗨，Miku 💕</string>
     <string name="drawer_subtitle">一起加油吧！</string>

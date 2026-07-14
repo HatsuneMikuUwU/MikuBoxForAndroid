@@ -158,4 +158,33 @@
     <string name="action_reset">Сброс</string>
     <string name="toast_dns_saved">Переопределение DNS сохранено</string>
     <string name="toast_dns_reset">Сброшено к DNS по умолчанию</string>
+
+    <!-- Home search / sort -->
+    <string name="search_hint">Что-то ищете?</string>
+    <string name="sort_by_name">Имя</string>
+    <string name="sort_by_updated">Недавно обновлённые</string>
+    <string name="action_sort">Сортировка</string>
+    <string name="action_menu">Меню</string>
+    <string name="action_refresh">Обновить подписки</string>
+    <string name="toast_no_subscriptions">Нет подписок для обновления</string>
+    <string name="toast_subscriptions_updated">Обновлено %1$d/%2$d подписок</string>
+
+    <!-- Core / connection settings -->
+    <string name="settings_section_core">Ядро</string>
+    <string name="settings_mode">Режим вывода</string>
+    <string name="settings_log">Уровень журнала</string>
+    <string name="settings_tun_stack">Стек TUN</string>
+    <string name="settings_allow_lan">Разрешить LAN</string>
+    <string name="settings_allow_lan_summary">Разрешить другим устройствам использовать этот прокси</string>
+    <string name="settings_ipv6">IPv6</string>
+    <string name="settings_ipv6_summary">Направлять IPv6 через туннель</string>
+    <string name="settings_autoconnect">Автоподключение при запуске</string>
+    <string name="settings_autoconnect_summary">Запускать VPN при открытии приложения</string>
+    <string name="settings_test_url">URL проверки задержки</string>
+    <string name="settings_test_timeout">Таймаут проверки задержки</string>
+    <string name="mode_follow">Как в конфиге</string>
+    <string name="greeting_morning">Доброе утро…</string>
+    <string name="greeting_afternoon">Добрый день…</string>
+    <string name="greeting_evening">Добрый вечер…</string>
+    <string name="greeting_night">Спокойной ночи…</string>
 </resources>

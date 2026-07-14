@@ -15,7 +15,7 @@
     <FrameLayout
         android:id="@+id/banner_home"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="215dp"
         android:layout_alignParentTop="true">
 
         <ImageView
@@ -60,24 +60,24 @@
                     style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
-                    android:contentDescription="@string/menu_home"
-                    app:backgroundTint="?attr/colorCard"
-                    app:icon="@drawable/ic_btn_home_color"
+                    android:contentDescription="@string/action_menu"
+                    app:backgroundTint="?attr/colorPrimaryContainer"
+                    app:icon="@drawable/ic_navigation_menu"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
-                    app:iconTint="@null" />
+                    app:iconTint="?attr/colorOnPrimaryContainer" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_more_menu"
                     style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
-                    android:contentDescription="@string/action_more"
+                    android:contentDescription="@string/action_refresh"
                     app:backgroundTint="?attr/colorCard"
-                    app:icon="@drawable/ic_btn_more_menu_color"
+                    app:icon="@drawable/ic_refresh"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
-                    app:iconTint="@null" />
+                    app:iconTint="?attr/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -89,12 +89,13 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_greeting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/uwu_font_summary"
-                        android:text="M I H O M O   P R O X Y"
                         android:textColor="@android:color/white"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:text="Good afternoon..." />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -138,12 +139,12 @@
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_marginEnd="4dp"
-                    android:contentDescription="@string/action_add_profile"
+                    android:contentDescription="@string/action_sort"
                     app:backgroundTint="?attr/colorCard"
-                    app:icon="@drawable/ic_btn_add_config_color"
+                    app:icon="@drawable/ic_sort"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
-                    app:iconTint="@null" />
+                    app:iconTint="?attr/colorPrimary" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
@@ -160,16 +161,25 @@
                         android:paddingStart="14dp"
                         android:paddingEnd="14dp">
                         <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:contentDescription="@null"
-                            android:src="@drawable/ic_aim_color" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/profiles_header"
-                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:src="@drawable/ic_search_icon"
+                            android:tint="?attr/colorOnSurfaceVariant" />
+                        <EditText
+                            android:id="@+id/et_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:autofillHints="@null"
+                            android:background="@null"
+                            android:hint="@string/search_hint"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingVertical="0dp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textColorHint="?attr/colorOnSurfaceVariant"
                             android:textSize="15sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>

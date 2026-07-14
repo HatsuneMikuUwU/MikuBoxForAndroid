@@ -54,4 +54,33 @@
     <string name="action_reset">Réinitialiser</string>
     <string name="toast_dns_saved">Remplacement DNS enregistré</string>
     <string name="toast_dns_reset">Réinitialisé au DNS par défaut</string>
+
+    <!-- Home search / sort -->
+    <string name="search_hint">Vous cherchez quelque chose ?</string>
+    <string name="sort_by_name">Nom</string>
+    <string name="sort_by_updated">Récemment mis à jour</string>
+    <string name="action_sort">Trier</string>
+    <string name="action_menu">Menu</string>
+    <string name="action_refresh">Actualiser les abonnements</string>
+    <string name="toast_no_subscriptions">Aucun abonnement à actualiser</string>
+    <string name="toast_subscriptions_updated">%1$d/%2$d abonnements mis à jour</string>
+
+    <!-- Core / connection settings -->
+    <string name="settings_section_core">Cœur</string>
+    <string name="settings_mode">Mode de sortie</string>
+    <string name="settings_log">Niveau de journal</string>
+    <string name="settings_tun_stack">Pile TUN</string>
+    <string name="settings_allow_lan">Autoriser le LAN</string>
+    <string name="settings_allow_lan_summary">Laisser d\'autres appareils utiliser ce proxy</string>
+    <string name="settings_ipv6">IPv6</string>
+    <string name="settings_ipv6_summary">Router l\'IPv6 via le tunnel</string>
+    <string name="settings_autoconnect">Connexion auto au lancement</string>
+    <string name="settings_autoconnect_summary">Démarrer le VPN à l\'ouverture de l\'app</string>
+    <string name="settings_test_url">URL de test de latence</string>
+    <string name="settings_test_timeout">Délai du test de latence</string>
+    <string name="mode_follow">Suivre la config</string>
+    <string name="greeting_morning">Bonjour…</string>
+    <string name="greeting_afternoon">Bon après-midi…</string>
+    <string name="greeting_evening">Bonsoir…</string>
+    <string name="greeting_night">Bonne nuit…</string>
 </resources>

@@ -11,8 +11,10 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -23,8 +25,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.MihomoCore
+import top.uwu.mikubox.core.MihomoCoreSettings
 import top.uwu.mikubox.databinding.ActivityMainBinding
 import top.uwu.mikubox.databinding.ItemDrawerEntryBinding
+import java.util.Calendar
 import top.uwu.mikubox.profile.MihomoProfileImporter
 import top.uwu.mikubox.profile.MihomoProfileStore
 import top.uwu.mikubox.profile.MihomoSubscriptionUpdater
@@ -39,6 +43,10 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ProfileAdapter
+
+    private enum class SortMode { NAME, UPDATED }
+    private var sortMode = SortMode.NAME
+    private var query = ""
 
     private val handler = Handler(Looper.getMainLooper())
     private val trafficTick = object : Runnable {
@@ -70,19 +78,37 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
         binding.rvProfiles.adapter = adapter
         binding.groupTab.addTab(binding.groupTab.newTab().setText(getString(R.string.profiles_header)))
 
-        binding.btnAddConfig.setOnClickListener {
-            AddProfileBottomSheet().show(supportFragmentManager, AddProfileBottomSheet.TAG)
-        }
+        binding.btnAddConfig.setOnClickListener { showSortMenu(it) }
         binding.btnAddProfile.setOnClickListener {
             AddProfileBottomSheet().show(supportFragmentManager, AddProfileBottomSheet.TAG)
         }
         binding.btnHome.setOnClickListener { openDrawer() }
-        binding.btnMoreMenu.setOnClickListener { openDrawer() }
+        binding.btnMoreMenu.setOnClickListener { refreshAllSubscriptions() }
+        binding.etSearch.doAfterTextChanged {
+            query = it?.toString().orEmpty()
+            refresh()
+        }
         setupDrawer()
         binding.fab.setOnClickListener { toggleConnection() }
         binding.cardBottomStatus.setOnClickListener { toggleConnection() }
+        binding.tvGreeting.setText(greetingRes())
 
         requestNotificationPermission()
+
+        if (savedInstanceState == null &&
+            MihomoCoreSettings.autoConnectOnStart(this) &&
+            !VpnController.isRunning &&
+            MihomoProfileStore.selected(this) != null
+        ) {
+            VpnController.connect(this)
+        }
+    }
+
+    private fun greetingRes(): Int = when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+        in 5..11 -> R.string.greeting_morning
+        in 12..17 -> R.string.greeting_afternoon
+        in 18..22 -> R.string.greeting_evening
+        else -> R.string.greeting_night
     }
 
     private fun applyMainSystemBarInsets() {
@@ -111,9 +137,50 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
         handler.removeCallbacks(trafficTick)
     }
 
+    private fun refreshAllSubscriptions() {
+        val subscriptions = MihomoProfileStore.profiles(this).filter { it.isSubscription }
+        if (subscriptions.isEmpty()) {
+            toast(getString(R.string.toast_no_subscriptions))
+            return
+        }
+        lifecycleScope.launch {
+            var updated = 0
+            for (profile in subscriptions) {
+                adapter.setUpdating(profile.id)
+                val result = withContext(Dispatchers.IO) {
+                    runCatching { MihomoSubscriptionUpdater.update(this@MainActivity, profile) }
+                }
+                if (result.isSuccess) updated++
+            }
+            adapter.setUpdating(null)
+            toast(getString(R.string.toast_subscriptions_updated, updated, subscriptions.size))
+            refresh()
+        }
+    }
+
+    private fun showSortMenu(anchor: View) {
+        PopupMenu(this, anchor).apply {
+            menu.add(0, 0, 0, R.string.sort_by_name)
+            menu.add(0, 1, 1, R.string.sort_by_updated)
+            setOnMenuItemClickListener { item ->
+                sortMode = if (item.itemId == 1) SortMode.UPDATED else SortMode.NAME
+                refresh()
+                true
+            }
+            show()
+        }
+    }
+
     private fun refresh() {
-        val profiles = MihomoProfileStore.profiles(this)
         val selected = MihomoProfileStore.selected(this)
+        val profiles = MihomoProfileStore.profiles(this)
+            .filter { query.isBlank() || it.name.contains(query, ignoreCase = true) }
+            .let { list ->
+                when (sortMode) {
+                    SortMode.NAME -> list.sortedBy { it.name.lowercase(java.util.Locale.getDefault()) }
+                    SortMode.UPDATED -> list.sortedByDescending { it.updatedAtMillis }
+                }
+            }
         adapter.submit(profiles, selected?.id)
         binding.emptyCard.visibility = if (profiles.isEmpty()) View.VISIBLE else View.GONE
         val running = VpnController.isRunning

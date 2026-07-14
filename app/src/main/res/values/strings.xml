@@ -161,6 +161,46 @@
     <string name="toast_dns_saved">DNS override saved</string>
     <string name="toast_dns_reset">Reset to default DNS</string>
 
+    <!-- Home search / sort -->
+    <string name="search_hint">Looking for something?</string>
+    <string name="sort_by_name">Name</string>
+    <string name="sort_by_updated">Recently updated</string>
+    <string name="action_sort">Sort</string>
+    <string name="action_menu">Menu</string>
+    <string name="action_refresh">Refresh subscriptions</string>
+    <string name="toast_no_subscriptions">No subscriptions to refresh</string>
+    <string name="toast_subscriptions_updated">Updated %1$d/%2$d subscriptions</string>
+
+    <!-- Core / connection settings -->
+    <string name="settings_section_core">Core</string>
+    <string name="settings_mode">Outbound mode</string>
+    <string name="settings_log">Log level</string>
+    <string name="settings_tun_stack">TUN stack</string>
+    <string name="settings_allow_lan">Allow LAN</string>
+    <string name="settings_allow_lan_summary">Let other devices use this proxy</string>
+    <string name="settings_ipv6">IPv6</string>
+    <string name="settings_ipv6_summary">Route IPv6 through the tunnel</string>
+    <string name="settings_autoconnect">Auto-connect on launch</string>
+    <string name="settings_autoconnect_summary">Start the VPN when the app opens</string>
+    <string name="settings_test_url">Latency test URL</string>
+    <string name="settings_test_timeout">Latency test timeout</string>
+    <string name="settings_test_timeout_value" translatable="false">%1$d ms</string>
+    <string name="mode_follow">Follow config</string>
+    <string name="mode_rule" translatable="false">Rule</string>
+    <string name="mode_global" translatable="false">Global</string>
+    <string name="mode_direct" translatable="false">Direct</string>
+    <string name="log_silent" translatable="false">Silent</string>
+    <string name="log_warning" translatable="false">Warning</string>
+    <string name="log_info" translatable="false">Info</string>
+    <string name="log_debug" translatable="false">Debug</string>
+    <string name="stack_system" translatable="false">System</string>
+    <string name="stack_gvisor" translatable="false">gVisor</string>
+    <string name="stack_mixed" translatable="false">Mixed</string>
+    <string name="greeting_morning">Good morning…</string>
+    <string name="greeting_afternoon">Good afternoon…</string>
+    <string name="greeting_evening">Good evening…</string>
+    <string name="greeting_night">Good night…</string>
+
     <!-- Navigation drawer -->
     <string name="drawer_greeting">Hi, Miku 💕</string>
     <string name="drawer_subtitle">Let\'s do our best!</string>

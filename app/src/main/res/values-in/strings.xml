@@ -156,4 +156,33 @@
     <string name="action_reset">Atur ulang</string>
     <string name="toast_dns_saved">Penggantian DNS disimpan</string>
     <string name="toast_dns_reset">Disetel ke DNS bawaan</string>
+
+    <!-- Home search / sort -->
+    <string name="search_hint">Mencari sesuatu?</string>
+    <string name="sort_by_name">Nama</string>
+    <string name="sort_by_updated">Baru diperbarui</string>
+    <string name="action_sort">Urutkan</string>
+    <string name="action_menu">Menu</string>
+    <string name="action_refresh">Segarkan langganan</string>
+    <string name="toast_no_subscriptions">Tidak ada langganan untuk disegarkan</string>
+    <string name="toast_subscriptions_updated">%1$d/%2$d langganan diperbarui</string>
+
+    <!-- Core / connection settings -->
+    <string name="settings_section_core">Inti</string>
+    <string name="settings_mode">Mode keluar</string>
+    <string name="settings_log">Level log</string>
+    <string name="settings_tun_stack">Stack TUN</string>
+    <string name="settings_allow_lan">Izinkan LAN</string>
+    <string name="settings_allow_lan_summary">Biarkan perangkat lain memakai proksi ini</string>
+    <string name="settings_ipv6">IPv6</string>
+    <string name="settings_ipv6_summary">Rutekan IPv6 melalui terowongan</string>
+    <string name="settings_autoconnect">Sambung otomatis saat dibuka</string>
+    <string name="settings_autoconnect_summary">Mulai VPN saat aplikasi dibuka</string>
+    <string name="settings_test_url">URL uji latensi</string>
+    <string name="settings_test_timeout">Batas waktu uji latensi</string>
+    <string name="mode_follow">Ikuti konfig</string>
+    <string name="greeting_morning">Selamat pagi…</string>
+    <string name="greeting_afternoon">Selamat siang…</string>
+    <string name="greeting_evening">Selamat sore…</string>
+    <string name="greeting_night">Selamat malam…</string>
 </resources>
