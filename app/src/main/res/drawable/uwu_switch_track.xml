@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_checked="true">
+        <layer-list>
+            <item>
+                <shape
+                    android:visible="true"
+                    android:shape="rectangle"
+                    android:useLevel="false">
+                    <stroke
+                        android:width="1.5dip"
+                        android:color="?attr/colorPrimary" />
+                    <solid
+                        android:color="@color/uwu_switch_on_bg" />
+                    <corners
+                        android:radius="90.0dip" />
+                    <size
+                        android:height="28.0dip"
+                        android:width="52.0dip" />
+                </shape>
+            </item>
+            <item
+                android:gravity="center|left"
+                android:height="17.0dip"
+                android:width="17.0dip"
+                android:drawable="@drawable/uwu_switch_on_material"
+                android:left="4.0dip"
+                android:right="4.0dip" />
+        </layer-list>
+    </item>
+    <item
+        android:state_checked="false">
+        <layer-list>
+            <item>
+                <shape
+                    android:visible="true"
+                    android:shape="rectangle"
+                    android:useLevel="false">
+                    <stroke
+                        android:width="1.5dip"
+                        android:color="?attr/colorOutline" />
+                    <solid
+                        android:color="@color/uwu_switch_off_bg" />
+                    <corners
+                        android:radius="90.0dip" />
+                    <size
+                        android:height="28.0dip"
+                        android:width="52.0dip" />
+                </shape>
+            </item>
+            <item
+                android:gravity="center|right"
+                android:height="17.0dip"
+                android:width="17.0dip"
+                android:drawable="@drawable/uwu_switch_off_material"
+                android:left="4.0dip"
+                android:right="4.0dip" />
+        </layer-list>
+    </item>
+    <item
+        android:state_enabled="false"
+        android:height="28.0dip"
+        android:width="52.0dip"
+        android:drawable="@drawable/uwu_track_disabled_background" />
+</selector>

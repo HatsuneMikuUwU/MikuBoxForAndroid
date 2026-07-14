@@ -5,102 +5,141 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginEnd="16dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="0dp">
+    app:cardBackgroundColor="?attr/colorCard"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="1dp"
+    app:strokeColor="?attr/colorOutlineVariant"
+    app:strokeWidth="1dp">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/update_progress"
+        <View
+            android:id="@+id/selected_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="gone"
-            app:indicatorColor="?attr/colorPrimary"
+            android:layout_height="match_parent"
+            android:background="@drawable/uwu_selected_view"
+            android:visibility="invisible"
             tools:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <View
-                android:id="@+id/selected_view"
-                android:layout_width="4dp"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="12dp"
-                android:background="?attr/colorPrimary"
-                android:visibility="invisible"
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/update_progress"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:indicatorColor="?attr/colorPrimary"
                 tools:visibility="visible" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="14dp"
                 android:paddingTop="12dp"
-                android:paddingEnd="8dp"
+                android:paddingEnd="6dp">
+
+                <FrameLayout
+                    android:layout_width="46dp"
+                    android:layout_height="46dp">
+
+                    <ImageView
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/uwu_bg_icon"
+                        android:tint="?attr/colorPrimary" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_subscriptions_24dp"
+                        android:tint="?attr/colorOnPrimary" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="SG - DigitalOcean [VLESS-TLS]" />
+
+                    <TextView
+                        android:id="@+id/tv_meta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="13sp"
+                        tools:text="Subscription" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_overflow"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/action_more"
+                    app:icon="@drawable/ic_baseline_more_vert_24"
+                    app:iconTint="?attr/colorOnSurface" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingStart="72dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="12dp"
                 android:paddingBottom="12dp">
 
                 <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="My Subscription" />
-
-                <TextView
-                    android:id="@+id/tv_meta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="12sp"
-                    tools:text="Selected · Subscription" />
-
-                <TextView
                     android:id="@+id/tv_traffic"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:layout_weight="1"
+                    android:background="@drawable/uwu_badge"
+                    android:textColor="?attr/colorPrimary"
                     android:textSize="12sp"
                     android:visibility="gone"
                     tools:text="↑ 1.2 MiB  ↓ 8.4 MiB"
                     tools:visibility="visible" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_update"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/action_update" />
             </LinearLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_update"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="0dp"
-                android:text="@string/action_update" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_overflow"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:contentDescription="@string/action_more"
-                app:icon="@drawable/ic_baseline_more_vert_24"
-                app:iconTint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
 </com.google.android.material.card.MaterialCardView>

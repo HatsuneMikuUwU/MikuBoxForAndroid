@@ -1,5 +1,8 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.util.zip.ZipOutputStream
 
 plugins {
     alias(libs.plugins.android.application)
@@ -65,6 +68,13 @@ android {
     }
 
     packaging {
+        resources {
+            // Coroutine debug probes are useful only to a debugger and should
+            // not be packaged in production or debug APKs.
+            excludes += "DebugProbesKt.bin"
+            excludes += "META-INF/**"
+            excludes += "/META-INF/**"
+        }
         jniLibs {
             useLegacyPackaging = true
         }
@@ -156,6 +166,57 @@ tasks.configureEach {
     if (name.contains("CMake") || name.endsWith("JniLibFolders")) {
         dependsOn(buildMihomoBridge)
     }
+}
+
+val stripDebugApkMetadata by tasks.registering {
+    dependsOn("packageDebug")
+
+    doLast {
+        val outputDir = layout.buildDirectory.dir("outputs/apk/debug").get().asFile
+        val debugKeystore = file("${System.getProperty("user.home")}/.android/debug.keystore")
+        check(debugKeystore.isFile) { "Debug keystore was not found: $debugKeystore" }
+
+        val buildToolsDir = android.sdkDirectory.resolve("build-tools/${android.buildToolsVersion}")
+        val zipalign = buildToolsDir.resolve("zipalign.exe")
+        val apksigner = buildToolsDir.resolve("apksigner.bat")
+        check(zipalign.isFile && apksigner.isFile) { "Android build-tools are incomplete in $buildToolsDir" }
+
+        outputDir.listFiles { file -> file.extension == "apk" }?.forEach { apk ->
+            val unaligned = apk.resolveSibling("${apk.nameWithoutExtension}-stripped-unaligned.apk")
+            val aligned = apk.resolveSibling("${apk.nameWithoutExtension}-stripped-aligned.apk")
+            ZipFile(apk).use { input ->
+                ZipOutputStream(unaligned.outputStream().buffered()).use { output ->
+                    val entries = input.entries()
+                    while (entries.hasMoreElements()) {
+                        val entry = entries.nextElement()
+                        if (entry.name == "DebugProbesKt.bin" || entry.name.startsWith("META-INF/")) continue
+                        output.putNextEntry(ZipEntry(entry.name).apply { time = entry.time })
+                        if (!entry.isDirectory) input.getInputStream(entry).use { it.copyTo(output) }
+                        output.closeEntry()
+                    }
+                }
+            }
+            exec { commandLine(zipalign.absolutePath, "-f", "4", unaligned.absolutePath, aligned.absolutePath) }
+            exec {
+                commandLine(
+                    apksigner.absolutePath,
+                    "sign",
+                    "--ks", debugKeystore.absolutePath,
+                    "--ks-pass", "pass:android",
+                    "--key-pass", "pass:android",
+                    "--v1-signing-enabled", "false",
+                    "--out", apk.absolutePath,
+                    aligned.absolutePath,
+                )
+            }
+            unaligned.delete()
+            aligned.delete()
+        }
+    }
+}
+
+tasks.matching { it.name == "assembleDebug" }.configureEach {
+    finalizedBy(stripDebugApkMetadata)
 }
 
 kotlin {

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_enabled="false">
+        <layer-list
+            android:paddingMode="stack">
+            <item
+                android:gravity="fill_horizontal|center"
+                android:id="@android:id/background">
+                <inset
+                    android:insetLeft="0.0dip"
+                    android:insetRight="0.0dip">
+                    <shape>
+                        <size
+                            android:height="20.0dip" />
+                        <corners
+                            android:radius="28.0dip" />
+                        <solid
+                            android:color="?colorSurfaceContainerHighest" />
+                    </shape>
+                </inset>
+            </item>
+            <item
+                android:gravity="fill_horizontal|center"
+                android:id="@android:id/progress">
+                <com.neko.widget.RoundedCornerProgressDrawable
+                    android:drawable="@drawable/uwu_progress_full_drawable" />
+            </item>
+            <item
+                android:gravity="end|center">
+                <inset
+                    android:insetRight="7.0dip">
+                    <shape
+                        android:shape="oval">
+                        <size
+                            android:height="6.0dip"
+                            android:width="6.0dip" />
+                        <solid
+                            android:color="?android:textColorTertiary" />
+                    </shape>
+                </inset>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list
+            android:paddingMode="stack">
+            <item
+                android:gravity="fill_horizontal|center"
+                android:id="@android:id/background">
+                <inset
+                    android:insetLeft="0.0dip"
+                    android:insetRight="0.0dip">
+                    <shape>
+                        <size
+                            android:height="20.0dip" />
+                        <corners
+                            android:radius="28.0dip" />
+                        <solid
+                            android:color="?colorSecondaryContainer" />
+                    </shape>
+                </inset>
+            </item>
+            <item
+                android:gravity="fill_horizontal|center"
+                android:id="@android:id/progress">
+                <com.neko.widget.RoundedCornerProgressDrawable
+                    android:drawable="@drawable/uwu_progress_full_drawable" />
+            </item>
+            <item
+                android:gravity="end|center">
+                <inset
+                    android:insetRight="7.0dip">
+                    <shape
+                        android:shape="oval">
+                        <size
+                            android:height="6.0dip"
+                            android:width="6.0dip" />
+                        <solid
+                            android:color="?colorPrimary" />
+                    </shape>
+                </inset>
+            </item>
+        </layer-list>
+    </item>
+</selector>

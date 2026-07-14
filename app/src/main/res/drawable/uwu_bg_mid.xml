@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+    android:color="?android:colorControlHighlight"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@android:id/background"
+        android:left="0.0dip"
+        android:right="0.0dip">
+        <shape
+            android:shape="rectangle">
+            <solid
+                android:color="?attr/colorCard" />
+            <corners
+                android:topLeftRadius="5.0dip"
+                android:topRightRadius="5.0dip"
+                android:bottomLeftRadius="5.0dip"
+                android:bottomRightRadius="5.0dip" />
+        </shape>
+    </item>
+</ripple>

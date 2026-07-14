@@ -10,23 +10,57 @@
 
     <!-- Miku palette. Seeded from Hatsune Miku's signature teal (#39C5BB) with a pink accent, expressed as Material3 roles for the UwU-style home shell.-->
     <!-- Light -->
-    <color name="miku_primary">#00838F</color>
+    <color name="miku_primary">#207A74</color>
     <color name="miku_on_primary">#FFFFFF</color>
-    <color name="miku_primary_container">#9EF2EA</color>
+    <color name="miku_primary_container">#B7E9E2</color>
     <color name="miku_on_primary_container">#00201F</color>
-    <color name="miku_secondary">#4A6360</color>
+    <color name="miku_secondary">#39706B</color>
     <color name="miku_secondary_container">#CCE8E4</color>
     <color name="miku_on_secondary_container">#05201D</color>
     <color name="miku_tertiary">#B4225F</color>
     <color name="miku_tertiary_container">#FFD9E2</color>
+    <color name="miku_on_secondary">#FFFFFF</color>
+    <color name="miku_on_tertiary">#FFFFFF</color>
+    <color name="miku_background">#DDEDEA</color>
+    <color name="miku_on_background">#17201F</color>
+    <color name="miku_surface">#F3F9F8</color>
+    <color name="miku_on_surface">#17201F</color>
+    <color name="miku_surface_variant">#DDEDEA</color>
+    <color name="miku_on_surface_variant">#3F504D</color>
+    <color name="miku_outline">#6E7F7C</color>
+    <color name="miku_outline_variant">#AFBFBC</color>
+    <color name="miku_surface_dim">#D7E5E3</color>
+    <color name="miku_surface_bright">#F8FCFB</color>
+    <color name="miku_surface_container_lowest">#FFFFFF</color>
+    <color name="miku_surface_container_low">#EDF5F3</color>
+    <color name="miku_surface_container">#E7F0EE</color>
+    <color name="miku_surface_container_high">#E1EAE8</color>
+    <color name="miku_surface_container_highest">#DBE4E2</color>
     <!-- Dark -->
-    <color name="miku_primary_dark">#57DBCF</color>
-    <color name="miku_on_primary_dark">#003733</color>
-    <color name="miku_primary_container_dark">#00504A</color>
-    <color name="miku_on_primary_container_dark">#71F7EA</color>
-    <color name="miku_secondary_dark">#B0CCC7</color>
-    <color name="miku_secondary_container_dark">#324B48</color>
-    <color name="miku_on_secondary_container_dark">#CCE8E4</color>
+    <color name="miku_primary_dark">#9BD6D3</color>
+    <color name="miku_on_primary_dark">#0B1716</color>
+    <color name="miku_primary_container_dark">#173B38</color>
+    <color name="miku_on_primary_container_dark">#B9EFEB</color>
+    <color name="miku_secondary_dark">#9BD6D3</color>
+    <color name="miku_secondary_container_dark">#142826</color>
+    <color name="miku_on_secondary_container_dark">#D9F4F1</color>
     <color name="miku_tertiary_dark">#FFB1C7</color>
     <color name="miku_tertiary_container_dark">#5B1133</color>
+    <color name="miku_on_secondary_dark">#183431</color>
+    <color name="miku_on_tertiary_dark">#60133A</color>
+    <color name="miku_background_dark">#0B1514</color>
+    <color name="miku_on_background_dark">#F2F7F6</color>
+    <color name="miku_surface_dark">#0B1514</color>
+    <color name="miku_on_surface_dark">#F2F7F6</color>
+    <color name="miku_surface_variant_dark">#0B1514</color>
+    <color name="miku_on_surface_variant_dark">#B4C8C5</color>
+    <color name="miku_outline_dark">#91AAA6</color>
+    <color name="miku_outline_variant_dark">#29413F</color>
+    <color name="miku_surface_dim_dark">#07100F</color>
+    <color name="miku_surface_bright_dark">#182422</color>
+    <color name="miku_surface_container_lowest_dark">#07100F</color>
+    <color name="miku_surface_container_low_dark">#0D1918</color>
+    <color name="miku_surface_container_dark">#111D1C</color>
+    <color name="miku_surface_container_high_dark">#172422</color>
+    <color name="miku_surface_container_highest_dark">#202D2B</color>
 </resources>

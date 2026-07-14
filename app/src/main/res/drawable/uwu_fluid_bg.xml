@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+    android:height="200.0dip"
+    android:width="500.0dip"
+    android:viewportWidth="500.0"
+    android:viewportHeight="200.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <path
+        android:fillColor="?attr/colorTertiary"
+        android:pathData="M309.73,148.24Q181.53,158.45,86.22,145.39L210.35,176.17L309.73,148.24z"
+        android:strokeLineCap="square"
+        android:strokeLineJoin="miter"
+        android:fillType="nonZero" />
+    <path
+        android:fillColor="?attr/colorTertiaryContainer"
+        android:pathData="M519.14,38.02Q446.42,115.38,263.49,154.64L517.49,120.23L519.14,38.02z"
+        android:strokeLineCap="square"
+        android:strokeLineJoin="miter"
+        android:fillType="nonZero" />
+    <path
+        android:fillColor="?attr/colorPrimaryInverse"
+        android:pathData="M518.25,85.37C425.44,136.33,304.80,150.59,174.94,164.02L517.98,189.22L518.25,85.37z"
+        android:strokeLineCap="square"
+        android:strokeLineJoin="miter"
+        android:fillType="nonZero" />
+    <path
+        android:fillColor="?attr/colorPrimary"
+        android:pathData="M519.93,128.68C405.37,178.85,182.03,191.96,-22.01,112.43L-22.01,203.18L518.61,200.07L519.93,128.68z"
+        android:strokeLineCap="square"
+        android:strokeLineJoin="miter"
+        android:fillType="nonZero" />
+</vector>

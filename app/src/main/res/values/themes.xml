@@ -51,10 +51,29 @@
         <item name="colorPrimaryContainer">@color/miku_primary_container</item>
         <item name="colorOnPrimaryContainer">@color/miku_on_primary_container</item>
         <item name="colorSecondary">@color/miku_secondary</item>
+        <item name="colorOnSecondary">@color/miku_on_secondary</item>
         <item name="colorSecondaryContainer">@color/miku_secondary_container</item>
         <item name="colorOnSecondaryContainer">@color/miku_on_secondary_container</item>
         <item name="colorTertiary">@color/miku_tertiary</item>
+        <item name="colorOnTertiary">@color/miku_on_tertiary</item>
         <item name="colorTertiaryContainer">@color/miku_tertiary_container</item>
+        <item name="android:colorBackground">@color/miku_background</item>
+        <item name="colorOnBackground">@color/miku_on_background</item>
+        <item name="colorSurface">@color/miku_surface</item>
+        <item name="colorOnSurface">@color/miku_on_surface</item>
+        <item name="colorSurfaceVariant">@color/miku_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/miku_on_surface_variant</item>
+        <item name="colorOutline">@color/miku_outline</item>
+        <item name="colorOutlineVariant">@color/miku_outline_variant</item>
+        <item name="colorSurfaceDim">@color/miku_surface_dim</item>
+        <item name="colorSurfaceBright">@color/miku_surface_bright</item>
+        <item name="colorSurfaceContainerLowest">@color/miku_surface_container_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/miku_surface_container_low</item>
+        <item name="colorSurfaceContainer">@color/miku_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/miku_surface_container_high</item>
+        <item name="colorSurfaceContainerHighest">@color/miku_surface_container_highest</item>
+        <item name="android:statusBarColor">@color/miku_primary</item>
+        <item name="android:navigationBarColor">@color/miku_background</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 

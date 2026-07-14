@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <stroke
+                android:width="1.5dip"
+                android:color="@color/uwu_color_spinner" />
+            <corners
+                android:radius="8.0dip" />
+            <padding
+                android:left="3.0dip"
+                android:top="3.0dip"
+                android:right="3.0dip"
+                android:bottom="3.0dip" />
+        </shape>
+    </item>
+    <item
+        android:gravity="center|right"
+        android:drawable="@drawable/uwu_arrow_down"
+        android:right="16.0dip" />
+</layer-list>
