@@ -1,11 +1,14 @@
 package top.uwu.mikubox.profile
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.work.CoroutineWorker
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -78,6 +81,12 @@ object MihomoSubscriptionUpdater {
         error(context.getString(R.string.error_subscription_http, 310))
     }
 
+    /** POST_NOTIFICATIONS is runtime-granted on Android 13+; skip posting if denied. */
+    private fun canPostNotifications(context: Context): Boolean =
+        Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) ==
+            PackageManager.PERMISSION_GRANTED
+
     private fun subscriptionUserAgent(context: Context): String {
         val appVersion = context.packageManager
             .getPackageInfo(context.packageName, 0)
@@ -99,15 +108,17 @@ object MihomoSubscriptionUpdater {
                 if (profile.updateWhenConnectedOnly && !VpnController.isRunning) return@forEach
                 val age = System.currentTimeMillis() - profile.updatedAtMillis
                 if (age < profile.updateIntervalMinutes.coerceAtLeast(15) * 60_000L) return@forEach
-                NotificationManagerCompat.from(applicationContext).notify(
-                    NOTIFICATION_ID,
-                    NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle(applicationContext.getString(R.string.subscription_update_title))
-                        .setContentText(profile.name)
-                        .setOngoing(true)
-                        .build(),
-                )
+                if (canPostNotifications(applicationContext)) {
+                    NotificationManagerCompat.from(applicationContext).notify(
+                        NOTIFICATION_ID,
+                        NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle(applicationContext.getString(R.string.subscription_update_title))
+                            .setContentText(profile.name)
+                            .setOngoing(true)
+                            .build(),
+                    )
+                }
                 update(applicationContext, profile)
             }
             NotificationManagerCompat.from(applicationContext).cancel(NOTIFICATION_ID)
