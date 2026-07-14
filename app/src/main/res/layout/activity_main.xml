@@ -144,11 +144,16 @@
                                     android:src="@drawable/uwu_banner_profile" />
                             </com.google.android.material.card.MaterialCardView>
 
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginStart="12dp"
                                 android:fontFamily="@font/uwu_font_title"
                                 android:text="Hi, miku 💕"
                                 android:textColor="?attr/colorOnSurface"
@@ -160,10 +165,9 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/uwu_font_summary"
                                 android:text="Good night..."
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginStart="8dp"
                                 android:textColor="?attr/colorOnSurfaceVariant"
                                 android:textSize="14sp" />
+                            </LinearLayout>
                         </LinearLayout>
 
                         <com.google.android.material.card.MaterialCardView
