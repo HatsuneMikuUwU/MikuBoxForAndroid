@@ -25,6 +25,8 @@ object MihomoCoreSettings {
     private const val KEY_TEST_URL = "test_url"
     private const val KEY_TEST_TIMEOUT = "test_timeout"
     private const val KEY_AUTOCONNECT = "autoconnect_on_start"
+    private const val KEY_UNIFIED_DELAY = "unified_delay"
+    private const val KEY_TCP_CONCURRENT = "tcp_concurrent"
 
     const val DEFAULT_TEST_URL = "https://cp.cloudflare.com"
     const val DEFAULT_TEST_TIMEOUT = 5000
@@ -58,11 +60,19 @@ object MihomoCoreSettings {
     fun autoConnectOnStart(context: Context): Boolean = prefs(context).getBoolean(KEY_AUTOCONNECT, false)
     fun setAutoConnectOnStart(context: Context, value: Boolean) = putBool(context, KEY_AUTOCONNECT, value)
 
+    fun unifiedDelay(context: Context): Boolean = prefs(context).getBoolean(KEY_UNIFIED_DELAY, false)
+    fun setUnifiedDelay(context: Context, value: Boolean) = putBool(context, KEY_UNIFIED_DELAY, value)
+
+    fun tcpConcurrent(context: Context): Boolean = prefs(context).getBoolean(KEY_TCP_CONCURRENT, false)
+    fun setTcpConcurrent(context: Context, value: Boolean) = putBool(context, KEY_TCP_CONCURRENT, value)
+
     /** Config-key overrides merged into the profile by the bridge, as a JSON object. */
     fun overridesJson(context: Context): String = JSONObject().apply {
         put("log-level", logLevel(context).value)
         put("allow-lan", allowLan(context))
         put("tun-stack", tunStack(context).value)
+        put("unified-delay", unifiedDelay(context))
+        put("tcp-concurrent", tcpConcurrent(context))
         mode(context).value?.let { put("mode", it) }
     }.toString()
 

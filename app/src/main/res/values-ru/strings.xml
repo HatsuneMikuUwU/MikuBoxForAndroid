@@ -195,4 +195,8 @@
     <string name="about_link_github">Репозиторий GitHub</string>
     <string name="about_link_telegram">Канал Telegram</string>
     <string name="about_link_telegram_chinese">Китайский канал Telegram</string>
+    <string name="settings_unified_delay">Единая задержка</string>
+    <string name="settings_unified_delay_summary">Использовать единый метод измерения задержки для всех прокси</string>
+    <string name="settings_tcp_concurrent">Параллельный TCP</string>
+    <string name="settings_tcp_concurrent_summary">Подключаться к нескольким IP-адресам одновременно</string>
 </resources>

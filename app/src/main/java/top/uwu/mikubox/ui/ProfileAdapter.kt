@@ -8,6 +8,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import top.uwu.mikubox.R
 import top.uwu.mikubox.profile.MihomoProfileStore
@@ -81,7 +82,16 @@ class ProfileAdapter(
                 traffic.visibility = View.GONE
             }
             progress.visibility = if (updating) View.VISIBLE else View.GONE
-            selectedBar.visibility = if (selected) View.VISIBLE else View.INVISIBLE
+            selectedBar.visibility = View.GONE
+            card.strokeWidth = if (selected) dpToPx(2) else dpToPx(1)
+            card.strokeColor = MaterialColors.getColor(
+                itemView,
+                if (selected) {
+                    androidx.appcompat.R.attr.colorPrimary
+                } else {
+                    com.google.android.material.R.attr.colorOutlineVariant
+                },
+            )
             update.visibility = if (profile.isSubscription) View.VISIBLE else View.GONE
             card.setOnClickListener { onSelect(profile) }
             update.setOnClickListener { onUpdate(profile) }
@@ -114,5 +124,8 @@ class ProfileAdapter(
             }
             return String.format(java.util.Locale.US, "%.1f %s", value, units[unit])
         }
+
+        private fun dpToPx(dp: Int): Int =
+            (dp * itemView.resources.displayMetrics.density).toInt()
     }
 }

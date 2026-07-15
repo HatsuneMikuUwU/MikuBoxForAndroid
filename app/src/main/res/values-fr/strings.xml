@@ -91,4 +91,8 @@
     <string name="about_link_github">Dépôt GitHub</string>
     <string name="about_link_telegram">Canal Telegram</string>
     <string name="about_link_telegram_chinese">Canal Telegram chinois</string>
+    <string name="settings_unified_delay">Délai unifié</string>
+    <string name="settings_unified_delay_summary">Utiliser une même méthode de mesure du délai pour tous les proxys</string>
+    <string name="settings_tcp_concurrent">TCP simultané</string>
+    <string name="settings_tcp_concurrent_summary">Se connecter à plusieurs adresses IP simultanément</string>
 </resources>

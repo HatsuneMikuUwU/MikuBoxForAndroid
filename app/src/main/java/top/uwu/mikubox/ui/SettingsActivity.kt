@@ -80,6 +80,18 @@ class SettingsActivity : EdgeToEdgeActivity() {
             binding.swAllowLan.isChecked = enabled
             MihomoCoreSettings.setAllowLan(this, enabled)
         }
+        binding.swUnifiedDelay.isChecked = MihomoCoreSettings.unifiedDelay(this)
+        binding.rowUnifiedDelay.setOnClickListener {
+            val enabled = !binding.swUnifiedDelay.isChecked
+            binding.swUnifiedDelay.isChecked = enabled
+            MihomoCoreSettings.setUnifiedDelay(this, enabled)
+        }
+        binding.swTcpConcurrent.isChecked = MihomoCoreSettings.tcpConcurrent(this)
+        binding.rowTcpConcurrent.setOnClickListener {
+            val enabled = !binding.swTcpConcurrent.isChecked
+            binding.swTcpConcurrent.isChecked = enabled
+            MihomoCoreSettings.setTcpConcurrent(this, enabled)
+        }
         binding.swIpv6.isChecked = MihomoCoreSettings.ipv6(this)
         binding.rowIpv6.setOnClickListener {
             val enabled = !binding.swIpv6.isChecked

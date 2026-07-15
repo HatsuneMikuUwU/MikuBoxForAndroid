@@ -214,4 +214,8 @@
     <string name="about_link_github">GitHub repository</string>
     <string name="about_link_telegram">Telegram channel</string>
     <string name="about_link_telegram_chinese">Telegram Chinese channel</string>
+    <string name="settings_unified_delay">Unified delay</string>
+    <string name="settings_unified_delay_summary">Use one latency measurement method for all proxies</string>
+    <string name="settings_tcp_concurrent">TCP concurrent</string>
+    <string name="settings_tcp_concurrent_summary">Connect to multiple IP addresses concurrently</string>
 </resources>

@@ -193,4 +193,8 @@
     <string name="about_link_github">GitHub 源代码</string>
     <string name="about_link_telegram">Telegram 频道</string>
     <string name="about_link_telegram_chinese">Telegram 中文频道</string>
+    <string name="settings_unified_delay">统一延迟</string>
+    <string name="settings_unified_delay_summary">对所有代理使用相同的延迟测量方式</string>
+    <string name="settings_tcp_concurrent">TCP 并行连接</string>
+    <string name="settings_tcp_concurrent_summary">同时连接到多个 IP 地址</string>
 </resources>

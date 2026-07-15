@@ -321,6 +321,58 @@
                     <View style="@style/SettingsDivider" />
 
                     <LinearLayout
+                        android:id="@+id/row_unified_delay"
+                        style="@style/SettingsRow">
+
+                        <LinearLayout style="@style/SettingsRowText">
+
+                            <TextView
+                                style="@style/SettingsRowTitle"
+                                android:text="@string/settings_unified_delay" />
+
+                            <TextView
+                                style="@style/SettingsRowSummary"
+                                android:text="@string/settings_unified_delay_summary" />
+                        </LinearLayout>
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/sw_unified_delay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:clickable="false"
+                            android:focusable="false" />
+                    </LinearLayout>
+
+                    <View style="@style/SettingsDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/row_tcp_concurrent"
+                        style="@style/SettingsRow">
+
+                        <LinearLayout style="@style/SettingsRowText">
+
+                            <TextView
+                                style="@style/SettingsRowTitle"
+                                android:text="@string/settings_tcp_concurrent" />
+
+                            <TextView
+                                style="@style/SettingsRowSummary"
+                                android:text="@string/settings_tcp_concurrent_summary" />
+                        </LinearLayout>
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/sw_tcp_concurrent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:clickable="false"
+                            android:focusable="false" />
+                    </LinearLayout>
+
+                    <View style="@style/SettingsDivider" />
+
+                    <LinearLayout
                         android:id="@+id/row_tun_stack"
                         style="@style/SettingsRow">
 

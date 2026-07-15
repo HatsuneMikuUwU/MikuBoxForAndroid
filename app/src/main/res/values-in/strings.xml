@@ -193,4 +193,8 @@
     <string name="about_link_github">Repositori GitHub</string>
     <string name="about_link_telegram">Kanal Telegram</string>
     <string name="about_link_telegram_chinese">Kanal Telegram Tionghoa</string>
+    <string name="settings_unified_delay">Latensi terpadu</string>
+    <string name="settings_unified_delay_summary">Gunakan satu metode pengukuran latensi untuk semua proksi</string>
+    <string name="settings_tcp_concurrent">TCP serentak</string>
+    <string name="settings_tcp_concurrent_summary">Hubungkan ke beberapa alamat IP secara bersamaan</string>
 </resources>
