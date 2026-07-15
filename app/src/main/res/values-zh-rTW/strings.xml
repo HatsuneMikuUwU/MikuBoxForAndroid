@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="scaffold_subtitle">Mihomo · UwU</string>
+    <string name="scaffold_subtitle">君の世界に、歌を届けるね。</string>
     <string name="vpn_channel_name">VPN 狀態</string>
     <string name="vpn_notification_running">已連線</string>
     <string name="vpn_action_stop">停止</string>
@@ -97,7 +97,7 @@
     <string name="menu_about">關於</string>
     <string name="about_title">關於</string>
     <string name="about_app_title">MikuBox for Android</string>
-    <string name="about_app_desc">以 Mihomo 為核心、換上初音未來主題的代理用戶端。改自 NekoBox for Android。</string>
+    <string name="about_app_desc">以 Mihomo 為核心、換上初音未來主題的代理用戶端。</string>
     <string name="about_version">版本 %1$s</string>
     <string name="uwu_about_miku_title">初音未來是誰？</string>
     <string name="uwu_about_miku_summary">初音未來是 Crypton Future Media 推出、以 Vocaloid 為基礎的虛擬歌手，代號 CV01。她以一頭青綠色雙馬尾與清亮的歌聲聞名，是一位 16 歲的少女，也是享譽全球的虛擬偶像。她活躍於音樂、演唱會與動畫領域，深受粉絲喜愛。</string>
@@ -135,7 +135,7 @@
     <string name="proxies_delay_timeout">逾時</string>
     <string name="toast_node_selected">已切換至 %1$s</string>
     <string name="toast_node_select_failed">無法切換節點</string>
-    <string name="splash_version">UwU %1$s</string>
+    <string name="splash_version">Version %1$s</string>
 
     <!-- DNS override -->
     <string name="settings_dns">DNS</string>

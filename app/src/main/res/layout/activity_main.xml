@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/uwu_banner_home" />
+            android:src="@drawable/uwu_banner_welcome" />
 
         <View
             android:layout_width="match_parent"
@@ -235,7 +235,7 @@
                     app:tabIndicatorHeight="40dp"
                     app:tabMode="scrollable"
                     app:tabRippleColor="@android:color/transparent"
-                    app:tabSelectedTextColor="?attr/colorSurface"
+                    app:tabSelectedTextColor="?attr/colorOnPrimary"
                     app:tabTextColor="?attr/colorOnSurfaceVariant" />
             </com.google.android.material.card.MaterialCardView>
 

@@ -155,9 +155,17 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="152dp"
+                        android:contentDescription="@string/uwu_about_miku_title"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/uwu_about_miku_hero" />
+
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="88dp"
                         android:layout_height="88dp"
+                        android:layout_marginTop="16dp"
                         app:cardCornerRadius="44dp"
                         app:cardElevation="0dp"
                         app:strokeColor="?attr/colorPrimary"

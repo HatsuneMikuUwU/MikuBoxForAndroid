@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="scaffold_subtitle">Mihomo · UwU</string>
+    <string name="scaffold_subtitle">君の世界に、歌を届けるね。</string>
 
     <!-- Служба VPN -->
     <string name="vpn_channel_name">Статус VPN</string>
@@ -99,7 +99,7 @@
     <string name="menu_about">О программе</string>
     <string name="about_title">О программе</string>
     <string name="about_app_title">MikuBox for Android</string>
-    <string name="about_app_desc">Прокси-клиент на базе Mihomo в теме Hatsune Miku. Модифицировано из NekoBox for Android.</string>
+    <string name="about_app_desc">Прокси-клиент на базе Mihomo в теме Hatsune Miku.</string>
     <string name="about_version">Версия %1$s</string>
     <string name="uwu_about_miku_title">Кто такая Хацунэ Мику?</string>
     <string name="uwu_about_miku_summary">Хацунэ Мику — виртуальная певица на основе Vocaloid, выпущенная компанией Crypton Future Media под кодом CV01. Известная своими длинными бирюзовыми хвостиками и чистым голосом, она — 16-летняя девушка и всемирно известный виртуальный идол. Она активна в музыке, на концертах и в аниме, и её очень любят поклонники.</string>
@@ -137,7 +137,7 @@
     <string name="proxies_delay_timeout">таймаут</string>
     <string name="toast_node_selected">Переключено на %1$s</string>
     <string name="toast_node_select_failed">Не удалось переключить узел</string>
-    <string name="splash_version">UwU %1$s</string>
+    <string name="splash_version">Version %1$s</string>
 
     <!-- Navigation drawer -->
     <string name="drawer_greeting">Привет, Мику 💕</string>

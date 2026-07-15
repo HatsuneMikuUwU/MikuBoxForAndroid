@@ -27,6 +27,12 @@ object MihomoSubscriptionUpdater {
     private const val WORK_NAME = "mihomo-subscription-update"
     private const val CHANNEL_ID = "mihomo_subscription"
     private const val NOTIFICATION_ID = 2
+    private val PROXY_NAME = Regex("^\\s*-\\s+name:\\s*(.+?)\\s*$")
+
+    data class UpdateResult(
+        val added: List<String>,
+        val deleted: List<String>,
+    )
 
     fun reconfigure(context: Context) {
         val manager = WorkManager.getInstance(context)
@@ -39,14 +45,39 @@ object MihomoSubscriptionUpdater {
         manager.enqueueUniquePeriodicWork(WORK_NAME, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-    fun update(context: Context, profile: MihomoProfileStore.Profile) {
+    fun update(context: Context, profile: MihomoProfileStore.Profile): UpdateResult {
         val url = requireNotNull(profile.subscriptionUrl)
         val body = fetch(context, url)
         val config = MihomoSubscriptionDecoder.toMihomoConfig(context, body)
+        val previous = proxyNames(profile.config)
+        val current = proxyNames(config)
         MihomoProfileStore.update(
             context,
             profile.copy(config = config, updatedAtMillis = System.currentTimeMillis()),
         )
+        return UpdateResult(
+            added = current.filterNot(previous::contains),
+            deleted = previous.filterNot(current::contains),
+        )
+    }
+
+    /** Extracts named proxy entries from the standard Mihomo YAML proxy list. */
+    private fun proxyNames(config: String): List<String> {
+        var inProxies = false
+        val names = mutableListOf<String>()
+        config.lineSequence().forEach { line ->
+            if (!inProxies) {
+                if (line.trim() == "proxies:") inProxies = true
+                return@forEach
+            }
+            if (line.isNotBlank() && !line.first().isWhitespace()) return names
+            val match = PROXY_NAME.matchEntire(line) ?: return@forEach
+            names += match.groupValues[1]
+                .trim()
+                .removeSurrounding("'")
+                .replace("''", "'")
+        }
+        return names
     }
 
     /**

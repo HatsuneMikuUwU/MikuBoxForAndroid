@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="splash_version">UwU %1$s</string>
-    <string name="scaffold_subtitle">Mihomo · UwU</string>
+    <string name="splash_version">Version %1$s</string>
+    <string name="scaffold_subtitle">君の世界に、歌を届けるね。</string>
 
     <!-- Traffic footer -->
     <string name="traffic_idle_up" translatable="false">▲ 0 B/s</string>
@@ -18,6 +18,10 @@
     <string name="subscription_update_title">Updating subscriptions</string>
     <string name="vpn_tile_title">MikuBox VPN</string>
     <string name="mihomo_start_failed">Mihomo failed to start</string>
+    <string name="toast_vpn_start_failed">VPN could not start: %1$s</string>
+    <string name="subscription_changes_title">%1$s updated</string>
+    <string name="subscription_changes_added">Added:\n%1$s</string>
+    <string name="subscription_changes_deleted">Deleted:\n%1$s</string>
     <string name="local_proxy_notification_running">Local Mihomo proxy is running</string>
     <string name="profile_default_name">Profile</string>
     <string name="profile_subscription_default_name">Subscription</string>
@@ -108,7 +112,7 @@
     <string name="menu_about">About</string>
     <string name="about_title">About</string>
     <string name="about_app_title">MikuBox for Android</string>
-    <string name="about_app_desc">A Mihomo-powered proxy client, dressed in a Hatsune Miku theme. Modified from NekoBox for Android.</string>
+    <string name="about_app_desc">A Mihomo-powered proxy client, dressed in a Hatsune Miku theme.</string>
     <string name="about_version">Version %1$s</string>
     <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>
     <string name="uwu_about_miku_summary">Hatsune Miku is a Vocaloid-based virtual singer released by Crypton Future Media, code-named CV01. Known for her long turquoise twintails and clear voice, she is a 16-year-old girl and a globally renowned virtual idol. She is active in music, concerts, and anime, and is deeply loved by her fans.</string>

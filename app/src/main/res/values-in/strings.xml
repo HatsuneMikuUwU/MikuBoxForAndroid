@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="scaffold_subtitle">Mihomo · UwU</string>
+    <string name="scaffold_subtitle">君の世界に、歌を届けるね。</string>
     <string name="vpn_channel_name">Status VPN</string>
     <string name="vpn_notification_running">Terhubung</string>
     <string name="vpn_action_stop">Berhenti</string>
@@ -97,7 +97,7 @@
     <string name="menu_about">Tentang</string>
     <string name="about_title">Tentang</string>
     <string name="about_app_title">MikuBox for Android</string>
-    <string name="about_app_desc">Klien proksi bertenaga Mihomo dengan tema Hatsune Miku. Dimodifikasi dari NekoBox for Android.</string>
+    <string name="about_app_desc">Klien proksi bertenaga Mihomo dengan tema Hatsune Miku.</string>
     <string name="about_version">Versi %1$s</string>
     <string name="uwu_about_miku_title">Siapa Hatsune Miku?</string>
     <string name="uwu_about_miku_summary">Hatsune Miku adalah penyanyi virtual berbasis Vocaloid yang dirilis oleh Crypton Future Media, dengan kode CV01. Dikenal dengan rambut twintail toska panjang dan suaranya yang jernih, ia adalah gadis berusia 16 tahun dan idola virtual yang terkenal di seluruh dunia. Ia aktif di bidang musik, konser, dan anime, serta sangat dicintai para penggemarnya.</string>
@@ -135,7 +135,7 @@
     <string name="proxies_delay_timeout">waktu habis</string>
     <string name="toast_node_selected">Beralih ke %1$s</string>
     <string name="toast_node_select_failed">Tidak dapat mengganti node</string>
-    <string name="splash_version">UwU %1$s</string>
+    <string name="splash_version">Version %1$s</string>
 
     <!-- Navigation drawer -->
     <string name="drawer_greeting">Hai, Miku 💕</string>

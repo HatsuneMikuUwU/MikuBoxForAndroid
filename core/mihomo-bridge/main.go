@@ -201,7 +201,7 @@ func start(configText, homeDir string, tunFD int, dnsOverride, overridesJson str
 		raw = map[string]any{}
 	}
 
-	if tunFD > 0 {
+	if tunFD >= 0 {
 		tun, ok := raw["tun"].(map[string]any)
 		if !ok || tun == nil {
 			tun = map[string]any{}

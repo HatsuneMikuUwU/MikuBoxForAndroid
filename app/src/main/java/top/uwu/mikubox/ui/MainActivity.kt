@@ -1,9 +1,11 @@
 package top.uwu.mikubox.ui
 
 import android.Manifest
+import android.content.BroadcastReceiver
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -33,6 +35,7 @@ import java.util.Calendar
 import top.uwu.mikubox.profile.MihomoProfileImporter
 import top.uwu.mikubox.profile.MihomoProfileStore
 import top.uwu.mikubox.profile.MihomoSubscriptionUpdater
+import top.uwu.mikubox.service.MikuVpnService
 import top.uwu.mikubox.service.VpnController
 
 /**
@@ -48,6 +51,14 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
     private enum class SortMode { NAME, UPDATED }
     private var sortMode = SortMode.NAME
     private var query = ""
+
+    private val vpnFailureReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val detail = intent.getStringExtra(MikuVpnService.EXTRA_FAILURE_DETAIL).orEmpty()
+            toast(getString(R.string.toast_vpn_start_failed, detail))
+            refresh()
+        }
+    }
 
     private val handler = Handler(Looper.getMainLooper())
     private val trafficTick = object : Runnable {
@@ -131,6 +142,21 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
         super.onResume()
         refresh()
         handler.post(trafficTick)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        ContextCompat.registerReceiver(
+            this,
+            vpnFailureReceiver,
+            IntentFilter(MikuVpnService.ACTION_VPN_START_FAILED),
+            ContextCompat.RECEIVER_NOT_EXPORTED,
+        )
+    }
+
+    override fun onStop() {
+        unregisterReceiver(vpnFailureReceiver)
+        super.onStop()
     }
 
     override fun onPause() {
@@ -281,7 +307,10 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
             }
             adapter.setUpdating(null)
             result
-                .onSuccess { toast(getString(R.string.toast_subscription_updated)) }
+                .onSuccess { changes ->
+                    toast(getString(R.string.toast_subscription_updated))
+                    showSubscriptionChanges(profile, changes)
+                }
                 .onFailure { toast(getString(R.string.toast_update_failed, it.message ?: "")) }
             refresh()
         }
@@ -298,6 +327,26 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
             VpnController.connect(this)
         }
         binding.fab.postDelayed({ refresh() }, 600)
+    }
+
+    private fun showSubscriptionChanges(
+        profile: MihomoProfileStore.Profile,
+        changes: MihomoSubscriptionUpdater.UpdateResult,
+    ) {
+        if (changes.added.isEmpty() && changes.deleted.isEmpty()) return
+        val message = buildList {
+            if (changes.added.isNotEmpty()) {
+                add(getString(R.string.subscription_changes_added, changes.added.joinToString("\n")))
+            }
+            if (changes.deleted.isNotEmpty()) {
+                add(getString(R.string.subscription_changes_deleted, changes.deleted.joinToString("\n")))
+            }
+        }.joinToString("\n\n")
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.subscription_changes_title, profile.name))
+            .setMessage(message)
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
     }
 
     private fun setupDrawer() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="scaffold_subtitle">Mihomo · UwU</string>
+    <string name="scaffold_subtitle">君の世界に、歌を届けるね。</string>
 
     <!-- Service VPN -->
     <string name="vpn_channel_name">État du VPN</string>
@@ -33,7 +33,7 @@
     <string name="proxies_delay_timeout">expiré</string>
     <string name="toast_node_selected">Basculé vers %1$s</string>
     <string name="toast_node_select_failed">Impossible de changer de nœud</string>
-    <string name="splash_version">UwU %1$s</string>
+    <string name="splash_version">Version %1$s</string>
 
     <!-- Navigation drawer -->
     <string name="drawer_greeting">Salut, Miku 💕</string>
