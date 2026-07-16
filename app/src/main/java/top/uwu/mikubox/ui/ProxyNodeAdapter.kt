@@ -14,7 +14,7 @@ class ProxyNodeAdapter(
     private val onSelect: (String) -> Unit,
 ) : RecyclerView.Adapter<ProxyNodeAdapter.VH>() {
 
-    /** [delay]: -2 untested, -1 timeout, otherwise milliseconds. */
+    /** [delay]: -3 testing, -2 untested, -1 timeout, otherwise milliseconds. */
     data class Node(val name: String, val type: String, val delay: Int, val selected: Boolean)
 
     private var nodes: List<Node> = emptyList()
@@ -23,6 +23,14 @@ class ProxyNodeAdapter(
     fun submit(list: List<Node>) {
         nodes = list
         notifyDataSetChanged()
+    }
+
+    /** Streams a single node's latency result without rebuilding the whole list. */
+    fun updateDelay(name: String, delay: Int) {
+        val index = nodes.indexOfFirst { it.name == name }
+        if (index < 0) return
+        nodes = nodes.toMutableList().also { it[index] = it[index].copy(delay = delay) }
+        notifyItemChanged(index)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH =
@@ -46,6 +54,10 @@ class ProxyNodeAdapter(
             selected.visibility = if (node.selected) View.VISIBLE else View.INVISIBLE
             selectedBar.visibility = if (node.selected) View.VISIBLE else View.INVISIBLE
             when {
+                node.delay == -3 -> {
+                    delay.text = "···"
+                    delay.setTextColor(ContextCompat.getColor(ctx, R.color.miku_orange))
+                }
                 node.delay == -2 -> {
                     delay.text = ""
                 }

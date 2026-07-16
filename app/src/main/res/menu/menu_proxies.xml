@@ -6,4 +6,8 @@
         android:icon="@drawable/ic_baseline_speed_24"
         android:title="@string/proxies_test"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_sort"
+        android:title="@string/proxies_sort_delay"
+        app:showAsAction="never" />
 </menu>

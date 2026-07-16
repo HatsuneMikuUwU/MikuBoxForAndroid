@@ -28,6 +28,7 @@
     <string name="proxies_empty_disconnected">Connectez-vous d\'abord pour charger et gérer les nœuds.</string>
     <string name="proxies_empty_none">Le profil actif n\'a aucun groupe sélectionnable.</string>
     <string name="proxies_test">Tester la latence</string>
+    <string name="proxies_sort_delay">Trier par latence</string>
     <string name="proxies_testing">Test en cours…</string>
     <string name="proxies_delay_ms">%1$d ms</string>
     <string name="proxies_delay_timeout">expiré</string>

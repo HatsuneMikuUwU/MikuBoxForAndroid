@@ -42,6 +42,15 @@
     <string name="action_disconnect">Disconnect</string>
     <string name="hint_subscription_url">Subscription URL (Clash)</string>
     <string name="hint_profile_name">Name (optional)</string>
+    <string name="subscription_update_interval">Auto-update interval</string>
+    <string name="subscription_update_when_connected">Only update while connected</string>
+    <string-array name="subscription_intervals">
+        <item>Every 6 hours</item>
+        <item>Every 12 hours</item>
+        <item>Every 24 hours</item>
+        <item>Every 3 days</item>
+        <item>Every 7 days</item>
+    </string-array>
     <string name="action_add_profile">Add profile</string>
     <string name="action_add_subscription">Add &amp; fetch subscription</string>
     <string name="action_import_clipboard">Import config from clipboard</string>
@@ -153,6 +162,7 @@
     <string name="proxies_empty_disconnected">Connect first to load and manage nodes.</string>
     <string name="proxies_empty_none">The active profile has no selectable groups.</string>
     <string name="proxies_test">Test latency</string>
+    <string name="proxies_sort_delay">Sort by latency</string>
     <string name="proxies_testing">Testing…</string>
     <string name="proxies_delay_ms">%1$d ms</string>
     <string name="proxies_delay_timeout">timeout</string>

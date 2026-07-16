@@ -146,11 +146,27 @@ object MihomoSubscriptionDecoder {
             "server" to host, "port" to (uri.port.takeIf { it > 0 } ?: 443).toString(), "uuid" to uuid,
             "udp" to "true",
         )
-        uri.getQueryParameter("encryption")?.let { fields += "cipher" to it }
-        uri.getQueryParameter("security")?.takeIf { it != "none" }?.let { fields += "tls" to "true" }
-        uri.getQueryParameter("sni")?.let { fields += "servername" to it }
-        uri.getQueryParameter("type")?.let { fields += "network" to it }
-        uri.getQueryParameter("path")?.let { fields += "ws-opts.path" to it }
+        // xtls-rprx-vision flow (vless), TLS/Reality security.
+        uri.getQueryParameter("flow")?.takeIf { it.isNotBlank() }?.let { fields += "flow" to it }
+        val security = uri.getQueryParameter("security")
+        if (security != null && security != "none") fields += "tls" to "true"
+        uri.getQueryParameter("sni")?.takeIf { it.isNotBlank() }?.let { fields += "servername" to it }
+        uri.getQueryParameter("fp")?.takeIf { it.isNotBlank() }?.let { fields += "client-fingerprint" to it }
+        if (security == "reality") {
+            uri.getQueryParameter("pbk")?.takeIf { it.isNotBlank() }?.let { fields += "reality-opts.public-key" to it }
+            uri.getQueryParameter("sid")?.takeIf { it.isNotBlank() }?.let { fields += "reality-opts.short-id" to it }
+        }
+        // Transport: ws needs its path + Host header; grpc needs the service name.
+        val network = uri.getQueryParameter("type")?.takeIf { it.isNotBlank() } ?: "tcp"
+        fields += "network" to network
+        when (network.lowercase()) {
+            "ws" -> {
+                uri.getQueryParameter("path")?.takeIf { it.isNotBlank() }?.let { fields += "ws-opts.path" to it }
+                uri.getQueryParameter("host")?.takeIf { it.isNotBlank() }?.let { fields += "ws-opts.headers.Host" to it }
+            }
+            "grpc" -> uri.getQueryParameter("serviceName")?.takeIf { it.isNotBlank() }
+                ?.let { fields += "grpc-opts.grpc-service-name" to it }
+        }
         return ProxyYaml(name(uri.fragment, host), type, fields)
     }
 

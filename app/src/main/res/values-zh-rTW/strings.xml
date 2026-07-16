@@ -29,6 +29,15 @@
     <string name="action_disconnect">中斷連線</string>
     <string name="hint_subscription_url">訂閱網址（Clash）</string>
     <string name="hint_profile_name">名稱（選填）</string>
+    <string name="subscription_update_interval">自動更新間隔</string>
+    <string name="subscription_update_when_connected">僅在連線時更新</string>
+    <string-array name="subscription_intervals">
+        <item>每 6 小時</item>
+        <item>每 12 小時</item>
+        <item>每 24 小時</item>
+        <item>每 3 天</item>
+        <item>每 7 天</item>
+    </string-array>
     <string name="action_add_profile">新增設定檔</string>
     <string name="action_add_subscription">新增並抓取訂閱</string>
     <string name="action_import_clipboard">從剪貼簿匯入設定</string>
@@ -138,6 +147,7 @@
     <string name="proxies_empty_disconnected">連線後才能載入與管理節點。</string>
     <string name="proxies_empty_none">目前的設定檔沒有可選擇的群組。</string>
     <string name="proxies_test">測試延遲</string>
+    <string name="proxies_sort_delay">依延遲排序</string>
     <string name="proxies_testing">測試中…</string>
     <string name="proxies_delay_ms">%1$d ms</string>
     <string name="proxies_delay_timeout">逾時</string>

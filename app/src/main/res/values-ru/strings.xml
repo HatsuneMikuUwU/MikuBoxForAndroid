@@ -31,6 +31,15 @@
     <string name="action_disconnect">Отключить</string>
     <string name="hint_subscription_url">URL подписки (Clash)</string>
     <string name="hint_profile_name">Имя (необязательно)</string>
+    <string name="subscription_update_interval">Интервал автообновления</string>
+    <string name="subscription_update_when_connected">Обновлять только при подключении</string>
+    <string-array name="subscription_intervals">
+        <item>Каждые 6 часов</item>
+        <item>Каждые 12 часов</item>
+        <item>Каждые 24 часа</item>
+        <item>Каждые 3 дня</item>
+        <item>Каждые 7 дней</item>
+    </string-array>
     <string name="action_add_profile">Добавить профиль</string>
     <string name="action_add_subscription">Добавить и загрузить подписку</string>
     <string name="action_import_clipboard">Импорт конфигурации из буфера обмена</string>
@@ -132,6 +141,7 @@
     <string name="proxies_empty_disconnected">Сначала подключитесь, чтобы загрузить и управлять узлами.</string>
     <string name="proxies_empty_none">В активном профиле нет доступных для выбора групп.</string>
     <string name="proxies_test">Проверить задержку</string>
+    <string name="proxies_sort_delay">Сортировать по задержке</string>
     <string name="proxies_testing">Проверка…</string>
     <string name="proxies_delay_ms">%1$d мс</string>
     <string name="proxies_delay_timeout">таймаут</string>

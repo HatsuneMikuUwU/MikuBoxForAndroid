@@ -258,13 +258,13 @@ class MainActivity : EdgeToEdgeActivity(), AddProfileBottomSheet.Listener {
         return String.format(java.util.Locale.US, "%.1f %s", value, units[unit])
     }
 
-    override fun onAddSubscription(url: String, name: String) {
+    override fun onAddSubscription(url: String, name: String, intervalMinutes: Long, connectedOnly: Boolean) {
         if (url.isEmpty()) {
             toast(getString(R.string.error_subscription_url_blank))
             return
         }
         val profile = try {
-            MihomoProfileImporter.importSubscription(this, name, url)
+            MihomoProfileImporter.importSubscription(this, name, url, intervalMinutes, connectedOnly)
         } catch (e: Exception) {
             toast(getString(R.string.toast_import_failed, e.message ?: ""))
             return

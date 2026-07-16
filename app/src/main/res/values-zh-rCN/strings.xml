@@ -29,6 +29,15 @@
     <string name="action_disconnect">断开连接</string>
     <string name="hint_subscription_url">订阅地址（Clash）</string>
     <string name="hint_profile_name">名称（可选）</string>
+    <string name="subscription_update_interval">自动更新间隔</string>
+    <string name="subscription_update_when_connected">仅在连接时更新</string>
+    <string-array name="subscription_intervals">
+        <item>每 6 小时</item>
+        <item>每 12 小时</item>
+        <item>每 24 小时</item>
+        <item>每 3 天</item>
+        <item>每 7 天</item>
+    </string-array>
     <string name="action_add_profile">添加配置文件</string>
     <string name="action_add_subscription">添加并获取订阅</string>
     <string name="action_import_clipboard">从剪贴板导入配置</string>
@@ -138,6 +147,7 @@
     <string name="proxies_empty_disconnected">连接后才能加载和管理节点。</string>
     <string name="proxies_empty_none">当前配置没有可选择的分组。</string>
     <string name="proxies_test">测试延迟</string>
+    <string name="proxies_sort_delay">按延迟排序</string>
     <string name="proxies_testing">测试中…</string>
     <string name="proxies_delay_ms">%1$d ms</string>
     <string name="proxies_delay_timeout">超时</string>

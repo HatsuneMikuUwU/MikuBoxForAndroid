@@ -15,8 +15,9 @@ object MihomoProfileImporter {
         name: String,
         url: String,
         intervalMinutes: Long = 24 * 60,
+        updateWhenConnectedOnly: Boolean = false,
     ): MihomoProfileStore.Profile =
-        MihomoProfileStore.createSubscription(context, name, url, intervalMinutes)
+        MihomoProfileStore.createSubscription(context, name, url, intervalMinutes, updateWhenConnectedOnly)
 
     fun importUri(context: Context, uri: Uri): MihomoProfileStore.Profile {
         val subscriptionUrl = when {

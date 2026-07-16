@@ -8,6 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.MihomoCore
@@ -28,6 +30,7 @@ class ProxiesActivity : EdgeToEdgeActivity() {
     private var allProxies: Map<String, MihomoCore.Proxy> = emptyMap()
     private var groups: List<MihomoCore.Proxy> = emptyList()
     private val delayCache = mutableMapOf<String, Int>()
+    private var sortByDelay = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +40,18 @@ class ProxiesActivity : EdgeToEdgeActivity() {
 
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.toolbar.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.action_test_delay) {
-                testCurrentGroup()
-                true
-            } else {
-                false
+            when (item.itemId) {
+                R.id.action_test_delay -> {
+                    testCurrentGroup()
+                    true
+                }
+                R.id.action_sort -> {
+                    sortByDelay = !sortByDelay
+                    item.setTitle(if (sortByDelay) R.string.sort_by_name else R.string.proxies_sort_delay)
+                    renderGroup(binding.groupTab.selectedTabPosition)
+                    true
+                }
+                else -> false
             }
         }
 
@@ -94,7 +104,13 @@ class ProxiesActivity : EdgeToEdgeActivity() {
                 selected = memberName == group.now,
             )
         }
-        adapter.submit(nodes)
+        // Reachable nodes first (ascending latency); untested/testing/timeout sink to the bottom.
+        val ordered = if (sortByDelay) {
+            nodes.sortedBy { if (it.delay >= 0) it.delay else Int.MAX_VALUE }
+        } else {
+            nodes
+        }
+        adapter.submit(ordered)
     }
 
     private fun selectNode(nodeName: String) {
@@ -118,16 +134,24 @@ class ProxiesActivity : EdgeToEdgeActivity() {
         val group = groups.getOrNull(index) ?: return
         val members = group.all
         if (members.isEmpty()) return
-        toast(getString(R.string.proxies_testing))
+        val testUrl = MihomoCoreSettings.testUrl(this)
+        val timeout = MihomoCoreSettings.testTimeout(this)
+        // Show a per-node testing state, then stream results in as each probe returns.
+        members.forEach { delayCache[it] = -3 }
+        renderGroup(index)
         lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                val testUrl = MihomoCoreSettings.testUrl(this@ProxiesActivity)
-                val timeout = MihomoCoreSettings.testTimeout(this@ProxiesActivity)
-                members.map { name -> async { name to MihomoCore.delay(name, testUrl, timeout) } }
-                    .awaitAll()
-                    .forEach { (name, result) -> delayCache[name] = if (result < 0) -1 else result }
-            }
-            renderGroup(index)
+            val gate = Semaphore(16)
+            members.map { name ->
+                async(Dispatchers.IO) {
+                    gate.withPermit {
+                        val result = MihomoCore.delay(name, testUrl, timeout)
+                        val value = if (result < 0) -1 else result
+                        delayCache[name] = value
+                        withContext(Dispatchers.Main) { adapter.updateDelay(name, value) }
+                    }
+                }
+            }.awaitAll()
+            if (sortByDelay) renderGroup(index)
         }
     }
 

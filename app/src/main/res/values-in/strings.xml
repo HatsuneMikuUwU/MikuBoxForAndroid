@@ -29,6 +29,15 @@
     <string name="action_disconnect">Putuskan</string>
     <string name="hint_subscription_url">URL langganan (Clash)</string>
     <string name="hint_profile_name">Nama (opsional)</string>
+    <string name="subscription_update_interval">Interval pembaruan otomatis</string>
+    <string name="subscription_update_when_connected">Perbarui hanya saat terhubung</string>
+    <string-array name="subscription_intervals">
+        <item>Setiap 6 jam</item>
+        <item>Setiap 12 jam</item>
+        <item>Setiap 24 jam</item>
+        <item>Setiap 3 hari</item>
+        <item>Setiap 7 hari</item>
+    </string-array>
     <string name="action_add_profile">Tambah profil</string>
     <string name="action_add_subscription">Tambah &amp; ambil langganan</string>
     <string name="action_import_clipboard">Impor konfigurasi dari papan klip</string>
@@ -130,6 +139,7 @@
     <string name="proxies_empty_disconnected">Sambungkan dulu untuk memuat dan mengelola node.</string>
     <string name="proxies_empty_none">Profil aktif tidak punya grup yang bisa dipilih.</string>
     <string name="proxies_test">Uji latensi</string>
+    <string name="proxies_sort_delay">Urutkan berdasarkan latensi</string>
     <string name="proxies_testing">Menguji…</string>
     <string name="proxies_delay_ms">%1$d ms</string>
     <string name="proxies_delay_timeout">waktu habis</string>
