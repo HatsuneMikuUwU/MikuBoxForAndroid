@@ -105,6 +105,21 @@
                     <View style="@style/SettingsDivider" />
 
                     <LinearLayout
+                        android:id="@+id/row_language"
+                        style="@style/SettingsRow">
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView
+                                style="@style/SettingsRowTitle"
+                                android:text="@string/settings_language" />
+                            <TextView
+                                android:id="@+id/tv_language_value"
+                                style="@style/SettingsRowSummary" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View style="@style/SettingsDivider" />
+
+                    <LinearLayout
                         android:id="@+id/row_particles"
                         style="@style/SettingsRow">
 

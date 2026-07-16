@@ -20,7 +20,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MikuBoxCla">
+        android:theme="@style/Theme.MikuBoxCla"
+        android:localeConfig="@xml/locales_config">
+
+        <meta-data
+            android:name="autoStoreLocales"
+            android:value="true" />
 
         <activity
             android:name=".ui.SplashActivity"

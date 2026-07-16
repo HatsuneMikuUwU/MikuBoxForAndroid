@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import top.uwu.mikubox.R
 import top.uwu.mikubox.core.AppSettings
@@ -44,6 +45,7 @@ class SettingsActivity : EdgeToEdgeActivity() {
         binding.toolbar.setNavigationOnClickListener { finish() }
 
         binding.rowTheme.setOnClickListener { pickTheme() }
+        binding.rowLanguage.setOnClickListener { pickLanguage() }
         binding.rowMtu.setOnClickListener { editMtu() }
         binding.rowDns.setOnClickListener {
             startActivity(Intent(this, DnsActivity::class.java))
@@ -113,6 +115,7 @@ class SettingsActivity : EdgeToEdgeActivity() {
 
     private fun render() {
         binding.tvThemeValue.text = getString(themeLabel(AppSettings.nightMode(this)))
+        binding.tvLanguageValue.text = getString(languageLabel(AppSettings.language(this)))
         binding.tvMtuValue.text = MihomoVpnSettings.mtu(this).toString()
         binding.tvAppsValue.setText(appModeLabel(MihomoVpnSettings.appMode(this)))
         binding.tvModeValue.setText(modeLabel(MihomoCoreSettings.mode(this)))
@@ -241,6 +244,31 @@ class SettingsActivity : EdgeToEdgeActivity() {
                 AppSettings.setNightMode(this, nightModes[which])
                 dialog.dismiss()
                 render()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun languageLabel(language: String): Int = when (language) {
+        AppSettings.LANGUAGE_ENGLISH -> R.string.language_english
+        AppSettings.LANGUAGE_TRADITIONAL_CHINESE -> R.string.language_traditional_chinese
+        AppSettings.LANGUAGE_SIMPLIFIED_CHINESE -> R.string.language_simplified_chinese
+        AppSettings.LANGUAGE_FRENCH -> R.string.language_french
+        AppSettings.LANGUAGE_INDONESIAN -> R.string.language_indonesian
+        AppSettings.LANGUAGE_RUSSIAN -> R.string.language_russian
+        else -> R.string.language_system
+    }
+
+    private fun pickLanguage() {
+        val languages = AppSettings.supportedLanguages
+        val labels = languages.map { getString(languageLabel(it)) }.toTypedArray()
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.settings_language)
+            .setSingleChoiceItems(labels, languages.indexOf(AppSettings.language(this))) { dialog, which ->
+                val language = languages[which]
+                AppSettings.setLanguage(this, language)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(language))
+                dialog.dismiss()
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()

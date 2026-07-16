@@ -32,6 +32,7 @@ import top.uwu.mikubox.ui.MainActivity
 class MikuVpnService : VpnService() {
 
     private var tun: ParcelFileDescriptor? = null
+    private var lastTunError: Throwable? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == ACTION_STOP) {
@@ -55,11 +56,12 @@ class MikuVpnService : VpnService() {
 
     private fun startVpn() {
         if (tun != null) return
+        lastTunError = null
         try {
             MikuProxyService.stop(this)
             startForegroundNotification()
             val descriptor = establishTun() ?: run {
-                reportStartFailure(getString(R.string.mihomo_start_failed))
+                reportStartFailure(lastTunError?.message.orEmpty())
                 stopVpn()
                 return
             }
@@ -134,7 +136,7 @@ class MikuVpnService : VpnService() {
         return try {
             builder.establish()
         } catch (t: Throwable) {
-            stopVpn()
+            lastTunError = t
             null
         }
     }

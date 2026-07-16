@@ -12,10 +12,12 @@ object MihomoVpnSettings {
     private const val APP_MODE = "app_mode"
     private const val PACKAGES = "packages"
 
-    fun mtu(context: Context): Int = prefs(context).getInt(MTU, 9000).coerceIn(1280, 65_535)
+    // 1500 is supported by every Android VPN implementation. Jumbo frames
+    // can make Builder.establish() fail on devices that do not support them.
+    fun mtu(context: Context): Int = prefs(context).getInt(MTU, 1500).coerceIn(1280, 9_000)
 
     fun setMtu(context: Context, value: Int) {
-        prefs(context).edit().putInt(MTU, value.coerceIn(1280, 65_535)).commit()
+        prefs(context).edit().putInt(MTU, value.coerceIn(1280, 9_000)).commit()
     }
 
     fun appMode(context: Context): AppMode = runCatching {

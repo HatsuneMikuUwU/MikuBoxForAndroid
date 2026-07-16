@@ -55,6 +55,14 @@
     <string name="tools_and_info">工具與資訊</string>
     <string name="menu_home">首頁</string>
     <string name="settings">設定</string>
+    <string name="settings_language">語言</string>
+    <string name="language_system">系統預設</string>
+    <string name="language_english">English</string>
+    <string name="language_traditional_chinese">繁體中文</string>
+    <string name="language_simplified_chinese">简体中文</string>
+    <string name="language_french">Français</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_russian">Русский</string>
     <string name="menu_log">Logcat</string>
     <string name="desc_menu_log">檢視應用程式紀錄</string>
     <string name="menu_tools">工具</string>
