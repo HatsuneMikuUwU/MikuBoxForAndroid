@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/scan_code"
+        android:icon="@drawable/rmx_device_scan_line"
+        android:title=""
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/select_photo"
+        android:icon="@drawable/rmx_image_line"
+        android:title=""
+        app:showAsAction="ifRoom" />
+</menu>

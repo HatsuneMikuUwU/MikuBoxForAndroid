@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_ui_general"
+        android:title="@string/title_ui_general"
+        app:sectionIcon="@drawable/rmx_speed_line">
+
+         <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_global_line"
+            android:key="pref_show_realtime_traffic_ip"
+            android:summary="@string/summary_pref_show_realtime_traffic_ip"
+            android:title="@string/title_pref_show_realtime_traffic_ip"
+            app:layout="@layout/uwu_top_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+         <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_speed_line"
+            android:key="pref_traffic_enabled"
+            android:summary="@string/pref_traffic_enabled_summary"
+            android:title="@string/pref_traffic_enabled_title"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_information_line"
+            android:key="pref_disable_sensor_text"
+            android:summary="@string/pref_disable_sensor_text_summary"
+            android:title="@string/pref_disable_sensor_text_title"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_system_shield_check_line"
+            android:key="pref_network_security_enabled"
+            android:summary="@string/pref_network_security_enabled_summary"
+            android:title="@string/pref_network_security_enabled_title"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_router_line"
+            android:key="pref_show_isp_info"
+            android:summary="@string/summary_pref_show_isp_info"
+            android:title="@string/title_pref_show_isp_info"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:icon="@drawable/rmx_delete_bin_line"
+            android:key="pref_confirm_remove"
+            android:summary="@string/summary_pref_confirm_remove"
+            android:title="@string/title_pref_confirm_remove"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:icon="@drawable/rmx_qr_code_line"
+            android:key="pref_start_scan_immediate"
+            android:summary="@string/summary_pref_start_scan_immediate"
+            android:title="@string/title_pref_start_scan_immediate"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:icon="@drawable/rmx_group_line"
+            android:key="pref_group_all_display"
+            android:summary="@string/summary_pref_group_all_display"
+            android:title="@string/title_pref_group_all_display"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <Preference
+            android:dependency="pref_group_all_display"
+            android:icon="@drawable/rmx_apps_line"
+            android:key="pref_group_all_tab_icon"
+            android:title="@string/title_pref_group_all_tab_icon"
+            app:layout="@layout/uwu_mid" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/tab_badge_limit_entries"
+            android:entryValues="@array/tab_badge_limit_values"
+            android:icon="@drawable/rmx_system_notification_badge_line"
+            android:key="pref_tab_badge_limit"
+            android:summary="%s"
+            android:title="@string/title_pref_tab_badge_limit"
+            app:dialogIcon="@drawable/rmx_system_notification_badge_line"
+            app:layout="@layout/uwu_mid" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_grid_line"
+            android:key="pref_double_column_display"
+            android:summary="@string/summary_pref_double_column_display"
+            android:title="@string/title_pref_double_column_display"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_eye_off_line"
+            android:key="pref_hide_scroll_buttons"
+            android:summary="@string/summary_pref_hide_scroll_buttons"
+            android:title="@string/title_pref_hide_scroll_buttons"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_system_more_2_line"
+            android:key="pref_compact_list_actions"
+            android:summary="@string/summary_pref_compact_list_actions"
+            android:title="@string/title_pref_compact_list_actions"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_media_play_line"
+            android:key="pref_fab_extended"
+            android:summary="@string/summary_pref_fab_extended"
+            android:title="@string/title_pref_fab_extended"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <ListPreference
+            android:defaultValue=""
+            android:entries="@array/language_select"
+            android:entryValues="@array/language_select_value"
+            android:icon="@drawable/rmx_translate"
+            android:key="pref_language"
+            android:persistent="false"
+            android:summary="%s"
+            android:title="@string/title_language"
+            app:dialogIcon="@drawable/rmx_translate"
+            app:layout="@layout/uwu_bot" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_search_bar_chip"
+        android:title="@string/title_search_bar_chip"
+        app:sectionIcon="@drawable/rmx_search_line">
+
+        <androidx.preference.ListPreference
+            android:defaultValue="disabled"
+            android:entries="@array/search_bar_chip_entries"
+            android:entryValues="@array/search_bar_chip_values"
+            android:icon="@drawable/rmx_editor_list_check_3"
+            android:key="pref_search_bar_chip"
+            android:summary="%s"
+            android:title="@string/pref_search_bar_chip_title"
+            app:dialogIcon="@drawable/rmx_editor_list_check_3"
+            app:layout="@layout/uwu_top" />
+
+        <androidx.preference.ListPreference
+            android:defaultValue="true"
+            android:entries="@array/weather_unit_entries"
+            android:entryValues="@array/weather_unit_values"
+            android:icon="@drawable/rmx_temp_cold_line"
+            android:key="pref_weather_use_celsius"
+            android:summary="%s"
+            android:title="@string/pref_weather_unit_title"
+            app:dialogIcon="@drawable/rmx_temp_cold_line"
+            app:layout="@layout/uwu_mid" />
+
+        <androidx.preference.EditTextPreference
+            android:dialogMessage="@string/pref_weather_custom_location_dialog_message"
+            android:dialogTitle="@string/pref_weather_custom_location_title"
+            android:icon="@drawable/rmx_map_pin_line"
+            android:key="pref_weather_custom_location"
+            android:summary="@string/pref_weather_custom_location_summary_auto"
+            android:title="@string/pref_weather_custom_location_title"
+            app:dialogIcon="@drawable/rmx_map_pin_line"
+            app:layout="@layout/uwu_mid" />
+
+         <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_design_contrast_line"
+            android:key="pref_search_chip_gradient"
+            android:summary="@string/pref_search_chip_gradient_summary"
+            android:title="@string/pref_search_chip_gradient_title"
+            app:layout="@layout/uwu_bot_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_quick_actions"
+        android:title="@string/title_category_quick_actions"
+        app:sectionIcon="@drawable/rmx_speed_line">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_speed_line"
+            android:key="pref_show_quick_actions"
+            android:summary="@string/summary_pref_show_quick_actions"
+            android:title="@string/title_pref_show_quick_actions"
+            app:layout="@layout/uwu_sin_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_toolbar_style"
+        android:title="@string/title_category_toolbar_style"
+        app:sectionIcon="@drawable/rmx_align_center">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_align_center"
+            android:key="pref_toolbar_center_subtitle_mode"
+            android:summary="@string/summary_pref_toolbar_center_subtitle_mode"
+            android:title="@string/title_pref_toolbar_center_subtitle_mode"
+            app:layout="@layout/uwu_sin_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+</PreferenceScreen>

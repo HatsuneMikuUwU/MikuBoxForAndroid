@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mihomo_batch_test_unavailable">整份配置暂不支持批量测试。请连接后使用连接测试。</string>
+
+    <!-- 关于页与检查更新页的版本行：内嵌内核版本标明为 mihomo，以免被误认成第二个应用版本。 -->
+    <string name="version_line_with_core">v%1$s（mihomo %2$s）</string>
+</resources>

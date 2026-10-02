@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="tile_select_profile">Pilih profil terlebih dahulu</string>
+    <string name="tile_disconnected">Terputus</string>
+    <string name="tile_connecting">Menghubungkan…</string>
+    <string name="tile_connected">Terhubung</string>
+    <string name="tile_disconnecting">Memutuskan…</string>
+</resources>

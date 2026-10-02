@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingHorizontal="4dp">
+
+    <android.widget.GridLayout
+        android:id="@+id/grid_theme_colors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:padding="8dp"
+        android:rowOrderPreserved="true" />
+
+</ScrollView>

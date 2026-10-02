@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="mihomo_enabled">启用</string>
+    <string name="mihomo_disabled">关闭</string>
+    <string name="mihomo_geo_standard">标准加载器</string>
+    <string name="mihomo_geo_low_memory">低内存</string>
+    <string name="mihomo_process_always">始终查找进程</string>
+    <string name="mihomo_process_strict">仅在进程规则需要时查找</string>
+    <string name="mihomo_verify_tls">检验证书</string>
+    <string name="mihomo_skip_tls">跳过证书检验</string>
+    <string name="mihomo_tls_verification">TLS 证书检验</string>
+    <string name="mihomo_fingerprint">全局 TLS 客户端指纹</string>
+    <string name="mihomo_route_mode">代理路由模式</string>
+    <string name="mihomo_dns_hijack">DNS 劫持目标</string>
+    <string name="mihomo_dns_hijack_hint">以空格或换行分隔，例如 any:53 tcp://any:53。清空关闭劫持；关闭时应使用可达的 VPN DNS 服务器。重新连接后生效。</string>
+    <string name="mihomo_udp_timeout">TUN UDP 超时（秒）</string>
+    <string name="mihomo_icmp_timeout">TUN ICMP 超时（秒）</string>
+    <string name="mihomo_preview_core">路由模式、端口、局域网访问、嗅探、DNS 解析、Fake-IP 与 Geo 数据源</string>
+    <string name="mihomo_preview_vpn">IPv6、保持唤醒、DNS 劫持、TUN 栈、VPN 路由、MTU、分应用代理、超时与按需连接</string>
+    <string name="mihomo_preview_advanced">TCP 并发、统一延迟、进程查找、Geo 低内存、TLS、连接保活、配置覆写脚本与应用诊断</string>
+    <string name="mihomo_route_profile">使用配置中的包含路由</string>
+    <string name="mihomo_route_public">绕过私有网络</string>
+    <string name="mihomo_route_all">接管全部流量</string>
+    <string name="mihomo_route_custom">自定义包含路由</string>
+    <string name="mihomo_vpn_route_mode">VPN 路由模式</string>
+    <string name="mihomo_route_addresses">自定义 VPN 路由（CIDR，每行一项）</string>
+    <string name="mihomo_extra_hosts">Hosts（JSON）</string>
+    <string name="mihomo_extra_global_ua">核心下载 User-Agent</string>
+    <string name="mihomo_extra_authentication">HTTP/SOCKS 认证（每行 用户名:密码）</string>
+    <string name="mihomo_extra_dns_nameserver_policy">DNS 分流策略（JSON）</string>
+    <string name="mihomo_extra_dns_fallback_filter_ipcidr">Fallback 过滤 IP 网段</string>
+    <string name="mihomo_extra_dns_fallback_filter_geoip">Fallback 过滤 GeoIP</string>
+    <string name="mihomo_extra_external_controller">外部控制器</string>
+    <string name="mihomo_extra_external_controller_address">控制器监听地址</string>
+    <string name="mihomo_extra_external_controller_secret">控制器密钥</string>
+    <string name="mihomo_process_requirement">需要 Android 10 或更高版本，且 VPN 已连接</string>
+    <string name="mihomo_performance">Mihomo 性能与连接</string>
+    <string name="mihomo_app_diagnostics">应用与诊断</string>
+    <string name="mihomo_append_system">追加系统 DNS · dns.append-system</string>
+    <string name="mihomo_filter_country">备用 DNS 过滤地区 · dns.fallback-filter.geoip-code</string>
+    <string name="mihomo_filter_geosite">备用 DNS 站点分类 · dns.fallback-filter.geosite</string>
+    <string name="mihomo_filter_domain">备用 DNS 域名过滤 · dns.fallback-filter.domain</string>
+    <string name="mihomo_allow_bypass">允许应用绕过 VPN · vpn.allow-bypass</string>
+    <string name="mihomo_ipv6_inbound">接管 IPv6 流量 · vpn.ipv6-inbound</string>
+    <string name="mihomo_proxy_exclusions">系统代理绕过域名 · vpn.proxy-exclusions</string>
+</resources>

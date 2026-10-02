@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_network"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/server_lab_network"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:endIconDrawable="@drawable/ic_dropdown_selector"
+        app:endIconMode="dropdown_menu"
+        app:endIconTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_device_network_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/sp_network"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textColor="?attr/colorOnSurface"
+            app:simpleItems="@array/networks" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_header_type"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_head_type"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:endIconDrawable="@drawable/ic_dropdown_selector"
+        app:endIconMode="dropdown_menu"
+        app:endIconTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_network"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_document_file_list_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/sp_header_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_request_host"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_request_host"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_header_type"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_device_server_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_request_host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_path"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_path"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_request_host"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_route_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_kcp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_path">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/server_lab_kcp_mtu"
+            app:boxStrokeWidth="1.5dp"
+            app:boxStrokeWidthFocused="1.5dp"
+            app:helperText="@string/server_lab_kcp_mtu_tip"
+            app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+            app:startIconDrawable="@drawable/rmx_arrows_expand_width_line"
+            app:startIconTint="?attr/colorOnSurfaceVariant">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_kcp_mtu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="?attr/colorOnSurface" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_spacing_dp16"
+            android:hint="@string/server_lab_kcp_tti"
+            app:boxStrokeWidth="1.5dp"
+            app:boxStrokeWidthFocused="1.5dp"
+            app:helperText="@string/server_lab_kcp_tti_tip"
+            app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+            app:startIconDrawable="@drawable/rmx_system_timer_line"
+            app:startIconTint="?attr/colorOnSurfaceVariant">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_kcp_tti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="?attr/colorOnSurface" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_extra"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_xhttp_extra"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:helperText="@string/server_lab_xhttp_extra_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_kcp"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_development_code_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_extra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:minLines="4"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_fm"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_final_mask"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:helperText="@string/server_lab_final_mask_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_extra"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_development_code_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_fm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:minLines="1"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_browser_dialer"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_browser_dialer"
+        android:visibility="gone"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:endIconDrawable="@drawable/ic_dropdown_selector"
+        app:endIconMode="dropdown_menu"
+        app:endIconTint="?attr/colorOnSurfaceVariant"
+        app:helperText="@string/server_lab_browser_dialer_tip"
+        app:helperTextEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_fm"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_business_window_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/sp_browser_dialer_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textColor="?attr/colorOnSurface"
+            app:simpleItems="@array/browser_dialer_mode" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

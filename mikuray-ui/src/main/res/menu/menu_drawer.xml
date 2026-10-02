@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:id="@+id/group_main">
+        <item
+            android:id="@+id/sub_setting"
+            android:icon="@drawable/rmx_rss_line"
+            android:title="@string/title_sub_setting" />
+        <item
+            android:id="@+id/per_app_proxy_settings"
+            android:icon="@drawable/rmx_apps_line"
+            android:title="@string/per_app_proxy_settings" />
+        <item
+            android:id="@+id/routing_setting"
+            android:icon="@drawable/rmx_map_route_line"
+            android:title="@string/routing_settings_title" />
+        <item
+            android:id="@+id/user_asset_setting"
+            android:icon="@drawable/rmx_file_line"
+            android:title="@string/title_user_asset_setting" />
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/rmx_settings_line"
+            android:title="@string/title_settings" />
+    </group>
+
+    <group android:id="@+id/group_id2">
+        <item
+            android:id="@+id/promotion"
+            android:icon="@drawable/rmx_business_megaphone_line"
+            android:title="@string/title_pref_promotion" />
+        <item
+            android:id="@+id/logcat"
+            android:icon="@drawable/rmx_development_terminal_box_line"
+            android:title="@string/title_logcat" />
+        <item
+            android:id="@+id/check_for_update"
+            android:icon="@drawable/rmx_device_restart_line"
+            android:title="@string/update_check_for_update" />
+        <item
+            android:id="@+id/backup_restore"
+            android:icon="@drawable/rmx_history_line"
+            android:title="@string/title_configuration_backup_restore" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/rmx_information_line"
+            android:title="@string/title_about" />
+        <item
+            android:id="@+id/placeholder"
+            android:enabled="false"
+            android:title="" />
+    </group>
+</menu>

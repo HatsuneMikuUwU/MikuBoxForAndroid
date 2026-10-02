@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- N27: same-name override of zxing-lite's zxl_camera_scan (3.5.0). The
+     library's own layout sets android:contentDescription="@null" on the
+     flashlight, leaving an unlabeled clickable button to screen readers.
+     Copy kept byte-identical otherwise; update it together with the
+     zxingLite version in gradle/libs.versions.toml. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.king.view.viewfinderview.ViewfinderView
+        android:id="@+id/viewfinderView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/ivFlashlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/camera_scan_flashlight_margin_top"
+        android:contentDescription="@string/qr_flashlight_toggle"
+        android:src="@drawable/camera_scan_flashlight_selector" />
+</FrameLayout>

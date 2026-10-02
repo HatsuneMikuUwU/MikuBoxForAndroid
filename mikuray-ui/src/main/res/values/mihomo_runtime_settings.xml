@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="mihomo_enabled">Enabled</string>
+    <string name="mihomo_disabled">Disabled</string>
+    <string name="mihomo_geo_standard">Standard loader</string>
+    <string name="mihomo_geo_low_memory">Low memory (memconservative)</string>
+    <string name="mihomo_process_always">Always look up processes</string>
+    <string name="mihomo_process_strict">Look up when process rules require it</string>
+    <string name="mihomo_verify_tls">Verify certificates</string>
+    <string name="mihomo_skip_tls">Skip certificate verification</string>
+    <string name="mihomo_tls_verification">TLS certificate verification</string>
+    <string name="mihomo_fingerprint">Global TLS client fingerprint</string>
+    <string name="mihomo_route_mode">Proxy routing mode</string>
+    <string name="mihomo_dns_hijack">DNS hijacking destinations</string>
+    <string name="mihomo_dns_hijack_hint">Separate entries with spaces or newlines, e.g. any:53 tcp://any:53. Clear to disable hijacking; use a reachable VPN DNS server when disabled. Reconnect to apply.</string>
+    <string name="mihomo_udp_timeout">TUN UDP timeout (seconds)</string>
+    <string name="mihomo_icmp_timeout">TUN ICMP timeout (seconds)</string>
+    <string name="mihomo_preview_core">Routing mode, ports, LAN access, sniffing, DNS resolvers, Fake-IP and Geo data sources</string>
+    <string name="mihomo_preview_vpn">IPv6, keep awake, DNS hijacking, TUN stack, VPN routes, MTU, per-app proxy, timeouts and on-demand connection</string>
+    <string name="mihomo_preview_advanced">TCP concurrency, unified delay, process lookup, low-memory Geo loader, TLS, keep-alive, configuration scripts and app diagnostics</string>
+    <string name="mihomo_route_profile">Use profile include routes</string>
+    <string name="mihomo_route_public">Bypass private networks</string>
+    <string name="mihomo_route_all">Route all traffic</string>
+    <string name="mihomo_route_custom">Custom include routes</string>
+    <string name="mihomo_vpn_route_mode">VPN route mode</string>
+    <string name="mihomo_route_addresses">Custom VPN routes (CIDR, one per line)</string>
+    <string name="mihomo_extra_hosts">Hosts (JSON)</string>
+    <string name="mihomo_extra_global_ua">Core download User-Agent</string>
+    <string name="mihomo_extra_authentication">HTTP/SOCKS authentication (user:password per line)</string>
+    <string name="mihomo_extra_dns_nameserver_policy">DNS nameserver policy (JSON)</string>
+    <string name="mihomo_extra_dns_fallback_filter_ipcidr">Fallback filter IP ranges</string>
+    <string name="mihomo_extra_dns_fallback_filter_geoip">Fallback filter GeoIP</string>
+    <string name="mihomo_extra_external_controller">External controller</string>
+    <string name="mihomo_extra_external_controller_address">Controller listen address</string>
+    <string name="mihomo_extra_external_controller_secret">Controller secret</string>
+    <string name="mihomo_process_requirement">Requires Android 10 or later and an active VPN</string>
+    <string name="mihomo_performance">Mihomo performance and connections</string>
+    <string name="mihomo_app_diagnostics">App and diagnostics</string>
+    <string name="mihomo_append_system">Append system DNS</string>
+    <string name="mihomo_filter_country">Fallback DNS region</string>
+    <string name="mihomo_filter_geosite">Fallback DNS site categories</string>
+    <string name="mihomo_filter_domain">Fallback DNS domain filter</string>
+    <string name="mihomo_allow_bypass">Allow apps to bypass VPN</string>
+    <string name="mihomo_ipv6_inbound">IPv6 inbound</string>
+    <string name="mihomo_proxy_exclusions">System proxy excluded domains</string>
+</resources>

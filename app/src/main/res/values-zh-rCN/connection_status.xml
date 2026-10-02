@@ -1,0 +1,7 @@
+<resources>
+    <string name="tile_select_profile">请先选择配置</string>
+    <string name="tile_disconnected">未连接</string>
+    <string name="tile_connecting">正在连接…</string>
+    <string name="tile_connected">已连接</string>
+    <string name="tile_disconnecting">正在断开…</string>
+</resources>

@@ -1,0 +1,1747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="test_build_info_title">测试版本</string>
+    <string name="test_build_info_message">这是 MikuRay 的测试构建版。如果发现错误，请通知群主或在 Telegram 群组中通过@群主进行反馈。\n\nTelegram 频道：%1$s</string>
+    <string name="test_build_info_channel">@uwuowoumuchannel</string>
+    <string name="test_build_info_dont_show_again">不再显示</string>
+    <string name="app_widget_name">开关</string>
+    <string name="widget_status_connected">已连接</string>
+    <string name="widget_status_disconnected">未连接</string>
+    <string name="widget_no_server_selected">未选择服务器</string>
+    <string name="empty_server_list_title">暂无配置</string>
+    <string name="empty_server_list_message">暂无配置，请添加一个配置</string>
+    <string name="empty_subscription_list_title">暂无订阅</string>
+    <string name="empty_subscription_list_message">暂无订阅，请添加一个订阅</string>
+    <string name="empty_routing_list_title">暂无路由规则</string>
+    <string name="empty_routing_list_message">暂无路由规则，请添加一条规则</string>
+    <string name="app_tile_name">开关</string>
+    <string name="app_tile_first_use">初次使用此功能请先用 APP 添加配置</string>
+    <string name="navigation_drawer_open">打开导航栏</string>
+    <string name="navigation_drawer_close">关闭导航栏</string>
+    <string name="migration_success">数据迁移成功!</string>
+    <string name="action_stop_service">停止服务</string>
+    <string name="migration_fail">数据迁移失败啦!</string>
+    <string name="pull_down_to_refresh">请下拉刷新!</string>
+
+    <string name="notification_action_stop_v2ray">停止</string>
+    <string name="notification_connect_time">时长 : %s</string>
+    <string formatted="false" name="notification_data_usage">总计 : ↑ %s  ↓ %s</string>
+    <string name="toast_permission_denied">无法取得权限</string>
+    <string name="toast_permission_denied_notification">无法取得通知权限</string>
+    <string name="notification_action_more">点击了解更多</string>
+    <string name="toast_services_start">启动服务</string>
+    <string name="toast_services_stop">关闭服务</string>
+    <string name="toast_services_success">启动服务成功</string>
+    <string name="toast_services_restart_success">服务重启成功</string>
+    <string name="toast_services_failure">启动服务失败</string>
+
+    <string name="title_server">配置项</string>
+    <string name="menu_item_add_config">添加配置</string>
+    <string name="menu_item_save_config">保存配置</string>
+    <string name="menu_item_edit_config">编辑配置</string>
+    <string name="menu_item_del_config">删除配置</string>
+    <string name="menu_item_import_config_qrcode">扫描二维码</string>
+    <string name="menu_item_import_config_clipboard">从剪贴板导入</string>
+    <string name="menu_item_import_config_local">从本地导入</string>
+    <string name="menu_item_import_config_policy_group">添加 [策略组]</string>
+    <string name="menu_item_import_config_manually_vmess">添加 [VMess]</string>
+    <string name="menu_item_import_config_manually_vless">添加 [VLESS]</string>
+    <string name="menu_item_import_config_manually_ss">添加 [Shadowsocks]</string>
+    <string name="menu_item_import_config_manually_socks">添加 [SOCKS]</string>
+    <string name="menu_item_import_config_manually_http">添加 [HTTP]</string>
+    <string name="menu_item_import_config_manually_trojan">添加 [Trojan]</string>
+    <string name="menu_item_import_config_manually_wireguard">添加 [Wireguard]</string>
+    <string name="menu_item_import_config_manually_hysteria2">添加 [Hysteria2]</string>
+    <string name="menu_item_import_config_proxy_chain">添加 [链式代理]</string>
+    <string name="del_config_comfirm">确认删除？</string>
+    <string name="del_invalid_config_comfirm">删除前请先测试！确认删除？</string>
+    <string name="server_lab_remarks">别名 (remarks)</string>
+    <string name="server_lab_address">地址 (address)</string>
+    <string name="server_lab_port">端口 (port)</string>
+    <string name="server_lab_id">用户 ID (id)</string>
+    <string name="server_lab_alterid">额外 ID (alterId)</string>
+    <string name="server_lab_security">加密方式 (security)</string>
+    <string name="server_lab_network">传输协议 (network)</string>
+    <string name="server_lab_more_function">底层传输方式 (transport)</string>
+    <string name="server_lab_head_type">伪装类型 (type)</string>
+    <string name="server_lab_mode_type">gRPC 传输模式 (mode)</string>
+    <string name="server_lab_request_host">伪装域名 (host)</string>
+    <string name="server_lab_request_host_http">http host</string>
+    <string name="server_lab_request_host_ws">ws host</string>
+    <string name="server_lab_request_host_httpupgrade">httpupgrade host</string>
+    <string name="server_lab_request_host_xhttp">xhttp host</string>
+    <string name="server_lab_request_host_h2">h2 host</string>
+    <string name="server_lab_request_host_quic">QUIC 加密方式</string>
+    <string name="server_lab_request_host_grpc">gRPC Authority</string>
+    <string name="server_lab_path">path</string>
+    <string name="server_lab_path_ws">ws path</string>
+    <string name="server_lab_path_httpupgrade">httpupgrade path</string>
+    <string name="server_lab_path_xhttp">xhttp path</string>
+    <string name="server_lab_path_h2">h2 path</string>
+    <string name="server_lab_path_quic">QUIC 加密密钥</string>
+    <string name="server_lab_path_kcp">kcp seed</string>
+    <string name="server_lab_path_grpc">gRPC serviceName</string>
+    <string name="server_lab_stream_security">传输层安全 (TLS)</string>
+    <string name="server_lab_stream_fingerprint">Fingerprint</string>
+    <string name="server_lab_stream_alpn">Alpn</string>
+    <string name="server_lab_allow_insecure">跳过证书验证 (allowInsecure)</string>
+    <string name="server_lab_sni">SNI</string>
+    <string name="server_lab_address3">服务器地址</string>
+    <string name="server_lab_port3">服务器端口</string>
+    <string name="server_lab_id3">密码</string>
+    <string name="server_lab_security3">加密方式</string>
+    <string name="server_lab_id4">密码</string>
+    <string name="server_lab_id4_tip">可选</string>
+    <string name="server_lab_security4">用户名</string>
+    <string name="server_lab_security4_tip">可选</string>
+    <string name="server_lab_encryption">加密方式 (encryption)</string>
+    <string name="server_lab_flow">流控 (flow)</string>
+    <string name="server_lab_public_key">PublicKey</string>
+    <string name="server_lab_preshared_key">PreSharedKey</string>
+    <string name="server_lab_preshared_key_tip">Optional</string>
+    <string name="server_lab_short_id">ShortId</string>
+    <string name="server_lab_spider_x">SpiderX</string>
+    <string name="server_lab_mldsa65_verify">Mldsa65Verify</string>
+    <string name="server_lab_secret_key">SecretKey</string>
+    <string name="server_lab_reserved">Reserved</string>
+    <string name="server_lab_reserved_tip">可选，逗号隔开</string>
+    <string name="server_lab_local_address">本地地址</string>
+    <string name="server_lab_local_address_tip">可选 IPv4/IPv6，逗号隔开</string>
+    <string name="server_lab_local_mtu">Mtu</string>
+    <string name="server_lab_local_mtu_tip">可选, 默认 1420</string>
+    <string name="server_lab_kcp_mtu">mKCP MTU</string>
+    <string name="server_lab_kcp_mtu_tip">可选, 默认 1350</string>
+    <string name="server_lab_kcp_tti">mKCP TTI</string>
+    <string name="server_lab_kcp_tti_tip">可选, 默认 50</string>
+    <string name="toast_success">成功</string>
+    <string name="toast_delete_success">删除成功</string>
+    <string name="toast_failure">失败</string>
+    <string name="toast_none_data">没有数据</string>
+    <string name="toast_incorrect_protocol">不正确的协议</string>
+    <string name="toast_decoding_failed">解码失败</string>
+    <string name="title_file_chooser">选择一个配置</string>
+    <string name="toast_require_file_manager">请安装一个文件管理器</string>
+    <string name="server_customize_config">自定义配置</string>
+    <string name="toast_config_file_invalid">无效的配置</string>
+    <string name="server_lab_content">内容</string>
+    <string name="toast_none_data_clipboard">剪贴板中没有数据</string>
+    <string name="toast_invalid_url">无效的网址</string>
+    <string name="toast_insecure_url_protocol">请不要使用不安全的 HTTP 协议订阅地址</string>
+    <string name="server_lab_need_inbound">确保 inbounds port 和设置中的一致</string>
+    <string name="toast_malformed_josn">配置格式错误</string>
+    <string name="server_lab_request_host6">Host (SNI) (可选)</string>
+    <string name="toast_action_not_allowed">禁止此项操作</string>
+    <string name="server_obfs_password">混淆密码</string>
+    <string name="server_lab_port_hop">跳跃端口</string>
+    <string name="server_lab_port_hop_tip">会覆盖服务器端口</string>
+    <string name="server_lab_port_hop_interval">端口跳跃间隔 (秒)</string>
+    <string name="server_lab_bandwidth_down">带宽下行</string>
+    <string name="server_lab_bandwidth_down_tip">支持的单位 k/m/g/t</string>
+    <string name="server_lab_bandwidth_up">带宽上行</string>
+    <string name="server_lab_bandwidth_up_tip">支持的单位 k/m/g/t</string>
+    <string name="server_lab_xhttp_mode">XHTTP 模式</string>
+    <string name="server_lab_xhttp_extra">XHTTP Extra</string>
+    <string name="server_lab_xhttp_extra_tip">原始 JSON，格式： { XHTTPObject }</string>
+    <string name="server_lab_final_mask">FinalMask</string>
+    <string name="server_lab_final_mask_tip">原始 JSON 格式: { FinalMaskObject }</string>
+    <string name="server_lab_ech_config_list">EchConfigList</string>
+    <string name="server_lab_verify_peer_cert_by_name">Verify Peer Cert By Name</string>
+    <string name="server_lab_pinned_ca256">证书指纹</string>
+    <string name="server_lab_pinned_ca256_tip">SHA-256</string>
+    <string name="pinned_ca256_action_fetch">获取并填充证书指纹</string>
+    <string name="toast_fetch_cert_sha256_success">证书指纹获取成功</string>
+    <string name="toast_fetch_cert_sha256_failed">获取证书指纹失败</string>
+    <string name="server_lab_browser_dialer">启用 Browser Dialer</string>
+    <string name="server_lab_browser_dialer_tip">仅支持 xhttp（packet-up）和 ws 出站；TLS 相关设置可能被忽略或冲突</string>
+
+    <string name="toast_asset_copy_failed">失败, 请使用文件管理器</string>
+    <string name="menu_item_add_file">添加文件</string>
+    <string name="menu_item_scan_qrcode">扫描 QRcode</string>
+    <string name="title_url">URL</string>
+    <string name="menu_item_download_file">下载文件</string>
+    <string name="title_user_asset_add_url">添加资产网址</string>
+    <string name="msg_file_not_found">文件未找到</string>
+    <string name="msg_remark_is_duplicate">备注已经存在</string>
+    <string name="asset_geo_files_sources">Geo 文件来源</string>
+
+    <string name="msg_dialog_progress">正在加载</string>
+    <string name="menu_item_search">搜索</string>
+    <string name="menu_item_select_all">全选</string>
+    <string name="menu_item_invert_selection">反选</string>
+    <string name="msg_enter_keywords">输入关键字</string>
+    <string name="switch_bypass_apps_mode">绕行模式</string>
+    <string name="menu_item_select_proxy_app">自动选中需代理应用</string>
+    <string name="msg_downloading_content">正在下载内容</string>
+    <string name="menu_item_export_proxy_app">导出至剪贴板</string>
+    <string name="menu_item_import_proxy_app">从剪贴板导入</string>
+    <string name="per_app_proxy_settings">分应用设置</string>
+    <string name="per_app_proxy_settings_enable">启用分应用</string>
+    <string name="per_app_system_app_name">%1$s（系统）</string>
+
+    <string name="title_settings">设置</string>
+    <string name="title_advanced">进阶设置</string>
+    <string name="title_core_settings">核心设置</string>
+    <string name="title_vpn_settings">VPN 设置</string>
+    <string name="title_pref_per_app_proxy">分应用</string>
+    <string name="summary_pref_per_app_proxy">常规: 勾选的 App 被代理, 未勾选的直连;\n绕行模式: 勾选的 App 直连, 未勾选的被代理.\n不明白者在菜单中选择自动选中需代理应用</string>
+    <string name="title_pref_is_booted">设备开机后连接</string>
+    <string name="summary_pref_is_booted">设备启动后自动连接到所选服务器。Android 可能会限制后台启动。</string>
+    <string name="title_system_vpn_settings">系统 VPN 设置</string>
+    <string name="summary_system_vpn_settings">打开 Android VPN 设置以配置始终在线 VPN（如果此设备支持）。</string>
+    <string name="toast_system_vpn_settings_unavailable">系统 VPN 设置不可用。</string>
+
+    <string name="subscription_updater_job_tips">任务将在后台运行，在通知中会显示进度信息</string>
+    <string name="summary_pref_update_subscription">关闭后跳过重新获取订阅内容，仅测试/排序现有服务器。</string>
+    <string name="title_pref_auto_test_after_update_subscription">更新订阅后自动测试</string>
+    <string name="summary_pref_auto_test_after_update_subscription">自动测试需要比较长的时间，开启后任务将在后台运行；不开启则在当前页面运行</string>
+    <string name="title_pref_auto_remove_invalid_after_test">测试后自动删除无效配置</string>
+    <string name="summary_pref_auto_remove_invalid_after_test">测试结果可能不准确；已删除的配置无法恢复。</string>
+
+    <string name="server_lab_mux">Mux 多路复用</string>
+    <string name="server_lab_mux_enabled">启用 Mux 多路复用</string>
+    <string name="server_lab_mux_concurrency">TCP 复用子链接数</string>
+    <string name="server_lab_mux_xudp_concurrency">XUDP 复用子链接数</string>
+    <string name="server_lab_mux_concurrency_tip">可填 -1 至 1024</string>
+    <string name="server_lab_mux_xudp_quic">QUIC 流量处理方式</string>
+
+    <string name="title_pref_speed_enabled">启用速度显示</string>
+    <string name="summary_pref_speed_enabled">在通知中显示当前速度\n小图标显示流量的路由情况</string>
+    <string name="title_pref_hide_direct_traffic_notification">隐藏直连流量</string>
+    <string name="summary_pref_hide_direct_traffic_notification">在通知中隐藏直连流量统计,只显示代理流量。</string>
+    <string name="title_pref_show_group_name_notification">在通知中显示分组名称</string>
+    <string name="summary_pref_show_group_name_notification">在通知的服务器标题旁显示订阅分组名称。</string>
+
+    <string name="title_pref_show_realtime_traffic_ip">用实时流量替代IP显示</string>
+    <string name="summary_pref_show_realtime_traffic_ip">将主页的IP文字替换为实时上传/下载速度，和通知栏一样。</string>
+    <string name="summary_pref_disabled_realtime_traffic_ip">启用“%1$s”时此项已禁用。</string>
+
+    <string name="title_pref_sniffing_enabled">启用流量探测</string>
+    <string name="summary_pref_sniffing_enabled">从流量中探测域名 (默认启用)</string>
+    <string name="title_pref_route_only_enabled">启用 routeOnly</string>
+    <string name="summary_pref_route_only_enabled">将嗅探得到的域名仅用于路由，代理目标地址仍为 IP</string>
+
+    <string name="title_pref_local_dns_enabled">启用本地 DNS</string>
+    <string name="summary_pref_local_dns_enabled">DNS 请求导入 core 由 DNS 模块处理（推荐启用 如果需要路由绕过局域网及大陆地址)</string>
+
+    <string name="title_pref_fake_dns_enabled">启用虚拟 DNS</string>
+    <string name="summary_pref_fake_dns_enabled">本地返回虚构解析结果 (减低延时 但个别应用可能无法使用)</string>
+    <string name="title_pref_fake_dns_ip_pool">FakeIP 地址范围</string>
+    <string name="summary_pref_fake_dns_ip_pool">用于虚拟 DNS 地址的 IPv4 CIDR。请使用私有基准测试范围，例如 198.18.0.0/15。</string>
+    <string name="error_invalid_fake_dns_ip_pool">请输入从 /1 到 /30 的有效 IPv4 CIDR，例如 198.18.0.0/15。</string>
+
+    <string name="title_pref_ipv6_enabled">启用 IPv6</string>
+    <string name="summary_pref_ipv6_enabled">为 VPN 接口添加 IPv6 地址和路由</string>
+
+    <string name="title_pref_prefer_ipv6">IPv6 优先</string>
+    <string name="summary_pref_prefer_ipv6">解析域名时优先使用 IPv6 地址</string>
+
+    <string name="title_pref_remote_dns">远程 DNS</string>
+
+    <string name="title_pref_remote_dns_tip">udp/tcp/https/quic，可选。多个服务器用英文逗号分隔，例如 8.8.8.8,1.1.1.1</string>
+    <string name="summary_pref_remote_dns">DNS</string>
+
+    <string name="title_pref_vpn_dns">VPN DNS</string>
+
+    <string name="title_pref_vpn_dns_tip">仅支持 IPv4/v6</string>
+    <string name="title_pref_vpn_bypass_lan">VPN 是否绕过局域网</string>
+
+    <string name="title_pref_vpn_interface_address">VPN 接口地址</string>
+    <string name="title_pref_vpn_mtu">VPN MTU</string>
+    <string name="title_pref_vpn_mtu_tip">默认 1500</string>
+
+    <string name="title_pref_domestic_dns">境内 DNS</string>
+
+    <string name="title_pref_domestic_dns_tip">可选。多个服务器用英文逗号分隔，例如 223.5.5.5,119.29.29.29</string>
+    <string name="summary_pref_domestic_dns">DNS</string>
+
+    <string name="title_pref_dns_hosts">DNS hosts</string>
+
+    <string name="title_pref_dns_hosts_tip">格式: 域名: 地址,…</string>
+    <string name="summary_pref_dns_hosts">domain: address,…</string>
+
+    <string name="title_pref_delay_test_url">真连接延迟测试网址 </string>
+    <string name="summary_pref_delay_test_url">Url</string>
+
+    <string name="title_pref_ip_api_url">当前连接信息测试网址</string>
+    <string name="summary_pref_ip_api_url">URL</string>
+    <string name="title_pref_show_isp_info">显示运营商名称</string>
+    <string name="summary_pref_show_isp_info">在检测到的 IP 旁显示运营商/组织名称</string>
+    <string name="title_pref_hide_scroll_buttons">隐藏悬浮滚动按钮</string>
+    <string name="summary_pref_hide_scroll_buttons">隐藏服务器列表上悬浮的滚动到顶部/底部/选中项按钮。开启后，可在 \"更多\" 菜单中使用「前往选中的配置」代替</string>
+    <string name="title_pref_compact_list_actions">将服务器操作收纳到更多菜单</string>
+    <string name="summary_pref_compact_list_actions">在列表模式下隐藏每行服务器的分享/编辑/删除按钮，改为通过一个更多按钮访问，和网格模式一样。</string>
+    <string name="title_pref_fab_extended">扩展连接按钮</string>
+    <string name="summary_pref_fab_extended">VPN 连接时在连接按钮上显示连接计时</string>
+
+    <string name="title_pref_proxy_sharing_enabled">允许来自局域网的连接</string>
+    <string name="summary_pref_proxy_sharing_enabled">其他设备可以使用 socks/http 协议通过您的 IP 地址连接到代理, 仅在受信任的网络中启用以避免未经授权的连接</string>
+    <string name="toast_warning_pref_proxysharing_short">允许来自局域网的连接，请确保处于受信网络</string>
+     <string name="title_pref_socks_port">本地代理端口</string>
+    <string name="title_pref_enable_local_proxy">启用本地代理</string>
+    <string name="summary_pref_enable_local_proxy">不开启时没有 socks 代理，无法通过代理更新订阅等</string>
+    <string name="title_pref_socks_enable_udp">SOCKS5 UDP</string>
+    <string name="summary_pref_socks_enable_udp">使用 UDP 时，socks5 认证并不完全安全</string>
+     <string name="summary_pref_socks_port">本地代理端口</string>
+     <string name="title_pref_dynamic_socks_port">启用动态本地代理端口</string>
+     <string name="summary_pref_dynamic_socks_port">每次生成 inbound 时随机生成一个本地代理端口</string>
+     <string name="title_pref_socks_username">本地代理用户名</string>
+     <string name="title_pref_socks_username_tip">可选</string>
+     <string name="summary_pref_socks_username">用户名</string>
+     <string name="title_pref_socks_password">本地代理密码</string>
+     <string name="title_pref_socks_password_tip">可选</string>
+     <string name="summary_pref_socks_password">密码</string>
+
+     <string name="title_pref_local_dns_port">本地 DNS 端口</string>
+    <string name="summary_pref_local_dns_port">本地 DNS 端口</string>
+
+    <string name="title_pref_confirm_remove">删除配置确认</string>
+    <string name="summary_pref_confirm_remove">删除配置是否需要用户二次确认</string>
+
+    <string name="title_pref_start_scan_immediate">立即启动扫码</string>
+    <string name="summary_pref_start_scan_immediate">启动时立即打开相机扫描，否则可在工具栏选择扫码或选照片</string>
+
+    <string name="title_pref_append_http_proxy">追加 HTTP 代理至 VPN</string>
+    <string name="summary_pref_append_http_proxy">浏览器 / 一些支持的应用 将直接使用 HTTP 代理, 而不经过虚拟网卡设备 (Android 10+)</string>
+
+    <string name="title_pref_double_column_display">启用双列显示</string>
+    <string name="summary_pref_double_column_display">配置列表以双列显示，可在屏幕上展示更多内容。</string>
+
+    <string name="title_pref_group_all_display">启用显示所有组</string>
+    <string name="summary_pref_group_all_display">添加一个额外的“所有选项卡”页面</string>
+    <string name="title_pref_group_all_tab_icon">\"全部\" 标签图标</string>
+    <string name="title_pref_tab_badge_limit">标签页徽章数量上限</string>
+    <string name="tab_badge_limit_unlimited">无限制</string>
+
+    <string name="title_pref_feedback">反馈</string>
+    <string name="summary_pref_feedback">反馈改进或漏洞至 GitHub</string>
+    <string name="summary_pref_tg_group">加入 Telegram Group</string>
+    <string name="toast_tg_app_not_found">未找到 Telegram app</string>
+    <string name="title_privacy_policy">隐私权政策</string>
+    <string name="title_qr_code">二维码</string>
+    <string name="title_about">关于</string>
+    <string name="title_source_code">源代码</string>
+    <string name="title_oss_license">Open Source licenses</string>
+    <string name="title_tg_channel">Telegram 频道</string>
+
+    <string name="title_pref_promotion">推广</string>
+
+    <string name="title_pref_auto_update_subscription">自动更新订阅</string>
+    <string name="subscription_update_background_start">正在后台更新订阅</string>
+    <string name="subscription_update_updating">正在更新订阅：%s</string>
+    <string name="subscription_update_progress">真实延迟：%1$s — %2$s</string>
+    <string name="summary_pref_auto_update_subscription">在后台按一定时间间隔自动更新您的订阅。受设备影响，此功能不一定总是有效</string>
+    <string name="title_pref_auto_update_interval">自动更新间隔</string>
+    <string name="title_pref_auto_update_interval_tip">分钟，最小值 15</string>
+
+    <string name="title_core_loglevel">日志级别</string>
+    <string name="title_outbound_domain_resolve_method">Outbound 域名预解析方式</string>
+    <string name="title_mode">模式</string>
+    <string name="title_mode_help">点此查看更多帮助</string>
+    <string name="title_language">语言</string>
+    <string name="title_ui_settings">应用与外观</string>
+    <string name="title_ui_home">主界面与列表</string>
+    <string name="subtitle_ui_home">主屏幕、列表与搜索栏</string>
+    <string name="summary_navigate_ui_home">主屏幕行为、列表与搜索栏组件</string>
+    <string name="title_ui_banner">横幅与个性化</string>
+    <string name="subtitle_ui_banner">横幅、个人资料与图片</string>
+    <string name="summary_navigate_ui_banner">主页与底部横幅、选中样式与个人资料</string>
+    <string name="title_ui_alerts">通知与声音</string>
+    <string name="subtitle_ui_alerts">通知与连接提示音</string>
+    <string name="summary_navigate_ui_alerts">速度通知与连接提示音</string>
+    <string name="title_about_update">关于应用与更新</string>
+    <string name="subtitle_about_update">版本信息与更新设置</string>
+    <string name="summary_navigate_about_update">版本信息、检查更新与启动自动检查</string>
+    <string name="title_about_update_category">更新</string>
+    <string name="title_pref_auto_check_update">启动时自动检查更新</string>
+    <string name="summary_pref_auto_check_update">每次冷启动时检查 GitHub 上是否有新版本</string>
+    <string name="update_available_toast">发现新版本 %1$s</string>
+    <string name="title_pref_ui_mode_night">界面颜色设置</string>
+    <string name="title_pref_use_hev_tunnel">启用 Hev TUN 功能</string>
+    <string name="summary_pref_use_hev_tunnel">选择启用后 TUN 将使用 hev-socks5-tunnel 否则使用 xray-core</string>
+    <string name="title_category_hev_tunnel">Hev 隧道</string>
+    <string name="title_pref_hev_tunnel_loglevel">HevTun 日志级别</string>
+    <string name="title_pref_hev_tunnel_rw_timeout">HevTun 读写超时</string>
+    <string name="title_pref_hev_tunnel_rw_timeout_tip">秒, tcp,udp 默认 300,60</string>
+    <string name="title_pref_hev_tunnel_icmp">ICMP 回显 (ping)</string>
+    <string name="summary_pref_hev_tunnel_icmp">通过隧道回复 ICMP echo 请求</string>
+    <string name="title_pref_hev_tunnel_udp_mode">UDP 中继模式</string>
+    <string name="summary_pref_hev_tunnel_udp_mode">UDP 数据包通过 SOCKS5 代理转发的方式</string>
+    <string name="title_pref_hev_tunnel_udp_address">覆盖 UDP 中继地址</string>
+    <string name="title_pref_hev_tunnel_udp_address_tip">可选。覆盖 SOCKS5 服务器返回的 UDP 地址。留空则使用服务器提供的值。</string>
+    <string name="title_pref_hev_tunnel_tcp_fastopen">TCP 快速打开</string>
+    <string name="summary_pref_hev_tunnel_tcp_fastopen">在支持的网络上降低连接延迟</string>
+    <string name="title_pref_hev_tunnel_pipeline">SOCKS5 握手流水线</string>
+    <string name="summary_pref_hev_tunnel_pipeline">实验性功能。将 SOCKS5 握手流水线化以减少往返次数</string>
+
+    <string name="title_category_root_mode">Root 模式</string>
+    <string name="title_pref_root_mode">Root 模式（全局代理）</string>
+    <string name="summary_pref_root_mode">通过 iptables 捕获所有流量，无需 VpnService。需要 Root 权限。</string>
+    <string name="title_pref_root_lan_sharing">Root 局域网 / 热点共享</string>
+    <string name="summary_pref_root_lan_sharing">将代理共享给通过 USB/Wi-Fi 连接的设备。需要 Root 权限。</string>
+    <string name="toast_root_required">Root 模式需要 Root 权限，但此设备上不可用。</string>
+
+    <string name="title_logcat">Logcat</string>
+    <string name="logcat_copy">复制</string>
+    <string name="logcat_clear">清除</string>
+    <string name="logcat_share">分享日志</string>
+    <string name="title_service_restart">服务重启</string>
+    <string name="title_del_all_config">删除所有配置</string>
+    <string name="title_del_duplicate_config">删除重复配置</string>
+    <string name="title_del_invalid_config">删除无效配置</string>
+    <string name="title_export_all">导出配置至剪贴板</string>
+    <string name="title_sub_setting">订阅</string>
+    <string name="status">状态</string>
+    <string name="sub_setting_remarks">备注</string>
+    <string name="sub_setting_url">可选地址 (url)</string>
+    <string name="sub_setting_user_agent">User Agent</string>
+    <string name="sub_setting_request_headers">请求头</string>
+    <string name="sub_setting_request_headers_tip">JSON 格式</string>
+    <string name="sub_setting_filter">别名正则过滤</string>
+    <string name="sub_setting_network_filter">传输协议过滤</string>
+    <string name="sub_setting_network_filter_tip">只保留这些传输协议类型的节点，用逗号分隔。例如：ws,grpc,xhttp</string>
+    <string name="sub_setting_protocol_filter">节点协议过滤</string>
+    <string name="sub_setting_protocol_filter_tip">只保留这些节点协议的节点，用逗号分隔。例如：vmess,vless,trojan,ss</string>
+    <string name="sub_setting_enable">启用更新</string>
+    <string name="sub_setting_usage">已用 %1$s • 剩余 %2$s</string>
+    <string name="sub_setting_usage_used">已用 %1$s</string>
+    <string name="sub_setting_expire">到期：%1$s</string>
+    <string name="sub_setting_no_url">没有订阅链接</string>
+    <string name="sub_auto_update">启用自动更新</string>
+    <string name="sub_allow_insecure_url">允许不安全的 HTTP 地址</string>
+    <string name="sub_setting_pre_profile">前置代理配置别名</string>
+    <string name="sub_setting_next_profile">落地代理配置別名</string>
+    <string name="sub_setting_pre_profile_tip">请确保配置别名存在并唯一</string>
+    <string name="toast_invalid_update_interval">更新间隔无效，最小值为 15 分钟。</string>
+    <string name="title_sub_update">更新订阅</string>
+    <string name="title_sort_sub">排序</string>
+    <string name="group_order_by_added">最近添加</string>
+    <string name="group_order_by_updated">最近更新</string>
+    <string name="title_ping_all_server">Tcping所有配置</string>
+    <string name="title_real_ping_all_server">测试配置真连接</string>
+    <string name="title_user_asset_setting">资源文件</string>
+    <string name="title_filter_config">过滤配置</string>
+    <string name="filter_config_all">所有</string>
+    <string name="title_del_duplicate_config_count">删除 %d 个重复配置</string>
+
+    <string name="title_del_config_count">删除 %d 个配置</string>
+    <string name="title_import_config_count">导入 %d 个配置</string>
+    <string name="title_export_config_count">导出 %d 个配置</string>
+    <string name="title_update_config_count">更新 %d 个配置</string>
+    <string name="title_update_asset_count">已更新 %d 个资源文件</string>
+    <string name="title_update_subscription_result">更新了 %1$d 个配置（%2$d 个成功，%3$d 个失败，%4$d 个跳过）</string>
+    <string name="title_update_subscription_no_subscription">无订阅</string>
+    <string name="title_sub_update_diff">订阅变化（%s）</string>
+    <string name="sub_update_diff_added">已添加：\n%s</string>
+    <string name="sub_update_diff_deleted">已删除：\n%s</string>
+    <string name="toast_server_not_found_in_group">当前分组中未找到选中的服务器</string>
+    <string name="btn_scroll_to_selected_server">前往选中的配置</string>
+    <string name="btn_scroll_to_top">滚动到顶部</string>
+    <string name="btn_scroll_to_bottom">滚动到底部</string>
+    <string name="toast_fragment_not_available">无法定位当前视图</string>
+    <string name="title_clear_test_results">清除测试结果</string>
+    <string name="title_country_code_all_server">测试所有服务器的国家代码</string>
+    <string name="title_clear_country_codes">清除国家代码</string>
+    <string name="country_code_unknown">—</string>
+
+    <string name="tasker_start_service">启动服务</string>
+    <string name="tasker_setting_confirm">确定</string>
+
+    <string name="routing_settings_domain_strategy">域名策略</string>
+    <string name="routing_settings_title">路由</string>
+    <string name="routing_settings_tips">用逗号（,）分隔，选择填写 domain、ip 或 process 中的一项</string>
+    <string name="routing_settings_save">保存</string>
+    <string name="routing_settings_delete">清空</string>
+    <string name="routing_settings_rule_title">路由规则</string>
+    <string name="routing_settings_add_rule">添加规则</string>
+    <string name="routing_settings_import_predefined_rulesets">导入预定义规则集</string>
+    <string name="routing_settings_import_rulesets_tip">将删除现有的规则集，是否确定继续？</string>
+    <string name="routing_settings_import_rulesets_from_clipboard">从剪贴板导入规则集</string>
+    <string name="routing_settings_import_rulesets_from_qrcode">从 QRcode 导入规则集</string>
+    <string name="routing_settings_export_rulesets_to_clipboard">导出规则集至剪贴板</string>
+    <string name="routing_settings_locked">已锁定</string>
+    <string name="routing_settings_locked_tip">已锁定，导入预设时保留此规则</string>
+    <string name="routing_settings_domain">domain</string>
+    <string name="routing_settings_ip">ip</string>
+    <string name="routing_settings_process">process</string>
+    <string name="routing_settings_process_tip">用逗号（,）分隔，选择填写 domain、ip 或 process 中的一项
+包名 — 仅在使用 Xray 的 TUN、开启 routeOnly 且 Android 10+ 时可用</string>
+    <string name="routing_settings_port">port</string>
+    <string name="routing_settings_protocol">protocol</string>
+    <string name="routing_settings_protocol_tip">[http,tls,bittorrent]</string>
+    <string name="routing_settings_network">network</string>
+    <string name="routing_settings_network_tip">[udp|tcp]</string>
+    <string name="routing_settings_outbound_tag">outboundTag</string>
+
+    <string name="connection_test_pending">检查连接</string>
+    <string name="connection_test_testing">测试中…</string>
+    <string name="connection_test_testing_count">正在测试 %d 个配置…</string>
+    <string name="connection_test_available">连接成功：%dms</string>
+    <string name="connection_test_error">测速失败:%s 不可达</string>
+    <string name="connection_test_fail">无网络</string>
+    <string name="connection_test_error_status_code">错误代码：#%d</string>
+    <string name="connection_connected">已连接。点击测试</string>
+    <string name="connection_not_connected">未连接</string>
+    <string name="connection_pending">连接中…</string>
+    <string name="connection_runing_task_left">运行测试：%s</string>
+    <string name="connection_runing_tcping_task_left">TCPing：%s</string>
+    <string name="connection_runing_real_delay_task_left">真实延迟：%s</string>
+    <string name="action_minimize">最小化</string>
+    <string name="test_progress_counter">%1$d / %2$d</string>
+    <string name="test_progress_ping_ms">%dms</string>
+
+    <string name="import_subscription_success">订阅导入成功</string>
+    <string name="sub_import_name">订阅名称</string>
+    <string name="sub_import_default_name">导入的订阅</string>
+    <string name="import_subscription_failure">导入订阅失败</string>
+    <string name="menu_item_add_asset">添加</string>
+    <string name="menu_item_add_url">添加链接</string>
+    <string name="title_fragment_settings">分片（Fragment）设置</string>
+    <string name="title_pref_fragment_packets">分片方式</string>
+    <string name="title_pref_fragment_length">分片包长</string>
+    <string name="title_pref_fragment_length_tip">最小 - 最大</string>
+    <string name="title_pref_fragment_interval">分片间隔</string>
+    <string name="title_pref_fragment_interval_tip">最小 - 最大</string>
+    <string name="title_pref_fragment_maxsplit">分片最大分割数</string>
+    <string name="title_pref_fragment_enabled">启用分片（Fragment）</string>
+    <string name="title_pref_observatory_least_ping_interval">leastPing 间隔</string>
+    <string name="title_pref_observatory_least_load_interval">leastLoad 间隔</string>
+    <string name="title_pref_observatory_least_load_method">leastLoad HTTP 方法</string>
+    <string name="title_pref_observatory_least_load_sampling">leastLoad 采样次数</string>
+    <string name="title_pref_observatory_least_load_timeout">leastLoad 超时</string>
+    <string name="toast_invalid_observatory_duration">时长无效，请使用如 3m 或 30s 的格式。</string>
+    <string name="toast_invalid_observatory_sampling">采样次数无效，请使用正整数。</string>
+
+    <string name="update_check_for_update">检查更新</string>
+    <string name="update_already_latest_version">目前已是最新版本</string>
+    <string name="update_new_version_found">发现新版本: %s</string>
+    <string name="update_now">立即更新</string>
+    <string name="update_check_pre_release">检查 Pre-release</string>
+    <string name="update_checking_for_update">正在检查更新中…</string>
+
+    <string name="title_policy_group_type">策略组类型</string>
+    <string name="title_policy_group_subscription_id">来自订阅分组</string>
+    <string name="title_policy_group_subscription_filter">别名正则过滤</string>
+    <string name="title_policy_group_test_outbounds">测试出站</string>
+    <string name="title_policy_group_fallback">备用出站</string>
+    <string name="title_policy_group_observatory">连接监测</string>
+    <string name="title_policy_group_fallback_tip">可选</string>
+
+    <string name="title_configuration_backup_restore">备份 &amp; 还原</string>
+    <string name="title_configuration_backup">备份配置</string>
+    <string name="title_configuration_restore">还原配置</string>
+    <string name="title_configuration_share">分享配置</string>
+    <string name="backup_import_title">导入备份文件</string>
+    <string name="backup_import_message">要导入“%1$s”吗？这将覆盖当前的设置、配置文件和应用数据。</string>
+    <string name="title_pin_server">置顶服务器</string>
+    <string name="action_pin_server">置顶</string>
+    <string name="action_unpin_server">取消置顶</string>
+    <string name="toast_server_pinned">服务器已置顶</string>
+    <string name="toast_server_unpinned">已取消置顶</string>
+    <string name="toast_pinned_server_delete_blocked">请先取消置顶再删除该服务器</string>
+    <string name="title_profile_storage_cleanup">修复配置存储</string>
+    <string name="message_profile_storage_cleanup">要删除已不再被任何分组使用的配置数据吗？当前选中的配置以及无法安全判定为未使用的数据将会保留。</string>
+    <string name="toast_profile_storage_cleanup">已删除未使用的配置：%1$d</string>
+    <string name="toast_profile_storage_cleanup_skipped">无法安全判定哪些配置数据未被使用。未删除任何数据。</string>
+    <string name="title_webdav_config_setting">WebDAV 设置</string>
+    <string name="title_webdav_config_setting_unknown">请先设置 WebDAV</string>
+    <string name="title_webdav_url">WebDAV 服务器地址</string>
+    <string name="title_webdav_user">用户名</string>
+    <string name="title_webdav_pass">密码</string>
+    <string name="title_webdav_remote_path">远程文件夹名（可选）</string>
+
+    <string name="import_configuration">导入配置</string>
+    <string name="add_server_manually">手动添加服务器</string>
+    <string name="protocol_policy_group">策略组</string>
+    <string name="protocol_proxy_chain">代理链</string>
+    <string name="management">管理</string>
+    <string name="action_export">导出</string>
+    <string name="action_duplicates">重复项</string>
+    <string name="action_clean_invalid">清理无效</string>
+    <string name="action_delete_all">删除全部</string>
+    <string name="app_settings">应用设置</string>
+    <string name="tools_and_info">工具与信息</string>
+    <string name="desc_logcat">查看连接和应用错误日志</string>
+    <string name="desc_check_update">检查并安装最新版本</string>
+    <string name="desc_backup_restore">导出或导入您的配置</string>
+    <string name="desc_about">版本信息和开源许可证</string>
+    <string name="share_configuration">分享配置</string>
+    <string name="share_qrcode">二维码</string>
+    <string name="export_to_clipboard">导出到剪贴板</string>
+    <string name="export_full_config_to_clipboard">导出完整配置到剪贴板</string>
+    <string name="share_as_file">以文件分享</string>
+
+    <string name="title_export_group_file">导出/分享分组为文件</string>
+    <string name="title_import_mikuray_count">已导入 %d 个配置</string>
+    <string name="title_import_mikuray_error">导入 .mikuray 文件失败</string>
+    <string name="title_import_mikuray_wrong_password">密码错误或 .mikuray 文件已损坏</string>
+
+    <string name="mikuray_password_export_title">设置密码</string>
+    <string name="mikuray_password_export_desc">此密码将用于加密 .mikuray 文件。导入该文件时还需要用到它，请务必记住。</string>
+    <string name="mikuray_password_import_title">输入密码</string>
+    <string name="mikuray_password_import_desc">此 .mikuray 文件已加密，请输入导出时设置的密码。</string>
+    <string name="mikuray_password_confirm_button">继续</string>
+    <string name="mikuray_password_hint">密码</string>
+    <string name="mikuray_password_confirm_hint">确认密码</string>
+    <string name="mikuray_password_error_empty">密码不能为空</string>
+    <string name="mikuray_password_error_mismatch">两次输入的密码不一致</string>
+    <string name="ruleset_management">规则集管理</string>
+    <string name="server_proxy_chain_members">代理链成员</string>
+    <string name="server_proxy_chain_pick_members">点此选择成员</string>
+    <string name="server_proxy_chain_member_unselected">请选择成员</string>
+    <string name="server_proxy_chain_members_unselected">请为链路中的每一行选择成员</string>
+    <string name="server_proxy_chain_members_insufficient">成员数量不足</string>
+    <string name="server_proxy_chain_members_invalid">无效的链路成员: %1$s</string>
+    <string name="title_pref_real_ping_concurrency">真连接延迟测试并发数量</string>
+    <string name="title_pref_country_code_timeout">国家代码测试超时（秒）</string>
+    <string name="title_pref_app_theme">应用颜色主题</string>
+    <string name="summary_pref_app_theme">选择应用的强调色调色板</string>
+    <string name="pref_theme_color_title">主题颜色</string>
+    <string name="title_pref_dynamic_color">动态配色 (Material You)</string>
+    <string name="summary_pref_dynamic_color">使用基于壁纸的配色 (Android 12+)。这将覆盖已选的颜色主题</string>
+    <string name="summary_pref_dynamic_color_unavailable">需要 Android 12 或更高版本</string>
+    <string name="title_pref_true_black">纯黑 (AMOLED)</string>
+    <string name="summary_pref_true_black">将背景设置为纯黑色，以在 AMOLED 屏幕上节省电量。仅在深色模式下生效</string>
+    <string name="pref_true_black_only_in_night_mode">仅在深色模式下可用</string>
+    <string name="title_pref_icon_shape">图标形状</string>
+    <string name="title_pref_arrow_shape">箭头形状</string>
+    <string name="summary_pref_icon_shape">选择配置文件图标的形状样式</string>
+    <string name="pref_custom_dpi">自定义应用DPI</string>
+    <string name="pref_font_size">字体大小</string>
+    <string name="pref_font_size_preview_format">Aa · %s</string>
+    <string name="reset">重置</string>
+    <string name="pref_custom_color_title">自定义主题颜色</string>
+    <string name="pref_custom_color_reset">重置为预设</string>
+    <string name="indicator_style_title">选择指示器样式</string>
+    <string name="pref_indicator_style_title">服务器指示器样式</string>
+    <string name="pref_indicator_style_summary">选择活动服务器指示器的显示方式</string>
+    <string name="summary_navigate_ui_settings">主题、外观、字体与模糊效果</string>
+    <string name="summary_navigate_vpn_settings">IPv6、保持唤醒、DNS、HTTP 代理、绕过局域网、接口、MTU、Hev TUN、TCP/WS 定时器、分应用代理、Root 模式等</string>
+    <string name="summary_navigate_core_settings">嗅探、仅路由 (route only)、本地代理/共享、SOCKS、DNS、日志级别、域名解析、Geo 文件等</string>
+    <string name="summary_navigate_fragment_settings">分片状态、长度、间隔、最大分割 (maxsplit)、数据包等</string>
+    <string name="summary_navigate_advanced_settings">自动启动、延迟/IP API URL、路由策略、模式、从最近任务中隐藏等</string>
+    <string name="summary_navigate_per_app_proxy_settings">选择哪些应用通过代理</string>
+    <string name="title_ui_general">通用</string>
+    <string name="title_category_notification">通知</string>
+    <string name="title_ui_theme">主题</string>
+    <string name="title_ui_appearance">外观</string>
+    <string name="transport_layer_security">传输层安全</string>
+    <string name="del_config_dialog_comfirm_message">确定要删除吗？一旦删除，配置将永久丢失且无法找回。</string>
+    <string name="del_sub_dialog_comfirm_message">确定要删除此订阅吗？一旦删除，数据将永久丢失且无法找回。</string>
+    <string name="title_sub_group_options">群组选项</string>
+    <string name="sub_group_option_delete">删除群组</string>
+    <string name="sub_group_option_clear_traffic">清除群组流量</string>
+    <string name="del_routing_dialog_comfirm_message">确定要删除此路由设置吗？一旦删除，数据将永久丢失且无法找回。</string>
+    <string name="del_file_asset_dialog_comfirm_message">确定要删除此资产文件吗？一旦删除，数据将永久丢失且无法找回。</string>
+    <string name="del_button_dialog_comfirm">删除</string>
+    <string name="menu_item_search_main">搜索配置</string>
+    <string name="title_search_bar_chip">搜索栏组件</string>
+    <string name="pref_action_clear_total_traffic_title">清除流量数据</string>
+    <string name="action_clear_total_traffic_button">清除</string>
+    <string name="confirm_clear_total_traffic">清除流量组件数据及其每日/每月历史记录？</string>
+    <string name="toast_total_traffic_cleared">流量组件数据已清除</string>
+    <string name="pref_search_bar_chip_title">搜索栏组件</string>
+    <string name="pref_search_bar_chip_disabled">关闭</string>
+    <string name="pref_search_bar_chip_weather">天气</string>
+    <string name="pref_search_bar_chip_total_traffic">总流量使用</string>
+    <string name="pref_search_bar_chip_dual_swipe">双模式（滑动）</string>
+    <string name="pref_search_bar_chip_info_weather">点击天气组件可打开天气预报详情</string>
+    <string name="pref_search_bar_chip_info_traffic">点击流量组件可打开流量使用详情</string>
+    <string name="pref_search_bar_chip_info_dual">在组件上向上或向下滑动以切换内容。点击可打开详情</string>
+    <string name="pref_search_chip_gradient_title">渐变组件背景</string>
+    <string name="pref_search_chip_gradient_summary">当天气或总流量组件启用时，在搜索栏组件上应用主色至第三色 (primary-to-tertiary) 的渐变背景</string>
+
+    <string name="pref_weather_unit_title">温度单位</string>
+    <string name="pref_weather_custom_location_title">自定义位置</string>
+    <string name="pref_weather_custom_location_dialog_message">输入地名（例如：Beijing）或输入坐标，格式为 \"纬度,经度\"。留空则使用你当前的位置。</string>
+    <string name="pref_weather_custom_location_summary_auto">正在使用当前位置</string>
+    <string name="pref_weather_custom_location_summary_current_coords">正在使用当前位置 (%1$.2f, %2$.2f)</string>
+    <string name="weather_condition_clear">晴天</string>
+    <string name="weather_condition_partly_cloudy">多云</string>
+    <string name="weather_condition_cloudy">阴天</string>
+    <string name="weather_condition_fog">有雾</string>
+    <string name="weather_condition_rain_light">小雨</string>
+    <string name="weather_condition_rain_heavy">大雨</string>
+    <string name="weather_condition_snow">下雪</string>
+    <string name="weather_condition_thunder">雷阵雨</string>
+    <string name="weather_condition_thunder_hail">雷阵雨伴冰雹</string>
+    <string name="weather_condition_unknown">未知</string>
+    <string name="weather_forecast_title">天气预报</string>
+    <string name="weather_feels_like">体感温度 %1$s</string>
+    <string name="weather_max_min">最高 %1$s  最低 %2$s</string>
+    <string name="weather_summary_title">摘要</string>
+    <string name="weather_summary_condition">全天预计%1$s。</string>
+    <string name="weather_summary_high_low">最高%1$s，最低%2$s。</string>
+    <string name="weather_summary_rain_likely">很可能有雨 —— 请携带雨伞。</string>
+    <string name="weather_summary_rain_possible">稍后可能有阵雨。</string>
+    <string name="weather_summary_rain_slight">有轻微降雨的可能。</string>
+    <string name="weather_summary_windy">今天风力较为明显。</string>
+    <string name="weather_hourly_forecast_title">小时预报</string>
+    <string name="weather_daily_forecast_title">每日预报</string>
+    <string name="weather_now">现在</string>
+    <string name="weather_today">今天</string>
+    <string name="weather_forecast_load_error">无法加载预报</string>
+    <string name="menu_item_refresh_weather">刷新</string>
+    <string name="weather_details_title">详情</string>
+    <string name="weather_detail_humidity">湿度</string>
+    <string name="weather_detail_dew_point">露点</string>
+    <string name="weather_detail_wind">风向风速</string>
+    <string name="weather_detail_wind_gusts">阵风</string>
+    <string name="weather_detail_pressure">气压</string>
+    <string name="weather_detail_visibility">能见度</string>
+    <string name="weather_detail_cloud_cover">云量</string>
+    <string name="weather_detail_uv_index">紫外线指数</string>
+    <string name="weather_detail_sunrise">日出</string>
+    <string name="weather_detail_sunset">日落</string>
+    <string name="weather_detail_precipitation">降水量</string>
+    <string name="weather_detail_air_quality">空气质量</string>
+    <string name="weather_wind_format">%1$d km/h %2$s</string>
+    <string name="weather_speed_kmh_format">%1$d km/h</string>
+    <string name="weather_pressure_format">%1$d hPa</string>
+    <string name="weather_visibility_km_format">%1$.1f km</string>
+    <string name="weather_visibility_m_format">%1$d m</string>
+    <string name="weather_precipitation_format">%1$.1f mm</string>
+    <string name="weather_compass_n">北</string>
+    <string name="weather_compass_ne">东北</string>
+    <string name="weather_compass_e">东</string>
+    <string name="weather_compass_se">东南</string>
+    <string name="weather_compass_s">南</string>
+    <string name="weather_compass_sw">西南</string>
+    <string name="weather_compass_w">西</string>
+    <string name="weather_compass_nw">西北</string>
+    <string name="weather_aqi_good">优</string>
+    <string name="weather_aqi_moderate">良</string>
+    <string name="weather_aqi_unhealthy_sensitive">轻度污染</string>
+    <string name="weather_aqi_unhealthy">中度污染</string>
+    <string name="weather_aqi_very_unhealthy">重度污染</string>
+    <string name="weather_aqi_hazardous">严重污染</string>
+
+    <string name="title_vpn_sound_settings">声音</string>
+    <string name="title_pref_sound_on_connect">连接提示音</string>
+    <string name="summary_pref_sound_on_connect">连接或断开时播放声音</string>
+    <string name="title_pref_custom_connect_sound">自定义连接声音</string>
+    <string name="summary_pref_custom_connect_sound">未选择自定义声音 — 点击以选择音频文件</string>
+    <string name="title_pref_custom_disconnect_sound">自定义断开声音</string>
+    <string name="summary_pref_custom_disconnect_sound">未选择自定义声音 — 点击以选择音频文件</string>
+    <string name="title_pref_delete_custom_sounds">移除自定义声音</string>
+    <string name="summary_pref_delete_custom_sounds">移除两个自定义连接声音</string>
+    <string name="custom_sound_delete_confirm">移除所有自定义连接声音并恢复内置声音？</string>
+    <string name="custom_sound_invalid">无法读取该音频文件</string>
+    <string name="custom_sound_none_to_remove">未设置自定义连接声音</string>
+    <string name="custom_sound_added">自定义声音添加成功</string>
+    <string name="custom_sounds_removed">自定义连接声音移除成功</string>
+    <string name="ip_unknown">IP: 未知</string>
+    <string name="title_pref_app_font">字体样式</string>
+    <string name="title_category_app_font">字体</string>
+    <string name="title_pref_app_font_use_custom">使用自定义字体</string>
+    <string name="summary_pref_app_font_use_custom">使用从内部存储中选取的字体覆盖上方字体</string>
+    <string name="title_pref_app_font_custom_pick">选择自定义字体</string>
+    <string name="summary_pref_app_font_custom_pick_empty">未选择字体文件 — 点击以从内部存储选择 .ttf/.otf 文件</string>
+    <string name="title_pref_app_font_custom_delete">移除自定义字体</string>
+    <string name="summary_pref_app_font_custom_delete_empty">未设置自定义字体</string>
+    <string name="summary_pref_app_font_custom_delete_set">当前设置: %1$s</string>
+    <string name="custom_font_delete_confirm">是否移除自定义字体并恢复默认字体？</string>
+    <string name="custom_font_invalid">无法读取该文件（仅支持 .ttf/.otf/.ttc）</string>
+    <string name="custom_font_none_to_remove">未设置自定义字体</string>
+    <string name="group_order">排序</string>
+    <string name="group_order_origin">原始</string>
+    <string name="group_order_by_name">按名称</string>
+    <string name="group_order_by_delay">按延迟</string>
+    <string name="title_more_menu">更多菜单</string>
+    <string name="title_import_menu">导入菜单</string>
+    <string name="routing_settings_import_predefined_rulesets_title">预设</string>
+    <string name="routing_settings_import_rulesets_from_clipboard_title">剪贴板</string>
+    <string name="routing_settings_import_rulesets_from_qrcode_title">QRcode</string>
+    <string name="title_pref_category_style">类别标题样式</string>
+    <string name="scan_code">扫描二维码</string>
+    <string name="select_photo">选择照片</string>
+    <string name="pref_show_splash_title">显示启动画面</string>
+    <string name="pref_show_splash_summary">在运行应用时显示启动画面</string>
+    <string name="title_pref_dynamic_color_banner">基于主页横幅的动态主题</string>
+    <string name="summary_pref_dynamic_color_banner">主题配色方案将根据您的主页横幅图片进行动态调整。</string>
+    <string name="title_pref_keep_awake">保持设备唤醒</string>
+    <string name="summary_pref_keep_awake">在 VPN 连接时保持部分唤醒锁 (partial wake lock)。小米/HyperOS 设备需要开启此项；在三星/Pixel 上开启只会徒增耗电 —— 建议保持关闭。</string>
+    <string name="title_reset_traffic">重置数据用量</string>
+    <string name="reset_traffic_scope_profile">仅限选中的配置</string>
+    <string name="reset_traffic_scope_group">仅限“%1$s”分组</string>
+    <string name="reset_traffic_scope_all">所有分组</string>
+    <string name="confirm_reset_traffic_profile">重置此配置的数据用量？</string>
+    <string name="confirm_reset_traffic_group">重置此分组下所有服务器的数据用量？</string>
+    <string name="confirm_reset_traffic_all">重置所有分组的数据用量？此操作无法撤销哦</string>
+    <string name="confirm_clear_test_results_group">清除此分组内所有服务器的测试结果？</string>
+    <string name="confirm_clear_test_results_all">清除所有分组的测试结果？</string>
+    <string name="confirm_clear_country_codes_group">清除此分组内所有服务器的国家代码？</string>
+    <string name="confirm_clear_country_codes_all">清除所有分组的国家代码？</string>
+    <string name="pref_traffic_enabled_title">显示数据用量</string>
+    <string name="pref_traffic_enabled_summary">在每个服务器上显示上传和下载流量</string>
+    <string name="label_total_traffic_upload">上传</string>
+    <string name="label_total_traffic_download">下载</string>
+    <string name="label_total_traffic_up">上</string>
+    <string name="label_total_traffic_down">下</string>
+    <string name="label_total_traffic_combined">合计</string>
+    <string name="label_total_traffic_today">今天</string>
+    <string name="label_total_traffic_month">本月</string>
+    <string name="title_total_traffic_history">最近7天</string>
+    <string name="label_total_traffic_no_history">暂无使用数据</string>
+    <string name="pref_network_security_enabled_title">显示网络和安全</string>
+    <string name="pref_network_security_enabled_summary">在每个服务器上显示传输和安全信息</string>
+    <string name="pref_disable_sensor_text_title">显示完整地址</string>
+    <string name="pref_disable_sensor_text_summary">显示完整的服务器 IP/域名，不使用 *** 遮挡</string>
+    <string name="title_pref_send_hwid">发送 HWID</string>
+    <string name="summary_pref_send_hwid">更新订阅时发送设备 ID</string>
+    <string name="title_pref_hide_from_recent_apps">从最近任务中隐藏</string>
+    <string name="summary_pref_hide_from_recent_apps">在后台运行时从最近任务列表中隐藏本应用</string>
+    <string name="title_pref_tcp_keepalive_idle">TCP Keepalive idle</string>
+    <string name="title_pref_tcp_keepalive_idle_tip">秒，0 = 禁用</string>
+    <string name="title_pref_ws_heartbeat_period">WS Ping 间隔</string>
+    <string name="title_pref_ws_heartbeat_period_tip">秒，0 = 禁用</string>
+
+    <string name="title_banner_settings_character">设置横幅角色</string>
+    <string name="summary_banner_settings_character">选择显示在设置横幅上的初音未来插画</string>
+    <string name="banner_settings_character_custom">自定义图片</string>
+    <string name="title_banner_settings_character_custom">自定义横幅角色图片</string>
+    <string name="summary_banner_settings_character_custom">从设备中选择图片</string>
+    <string name="summary_banner_settings_character_custom_selected">选择自定义图片</string>
+    <string name="title_banner_settings_character_delete">删除自定义横幅角色图片</string>
+    <string name="summary_banner_settings_character_delete">删除所选自定义图片并使用默认角色</string>
+    <string name="title_banner_character_layout">横幅角色尺寸与位置</string>
+    <string name="summary_banner_character_layout">调整横幅插画的宽度、高度和边距</string>
+    <string name="banner_character_slider_width_label">宽度</string>
+    <string name="banner_character_slider_height_label">高度</string>
+    <string name="banner_character_slider_margin_top_label">上边距</string>
+    <string name="banner_character_slider_margin_bottom_label">下边距</string>
+    <string name="banner_character_slider_margin_end_label">右边距</string>
+    <string name="uwu_banner_settings_title">你好呀……</string>
+    <string name="uwu_banner_settings_summary">"欢迎来到设置菜单,
+请选择任何你
+需要的和必须
+的功能选项"</string>
+    <string name="uwu_maintainer_title">本应用由以下团队维护</string>
+    <string name="uwu_maintainer_summary">HatsuneMikuUwU 开发团队</string>
+    <string name="uwu_name_title">应用名称</string>
+    <string name="uwu_version_name_title">版本名称</string>
+    <string name="uwu_version_code_title">版本代码</string>
+    <string name="uwu_package_name_title">包名</string>
+    <string name="uwu_mikubox_author_title">作者</string>
+    <string name="uwu_build_date_title">构建日期</string>
+    <string name="uwu_update_summary">来更新 %1$s 吧，主人！</string>
+    <string name="uwu_about_version_title">关于应用</string>
+    <string name="uwu_about_version_summary">点击此处或箭头图标, 了解应用更多信息.</string>
+    <string name="uwu_splash_title">用心制作 ❤️\nHatsuneMikuUwU 开发组</string>
+    <string name="uwu_splash_summary">版本 %1$s (%2$d)</string>
+
+    <string name="uwu_miku_gender_title">性别</string>
+    <string name="uwu_miku_gender_summary">女性</string>
+    <string name="uwu_miku_birthday_title">生日</string>
+    <string name="uwu_miku_birthday_summary">8 月 31 日</string>
+    <string name="uwu_miku_age_title">年龄</string>
+    <string name="uwu_miku_age_summary">16</string>
+    <string name="uwu_miku_voice_title">声源</string>
+    <string name="uwu_miku_voice_summary">藤田咲</string>
+    <string name="uwu_miku_weight_title">体重</string>
+    <string name="uwu_miku_weight_summary">42 公斤</string>
+    <string name="uwu_miku_height_title">身高</string>
+    <string name="uwu_miku_height_summary">158 厘米</string>
+    <string name="uwu_about_miku_title">谁是 Hatsune Miku？</string>
+    <string name="uwu_about_miku_summary">初音未来(Hatsune Miku) 是 Crypton Future Media 发布的基于 Vocaloid 制作的虚拟歌手, 代号CV01. 以青绿色的长双马尾和清亮嗓音著称, 人设为16岁少女, 是全球知名虚拟偶像, 广泛活跃于音乐、演唱会及动画, 深受粉丝们喜爱.</string>
+
+    <string name="title_character_license">角色授权</string>
+    <string name="summary_character_license">初音未来及其他 Vocaloid 角色的版权归 Crypton Future Media, Inc. 所有。本应用依据 Piapro 角色授权协议(PCL)使用这些角色，该协议允许粉丝免费用于非商业用途。商业用途需另行获得 Crypton 的许可。\n\nhttps://piapro.net/en_for_creators.html</string>
+
+    <string name="uwu_random_text_1">适合唱歌的好天气！</string>
+    <string name="uwu_random_text_2">今天也要开心哦，Master！</string>
+    <string name="uwu_random_text_3">"一起加油吧！39！"</string>
+    <string name="uwu_random_text_4">是在找大葱吗？</string>
+    <string name="uwu_random_text_5">"专心点！Ready, go！" </string>
+    <string name="uwu_random_text_6">把你Miku Miku掉哦！</string>
+    <string name="uwu_random_text_7">欢迎回来，Master！</string>
+    <string name="uwu_random_text_8">感受旋律吧..！</string>
+    <string name="uwu_random_text_9">冲向最高音！</string>
+    <string name="uwu_random_text_10">在给Miku写歌词吗？</string>
+
+    <string name="uwu_greeting_morning">早上好...</string>
+    <string name="uwu_greeting_afternoon">下午好...</string>
+    <string name="uwu_greeting_evening">晚上好...</string>
+    <string name="uwu_greeting_night">晚安...</string>
+    <string name="uwu_greeting_late_night">"该睡觉啦..."</string>
+
+    <string name="uwu_profile_banner_title_custom">嗨, %1$s</string>
+
+   <string name="banner_profile_category">个人资料</string>
+   <string name="profile_name_custom_title">头部名称</string>
+   <string name="profile_name_custom_dialog">更改显示名称</string>
+   <string name="banner_profile_custom_title">更改个人资料横幅</string>
+   <string name="banner_profile_custom_summary">为个人资料头部设置自定义图片（可选）</string>
+   <string name="title_profile_banner_shape">头像形状</string>
+   <string name="delete_custom_banner_profile">删除自定义个人资料横幅</string>
+   <string name="delete_custom_banner_profile_summary">自定义横幅已移除，将改用默认个人资料横幅</string>
+   <string name="custom_banner_profile_set">个人资料横幅更新成功。</string>
+
+    <string name="home_banner_category">主页横幅</string>
+    <string name="home_banner_disable_title">禁用主页横幅</string>
+    <string name="home_banner_disable_summary">隐藏主屏幕顶部的横幅图片</string>
+    <string name="home_banner_custom_title">更改主页横幅</string>
+    <string name="home_banner_custom_summary">为主页头部设置自定义图片（可选）</string>
+    <string name="home_banner_delete_title">移除自定义主页横幅</string>
+    <string name="home_banner_delete_summary">自定义横幅已移除，将改用默认主页横幅</string>
+    <string name="home_banner_updated">主页横幅更新成功。</string>
+    <string name="theme_banner_updated">横幅更新成功。</string>
+    <string name="theme_banner_delete_title">移除自定义横幅</string>
+    <string name="theme_banner_delete_summary">自定义横幅已移除，将改用默认横幅</string>
+    <string name="pref_home_banner_height_title">横幅高度</string>
+    <string name="pref_header_top_row_padding_title">头部顶部内边距</string>
+
+    <string name="sheet_banner_category">底部面板横幅</string>
+    <string name="sheet_banner_custom_title">更改底部横幅</string>
+    <string name="sheet_banner_custom_summary">为底部面板设置自定义图片（可选）</string>
+    <string name="sheet_banner_delete_title">移除自定义底部横幅</string>
+    <string name="sheet_banner_delete_summary">自定义横幅已移除，将改用默认底部横幅</string>
+    <string name="sheet_banner_updated">底部横幅更新成功。</string>
+    <string name="particles_enable_title">启用粒子动画</string>
+    <string name="particles_enable_summary">显示底部面板中的粒子效果</string>
+    <string name="snowflakes_enable_title">启用降雪动画</string>
+    <string name="snowflakes_enable_summary">在主屏幕显示飘落的雪花</string>
+    <string name="title_category_quick_actions">快捷操作</string>
+    <string name="title_pref_show_quick_actions">显示快捷操作栏</string>
+    <string name="summary_pref_show_quick_actions">在连接状态卡下方显示一行快捷按钮，用于更新订阅、测试国家代码、tcping 以及真实延迟测试</string>
+    <string name="snowflakes_speed_title">降雪速度</string>
+    <string name="snowflakes_speed_value">速度：%1$s</string>
+    <string name="snowflakes_speed_summary_value">动画速度：%1$s</string>
+    <string name="snowflakes_count_title">雪花数量</string>
+    <string name="snowflakes_count_value">雪花：%1$d</string>
+    <string name="snowflakes_count_summary_value">雪花数量：%1$d</string>
+    <string name="snowflakes_settings_title">降雪设置</string>
+    <string name="snowflakes_size_value">大小：%1$s×</string>
+    <string name="snowflakes_opacity_value">不透明度：%1$s</string>
+    <string name="snowflakes_wind_value">风力：%1$s×</string>
+    <string name="snowflakes_life_value">生命周期：%1$s 秒</string>
+    <string name="snowflakes_settings_summary_value">速度：%1$s · 雪花：%2$d · 大小：%3$s× · 不透明度：%4$s · 风力：%5$s× · 生命周期：%6$s 秒</string>
+
+    <string name="pref_particles_settings_title">粒子动画设置</string>
+    <string name="pref_particles_settings_summary">调整速度、大小、密度等参数</string>
+
+    <string name="particles_slider_frame_delay_label">动画速度（帧延迟）</string>
+    <string name="particles_slider_line_length_label">连线长度</string>
+    <string name="particles_slider_line_thickness_label">连线粗细</string>
+    <string name="particles_slider_radius_max_label">粒子最大半径</string>
+    <string name="particles_slider_radius_min_label">粒子最小半径</string>
+    <string name="particles_slider_density_label">粒子密度</string>
+    <string name="particles_slider_speed_factor_label">移动速度倍率</string>
+
+    <string name="selected_banner_category">选中配置的样式</string>
+    <string name="selected_banner_enable_title">选中配置的横幅样式</string>
+    <string name="selected_banner_enable_summary">在活动服务器卡片后面显示横幅图片。未设置自定义图片时使用默认横幅</string>
+    <string name="title_category_toolbar_style">工具栏样式</string>
+    <string name="title_pref_toolbar_center_subtitle_mode">居中工具栏副标题</string>
+    <string name="summary_pref_toolbar_center_subtitle_mode">显示居中副标题和淡入淡出动画，而不是普通标准标题</string>
+    <string name="selected_banner_dim_title">横幅遮罩强度</string>
+    <string name="sheet_banner_dim_title">横幅遮罩强度</string>
+    <string name="selected_banner_custom_title">更改选中配置的横幅</string>
+    <string name="selected_banner_custom_summary">为选中的服务器卡片设置自定义图片（可选）</string>
+    <string name="selected_banner_delete_title">删除选中配置的自定义横幅</string>
+    <string name="selected_banner_delete_summary">自定义横幅已移除，将改用默认横幅</string>
+    <string name="selected_banner_updated">已成功更新选中配置的横幅。</string>
+    <string name="pref_indicator_style_summary_disabled_by_banner">选中配置的横幅样式启用时此选项将被禁用</string>
+
+    <string name="title_alerter_info">提示</string>
+    <string name="title_alerter_success">成功</string>
+    <string name="label_enable">启用</string>
+    <string name="label_disable">禁用</string>
+    <string name="title_alerter_error">错误</string>
+
+    <string name="title_pref_enable_blur">开启模糊</string>
+    <string name="summary_pref_enable_blur">开启窗口背景模糊效果</string>
+    <string name="title_pref_blur_bottom_status">底部状态卡片模糊</string>
+    <string name="summary_pref_blur_bottom_status">开启底部状态卡片的模糊效果</string>
+    <string name="title_pref_blur_bottom_blob_anim">液态斑点动画</string>
+    <string name="summary_pref_blur_bottom_blob_anim">在底部状态模糊卡片上显示漂浮的液态斑点动画</string>
+    <string name="pref_blur_intensity">模糊强度</string>
+    <string name="blur_intensity_radius_label">模糊半径 (2–100)</string>
+    <string name="blur_intensity_rounds_label">模糊迭代次数 (1–15)</string>
+    <string name="summary_blur_intensity_value">半径: %1$d · 迭代: %2$d</string>
+    <string name="summary_blur_intensity_system_value">半径: %1$d · 系统模糊</string>
+    <string name="pref_blur_bottom_intensity">底部卡片模糊强度</string>
+    <string name="blur_bottom_radius_label">模糊半径 (0–25)</string>
+    <string name="blur_bottom_alpha_label">背景不透明度 (0–100%)</string>
+    <string name="summary_blur_bottom_intensity_value">半径: %1$.1f · 不透明度: %2$d%%</string>
+    <string name="title_blur_settings">模糊设置</string>
+    <string name="title_blur_warning">较高的迭代次数 (10+) 可能会导致掉帧。建议：迭代 2-5 次，半径为 25-40。</string>
+    <string name="toast_allow_insecure_deprecated">当前节点使用未加密连接，您的通信可能会被威权政府掌控的网络中间设施直接查看\n为了安全，此类节点无法通过 26.2.6+ 版本的 Xray 核心连接\n如果是自建节点请启用 TLS 等安全加密，或固定证书 pinnedCA256\n如果机场节点请联系服务商完成技术升级，如服务商拒绝配合，建议更换更重视用户安全的服务商\n更多的信息，请访问 https://github.com/2dust/v2rayN/discussions/9460</string>
+
+    <string name="uwu_skip">跳过</string>
+    <string name="uwu_next">继续</string>
+    <string name="uwu_start">开始</string>
+    <string name="uwu_welcome_title">欢迎来到</string>
+    <string name="uwu_welcome_summary_3">用爱、Kotlin、Java 代码等精心打造。</string>
+    <string name="uwu_welcome_page3_desc">在可爱的 Miku 风格设计中，体验快速且安全的网络连接。</string>
+
+    <string name="sub_setting_tab_icon">标签页图标</string>
+    <string name="sub_setting_tab_icon_hint">在标签栏的分组名称旁边显示</string>
+    <string name="sub_tab_icon_none">无</string>
+
+    <string name="title_pref_reset_all_settings">重置所有设置</string>
+    <string name="dialog_reset_settings_title">重置所有设置？</string>
+    <string name="dialog_reset_settings_message">这将把所有设置恢复为默认值。\n\n服务器配置和订阅不会被删除。\n\n此操作无法撤销。</string>
+    <string name="dialog_reset_settings_confirm">重置</string>
+    <string name="reset_settings_success">设置已重置为默认值。</string>
+
+    <string name="searchpreference_search">搜索…</string>
+    <string name="searchpreference_clear">清除</string>
+    <string name="searchpreference_more">更多</string>
+    <string name="searchpreference_clear_history">清除历史记录</string>
+    <string name="searchpreference_no_results">没有结果</string>
+
+    <string name="title_pref_app_icon">应用图标</string>
+    <string name="app_icon_updated">应用图标已更新。它可能需要片刻时间才会显示在你的主屏幕上。</string>
+    <string name="title_pref_custom_app_name">应用名称</string>
+    <string name="summary_pref_custom_app_name">同时重命名启动器/应用抽屉中的图标。某些启动器会缓存旧名称，直到你重启它们或重启设备。</string>
+
+    <string name="subtitle_server_config">配置此服务器的连接详情</string>
+    <string name="subtitle_routing_edit">添加或编辑一条路由规则</string>
+    <string name="subtitle_routing_setting">管理你的自定义路由规则</string>
+    <string name="subtitle_check_update">检查是否有新版本可用</string>
+    <string name="subtitle_logcat">查看应用运行日志</string>
+    <string name="subtitle_weather_forecast">每小时及每日天气预报详情</string>
+    <string name="subtitle_backup">备份或恢复你的配置</string>
+    <string name="subtitle_app_picker">选择要包含的应用</string>
+    <string name="subtitle_per_app_proxy">选择使用 VPN 的应用</string>
+    <string name="subtitle_about">应用信息、版本与鸣谢</string>
+    <string name="subtitle_library">本应用使用的开源库</string>
+    <string name="subtitle_user_asset">管理地理数据与资源文件</string>
+    <string name="subtitle_user_asset_url">通过链接添加资源文件</string>
+    <string name="subtitle_sub_edit">编辑此订阅的设置</string>
+    <string name="subtitle_sub_setting">管理你的订阅</string>
+    <string name="subtitle_fragment_settings">配置流量分片</string>
+    <string name="subtitle_core_settings">配置代理核心引擎</string>
+    <string name="subtitle_vpn_settings">配置 VPN 连接行为</string>
+    <string name="subtitle_advanced_settings">应用高级配置</string>
+    <string name="subtitle_ui_settings">主题、外观与字体</string>
+    <string name="subtitle_settings">应用偏好设置与配置</string>
+
+    <string name="action_export_ui_theme">导出主题</string>
+    <string name="ui_theme_export_name_title">为主题命名</string>
+    <string name="ui_theme_export_name_message">请输入要导出的主题文件名称。</string>
+    <string name="ui_theme_export_name_hint">主题名称</string>
+    <string name="ui_theme_export_name_error_empty">请输入主题名称。</string>
+    <string name="action_import_ui_theme">导入主题</string>
+    <string name="ui_theme_exported">主题已成功导出。</string>
+    <string name="ui_theme_export_failed">无法导出主题。</string>
+    <string name="ui_theme_import_title">导入界面主题</string>
+    <string name="ui_theme_import_message">此设备上的所有界面设置、横幅和自定义字体都将被所选主题替换。</string>
+    <string name="ui_theme_imported">主题已成功导入。正在更新外观。</string>
+    <string name="ui_theme_import_failed">无法导入主题：%1$s</string>
+    <string name="title_pref_use_system_blur">使用系统模糊</string>
+    <string name="summary_pref_use_system_blur">可用时使用原生 Android 窗口模糊</string>
+
+    <!-- Strings for arrays.xml entries -->
+    <string name="mux_xudp_quic_reject">不代理</string>
+    <string name="mux_xudp_quic_allow">多路复用</string>
+    <string name="mux_xudp_quic_skip">原生</string>
+    <string name="share_export_clipboard">导出至剪贴板</string>
+    <string name="share_export_full_clipboard">导出完整配置至剪贴板</string>
+    <string name="share_edit">编辑</string>
+    <string name="share_delete">删除</string>
+    <string name="mode_entry_vpn">VPN</string>
+    <string name="mode_entry_proxy_only">仅代理</string>
+    <string name="ui_mode_night_follow_system">跟随系统</string>
+    <string name="ui_mode_night_light">浅色</string>
+    <string name="ui_mode_night_dark">深色</string>
+    <string name="ui_mode_night_auto">自动（白天/夜间）</string>
+    <string name="preset_ruleset_china_whitelist">绕过大陆 (Whitelist)</string>
+    <string name="preset_ruleset_china_blacklist">黑名单 (Blacklist)</string>
+    <string name="preset_ruleset_global">全局 (Global)</string>
+    <string name="preset_ruleset_iran_whitelist">伊朗 (Iran)</string>
+    <string name="preset_ruleset_russia_whitelist">俄罗斯白名单 (Russia Whitelist)</string>
+    <string name="vpn_bypass_lan_follow_config">跟随配置</string>
+    <string name="vpn_bypass_lan_bypass">绕过</string>
+    <string name="vpn_bypass_lan_not_bypass">不绕过</string>
+    <string name="outbound_resolve_do_not_resolve">不解析</string>
+    <string name="outbound_resolve_add_dns_hosts">解析后添加至 DNS Hosts</string>
+    <string name="outbound_resolve_replace_domain">解析后替换原域名</string>
+    <string name="policy_group_least_ping">最低延迟</string>
+    <string name="policy_group_least_load">最稳定</string>
+    <string name="policy_group_random">随机选择</string>
+    <string name="policy_group_round_robin">轮询</string>
+    <string name="config_backup_local">本地</string>
+    <string name="config_backup_webdav">WebDAV</string>
+
+    <!-- MikuBox 新增（2026-10-02，对上游 MikuRay 的有意偏离）：MikuBox 专属界面的文案——路由页、配置组对话框、订阅编辑新增行、VPN 后台保护区与配置编辑器 YAML 预检。上游 re-sync 会移除。 -->
+    <string name="mihomo_autoconnect_title">启动时自动连接</string>
+    <string name="mihomo_autoconnect_summary">应用启动且已授予 VPN 权限时，自动连接选中的配置。</string>
+    <string name="mihomo_update_when_connected_only">仅连接时更新</string>
+    <string name="mihomo_update_when_connected_only_summary">订阅更新仅在 VPN 连接期间发起，避免直连暴露订阅源。</string>
+    <string name="mihomo_yaml_parse_failed">YAML 解析失败：%1$s</string>
+    <string name="mihomo_config_parse_failed">无法解析配置，请在原始 YAML 中修正：%1$s</string>
+    <string name="mihomo_group_name_hint">组名</string>
+    <string name="mihomo_group_create_title">创建配置组</string>
+    <string name="mihomo_group_manage_title">管理配置组</string>
+    <string name="subscription_update_requires_connection">仅连接时更新:当前未连接,已跳过订阅抓取;请先连接后再更新。</string>
+    <string name="btn_add_sub_description">添加订阅或配置组</string>
+    <string name="menu_add_subscription">添加订阅</string>
+    <string name="menu_add_title">添加</string>
+    <string name="mihomo_group_manage_empty">默认 Miku 组用于收纳配置，不能删除。你可以创建新的配置组。</string>
+    <string name="mihomo_group_entry_count">%1$s · %2$d 个配置</string>
+    <string name="mihomo_group_delete_title">删除配置组“%1$s”？</string>
+    <string name="mihomo_group_delete_message">组内的配置和订阅将移回 Miku，内容、订阅设置和当前连接都会保留。</string>
+    <string name="mihomo_group_delete_action">删除配置组</string>
+    <string name="mihomo_group_choose_title">配置组</string>
+    <string name="mihomo_group_new_action">新建组</string>
+    <string name="mihomo_group_name_required">请输入组名</string>
+    <string name="mihomo_group_name_exists">组名已存在</string>
+    <string name="mihomo_group_default_undeletable">默认配置组不能删除</string>
+    <string name="mihomo_group_missing">配置组不存在</string>
+    <string name="mihomo_routing_title">路由设置</string>
+    <string name="mihomo_routing_description">在规则模式下，按配置文件、策略控制分流。关闭的规则不会参与匹配；无匹配规则时直连。修改在下次连接时生效，也可立即重新连接。</string>
+    <string name="mihomo_routing_apply_now">应用到当前连接</string>
+    <string name="mihomo_routing_saved_next_connect">已保存，下次连接生效</string>
+    <string name="mihomo_routing_reconnecting">正在重新连接</string>
+    <string name="mihomo_routing_reconnect_failed">无法重新连接，请手动重试</string>
+    <string name="mihomo_routing_empty">暂无配置，请先导入配置或订阅。</string>
+    <string name="mihomo_routing_no_rules">此文件没有 rules 分流规则</string>
+    <string name="mihomo_routing_parse_failed">无法解析：%1$s</string>
+    <plurals name="mihomo_routing_rule_count">
+        <item quantity="one">%1$d 条规则</item>
+        <item quantity="other">%1$d 条规则</item>
+    </plurals>
+    <string name="mihomo_vpn_battery_ok">已忽略 Android 电池优化；厂商的后台运行和自启动权限仍需单独允许。</string>
+    <string name="mihomo_vpn_battery_off">尚未忽略 Android 电池优化，点击申请允许。此权限由系统和你决定。</string>
+    <string name="mihomo_vpn_always_on_enabled">系统始终开启 VPN 已启用。</string>
+    <string name="mihomo_vpn_lockdown_on">已启用无 VPN 时阻止连接，恢复期间网络会被系统阻断。</string>
+    <string name="mihomo_vpn_lockdown_off">未启用无 VPN 时阻止连接。</string>
+    <string name="mihomo_vpn_always_on_hint">点击系统 VPN 设置查看或开启。由系统管理连接恢复，无需锁定最近任务；关闭应用页面不会主动断开。</string>
+    <string name="mihomo_vpn_recovery_paused">自动恢复已连续失败三次并暂停，请检查配置和后台权限后手动连接。</string>
+    <string name="mihomo_vpn_recovery_summary">意外中断后尝试恢复；连续失败会退避并暂停，避免反复接管网络。强行停止应用或撤销 VPN 权限会中断连接。</string>
+    <string name="mihomo_vpn_recovery_title">连接恢复状态</string>
+    <string name="mihomo_vpn_bg_category">后台连接保护</string>
+    <string name="mihomo_vpn_always_on_title">系统 VPN · 始终开启</string>
+    <string name="mihomo_vpn_battery_title">允许忽略电池优化</string>
+    <string name="mihomo_vpn_oem_title_coloros">ColorOS / 一加后台运行设置</string>
+    <string name="mihomo_vpn_oem_title">应用后台运行设置</string>
+    <string name="mihomo_vpn_oem_summary">在系统应用信息中允许后台活动、自启动及关联启动（具体选项取决于系统）。这些权限无法由应用自行开启；电池优化豁免不等于获得厂商清理豁免。</string>
+    <string name="mihomo_vpn_open_settings_failed">无法打开系统设置，请从系统设置中进入 MikuBox 应用信息。</string>
+    <string-array name="allowinsecures" translatable="false">
+        <item></item>
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+    <string-array name="app_font_entries" translatable="false">
+        <item>Default</item>
+        <item>IOS 15</item>
+        <item>Google Sans</item>
+        <item>Roboto</item>
+        <item>Poppins</item>
+        <item>ChocoCooky</item>
+        <item>SimpleDay</item>
+        <item>Fucek</item>
+        <item>SF Pro Display</item>
+        <item>Dancing Script</item>
+        <item>Cream</item>
+        <item>OneUI</item>
+        <item>Inconsolata</item>
+        <item>Emily\'s Candy</item>
+        <item>Summer Dream</item>
+        <item>Rine</item>
+        <item>Evolve Sans</item>
+    </string-array>
+    <string-array name="app_font_values" translatable="false">
+        <item>default</item>
+        <item>ios15</item>
+        <item>google</item>
+        <item>roboto</item>
+        <item>poppins</item>
+        <item>chococooky</item>
+        <item>simpleday</item>
+        <item>fucek</item>
+        <item>sfprodisplay</item>
+        <item>dancingscript</item>
+        <item>cream</item>
+        <item>oneui</item>
+        <item>inconsolata</item>
+        <item>emilyscandy</item>
+        <item>summerdream</item>
+        <item>rine</item>
+        <item>evolve</item>
+    </string-array>
+    <string-array name="app_icon_entries" translatable="false">
+        <item>Project SEKAI</item>
+        <item>Teal</item>
+        <item>Basic</item>
+        <item>Cherry Pop</item>
+        <item>Rabbit Hole</item>
+        <item>Mesmerizer</item>
+        <item>Sakura</item>
+        <item>Magical Mirai 2024</item>
+        <item>Deep Sea Girl</item>
+        <item>Snow Miku 2025</item>
+        <item>Symphony 2022</item>
+        <item>Racing Miku 2025</item>
+        <item>Cinnamiku</item>
+        <item>Retry Now</item>
+    </string-array>
+    <string-array name="app_icon_values" translatable="false">
+        <item>default</item>
+        <item>mikuTeal</item>
+        <item>basic</item>
+        <item>cherryPop</item>
+        <item>rabbitHole</item>
+        <item>mesmerizer</item>
+        <item>sakura</item>
+        <item>magicalMirai2024</item>
+        <item>deepSeaGirl</item>
+        <item>snowMiku2025</item>
+        <item>symphony2022</item>
+        <item>racingMiku2025</item>
+        <item>cinnamiku</item>
+        <item>retryNow</item>
+    </string-array>
+    <string-array name="app_name_entries" translatable="false">
+        <item>@string/app_name</item>
+        <item>@string/app_name_variant_miku1</item>
+        <item>@string/app_name_variant_miku2</item>
+        <item>@string/app_name_variant_miku3</item>
+        <item>@string/app_name_variant_miku4</item>
+        <item>@string/app_name_variant_miku5</item>
+        <item>@string/app_name_variant_miku6</item>
+        <item>@string/app_name_variant_miku7</item>
+        <item>@string/app_name_variant_miku8</item>
+        <item>@string/app_name_variant_miku9</item>
+        <item>@string/app_name_variant_miku10</item>
+        <item>@string/app_name_variant_miku11</item>
+        <item>@string/app_name_variant_miku12</item>
+    </string-array>
+    <string-array name="app_name_values" translatable="false">
+        <item>default</item>
+        <item>miku1</item>
+        <item>miku2</item>
+        <item>miku3</item>
+        <item>miku4</item>
+        <item>miku5</item>
+        <item>miku6</item>
+        <item>miku7</item>
+        <item>miku8</item>
+        <item>miku9</item>
+        <item>miku10</item>
+        <item>miku11</item>
+        <item>miku12</item>
+    </string-array>
+    <string name="app_name_variant_miku1">HatsuneRay</string>
+    <string name="app_name_variant_miku10">MikuProxy</string>
+    <string name="app_name_variant_miku11">MikuExpo</string>
+    <string name="app_name_variant_miku12">v2mikuNG</string>
+    <string name="app_name_variant_miku2">MikuNG</string>
+    <string name="app_name_variant_miku3">HatsuneNG</string>
+    <string name="app_name_variant_miku4">MikuTunnel</string>
+    <string name="app_name_variant_miku5">MikuBoard</string>
+    <string name="app_name_variant_miku6">MikuPoi</string>
+    <string name="app_name_variant_miku7">MikuHub</string>
+    <string name="app_name_variant_miku8">MikuCube</string>
+    <string name="app_name_variant_miku9">MikuDayo</string>
+    <string name="app_picker_unknown_app">未知应用（未识别的 UID）</string>
+    <string name="app_widget_traffic_detail_name">流量详情</string>
+    <string-array name="banner_settings_character_entries" translatable="false">
+        <item>Hatsune Miku V2</item>
+        <item>Hatsune Miku V2 Chinese</item>
+        <item>Hatsune Miku V2 Append</item>
+        <item>Hatsune Miku V3</item>
+        <item>Hatsune Miku V3 English</item>
+        <item>Hatsune Miku V4</item>
+        <item>Hatsune Miku Super Pack</item>
+        <item>Hatsune Miku V6</item>
+        <item>@string/banner_settings_character_custom</item>
+    </string-array>
+    <string-array name="banner_settings_character_values" translatable="false">
+        <item>uwu_banner_miku_v2</item>
+        <item>uwu_banner_miku_v2_chinese</item>
+        <item>uwu_banner_miku_v2_append</item>
+        <item>uwu_banner_miku_v3</item>
+        <item>uwu_banner_miku_v3_english</item>
+        <item>uwu_banner_miku_v4</item>
+        <item>uwu_banner_miku_super_pack</item>
+        <item>uwu_banner_miku_v6</item>
+        <item>custom</item>
+    </string-array>
+    <string-array name="bool_dropdown_entries" translatable="false">
+        <item>@string/label_enable</item>
+        <item>@string/label_disable</item>
+    </string-array>
+    <string-array name="bool_dropdown_values" translatable="false">
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+    <string-array name="browser_dialer_mode" translatable="false">
+        <item>@string/browser_dialer_mode_disable</item>
+        <item>@string/browser_dialer_mode_okhttp</item>
+        <item>@string/browser_dialer_mode_webview</item>
+    </string-array>
+    <string name="browser_dialer_mode_disable">禁用</string>
+    <string name="browser_dialer_mode_okhttp">OkHttp</string>
+    <string-array name="browser_dialer_mode_value" translatable="false">
+        <item>Disable</item>
+        <item>OkHttp</item>
+        <item>WebView</item>
+    </string-array>
+    <string name="browser_dialer_mode_webview">WebView</string>
+    <string-array name="category_style_entries" translatable="false">
+        <item>Gradient</item>
+        <item>Hatsune Miku (Teal)</item>
+        <item>Hatsune Miku (Project SEKAI)</item>
+        <item>Kasane Teto (UTAU)</item>
+        <item>Kasane Teto (Synthesizer)</item>
+        <item>Akita Neru</item>
+        <item>Hatsune Miku (Basic)</item>
+        <item>Hatsune Miku (Cherry Pop)</item>
+        <item>Hatsune Miku (Rabbit Hole)</item>
+        <item>Hatsune Miku (Mesmerizer)</item>
+        <item>Hatsune Miku (Sakura)</item>
+        <item>Hatsune Miku (Magical Mirai 2024)</item>
+        <item>Hatsune Miku (Deep Sea Girl)</item>
+        <item>Hatsune Miku (Snow Miku 2025)</item>
+        <item>Hatsune Miku (Symphony 2022)</item>
+        <item>Hatsune Miku (Racing Miku 2025)</item>
+        <item>Hatsune Miku (Cinnamiku)</item>
+        <item>Hatsune Miku (Retry Now)</item>
+    </string-array>
+    <string-array name="category_style_values" translatable="false">
+        <item>gradient</item>
+        <item>miku</item>
+        <item>miku2</item>
+        <item>teto</item>
+        <item>teto2</item>
+        <item>neru</item>
+        <item>basic</item>
+        <item>cherry_pop</item>
+        <item>rabbit_hole</item>
+        <item>mesmerizer</item>
+        <item>sakura</item>
+        <item>magical_mirai_2024</item>
+        <item>deep_sea_girl</item>
+        <item>snow_miku_2025</item>
+        <item>symphony_2022</item>
+        <item>racing_miku_2025</item>
+        <item>cinnamiku</item>
+        <item>retry_now</item>
+    </string-array>
+    <string-array name="config_backup_options" translatable="false">
+        <item>@string/config_backup_local</item>
+        <item>@string/config_backup_webdav</item>
+    </string-array>
+    <string-array name="core_loglevel" translatable="false">
+        <item>debug</item>
+        <item>info</item>
+        <item>warning</item>
+        <item>error</item>
+        <item>none</item>
+    </string-array>
+    <string-array name="flows" translatable="false">
+        <item></item>
+        <item>xtls-rprx-vision</item>
+        <item>xtls-rprx-vision-udp443</item>
+    </string-array>
+    <string-array name="fragment_packets" translatable="false">
+        <item>tlshello</item>
+        <item>1-1</item>
+        <item>1-2</item>
+        <item>1-3</item>
+        <item>1-5</item>
+    </string-array>
+    <string-array name="geo_files_sources_entries" translatable="false">
+        <item>Loyalsoldier/v2ray-rules-dat</item>
+        <item>runetfreedom/russia-v2ray-rules-dat</item>
+        <item>Chocolate4U/Iran-v2ray-rules</item>
+    </string-array>
+    <string-array name="geo_files_sources_values" translatable="false">
+        <item>Loyalsoldier/v2ray-rules-dat</item>
+        <item>runetfreedom/russia-v2ray-rules-dat</item>
+        <item>Chocolate4U/Iran-v2ray-rules</item>
+    </string-array>
+    <string-array name="header_type_kcp_and_quic" translatable="false">
+        <item>none</item>
+        <item>srtp</item>
+        <item>utp</item>
+        <item>wechat-video</item>
+        <item>dtls</item>
+        <item>wireguard</item>
+        <item>dns</item>
+    </string-array>
+    <string-array name="header_type_tcp" translatable="false">
+        <item>none</item>
+        <item>http</item>
+    </string-array>
+    <string-array name="hev_tunnel_icmp" translatable="false">
+        <item>off</item>
+        <item>reply</item>
+    </string-array>
+    <string-array name="hev_tunnel_loglevel" translatable="false">
+        <item>error</item>
+        <item>warn</item>
+        <item>info</item>
+        <item>debug</item>
+    </string-array>
+    <string-array name="hev_tunnel_udp_mode" translatable="false">
+        <item>udp</item>
+        <item>tcp</item>
+    </string-array>
+    <string-array name="icon_shape_entries" translatable="false">
+        <item>Arch</item>
+        <item>Arrow</item>
+        <item>Boom</item>
+        <item>Bun</item>
+        <item>Burst</item>
+        <item>Circle</item>
+        <item>Clover 4</item>
+        <item>Clover 8</item>
+        <item>Cookie 4</item>
+        <item>Cookie 6</item>
+        <item>Cookie 7</item>
+        <item>Cookie 9</item>
+        <item>Cookie 12</item>
+        <item>Diamond</item>
+        <item>Fan</item>
+        <item>Flower</item>
+        <item>Gem</item>
+        <item>Ghost-ish</item>
+        <item>Heart</item>
+        <item>Hexagon</item>
+        <item>Oval</item>
+        <item>Pentagon</item>
+        <item>Pill</item>
+        <item>Pixel Circle</item>
+        <item>Pixel Triangle</item>
+        <item>Puffy</item>
+        <item>Puffy Diamond</item>
+        <item>Semicircle</item>
+        <item>Slanted Square</item>
+        <item>Soft Boom</item>
+        <item>Soft Burst</item>
+        <item>Square</item>
+        <item>Sunny</item>
+        <item>Triangle</item>
+        <item>Very Sunny</item>
+    </string-array>
+    <string-array name="icon_shape_values" translatable="false">
+        <item>uwu_shape_arch</item>
+        <item>uwu_shape_arrow</item>
+        <item>uwu_shape_boom</item>
+        <item>uwu_shape_bun</item>
+        <item>uwu_shape_burst</item>
+        <item>uwu_shape_circle</item>
+        <item>uwu_shape_clover_4</item>
+        <item>uwu_shape_clover_8</item>
+        <item>uwu_shape_cookie_4</item>
+        <item>uwu_shape_cookie_6</item>
+        <item>uwu_shape_cookie_7</item>
+        <item>uwu_shape_cookie_9</item>
+        <item>uwu_shape_cookie_12</item>
+        <item>uwu_shape_diamond</item>
+        <item>uwu_shape_fan</item>
+        <item>uwu_shape_flower</item>
+        <item>uwu_shape_gem</item>
+        <item>uwu_shape_ghostish</item>
+        <item>uwu_shape_heart</item>
+        <item>uwu_shape_hexagon</item>
+        <item>uwu_shape_oval</item>
+        <item>uwu_shape_pentagon</item>
+        <item>uwu_shape_pill</item>
+        <item>uwu_shape_pixel_circle</item>
+        <item>uwu_shape_pixel_triangle</item>
+        <item>uwu_shape_puffy</item>
+        <item>uwu_shape_puffy_diamond</item>
+        <item>uwu_shape_semicircle</item>
+        <item>uwu_shape_slanted_square</item>
+        <item>uwu_shape_soft_boom</item>
+        <item>uwu_shape_soft_burst</item>
+        <item>uwu_shape_square</item>
+        <item>uwu_shape_sunny</item>
+        <item>uwu_shape_triangle</item>
+        <item>uwu_shape_very_sunny</item>
+    </string-array>
+    <string name="ip_connected">IP:%1$s</string>
+    <string-array name="language_select" translatable="false">
+        <item>auto</item>
+        <item>English</item>
+        <item>中文简体</item>
+        <item>Русский</item>
+        <item>Bahasa Indonesia</item>
+    </string-array>
+    <string-array name="language_select_value" translatable="false">
+        <item></item>
+        <item>en</item>
+        <item>zh-CN</item>
+        <item>ru</item>
+        <item>in</item>
+    </string-array>
+    <string-array name="mode_entries" translatable="false">
+        <item>@string/mode_entry_vpn</item>
+        <item>@string/mode_entry_proxy_only</item>
+    </string-array>
+    <string-array name="mode_type_grpc" translatable="false">
+        <item>gun</item>
+        <item>multi</item>
+    </string-array>
+    <string-array name="mode_value" translatable="false">
+        <item>VPN</item>
+        <item>Proxy only</item>
+    </string-array>
+    <string-array name="mux_enabled_entries" translatable="false">
+        <item>@string/label_disable</item>
+        <item>@string/label_enable</item>
+    </string-array>
+    <string-array name="mux_enabled_values" translatable="false">
+        <item>false</item>
+        <item>true</item>
+    </string-array>
+    <string-array name="mux_xudp_quic_entries" translatable="false">
+        <item>@string/mux_xudp_quic_reject</item>
+        <item>@string/mux_xudp_quic_allow</item>
+        <item>@string/mux_xudp_quic_skip</item>
+    </string-array>
+    <string-array name="mux_xudp_quic_value" translatable="false">
+        <item>reject</item>
+        <item>allow</item>
+        <item>skip</item>
+    </string-array>
+    <string-array name="networks" translatable="false">
+        <item>tcp</item>
+        <item>kcp</item>
+        <item>ws</item>
+        <item>httpupgrade</item>
+        <item>xhttp</item>
+        <item>h2</item>
+        <item>grpc</item>
+    </string-array>
+    <string-array name="observatory_least_load_method" translatable="false">
+        <item>GET</item>
+        <item>HEAD</item>
+    </string-array>
+    <string-array name="outbound_domain_resolve_method" translatable="false">
+        <item>@string/outbound_resolve_do_not_resolve</item>
+        <item>@string/outbound_resolve_add_dns_hosts</item>
+        <item>@string/outbound_resolve_replace_domain</item>
+    </string-array>
+    <string-array name="outbound_domain_resolve_method_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="outbound_tag" translatable="false">
+        <item>proxy</item>
+        <item>direct</item>
+        <item>block</item>
+    </string-array>
+    <string-array name="policy_group_type" translatable="false">
+        <item>@string/policy_group_least_ping</item>
+        <item>@string/policy_group_least_load</item>
+        <item>@string/policy_group_random</item>
+        <item>@string/policy_group_round_robin</item>
+    </string-array>
+    <string name="pref_header_top_row_padding_summary_value">%1$ddp</string>
+    <string name="pref_home_banner_height_summary_value">%1$ddp</string>
+    <string-array name="preset_rulesets" translatable="false">
+        <item>@string/preset_ruleset_china_whitelist</item>
+        <item>@string/preset_ruleset_china_blacklist</item>
+        <item>@string/preset_ruleset_global</item>
+        <item>@string/preset_ruleset_iran_whitelist</item>
+        <item>@string/preset_ruleset_russia_whitelist</item>
+    </string-array>
+    <string name="protocol_http">HTTP</string>
+    <string name="protocol_hysteria2">Hysteria2</string>
+    <string name="protocol_shadowsocks">Shadowsocks</string>
+    <string name="protocol_socks">Socks</string>
+    <string name="protocol_trojan">Trojan</string>
+    <string name="protocol_vless">VLESS</string>
+    <string name="protocol_vmess">VMess</string>
+    <string name="protocol_wireguard">Wireguard</string>
+    <string-array name="routing_domain_strategy" translatable="false">
+        <item>AsIs</item>
+        <item>IPIfNonMatch</item>
+        <item>IPOnDemand</item>
+    </string-array>
+    <string name="routing_settings_outbound_tag_hint">proxy / direct / block / &lt;remarks&gt;</string>
+    <string-array name="search_bar_chip_entries" translatable="false">
+        <item>@string/pref_search_bar_chip_disabled</item>
+        <item>@string/pref_search_bar_chip_weather</item>
+        <item>@string/pref_search_bar_chip_total_traffic</item>
+        <item>@string/pref_search_bar_chip_dual_swipe</item>
+    </string-array>
+    <string-array name="search_bar_chip_values" translatable="false">
+        <item>disabled</item>
+        <item>weather</item>
+        <item>total_traffic</item>
+        <item>dual_swipe</item>
+    </string-array>
+    <string-array name="securitys" translatable="false">
+        <item>chacha20-poly1305</item>
+        <item>aes-128-gcm</item>
+        <item>auto</item>
+        <item>none</item>
+        <item>zero</item>
+    </string-array>
+    <string name="selected_banner_dim_summary_value">%1$d%%</string>
+    <string-array name="share_method" translatable="false">
+        <item>@string/share_qrcode</item>
+        <item>@string/share_export_clipboard</item>
+        <item>@string/share_export_full_clipboard</item>
+    </string-array>
+    <string-array name="share_method_more" translatable="false">
+        <item>@string/share_qrcode</item>
+        <item>@string/share_export_clipboard</item>
+        <item>@string/share_export_full_clipboard</item>
+        <item>@string/share_edit</item>
+        <item>@string/share_delete</item>
+    </string-array>
+    <string-array name="share_sub_method" translatable="false">
+        <item>@string/share_qrcode</item>
+        <item>@string/share_export_clipboard</item>
+    </string-array>
+    <string name="sheet_banner_dim_summary_value">%1$d%%</string>
+    <string-array name="ss_securitys" translatable="false">
+        <item>aes-256-gcm</item>
+        <item>aes-128-gcm</item>
+        <item>chacha20-poly1305</item>
+        <item>chacha20-ietf-poly1305</item>
+        <item>xchacha20-poly1305</item>
+        <item>xchacha20-ietf-poly1305</item>
+        <item>none</item>
+        <item>plain</item>
+        <item>2022-blake3-aes-128-gcm</item>
+        <item>2022-blake3-aes-256-gcm</item>
+        <item>2022-blake3-chacha20-poly1305</item>
+    </string-array>
+    <string-array name="streamsecurity_alpn" translatable="false">
+        <item></item>
+        <item>h3</item>
+        <item>h2</item>
+        <item>http/1.1</item>
+        <item>h3,h2,http/1.1</item>
+        <item>h3,h2</item>
+        <item>h2,http/1.1</item>
+    </string-array>
+    <string-array name="streamsecurity_utls" translatable="false">
+        <item></item>
+        <item>chrome</item>
+        <item>firefox</item>
+        <item>safari</item>
+        <item>ios</item>
+        <item>android</item>
+        <item>edge</item>
+        <item>360</item>
+        <item>qq</item>
+        <item>random</item>
+        <item>randomized</item>
+    </string-array>
+    <string-array name="streamsecuritys" translatable="false">
+        <item></item>
+        <item>tls</item>
+    </string-array>
+    <string-array name="streamsecuritys_entries" translatable="false">
+        <item>@string/label_disable</item>
+        <item>TLS</item>
+    </string-array>
+    <string-array name="streamsecurityxs" translatable="false">
+        <item></item>
+        <item>tls</item>
+        <item>reality</item>
+    </string-array>
+    <string-array name="streamsecurityxs_entries" translatable="false">
+        <item>@string/label_disable</item>
+        <item>TLS</item>
+        <item>REALITY</item>
+    </string-array>
+    <plurals name="sub_setting_server_count">
+        <item quantity="one">%1$d server</item>
+        <item quantity="other">%1$d servers</item>
+    </plurals>
+    <string-array name="tab_badge_limit_entries" translatable="false">
+        <item>@string/tab_badge_limit_unlimited</item>
+        <item>99+</item>
+        <item>999+</item>
+        <item>9999+</item>
+    </string-array>
+    <string-array name="tab_badge_limit_values" translatable="false">
+        <item>0</item>
+        <item>99</item>
+        <item>999</item>
+        <item>9999</item>
+    </string-array>
+    <string-array name="ui_mode_night" translatable="false">
+        <item>@string/ui_mode_night_follow_system</item>
+        <item>@string/ui_mode_night_light</item>
+        <item>@string/ui_mode_night_dark</item>
+        <item>@string/ui_mode_night_auto</item>
+    </string-array>
+    <string-array name="ui_mode_night_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="uwu_profile_banner_title">master</string>
+    <string-array name="uwu_random_text" translatable="false">
+        <item>@string/uwu_random_text_1</item>
+        <item>@string/uwu_random_text_2</item>
+        <item>@string/uwu_random_text_3</item>
+        <item>@string/uwu_random_text_4</item>
+        <item>@string/uwu_random_text_5</item>
+        <item>@string/uwu_random_text_6</item>
+        <item>@string/uwu_random_text_7</item>
+        <item>@string/uwu_random_text_8</item>
+        <item>@string/uwu_random_text_9</item>
+        <item>@string/uwu_random_text_10</item>
+    </string-array>
+    <string-array name="vpn_bypass_lan" translatable="false">
+        <item>@string/vpn_bypass_lan_follow_config</item>
+        <item>@string/vpn_bypass_lan_bypass</item>
+        <item>@string/vpn_bypass_lan_not_bypass</item>
+    </string-array>
+    <string-array name="vpn_bypass_lan_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="vpn_interface_address" translatable="false">
+        <item>10.10.14.x</item>
+        <item>10.1.0.x</item>
+        <item>10.0.0.x</item>
+        <item>172.31.0.x</item>
+        <item>172.20.0.x</item>
+        <item>172.16.0.x</item>
+        <item>192.168.100.x</item>
+    </string-array>
+    <string-array name="vpn_interface_address_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string name="weather_loading">加载中…</string>
+    <string name="weather_temp_format">%d°C</string>
+    <string-array name="weather_unit_entries" translatable="false">
+        <item>Celsius (°C)</item>
+        <item>Fahrenheit (°F)</item>
+        <item>Auto</item>
+    </string-array>
+    <string-array name="weather_unit_values" translatable="false">
+        <item>true</item>
+        <item>false</item>
+        <item></item>
+    </string-array>
+    <string-array name="xhttp_mode" translatable="false">
+        <item>auto</item>
+        <item>packet-up</item>
+        <item>stream-up</item>
+        <item>stream-one</item>
+    </string-array>
+    <!-- Accessibility labels for controls that carry no visible text
+         (N1/N7/N10-N11/N22/N27/N29 of the 2026-10-02 a11y pass). -->
+    <string name="a11y_open_main_menu">打开主菜单</string>
+    <string name="a11y_more_options">更多选项</string>
+    <string name="subscription_import_url_hint">订阅地址</string>
+    <string name="a11y_selected">已选中</string>
+    <string name="a11y_status_card_test_action">测速当前选中配置</string>
+    <string name="qr_code_description">配置二维码</string>
+    <string name="qr_flashlight_toggle">开关手电筒</string>
+    <string name="profile_editor_edit_row">编辑 %1$s</string>
+    <string name="a11y_navigate_back">返回</string>
+</resources>

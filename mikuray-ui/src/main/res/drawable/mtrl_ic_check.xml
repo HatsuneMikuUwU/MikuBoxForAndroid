@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/rmx_system_check_line" android:state_checked="true" />
+    <item android:drawable="@drawable/rmx_system_close_line" />
+</selector>

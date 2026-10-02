@@ -1,243 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Strings this app owns.
+
+    Everything else comes from :mikuray-ui — the ported screens' copy, including
+    translations — so a key that both modules define used to be a silent override
+    of MikuRay's wording. What is left here is what only MikuBox can say: its own
+    name, the mihomo wording of its onboarding, its VPN notification and channel,
+    the import/subscription messages its own code raises, and the per-app picker.
+-->
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="splash_version">Version %1$s</string>
-    <string name="scaffold_subtitle">君の世界に、歌を届けるね。</string>
 
-    <!-- Traffic footer -->
-    <string name="traffic_idle_up" translatable="false">▲ 0 B/s</string>
-    <string name="traffic_idle_down" translatable="false">▼ 0 B/s</string>
-    <string name="traffic_up" translatable="false">▲ %1$s/s</string>
-    <string name="traffic_down" translatable="false">▼ %1$s/s</string>
+    <!-- The onboarding copy: the screens are MikuRay's, the product is not. -->
+    <string name="uwu_welcome_summary_1">MikuBox,</string>
+    <string name="uwu_welcome_summary_2">Mihomo (Clash) client for Android with a Miku UI style.</string>
+    <string name="uwu_welcome_page1_desc">Free and open source Mihomo (Clash.Meta) client for Android.</string>
+    <string name="uwu_welcome_page2_desc">Runs Clash subscriptions, rule sets and proxy groups.</string>
 
-    <!-- VPN service -->
+    <!-- The VPN notification, channel and quick-settings tile. -->
     <string name="vpn_channel_name">VPN status</string>
     <string name="vpn_notification_running">Connected</string>
+    <string name="vpn_notification_speeds">↑%1$s ↓%2$s</string>
+    <string name="vpn_notification_session">Session ↑%1$s ↓%2$s</string>
+    <string name="vpn_notification_exit_ip">Exit %1$s</string>
     <string name="vpn_action_stop">Stop</string>
+    <string name="vpn_tile_title">MikuBox VPN</string>
     <string name="subscription_channel_name">Subscription updates</string>
     <string name="subscription_update_title">Updating subscriptions</string>
-    <string name="vpn_tile_title">MikuBox VPN</string>
+
+    <!-- Raised by this app's own import, subscription and profile code. -->
     <string name="mihomo_start_failed">Mihomo failed to start</string>
-    <string name="toast_vpn_start_failed">VPN could not start: %1$s</string>
-    <string name="subscription_changes_title">%1$s updated</string>
-    <string name="subscription_changes_added">Added:\n%1$s</string>
-    <string name="subscription_changes_deleted">Deleted:\n%1$s</string>
-    <string name="local_proxy_notification_running">Local Mihomo proxy is running</string>
-    <string name="profile_default_name">Profile</string>
-    <string name="profile_subscription_default_name">Subscription</string>
-    <string name="profile_imported_default_name">Imported profile</string>
     <string name="error_mihomo_config_blank">Mihomo configuration must not be blank</string>
+    <string name="error_import_file_empty">File is empty or unreadable</string>
+    <string name="error_no_compatible_proxy_links">No Mihomo-compatible proxy links found</string>
+    <string name="error_subscription_empty">Subscription is empty</string>
+    <string name="error_subscription_http">Subscription HTTP %1$d</string>
     <string name="error_subscription_url_blank">Subscription URL must not be blank</string>
     <string name="error_unknown_profile">Unknown profile %1$s</string>
-    <string name="error_subscription_empty">Subscription is empty</string>
-    <string name="error_no_compatible_proxy_links">No Mihomo-compatible proxy links found</string>
-    <string name="error_subscription_http">Subscription HTTP %1$d</string>
+    <string name="profile_default_name">Profile</string>
+    <string name="profile_imported_default_name">Imported profile</string>
+    <string name="profile_subscription_default_name">Subscription</string>
 
-    <!-- Home UI -->
-    <string name="status_connected">Connected · %1$s</string>
-    <string name="status_connected_no_profile">Connected</string>
-    <string name="status_disconnected">Disconnected</string>
-    <string name="status_no_profile">No profile — add a subscription or config below</string>
-    <string name="action_connect">Connect</string>
-    <string name="action_disconnect">Disconnect</string>
-    <string name="hint_subscription_url">Subscription URL (Clash)</string>
-    <string name="hint_profile_name">Name (optional)</string>
-    <string name="subscription_update_interval">Auto-update interval</string>
-    <string name="subscription_update_when_connected">Only update while connected</string>
-    <string-array name="subscription_intervals">
-        <item>Every 6 hours</item>
-        <item>Every 12 hours</item>
-        <item>Every 24 hours</item>
-        <item>Every 3 days</item>
-        <item>Every 7 days</item>
-    </string-array>
-    <string name="action_add_profile">Add profile</string>
-    <string name="action_add_subscription">Add &amp; fetch subscription</string>
-    <string name="action_import_clipboard">Import config from clipboard</string>
-    <string name="profiles_header">Profiles</string>
-    <string name="profiles_empty">No profiles yet.</string>
-    <string name="action_update">Update</string>
-    <string name="action_delete">Delete</string>
-    <string name="action_share">Share</string>
-    <string name="action_select">Select</string>
-    <string name="action_more">More</string>
-    <string name="profile_traffic" translatable="false">↑ %1$s  ↓ %2$s</string>
-    <string name="badge_subscription">Subscription</string>
-    <string name="badge_local">Local</string>
-    <string name="badge_selected">Selected</string>
-    <string name="toast_subscription_added">Subscription added, fetching…</string>
-    <string name="toast_subscription_updated">Subscription updated</string>
-    <string name="toast_update_failed">Update failed: %1$s</string>
-    <string name="toast_config_imported">Config imported</string>
-    <string name="toast_clipboard_empty">Clipboard is empty</string>
-    <string name="toast_select_profile_first">Select or add a profile first</string>
-    <string name="toast_import_failed">Import failed: %1$s</string>
+    <!-- The add-config dialog and its screen-reader labels (these were
+         hard-coded Chinese and are now localizable like the rest). -->
 
-    <!-- Navigation menu (bottom sheet) -->
-    <string name="app_settings">App settings</string>
-    <string name="tools_and_info">Tools &amp; info</string>
-    <string name="menu_home">Home</string>
-    <string name="settings">Settings</string>
-    <string name="settings_language">Language</string>
-    <string name="language_system">System default</string>
-    <string name="language_english">English</string>
-    <string name="language_traditional_chinese">繁體中文</string>
-    <string name="language_simplified_chinese">简体中文</string>
-    <string name="language_french">Français</string>
-    <string name="language_indonesian">Bahasa Indonesia</string>
-    <string name="language_russian">Русский</string>
-    <string name="menu_log">Logcat</string>
-    <string name="desc_menu_log">View app logs</string>
-    <string name="menu_tools">Tools</string>
-    <string name="desc_menu_tools">Ping, speed &amp; more</string>
-    <string name="desc_menu_about">About this app</string>
-    <string name="action_clear">Clear</string>
-    <string name="logcat_read_failed">Failed to read log: %1$s</string>
-    <string name="toast_coming_soon">Coming soon</string>
+    <!-- The per-app picker marks system apps in the row label itself, so the
+         marker reads out loud with the name. -->
 
-    <!-- Settings -->
-    <string name="settings_section_appearance">Appearance</string>
-    <string name="settings_section_connection">Connection</string>
-    <string name="settings_theme">Theme</string>
-    <string name="settings_theme_system">Follow system</string>
-    <string name="settings_theme_light">Light</string>
-    <string name="settings_theme_dark">Dark</string>
-    <string name="settings_particles">Particle animation</string>
-    <string name="settings_particles_summary">Animated banner in the menu</string>
-    <string name="settings_boot">Start on boot</string>
-    <string name="settings_boot_summary">Reconnect the selected profile after reboot</string>
-    <string name="settings_mtu">MTU</string>
-    <string name="settings_per_app">Per-app proxy</string>
-    <string name="per_app_mode_all">All apps</string>
-    <string name="per_app_mode_allow">Allow list</string>
-    <string name="per_app_mode_disallow">Disallow list</string>
+    <!-- The bridge always enables the DNS module in VPN mode; the DNS screen
+         has to say so or dns.enable=false looks broken. -->
+    <string name="mihomo_dns_vpn_forced_hint">VPN mode always enables the DNS module (a profile dns.enable=false is overridden). To answer DNS without hijacking, clear the TUN DNS-hijack list.</string>
 
-    <!-- Tools -->
-    <string name="tools_connection_test">Connection test</string>
-    <string name="tools_test_url">Test URL</string>
-    <string name="tools_test_url_default" translatable="false">https://www.gstatic.com/generate_204</string>
-    <string name="tools_run_test">Run test</string>
-    <string name="tools_testing">Testing…</string>
-    <string name="tools_test_ok">HTTP %1$d · %2$d ms</string>
-    <string name="tools_test_failed">Failed: %1$s</string>
-    <string name="tools_network_info">Network info</string>
-    <string name="tools_net_transport">Transport: %1$s</string>
-    <string name="tools_net_none">No connection</string>
-    <string name="tools_net_other">Other</string>
+    <!-- The per-app picker MikuRay's screen does not have. -->
+    <string name="apps_search">Search apps</string>
+    <string name="apps_select_all">Select all</string>
+    <string name="apps_invert_selection">Invert selection</string>
 
-    <!-- About / Miku intro -->
-    <string name="menu_about">About</string>
-    <string name="about_title">About</string>
-    <string name="about_app_title">MikuBox for Android</string>
-    <string name="about_app_desc">A Mihomo-powered proxy client, dressed in a Hatsune Miku theme.</string>
-    <string name="about_version">Version %1$s</string>
-    <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>
-    <string name="uwu_about_miku_summary">Hatsune Miku is a Vocaloid-based virtual singer released by Crypton Future Media, code-named CV01. Known for her long turquoise twintails and clear voice, she is a 16-year-old girl and a globally renowned virtual idol. She is active in music, concerts, and anime, and is deeply loved by her fans.</string>
-    <string name="uwu_miku_gender_title">Gender</string>
-    <string name="uwu_miku_gender_summary">Female</string>
-    <string name="uwu_miku_birthday_title">Birthday</string>
-    <string name="uwu_miku_birthday_summary">August 31</string>
-    <string name="uwu_miku_age_title">Age</string>
-    <string name="uwu_miku_age_summary">16</string>
-    <string name="uwu_miku_voice_title">Voice</string>
-    <string name="uwu_miku_voice_summary">Saki Fujita</string>
-    <string name="uwu_miku_weight_title">Weight</string>
-    <string name="uwu_miku_weight_summary">42 kg</string>
-    <string name="uwu_miku_height_title">Height</string>
-    <string name="uwu_miku_height_summary">158 cm</string>
-    <string name="license">License</string>
-    <string name="about_license_summary">MikuBox is released under the Apache-2.0 license. Mihomo and other bundled components remain under their respective licenses.</string>
-    <string name="settings_section_backup">Backup</string>
-    <string name="settings_export">Export</string>
-    <string name="settings_export_summary">Save profiles and settings to a file</string>
-    <string name="settings_import">Import</string>
-    <string name="settings_import_summary">Restore profiles and settings from a file</string>
-    <string name="toast_backup_exported">Backup exported</string>
-    <string name="toast_backup_imported">Backup imported</string>
-    <string name="toast_backup_failed">Backup failed</string>
-
-    <!-- Proxies / node list -->
-    <string name="menu_proxies">Proxies</string>
-    <string name="proxies_title">Proxies</string>
-    <string name="proxies_empty_disconnected">Connect first to load and manage nodes.</string>
-    <string name="proxies_empty_none">The active profile has no selectable groups.</string>
+    <!-- The proxies screen's own actions. -->
     <string name="proxies_test">Test latency</string>
     <string name="proxies_sort_delay">Sort by latency</string>
-    <string name="proxies_testing">Testing…</string>
-    <string name="proxies_delay_ms">%1$d ms</string>
-    <string name="proxies_delay_timeout">timeout</string>
-    <string name="toast_node_selected">Switched to %1$s</string>
-    <string name="toast_node_select_failed">Could not switch node</string>
 
-    <!-- DNS override -->
-    <string name="settings_dns">DNS</string>
-    <string name="settings_dns_summary">Override the profile DNS with your own</string>
-    <string name="dns_title">DNS</string>
-    <string name="dns_override">Override DNS</string>
-    <string name="dns_override_summary">Replace each profile\'s dns section with the block below</string>
-    <string name="dns_yaml_hint">DNS (YAML)</string>
-    <string name="dns_invalid_title">Invalid DNS configuration</string>
-    <string name="dns_restart_hint">Reconnect to apply changes.</string>
-    <string name="action_save">Save</string>
-    <string name="action_reset">Reset</string>
-    <string name="toast_dns_saved">DNS override saved</string>
-    <string name="toast_dns_reset">Reset to default DNS</string>
+    <!-- The custom-colour picker's axis labels. -->
+    <string name="theme_hue">Hue</string>
+    <string name="theme_saturation">Saturation</string>
+    <string name="theme_lightness">Lightness</string>
 
-    <!-- Home search / sort -->
-    <string name="search_hint">Looking for something?</string>
-    <string name="sort_by_name">Name</string>
-    <string name="sort_by_updated">Recently updated</string>
-    <string name="action_sort">Sort</string>
-    <string name="action_menu">Menu</string>
-    <string name="action_refresh">Refresh subscriptions</string>
-    <string name="toast_no_subscriptions">No subscriptions to refresh</string>
-    <string name="toast_subscriptions_updated">Updated %1$d/%2$d subscriptions</string>
-    <string name="dialog_refresh_subscriptions_title">Refresh subscriptions?</string>
-    <string name="dialog_refresh_subscriptions_message">Refresh %1$d subscriptions now?</string>
-    <string name="dialog_update_subscription_title">Update subscription?</string>
-    <string name="dialog_update_subscription_message">Update %1$s from its subscription URL?</string>
-
-    <!-- Core / connection settings -->
-    <string name="settings_section_core">Core</string>
-    <string name="settings_mode">Outbound mode</string>
-    <string name="settings_log">Log level</string>
-    <string name="settings_tun_stack">TUN stack</string>
-    <string name="settings_allow_lan">Allow LAN</string>
-    <string name="settings_allow_lan_summary">Let other devices use this proxy</string>
-    <string name="settings_ipv6">IPv6</string>
-    <string name="settings_ipv6_summary">Route IPv6 through the tunnel</string>
-    <string name="settings_autoconnect">Auto-connect on launch</string>
-    <string name="settings_autoconnect_summary">Start the VPN when the app opens</string>
-    <string name="settings_test_url">Latency test URL</string>
-    <string name="settings_test_timeout">Latency test timeout</string>
-    <string name="settings_test_timeout_value" translatable="false">%1$d ms</string>
-    <string name="mode_follow">Follow config</string>
-    <string name="mode_rule" translatable="false">Rule</string>
-    <string name="mode_global" translatable="false">Global</string>
-    <string name="mode_direct" translatable="false">Direct</string>
-    <string name="log_silent" translatable="false">Silent</string>
-    <string name="log_warning" translatable="false">Warning</string>
-    <string name="log_info" translatable="false">Info</string>
-    <string name="log_debug" translatable="false">Debug</string>
-    <string name="stack_system" translatable="false">System</string>
-    <string name="stack_gvisor" translatable="false">gVisor</string>
-    <string name="stack_mixed" translatable="false">Mixed</string>
-    <string name="greeting_morning">Good morning…</string>
-    <string name="greeting_afternoon">Good afternoon…</string>
-    <string name="greeting_evening">Good evening…</string>
-    <string name="greeting_night">Good night…</string>
-
-    <!-- Navigation drawer -->
-    <string name="drawer_greeting">Hi, Miku 💕</string>
-    <string name="drawer_subtitle">Let\'s do our best!</string>
-    <string name="drawer_section_manage">Manage</string>
-    <string name="drawer_section_tools">Tools &amp; info</string>
-    <string name="about_links_title">Links</string>
-    <string name="about_link_github">GitHub repository</string>
-    <string name="about_link_telegram">Telegram channel</string>
-    <string name="about_link_telegram_chinese">Telegram Chinese channel</string>
-    <string name="settings_unified_delay">Unified delay</string>
-    <string name="settings_unified_delay_summary">Use one latency measurement method for all proxies</string>
-    <string name="settings_tcp_concurrent">TCP concurrent</string>
-    <string name="settings_tcp_concurrent_summary">Connect to multiple IP addresses concurrently</string>
+    <!-- Row actions, shared by the short menus this app raises. -->
+    <string name="action_select">Select</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_share">Share</string>
+    <string name="action_update">Update</string>
 </resources>

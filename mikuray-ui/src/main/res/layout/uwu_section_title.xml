@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sub-section caption inside a preference card cluster: a quiet step down
+     from the category header (gradient disc + 17sp) to the entries. Keyless
+     and non-selectable by design — it only exists to name a group of rows. -->
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="12dp"
+    android:paddingTop="14dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="6dp"
+    android:textAppearance="?attr/textAppearanceTitleSmall"
+    android:textSize="13sp"
+    android:textStyle="bold"
+    android:textColor="?attr/colorOnSurfaceVariant" />

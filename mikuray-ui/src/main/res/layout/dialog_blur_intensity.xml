@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="8dp"
+    android:paddingTop="12dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="8dp"
+        android:text="@string/blur_intensity_radius_label"
+        android:textAppearance="?attr/textAppearanceLabelMedium"
+        android:textColor="?attr/colorOnSurfaceVariant" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider_blur_radius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stepSize="1.0"
+        android:valueFrom="2"
+        android:valueTo="100"
+        app:labelBehavior="floating"
+        app:tickVisibilityMode="hidden" />
+
+    <TextView
+        android:id="@+id/label_blur_rounds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="8dp"
+        android:text="@string/blur_intensity_rounds_label"
+        android:textAppearance="?attr/textAppearanceLabelMedium"
+        android:textColor="?attr/colorOnSurfaceVariant" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider_blur_rounds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stepSize="1.0"
+        android:valueFrom="1"
+        android:valueTo="15"
+        app:labelBehavior="floating"
+        app:tickVisibilityMode="hidden" />
+
+     <TextView
+        android:id="@+id/blur_rounds_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="8dp"
+        android:text="@string/title_blur_warning"
+        android:textAppearance="?attr/textAppearanceLabelMedium"
+        android:textColor="?attr/colorError" />
+
+</LinearLayout>

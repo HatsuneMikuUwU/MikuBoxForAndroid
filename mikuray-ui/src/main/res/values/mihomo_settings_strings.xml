@@ -1,0 +1,53 @@
+<resources>
+<!-- F33/N4: these titles used to be the bare YAML keys themselves, so the
+     default-locale screens showed "sniffer.enable"/"allow-lan" next to real
+     prose. Human-readable titles follow zh-rCN's bilingual pattern: label,
+     then the underlying key, so a title still names the config it edits. -->
+<string name="mihomo_setting_allow_lan">Allow LAN · allow-lan</string>
+<string name="mihomo_setting_ipv6">IPv6 · ipv6</string>
+<string name="mihomo_setting_unified_delay">Unified delay · unified-delay</string>
+<string name="mihomo_setting_tcp_concurrent">TCP concurrency · tcp-concurrent</string>
+<string name="mihomo_setting_mixed_port">Mixed port · mixed-port</string>
+<string name="mihomo_setting_log_level">Log level · log-level</string>
+<string name="mihomo_setting_tun_stack">TUN stack · tun.stack</string>
+<string name="mihomo_setting_find_process_mode">Process matching · find-process-mode</string>
+<string name="mihomo_setting_geodata_loader">Geodata loader · geodata-loader</string>
+<string name="mihomo_setting_sniffer_enable">Domain sniffing · sniffer.enable</string>
+<string name="mihomo_setting_sniffer_override_destination">Sniffed destination override · sniffer.override-destination</string>
+<string name="mihomo_setting_geodata_mode">Geodata mode · geodata-mode</string>
+<string name="mihomo_setting_disable_keep_alive">Disable keep-alive · disable-keep-alive</string>
+<string name="mihomo_setting_keep_alive_interval">Keep-alive interval (seconds) · keep-alive-interval</string>
+<string name="mihomo_setting_dns_enhanced_mode">DNS enhanced mode · dns.enhanced-mode</string>
+<string name="mihomo_setting_dns_cache_algorithm">DNS cache algorithm · dns.cache-algorithm</string>
+<string name="mihomo_setting_dns_nameserver">DNS nameservers · dns.nameserver</string>
+<string name="mihomo_setting_dns_default_nameserver">Bootstrap DNS nameservers · dns.default-nameserver</string>
+<string name="mihomo_setting_dns_proxy_server_nameserver">Proxy-domain DNS nameservers · dns.proxy-server-nameserver</string>
+<string name="mihomo_setting_dns_direct_nameserver">Direct-traffic DNS nameservers · dns.direct-nameserver</string>
+<string name="mihomo_setting_dns_fallback">Fallback DNS servers · dns.fallback</string>
+<string name="mihomo_setting_dns_fake_ip_range">Fake-IP range · dns.fake-ip-range</string>
+<string name="mihomo_setting_dns_fake_ip_filter">Fake-IP filter list · dns.fake-ip-filter</string>
+<string name="mihomo_setting_dns_respect_rules">DNS follows routing rules · dns.respect-rules</string>
+<string name="mihomo_setting_dns_ipv6">DNS IPv6 resolution · dns.ipv6</string>
+<string name="mihomo_setting_dns_use_hosts">Use hosts · dns.use-hosts</string>
+<string name="mihomo_setting_dns_use_system_hosts">Use system hosts · dns.use-system-hosts</string>
+<string name="mihomo_setting_dns_prefer_h3">Prefer HTTP/3 · dns.prefer-h3</string>
+<string name="mihomo_setting_dns_direct_nameserver_follow_policy">Direct nameservers follow policy · dns.direct-nameserver-follow-policy</string>
+<string name="mihomo_settings_hint">Reconnect to apply; follow profile preserves its values</string>
+<string name="mihomo_follow_profile">Follow profile</string>
+<string name="mihomo_invalid_value">Value outside the allowed range</string>
+<string name="mihomo_settings_title">mihomo settings</string>
+<string name="mihomo_setting_keep_alive_idle">Keep-alive idle (seconds) · keep-alive-idle</string>
+    <string name="mihomo_section_core_basics">Basics</string>
+    <string name="mihomo_section_core_overrides">Overrides &amp; extras</string>
+    <string name="mihomo_section_dns_resolvers">Resolvers</string>
+    <string name="mihomo_section_dns_behavior">Behaviour &amp; cache</string>
+    <string name="mihomo_section_dns_fakeip">Fake-IP &amp; enhanced mode</string>
+    <string name="mihomo_section_dns_fallback">Fallback filter</string>
+    <string name="mihomo_section_vpn_general">General</string>
+    <string name="mihomo_section_vpn_tun">TUN interface</string>
+    <string name="mihomo_section_vpn_routing">Routing &amp; split tunneling</string>
+    <string name="mihomo_section_adv_performance">Core performance</string>
+    <string name="mihomo_section_adv_keepalive">Keep-alive</string>
+    <string name="mihomo_section_adv_tls">Transport security</string>
+    <string name="mihomo_section_adv_controller">External controller</string>
+</resources>

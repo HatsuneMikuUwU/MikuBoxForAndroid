@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        android:icon="@drawable/rmx_grid_line"
+        android:key="pref_navigate_ui_home"
+        android:summary="@string/summary_navigate_ui_home"
+        android:title="@string/title_ui_home"
+        app:layout="@layout/uwu_top" />
+
+    <Preference
+        android:icon="@drawable/rmx_image_line"
+        android:key="pref_navigate_ui_banner"
+        android:summary="@string/summary_navigate_ui_banner"
+        android:title="@string/title_ui_banner"
+        app:layout="@layout/uwu_mid" />
+
+    <Preference
+        android:icon="@drawable/rmx_volume_up_line"
+        android:key="pref_navigate_ui_alerts"
+        android:summary="@string/summary_navigate_ui_alerts"
+        android:title="@string/title_ui_alerts"
+        app:layout="@layout/uwu_bot" />
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_ui_theme"
+        android:title="@string/title_ui_theme"
+        app:sectionIcon="@drawable/rmx_palette_line">
+
+        <Preference
+            android:icon="@drawable/rmx_palette_line"
+            android:key="pref_app_theme"
+            android:summary="@string/summary_pref_app_theme"
+            android:title="@string/title_pref_app_theme"
+            app:layout="@layout/uwu_top" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_palette_line"
+            android:key="pref_dynamic_color"
+            android:summary="@string/summary_pref_dynamic_color"
+            android:title="@string/title_pref_dynamic_color"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_image_line"
+            android:key="pref_dynamic_color_banner"
+            android:summary="@string/summary_pref_dynamic_color_banner"
+            android:title="@string/title_pref_dynamic_color_banner"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/ui_mode_night"
+            android:entryValues="@array/ui_mode_night_value"
+            android:icon="@drawable/rmx_moon_line"
+            android:key="pref_ui_mode_night"
+            android:summary="%s"
+            android:title="@string/title_pref_ui_mode_night"
+            app:dialogIcon="@drawable/rmx_moon_line"
+            app:layout="@layout/uwu_mid" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_moon_line"
+            android:key="pref_true_black"
+            android:summary="@string/summary_pref_true_black"
+            android:title="@string/title_pref_true_black"
+            app:layout="@layout/uwu_bot_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_ui_appearance"
+        android:title="@string/title_ui_appearance"
+        app:sectionIcon="@drawable/rmx_palette_line">
+
+        <ListPreference
+            android:defaultValue="uwu_shape_cookie_9"
+            android:entries="@array/icon_shape_entries"
+            android:entryValues="@array/icon_shape_values"
+            android:icon="@drawable/rmx_shapes_line"
+            android:key="pref_icon_shape"
+            android:summary="%s"
+            android:title="@string/title_pref_icon_shape"
+            app:dialogIcon="@drawable/rmx_shapes_line"
+            app:layout="@layout/uwu_top" />
+
+        <ListPreference
+            android:defaultValue="uwu_shape_circle"
+            android:entries="@array/icon_shape_entries"
+            android:entryValues="@array/icon_shape_values"
+            android:icon="@drawable/rmx_arrows_arrow_right_double_line"
+            android:key="pref_arrow_shape"
+            android:summary="%s"
+            android:title="@string/title_pref_arrow_shape"
+            app:dialogIcon="@drawable/rmx_arrows_arrow_right_double_line"
+            app:layout="@layout/uwu_mid" />
+
+        <com.miku.ray.ui.dialog.AppIconPickerDialog
+            android:icon="@drawable/rmx_apps_line"
+            app:key="pref_app_icon"
+            app:layout="@layout/uwu_mid"
+            app:title="@string/title_pref_app_icon" />
+
+        <ListPreference
+            android:defaultValue="default"
+            android:entries="@array/app_name_entries"
+            android:entryValues="@array/app_name_values"
+            android:icon="@drawable/rmx_edit_line"
+            android:key="pref_custom_app_name"
+            android:summary="%s"
+            android:title="@string/title_pref_custom_app_name"
+            app:dialogIcon="@drawable/rmx_edit_line"
+            app:layout="@layout/uwu_mid" />
+
+        <com.miku.ray.ui.dialog.DpiSliderDialog
+            android:icon="@drawable/rmx_smartphone_line"
+            app:key="pref_custom_dpi"
+            app:layout="@layout/uwu_mid"
+            app:title="@string/pref_custom_dpi" />
+
+        <ListPreference
+            android:defaultValue="gradient"
+            android:entries="@array/category_style_entries"
+            android:entryValues="@array/category_style_values"
+            android:icon="@drawable/rmx_stack_line"
+            android:key="pref_category_style"
+            android:summary="%s"
+            android:title="@string/title_pref_category_style"
+            app:dialogIcon="@drawable/rmx_stack_line"
+            app:layout="@layout/uwu_mid" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_toggle_line"
+            android:key="pref_show_splash_screen"
+            android:summary="@string/pref_show_splash_summary"
+            android:title="@string/pref_show_splash_title"
+            app:layout="@layout/uwu_bot_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_app_font"
+        android:title="@string/title_category_app_font"
+        app:sectionIcon="@drawable/rmx_font_size">
+
+        <Preference
+            android:icon="@drawable/rmx_font_size"
+            android:key="pref_app_font"
+            android:title="@string/title_pref_app_font"
+            app:layout="@layout/uwu_top" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_font_size"
+            android:key="pref_app_font_use_custom"
+            android:summary="@string/summary_pref_app_font_use_custom"
+            android:title="@string/title_pref_app_font_use_custom"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <Preference
+            android:icon="@drawable/rmx_file_line"
+            android:key="action_pick_custom_font"
+            android:summary="@string/summary_pref_app_font_custom_pick_empty"
+            android:title="@string/title_pref_app_font_custom_pick"
+            app:layout="@layout/uwu_mid" />
+
+        <Preference
+            android:icon="@drawable/rmx_delete_bin_line"
+            android:key="action_delete_custom_font"
+            android:summary="@string/summary_pref_app_font_custom_delete_empty"
+            android:title="@string/title_pref_app_font_custom_delete"
+            app:layout="@layout/uwu_mid" />
+
+        <com.miku.ray.ui.dialog.FontSizeSliderDialog
+            android:icon="@drawable/rmx_font_size"
+            app:key="pref_app_font_size"
+            app:layout="@layout/uwu_bot"
+            app:title="@string/pref_font_size" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_blur_settings"
+        android:title="@string/title_blur_settings"
+        app:sectionIcon="@drawable/rmx_blur_line">
+
+         <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_blur_line"
+            android:key="pref_enable_blur"
+            android:summary="@string/summary_pref_enable_blur"
+            android:title="@string/title_pref_enable_blur"
+            app:layout="@layout/uwu_top_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:dependency="pref_enable_blur"
+            android:icon="@drawable/rmx_blur_line"
+            android:key="pref_use_system_blur"
+            android:summary="@string/summary_pref_use_system_blur"
+            android:title="@string/title_pref_use_system_blur"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <com.miku.ray.ui.dialog.BlurIntensityDialog
+            android:icon="@drawable/rmx_blur_line"
+            app:dependency="pref_enable_blur"
+            app:key="pref_blur_intensity"
+            app:layout="@layout/uwu_mid"
+            app:title="@string/pref_blur_intensity" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_blur_line"
+            android:key="pref_blur_bottom_status"
+            android:summary="@string/summary_pref_blur_bottom_status"
+            android:title="@string/title_pref_blur_bottom_status"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:dependency="pref_blur_bottom_status"
+            android:icon="@drawable/rmx_blur_line"
+            android:key="pref_blur_bottom_blob_anim"
+            android:summary="@string/summary_pref_blur_bottom_blob_anim"
+            android:title="@string/title_pref_blur_bottom_blob_anim"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <com.miku.ray.ui.dialog.BlurBottomIntensityDialog
+            android:icon="@drawable/rmx_blur_line"
+            app:dependency="pref_blur_bottom_status"
+            app:key="pref_blur_bottom_intensity"
+            app:layout="@layout/uwu_bot"
+            app:title="@string/pref_blur_bottom_intensity" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+</PreferenceScreen>

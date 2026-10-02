@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Release-only override of the debug config in :mikuray-ui: release builds
+     trust system CAs only. Trusting user-installed CAs (which the debug config
+     allows for traffic inspection) would let any locally installed CA
+     intercept subscription and update traffic carrying node credentials. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

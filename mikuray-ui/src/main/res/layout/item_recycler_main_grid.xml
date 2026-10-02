@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_bg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layout_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layerType="none"
+        app:cardBackgroundColor="?attr/colorCard"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="?attr/colorOutlineVariant"
+        app:strokeWidth="0dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/info_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="14dp"
+                android:paddingEnd="14dp"
+                android:paddingStart="14dp"
+                android:paddingTop="14dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_overflow_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                    android:textColor="?attr/colorOnSurface"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toStartOf="@id/iv_pin_indicator"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_pin_indicator"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="6dp"
+                    android:contentDescription="@string/title_pin_server"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_name"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_overflow_start"
+                    app:layout_constraintStart_toEndOf="@id/tv_name"
+                    app:layout_constraintTop_toTopOf="@id/tv_name"
+                    app:srcCompat="@drawable/rmx_map_pushpin_line"
+                    app:tint="?attr/colorPrimary" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierAllowsGoneWidgets="false"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="tv_name,iv_pin_indicator" />
+
+                <TextView
+                    android:id="@+id/tv_statistics"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/barrier_header" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_marginTop="8dp"
+                    android:checkable="false"
+                    android:clickable="false"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:maxLines="1"
+                    android:textAppearance="?attr/textAppearanceLabelSmall"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="10sp"
+                    app:chipBackgroundColor="?attr/colorSecondaryContainer"
+                    app:chipEndPadding="6dp"
+                    app:chipMinHeight="22dp"
+                    app:chipMinTouchTargetSize="0dp"
+                    app:chipStartPadding="6dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_statistics" />
+
+                <View
+                    android:id="@+id/layout_subscription"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/tv_subscription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_marginTop="4dp"
+                    android:checkable="false"
+                    android:clickable="false"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:maxLines="1"
+                    android:textAppearance="?attr/textAppearanceLabelSmall"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    android:textSize="10sp"
+                    app:chipBackgroundColor="?attr/colorTertiaryContainer"
+                    app:chipEndPadding="6dp"
+                    app:chipMinHeight="22dp"
+                    app:chipMinTouchTargetSize="0dp"
+                    app:chipStartPadding="6dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_type" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_chips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierAllowsGoneWidgets="false"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="tv_type,tv_subscription" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_test_metadata"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/barrier_chips">
+
+                    <TextView
+                        android:id="@+id/tv_test_result"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="@color/colorPing"
+                        app:layout_constraintEnd_toStartOf="@id/tv_country_code"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_country_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:maxLines="1"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_test_metadata"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierAllowsGoneWidgets="false"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="barrier_chips,layout_test_metadata" />
+
+                <TextView
+                    android:id="@+id/tv_traffic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="?attr/textAppearanceLabelSmall"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/barrier_test_metadata" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrier_traffic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierAllowsGoneWidgets="false"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="barrier_test_metadata,tv_traffic" />
+
+                <LinearLayout
+                    android:id="@+id/layout_network_security"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/barrier_traffic">
+
+                    <TextView
+                        android:id="@+id/tv_network"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:drawablePadding="3dp"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_security"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="3dp"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/v_status_dot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/layout_more"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="top|end"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_icon_button"
+                android:contentDescription="@string/searchpreference_more"
+                android:focusable="true"
+                app:srcCompat="@drawable/rmx_system_more_2_line"
+                app:tint="?attr/colorOnSurfaceVariant" />
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mihomo_on_demand">On-demand connection</string>
+    <string name="mihomo_on_demand_hint">Connect on allowed networks; pause on excluded Wi-Fi. Manual disconnect lasts until the next network change. Turning this off leaves the current connection unchanged.</string>
+    <string name="mihomo_network_wifi">Connect on Wi-Fi</string>
+    <string name="mihomo_network_cellular">Connect on mobile data</string>
+    <string name="mihomo_network_ethernet">Connect on Ethernet</string>
+    <string name="mihomo_network_other">Connect on other networks</string>
+    <string name="mihomo_on_demand_excluded">Excluded Wi-Fi networks</string>
+    <string name="mihomo_on_demand_excluded_hint">One exact, case-sensitive Wi-Fi name per line, up to 32 UTF-8 bytes. If the name cannot be read, the VPN stays paused.</string>
+    <string name="mihomo_on_demand_permission">Wi-Fi name permission</string>
+    <string name="mihomo_on_demand_permission_hint">Only needed for Wi-Fi exclusions: grant precise location, then choose Allow all the time in system settings and enable device location. Tap to authorize or open settings.</string>
+    <string name="mihomo_on_demand_permission_ready">Location permission granted. Keep device location enabled to read Wi-Fi names.</string>
+    <string name="mihomo_on_demand_waiting">Waiting for network</string>
+    <string name="mihomo_on_demand_connecting">Automatic connection enabled on this network</string>
+    <string name="mihomo_on_demand_paused">Paused on this network; monitoring changes</string>
+    <string name="mihomo_on_demand_ssid_missing">Paused: cannot read Wi-Fi name. Check location permission.</string>
+    <string name="mihomo_on_demand_setup">Select a downloaded profile and grant VPN permission first.</string>
+    <string name="mihomo_on_demand_stop">Disable and disconnect</string>
+    <string name="mihomo_script">Configuration script</string>
+    <string name="mihomo_script_enable">Enable global script</string>
+    <string name="mihomo_script_summary">Applies to profiles inheriting the global script, before settings overrides. Errors stop connection.</string>
+    <string name="mihomo_script_edit">Edit and test script</string>
+    <string name="mihomo_script_hint">Define main(config) and return a configuration object. Preview does not change the connection. No file, network or timer access; execution limit 2 seconds. UI settings and Android TUN fields take priority.</string>
+    <string name="mihomo_script_save">Validate and save</string>
+    <string name="mihomo_script_test">Preview result</string>
+    <string name="mihomo_script_result">Script result (before settings overrides)</string>
+    <string name="mihomo_script_error">Script failed</string>
+    <string name="mihomo_script_library">Script library</string>
+    <string name="mihomo_script_library_hint">Create, edit, rename and delete reusable scripts</string>
+    <string name="mihomo_script_bindings">Assign scripts to profiles</string>
+    <string name="mihomo_script_bindings_hint">Choose a dedicated script, inherit the global script, or disable scripts for each profile</string>
+    <string name="mihomo_script_inherit">Inherit global script</string>
+    <string name="mihomo_script_none">Disable scripts</string>
+    <string name="mihomo_script_add">New script</string>
+    <string name="mihomo_script_rename">Rename</string>
+    <string name="mihomo_script_delete">Delete script</string>
+    <string name="mihomo_script_deleted">This script has been deleted.</string>
+    <string name="mihomo_script_delete_hint">Delete “%1$s”? Profiles bound to it will disable scripts instead of falling back to the global script.</string>
+    <string name="mihomo_script_name">Script name</string>
+    <string name="mihomo_script_name_invalid">Enter a unique name</string>
+    <string name="mihomo_script_preview_profile">Preview profile: %1$s</string>
+</resources>

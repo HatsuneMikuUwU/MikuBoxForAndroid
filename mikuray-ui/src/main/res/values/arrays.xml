@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="securitys" translatable="false">
+        <item>chacha20-poly1305</item>
+        <item>aes-128-gcm</item>
+        <item>auto</item>
+        <item>none</item>
+        <item>zero</item>
+    </string-array>
+    
+    <string-array name="ss_securitys" translatable="false">
+        <item>aes-256-gcm</item>
+        <item>aes-128-gcm</item>
+        <item>chacha20-poly1305</item>
+        <item>chacha20-ietf-poly1305</item>
+        <item>xchacha20-poly1305</item>
+        <item>xchacha20-ietf-poly1305</item>
+        <item>none</item>
+        <item>plain</item>
+        <item>2022-blake3-aes-128-gcm</item>
+        <item>2022-blake3-aes-256-gcm</item>
+        <item>2022-blake3-chacha20-poly1305</item>
+    </string-array>
+
+    <string-array name="networks" translatable="false">
+        <item>tcp</item>
+        <item>kcp</item>
+        <item>ws</item>
+        <item>httpupgrade</item>
+        <item>xhttp</item>
+        <item>h2</item>
+        <item>grpc</item>
+    </string-array>
+
+    <string-array name="header_type_tcp" translatable="false">
+        <item>none</item>
+        <item>http</item>
+    </string-array>
+
+    <string-array name="header_type_kcp_and_quic" translatable="false">
+        <item>none</item>
+        <item>srtp</item>
+        <item>utp</item>
+        <item>wechat-video</item>
+        <item>dtls</item>
+        <item>wireguard</item>
+        <item>dns</item>
+    </string-array>
+
+    <string-array name="mode_type_grpc" translatable="false">
+        <item>gun</item>
+        <item>multi</item>
+    </string-array>
+
+    <string-array name="streamsecuritys" translatable="false">
+        <item />
+        <item>tls</item>
+    </string-array>
+    
+    <string-array name="streamsecurityxs" translatable="false">
+        <item />
+        <item>tls</item>
+        <item>reality</item>
+    </string-array>
+
+    <string-array name="fragment_packets" translatable="false">
+        <item>tlshello</item>
+        <item>1-1</item>
+        <item>1-2</item>
+        <item>1-3</item>
+        <item>1-5</item>
+    </string-array>
+
+    <string-array name="observatory_least_load_method" translatable="false">
+        <item>GET</item>
+        <item>HEAD</item>
+    </string-array>
+
+    <string-array name="streamsecurity_utls" translatable="false">
+        <item />
+        <item>chrome</item>
+        <item>firefox</item>
+        <item>safari</item>
+        <item>ios</item>
+        <item>android</item>
+        <item>edge</item>
+        <item>360</item>
+        <item>qq</item>
+        <item>random</item>
+        <item>randomized</item>
+    </string-array>
+
+    <string-array name="streamsecurity_alpn" translatable="false">
+        <item />
+        <item>h3</item>
+        <item>h2</item>
+        <item>http/1.1</item>
+        <item>h3,h2,http/1.1</item>
+        <item>h3,h2</item>
+        <item>h2,http/1.1</item>
+    </string-array>
+
+    <string-array name="allowinsecures" translatable="false">
+        <item />
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
+    <string-array name="routing_domain_strategy" translatable="false">
+        <item>AsIs</item>
+        <item>IPIfNonMatch</item>
+        <item>IPOnDemand</item>
+    </string-array>
+
+    <string-array name="geo_files_sources_entries" translatable="false">
+        <item>Loyalsoldier/v2ray-rules-dat</item>
+        <item>runetfreedom/russia-v2ray-rules-dat</item>
+        <item>Chocolate4U/Iran-v2ray-rules</item>
+    </string-array>
+
+    <string-array name="geo_files_sources_values" translatable="false">
+        <item>Loyalsoldier/v2ray-rules-dat</item>
+        <item>runetfreedom/russia-v2ray-rules-dat</item>
+        <item>Chocolate4U/Iran-v2ray-rules</item>
+    </string-array>
+
+    <string-array name="core_loglevel" translatable="false">
+        <item>debug</item>
+        <item>info</item>
+        <item>warning</item>
+        <item>error</item>
+        <item>none</item>
+    </string-array>
+
+    <string-array name="mode_value" translatable="false">
+        <item>VPN</item>
+        <item>Proxy only</item>
+    </string-array>
+
+    <string-array name="browser_dialer_mode_value" translatable="false">
+        <item>Disable</item>
+        <item>OkHttp</item>
+        <item>WebView</item>
+    </string-array>
+
+    <string-array name="hev_tunnel_loglevel" translatable="false">
+        <item>error</item>
+        <item>warn</item>
+        <item>info</item>
+        <item>debug</item>
+    </string-array>
+
+    <string-array name="hev_tunnel_icmp" translatable="false">
+        <item>off</item>
+        <item>reply</item>
+    </string-array>
+
+    <string-array name="hev_tunnel_udp_mode" translatable="false">
+        <item>udp</item>
+        <item>tcp</item>
+    </string-array>
+
+    <string-array name="flows" translatable="false">
+        <item />
+        <item>xtls-rprx-vision</item>
+        <item>xtls-rprx-vision-udp443</item>
+    </string-array>
+
+    <string-array name="language_select" translatable="false">
+        <item>auto</item>
+        <item>English</item>
+        <item>中文简体</item>
+        <item>Русский</item>
+        <item>Bahasa Indonesia</item>
+    </string-array>
+
+    <string-array name="language_select_value" translatable="false">
+        <item></item>
+        <item>en</item>
+        <item>zh-CN</item>
+        <item>ru</item>
+        <item>in</item>
+    </string-array>
+
+    <string-array name="mux_xudp_quic_value" translatable="false">
+        <item>reject</item>
+        <item>allow</item>
+        <item>skip</item>
+    </string-array>
+
+    <string-array name="ui_mode_night_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="outbound_tag" translatable="false">
+        <item>proxy</item>
+        <item>direct</item>
+        <item>block</item>
+    </string-array>
+
+    <string-array name="xhttp_mode" translatable="false">
+        <item>auto</item>
+        <item>packet-up</item>
+        <item>stream-up</item>
+        <item>stream-one</item>
+    </string-array>
+
+    <string-array name="vpn_bypass_lan_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="vpn_interface_address_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="vpn_interface_address">
+        <item>10.10.14.x</item>
+        <item>10.1.0.x</item>
+        <item>10.0.0.x</item>
+        <item>172.31.0.x</item>
+        <item>172.20.0.x</item>
+        <item>172.16.0.x</item>
+        <item>192.168.100.x</item>
+    </string-array>
+
+    <string-array name="outbound_domain_resolve_method_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="banner_settings_character_entries" translatable="false">
+        <item>Hatsune Miku V2</item>
+        <item>Hatsune Miku V2 Chinese</item>
+        <item>Hatsune Miku V2 Append</item>
+        <item>Hatsune Miku V3</item>
+        <item>Hatsune Miku V3 English</item>
+        <item>Hatsune Miku V4</item>
+        <item>Hatsune Miku Super Pack</item>
+        <item>Hatsune Miku V6</item>
+        <item>@string/banner_settings_character_custom</item>
+    </string-array>
+
+    <string-array name="banner_settings_character_values" translatable="false">
+        <item>uwu_banner_miku_v2</item>
+        <item>uwu_banner_miku_v2_chinese</item>
+        <item>uwu_banner_miku_v2_append</item>
+        <item>uwu_banner_miku_v3</item>
+        <item>uwu_banner_miku_v3_english</item>
+        <item>uwu_banner_miku_v4</item>
+        <item>uwu_banner_miku_super_pack</item>
+        <item>uwu_banner_miku_v6</item>
+        <item>custom</item>
+    </string-array>
+
+    <string-array name="icon_shape_entries" translatable="false">
+        <item>Arch</item>
+        <item>Arrow</item>
+        <item>Boom</item>
+        <item>Bun</item>
+        <item>Burst</item>
+        <item>Circle</item>
+        <item>Clover 4</item>
+        <item>Clover 8</item>
+        <item>Cookie 4</item>
+        <item>Cookie 6</item>
+        <item>Cookie 7</item>
+        <item>Cookie 9</item>
+        <item>Cookie 12</item>
+        <item>Diamond</item>
+        <item>Fan</item>
+        <item>Flower</item>
+        <item>Gem</item>
+        <item>Ghost-ish</item>
+        <item>Heart</item>
+        <item>Hexagon</item>
+        <item>Oval</item>
+        <item>Pentagon</item>
+        <item>Pill</item>
+        <item>Pixel Circle</item>
+        <item>Pixel Triangle</item>
+        <item>Puffy</item>
+        <item>Puffy Diamond</item>
+        <item>Semicircle</item>
+        <item>Slanted Square</item>
+        <item>Soft Boom</item>
+        <item>Soft Burst</item>
+        <item>Square</item>
+        <item>Sunny</item>
+        <item>Triangle</item>
+        <item>Very Sunny</item>
+    </string-array>
+
+    <string-array name="icon_shape_values" translatable="false">
+        <item>uwu_shape_arch</item>
+        <item>uwu_shape_arrow</item>
+        <item>uwu_shape_boom</item>
+        <item>uwu_shape_bun</item>
+        <item>uwu_shape_burst</item>
+        <item>uwu_shape_circle</item>
+        <item>uwu_shape_clover_4</item>
+        <item>uwu_shape_clover_8</item>
+        <item>uwu_shape_cookie_4</item>
+        <item>uwu_shape_cookie_6</item>
+        <item>uwu_shape_cookie_7</item>
+        <item>uwu_shape_cookie_9</item>
+        <item>uwu_shape_cookie_12</item>
+        <item>uwu_shape_diamond</item>
+        <item>uwu_shape_fan</item>
+        <item>uwu_shape_flower</item>
+        <item>uwu_shape_gem</item>
+        <item>uwu_shape_ghostish</item>
+        <item>uwu_shape_heart</item>
+        <item>uwu_shape_hexagon</item>
+        <item>uwu_shape_oval</item>
+        <item>uwu_shape_pentagon</item>
+        <item>uwu_shape_pill</item>
+        <item>uwu_shape_pixel_circle</item>
+        <item>uwu_shape_pixel_triangle</item>
+        <item>uwu_shape_puffy</item>
+        <item>uwu_shape_puffy_diamond</item>
+        <item>uwu_shape_semicircle</item>
+        <item>uwu_shape_slanted_square</item>
+        <item>uwu_shape_soft_boom</item>
+        <item>uwu_shape_soft_burst</item>
+        <item>uwu_shape_square</item>
+        <item>uwu_shape_sunny</item>
+        <item>uwu_shape_triangle</item>
+        <item>uwu_shape_very_sunny</item>
+    </string-array>
+
+    <string-array name="app_icon_entries" translatable="false">
+        <item>Project SEKAI</item>
+        <item>Teal</item>
+        <item>Basic</item>
+        <item>Cherry Pop</item>
+        <item>Rabbit Hole</item>
+        <item>Mesmerizer</item>
+        <item>Sakura</item>
+        <item>Magical Mirai 2024</item>
+        <item>Deep Sea Girl</item>
+        <item>Snow Miku 2025</item>
+        <item>Symphony 2022</item>
+        <item>Racing Miku 2025</item>
+        <item>Cinnamiku</item>
+        <item>Retry Now</item>
+    </string-array>
+
+    <string-array name="app_icon_values" translatable="false">
+        <item>default</item>
+        <item>mikuTeal</item>
+        <item>basic</item>
+        <item>cherryPop</item>
+        <item>rabbitHole</item>
+        <item>mesmerizer</item>
+        <item>sakura</item>
+        <item>magicalMirai2024</item>
+        <item>deepSeaGirl</item>
+        <item>snowMiku2025</item>
+        <item>symphony2022</item>
+        <item>racingMiku2025</item>
+        <item>cinnamiku</item>
+        <item>retryNow</item>
+    </string-array>
+
+    <string-array name="app_name_entries">
+        <item>@string/app_name</item>
+        <item>@string/app_name_variant_miku1</item>
+        <item>@string/app_name_variant_miku2</item>
+        <item>@string/app_name_variant_miku3</item>
+        <item>@string/app_name_variant_miku4</item>
+        <item>@string/app_name_variant_miku5</item>
+        <item>@string/app_name_variant_miku6</item>
+        <item>@string/app_name_variant_miku7</item>
+        <item>@string/app_name_variant_miku8</item>
+        <item>@string/app_name_variant_miku9</item>
+        <item>@string/app_name_variant_miku10</item>
+        <item>@string/app_name_variant_miku11</item>
+        <item>@string/app_name_variant_miku12</item>
+    </string-array>
+
+    <string-array name="app_name_values" translatable="false">
+        <item>default</item>
+        <item>miku1</item>
+        <item>miku2</item>
+        <item>miku3</item>
+        <item>miku4</item>
+        <item>miku5</item>
+        <item>miku6</item>
+        <item>miku7</item>
+        <item>miku8</item>
+        <item>miku9</item>
+        <item>miku10</item>
+        <item>miku11</item>
+        <item>miku12</item>
+    </string-array>
+
+    <string-array name="uwu_random_text">
+        <item>@string/uwu_random_text_1</item>
+        <item>@string/uwu_random_text_2</item>
+        <item>@string/uwu_random_text_3</item>
+        <item>@string/uwu_random_text_4</item>
+        <item>@string/uwu_random_text_5</item>
+        <item>@string/uwu_random_text_6</item>
+        <item>@string/uwu_random_text_7</item>
+        <item>@string/uwu_random_text_8</item>
+        <item>@string/uwu_random_text_9</item>
+        <item>@string/uwu_random_text_10</item>
+    </string-array>
+
+    <string-array name="app_font_entries" translatable="false">
+        <item>Default</item>
+        <item>IOS 15</item>
+        <item>Google Sans</item>
+        <item>Roboto</item>
+        <item>Poppins</item>
+        <item>ChocoCooky</item>
+        <item>SimpleDay</item>
+        <item>Fucek</item>
+        <item>SF Pro Display</item>
+        <item>Dancing Script</item>
+        <item>Cream</item>
+        <item>OneUI</item>
+        <item>Inconsolata</item>
+        <item>Emily\'s Candy</item>
+        <item>Summer Dream</item>
+        <item>Rine</item>
+        <item>Evolve Sans</item>
+    </string-array>
+
+    <string-array name="app_font_values" translatable="false">
+        <item>default</item>
+        <item>ios15</item>
+        <item>google</item>
+        <item>roboto</item>
+        <item>poppins</item>
+        <item>chococooky</item>
+        <item>simpleday</item>
+        <item>fucek</item>
+        <item>sfprodisplay</item>
+        <item>dancingscript</item>
+        <item>cream</item>
+        <item>oneui</item>
+        <item>inconsolata</item>
+        <item>emilyscandy</item>
+        <item>summerdream</item>
+        <item>rine</item>
+        <item>evolve</item>
+    </string-array>
+
+    <string-array name="category_style_entries" translatable="false">
+        <item>Gradient</item>
+        <item>Hatsune Miku (Teal)</item>
+        <item>Hatsune Miku (Project SEKAI)</item>
+        <item>Kasane Teto (UTAU)</item>
+        <item>Kasane Teto (Synthesizer)</item>
+        <item>Akita Neru</item>
+        <item>Hatsune Miku (Basic)</item>
+        <item>Hatsune Miku (Cherry Pop)</item>
+        <item>Hatsune Miku (Rabbit Hole)</item>
+        <item>Hatsune Miku (Mesmerizer)</item>
+        <item>Hatsune Miku (Sakura)</item>
+        <item>Hatsune Miku (Magical Mirai 2024)</item>
+        <item>Hatsune Miku (Deep Sea Girl)</item>
+        <item>Hatsune Miku (Snow Miku 2025)</item>
+        <item>Hatsune Miku (Symphony 2022)</item>
+        <item>Hatsune Miku (Racing Miku 2025)</item>
+        <item>Hatsune Miku (Cinnamiku)</item>
+        <item>Hatsune Miku (Retry Now)</item>
+    </string-array>
+
+    <string-array name="category_style_values" translatable="false">
+        <item>gradient</item>
+        <item>miku</item>
+        <item>miku2</item>
+        <item>teto</item>
+        <item>teto2</item>
+        <item>neru</item>
+        <item>basic</item>
+        <item>cherry_pop</item>
+        <item>rabbit_hole</item>
+        <item>mesmerizer</item>
+        <item>sakura</item>
+        <item>magical_mirai_2024</item>
+        <item>deep_sea_girl</item>
+        <item>snow_miku_2025</item>
+        <item>symphony_2022</item>
+        <item>racing_miku_2025</item>
+        <item>cinnamiku</item>
+        <item>retry_now</item>
+    </string-array>
+
+    <string-array name="search_bar_chip_entries">
+        <item>@string/pref_search_bar_chip_disabled</item>
+        <item>@string/pref_search_bar_chip_weather</item>
+        <item>@string/pref_search_bar_chip_total_traffic</item>
+        <item>@string/pref_search_bar_chip_dual_swipe</item>
+    </string-array>
+    
+    <string-array name="search_bar_chip_values" translatable="false">
+        <item>disabled</item>
+        <item>weather</item>
+        <item>total_traffic</item>
+        <item>dual_swipe</item>
+    </string-array>
+    
+    <string-array name="weather_unit_entries">
+        <item>Celsius (°C)</item>
+        <item>Fahrenheit (°F)</item>
+        <item>Auto</item>
+    </string-array>
+    
+    <string-array name="weather_unit_values" translatable="false">
+        <item>true</item>
+        <item>false</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="tab_badge_limit_entries">
+        <item>@string/tab_badge_limit_unlimited</item>
+        <item>99+</item>
+        <item>999+</item>
+        <item>9999+</item>
+    </string-array>
+    
+    <string-array name="tab_badge_limit_values" translatable="false">
+        <item>0</item>
+        <item>99</item>
+        <item>999</item>
+        <item>9999</item>
+    </string-array>
+
+    <string-array name="mux_xudp_quic_entries">
+        <item>@string/mux_xudp_quic_reject</item>
+        <item>@string/mux_xudp_quic_allow</item>
+        <item>@string/mux_xudp_quic_skip</item>
+    </string-array>
+    
+    <string-array name="share_method">
+        <item>@string/share_qrcode</item>
+        <item>@string/share_export_clipboard</item>
+        <item>@string/share_export_full_clipboard</item>
+    </string-array>
+    
+    <string-array name="share_method_more">
+        <item>@string/share_qrcode</item>
+        <item>@string/share_export_clipboard</item>
+        <item>@string/share_export_full_clipboard</item>
+        <item>@string/share_edit</item>
+        <item>@string/share_delete</item>
+    </string-array>
+    
+    <string-array name="share_sub_method">
+        <item>@string/share_qrcode</item>
+        <item>@string/share_export_clipboard</item>
+    </string-array>
+    
+    <string-array name="mode_entries">
+        <item>@string/mode_entry_vpn</item>
+        <item>@string/mode_entry_proxy_only</item>
+    </string-array>
+    
+    <string-array name="browser_dialer_mode">
+        <item>@string/browser_dialer_mode_disable</item>
+        <item>@string/browser_dialer_mode_okhttp</item>
+        <item>@string/browser_dialer_mode_webview</item>
+    </string-array>
+    
+    <string-array name="ui_mode_night">
+        <item>@string/ui_mode_night_follow_system</item>
+        <item>@string/ui_mode_night_light</item>
+        <item>@string/ui_mode_night_dark</item>
+        <item>@string/ui_mode_night_auto</item>
+    </string-array>
+    
+    <string-array name="preset_rulesets">
+        <item>@string/preset_ruleset_china_whitelist</item>
+        <item>@string/preset_ruleset_china_blacklist</item>
+        <item>@string/preset_ruleset_global</item>
+        <item>@string/preset_ruleset_iran_whitelist</item>
+        <item>@string/preset_ruleset_russia_whitelist</item>
+    </string-array>
+    
+    <string-array name="vpn_bypass_lan">
+        <item>@string/vpn_bypass_lan_follow_config</item>
+        <item>@string/vpn_bypass_lan_bypass</item>
+        <item>@string/vpn_bypass_lan_not_bypass</item>
+    </string-array>
+    
+    <string-array name="outbound_domain_resolve_method">
+        <item>@string/outbound_resolve_do_not_resolve</item>
+        <item>@string/outbound_resolve_add_dns_hosts</item>
+        <item>@string/outbound_resolve_replace_domain</item>
+    </string-array>
+    
+    <string-array name="policy_group_type">
+        <item>@string/policy_group_least_ping</item>
+        <item>@string/policy_group_least_load</item>
+        <item>@string/policy_group_random</item>
+        <item>@string/policy_group_round_robin</item>
+    </string-array>
+    
+    <string-array name="config_backup_options">
+        <item>@string/config_backup_local</item>
+        <item>@string/config_backup_webdav</item>
+    </string-array>
+    
+    <string-array name="mux_enabled_entries" translatable="false">
+        <item>@string/label_disable</item>
+        <item>@string/label_enable</item>
+    </string-array>
+    
+    <string-array name="mux_enabled_values" translatable="false">
+        <item>false</item>
+        <item>true</item>
+    </string-array>
+    
+    <string-array name="bool_dropdown_entries">
+        <item>@string/label_enable</item>
+        <item>@string/label_disable</item>
+    </string-array>
+    
+    <string-array name="bool_dropdown_values" translatable="false">
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+    
+    <string-array name="streamsecuritys_entries">
+        <item>@string/label_disable</item>
+        <item>TLS</item>
+    </string-array>
+    
+    <string-array name="streamsecurityxs_entries">
+        <item>@string/label_disable</item>
+        <item>TLS</item>
+        <item>REALITY</item>
+    </string-array>
+    
+</resources>

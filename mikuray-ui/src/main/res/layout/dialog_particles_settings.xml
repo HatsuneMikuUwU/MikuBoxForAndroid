@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="8dp"
+    android:paddingTop="12dp"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_label_frame_delay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_frame_delay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelBehavior="floating"
+            app:tickVisibilityMode="hidden" />
+
+        <TextView
+            android:id="@+id/text_label_line_length"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="8dp"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_line_length"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelBehavior="floating"
+            app:tickVisibilityMode="hidden" />
+
+        <TextView
+            android:id="@+id/text_label_line_thickness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="8dp"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_line_thickness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelBehavior="floating"
+            app:tickVisibilityMode="hidden" />
+
+        <TextView
+            android:id="@+id/text_label_radius_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="8dp"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_radius_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelBehavior="floating"
+            app:tickVisibilityMode="hidden" />
+
+        <TextView
+            android:id="@+id/text_label_radius_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="8dp"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_radius_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelBehavior="floating"
+            app:tickVisibilityMode="hidden" />
+
+        <TextView
+            android:id="@+id/text_label_density"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="8dp"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_density"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelBehavior="floating"
+            app:tickVisibilityMode="hidden" />
+
+        <TextView
+            android:id="@+id/text_label_speed_factor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="8dp"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_speed_factor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelBehavior="floating"
+            app:tickVisibilityMode="hidden" />
+
+    </LinearLayout>
+
+</ScrollView>

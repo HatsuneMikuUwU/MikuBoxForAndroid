@@ -1,210 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Teks milik aplikasi ini; sisanya, termasuk terjemahan, ada di :mikuray-ui. -->
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="scaffold_subtitle">君の世界に、歌を届けるね。</string>
+
+    <!-- Layar perkenalan: tampilannya milik MikuRay, produknya bukan. -->
+    <string name="uwu_welcome_summary_1">MikuBox,</string>
+    <string name="uwu_welcome_summary_2">Klien Mihomo (Clash) untuk Android dengan gaya UI Miku.</string>
+    <string name="uwu_welcome_page1_desc">Klien Mihomo (Clash.Meta) gratis dan open source untuk Android.</string>
+    <string name="uwu_welcome_page2_desc">Menjalankan langganan Clash, kumpulan aturan, dan grup proksi.</string>
+
     <string name="vpn_channel_name">Status VPN</string>
     <string name="vpn_notification_running">Terhubung</string>
+    <string name="vpn_notification_speeds">↑%1$s ↓%2$s</string>
+    <string name="vpn_notification_session">Sesi ↑%1$s ↓%2$s</string>
+    <string name="vpn_notification_exit_ip">Keluar %1$s</string>
     <string name="vpn_action_stop">Berhenti</string>
+    <string name="vpn_tile_title">VPN MikuBox</string>
     <string name="subscription_channel_name">Pembaruan langganan</string>
     <string name="subscription_update_title">Memperbarui langganan</string>
-    <string name="vpn_tile_title">VPN MikuBox</string>
+
     <string name="mihomo_start_failed">Mihomo gagal dimulai</string>
-    <string name="local_proxy_notification_running">Proksi Mihomo lokal sedang berjalan</string>
-    <string name="profile_default_name">Profil</string>
-    <string name="profile_subscription_default_name">Langganan</string>
-    <string name="profile_imported_default_name">Profil yang diimpor</string>
     <string name="error_mihomo_config_blank">Konfigurasi Mihomo tidak boleh kosong</string>
+    <string name="error_import_file_empty">File kosong atau tidak dapat dibaca</string>
+    <string name="error_no_compatible_proxy_links">Tidak ditemukan tautan proksi yang kompatibel dengan Mihomo</string>
+    <string name="error_subscription_empty">Langganan kosong</string>
+    <string name="error_subscription_http">HTTP langganan %1$d</string>
     <string name="error_subscription_url_blank">URL langganan tidak boleh kosong</string>
     <string name="error_unknown_profile">Profil tidak dikenal %1$s</string>
-    <string name="error_subscription_empty">Langganan kosong</string>
-    <string name="error_no_compatible_proxy_links">Tidak ditemukan tautan proksi yang kompatibel dengan Mihomo</string>
-    <string name="error_subscription_http">HTTP langganan %1$d</string>
+    <string name="profile_default_name">Profil</string>
+    <string name="profile_imported_default_name">Profil yang diimpor</string>
+    <string name="profile_subscription_default_name">Langganan</string>
 
-    <!-- Home UI -->
-    <string name="status_connected">Terhubung · %1$s</string>
-    <string name="status_connected_no_profile">Terhubung</string>
-    <string name="status_disconnected">Terputus</string>
-    <string name="status_no_profile">Belum ada profil — tambahkan langganan atau konfigurasi di bawah</string>
-    <string name="action_connect">Hubungkan</string>
-    <string name="action_disconnect">Putuskan</string>
-    <string name="hint_subscription_url">URL langganan (Clash)</string>
-    <string name="hint_profile_name">Nama (opsional)</string>
-    <string name="subscription_update_interval">Interval pembaruan otomatis</string>
-    <string name="subscription_update_when_connected">Perbarui hanya saat terhubung</string>
-    <string-array name="subscription_intervals">
-        <item>Setiap 6 jam</item>
-        <item>Setiap 12 jam</item>
-        <item>Setiap 24 jam</item>
-        <item>Setiap 3 hari</item>
-        <item>Setiap 7 hari</item>
-    </string-array>
-    <string name="action_add_profile">Tambah profil</string>
-    <string name="action_add_subscription">Tambah &amp; ambil langganan</string>
-    <string name="action_import_clipboard">Impor konfigurasi dari papan klip</string>
-    <string name="profiles_header">Profil</string>
-    <string name="profiles_empty">Belum ada profil.</string>
-    <string name="action_update">Perbarui</string>
-    <string name="action_delete">Hapus</string>
-    <string name="action_share">Bagikan</string>
-    <string name="action_select">Pilih</string>
-    <string name="action_more">Lainnya</string>
-    <string name="badge_subscription">Langganan</string>
-    <string name="badge_local">Lokal</string>
-    <string name="badge_selected">Dipilih</string>
-    <string name="toast_subscription_added">Langganan ditambahkan, mengambil…</string>
-    <string name="toast_subscription_updated">Langganan diperbarui</string>
-    <string name="toast_update_failed">Pembaruan gagal: %1$s</string>
-    <string name="toast_config_imported">Konfigurasi diimpor</string>
-    <string name="toast_clipboard_empty">Papan klip kosong</string>
-    <string name="toast_select_profile_first">Pilih atau tambahkan profil dahulu</string>
-    <string name="toast_import_failed">Impor gagal: %1$s</string>
+    <!-- Dialog tambah dan label pembaca layar (sebelumnya teks Mandarin yang
+         di-hardcode, kini dapat dilokalkan seperti lainnya). -->
 
-    <!-- Navigation menu (bottom sheet) -->
-    <string name="app_settings">Pengaturan aplikasi</string>
-    <string name="tools_and_info">Alat &amp; info</string>
-    <string name="menu_home">Beranda</string>
-    <string name="settings">Pengaturan</string>
-    <string name="menu_log">Logcat</string>
-    <string name="desc_menu_log">Lihat log aplikasi</string>
-    <string name="menu_tools">Alat</string>
-    <string name="desc_menu_tools">Ping, kecepatan &amp; lainnya</string>
-    <string name="desc_menu_about">Tentang aplikasi ini</string>
-    <string name="action_clear">Bersihkan</string>
-    <string name="logcat_read_failed">Gagal membaca log: %1$s</string>
-    <string name="toast_coming_soon">Segera hadir</string>
+    <!-- Pemilih per-app menandai aplikasi sistem di label barisnya, agar
+         tandanya terbaca bersama namanya. -->
 
-    <!-- Settings -->
-    <string name="settings_section_appearance">Tampilan</string>
-    <string name="settings_section_connection">Koneksi</string>
-    <string name="settings_theme">Tema</string>
-    <string name="settings_theme_system">Ikuti sistem</string>
-    <string name="settings_theme_light">Terang</string>
-    <string name="settings_theme_dark">Gelap</string>
-    <string name="settings_particles">Animasi partikel</string>
-    <string name="settings_particles_summary">Efek animasi banner di menu</string>
-    <string name="settings_boot">Mulai saat boot</string>
-    <string name="settings_boot_summary">Sambungkan ulang profil terpilih setelah reboot</string>
-    <string name="settings_mtu">MTU</string>
-    <string name="settings_per_app">Proksi per-aplikasi</string>
-    <string name="per_app_mode_all">Semua aplikasi</string>
-    <string name="per_app_mode_allow">Daftar izin</string>
-    <string name="per_app_mode_disallow">Daftar larangan</string>
+    <!-- Bridge selalu mengaktifkan modul DNS pada mode VPN; halaman DNS harus
+         mengatakannya, atau dns.enable=false terlihat seperti rusak. -->
+    <string name="mihomo_dns_vpn_forced_hint">Mode VPN selalu mengaktifkan modul DNS (dns.enable=false pada profil akan ditimpa). Agar DNS dijawab tanpa pembajakan, kosongkan daftar hijack DNS TUN.</string>
 
-    <!-- Tools -->
-    <string name="tools_connection_test">Tes koneksi</string>
-    <string name="tools_test_url">URL tes</string>
-    <string name="tools_run_test">Jalankan tes</string>
-    <string name="tools_testing">Menguji…</string>
-    <string name="tools_test_ok">HTTP %1$d · %2$d ms</string>
-    <string name="tools_test_failed">Gagal: %1$s</string>
-    <string name="tools_network_info">Info jaringan</string>
-    <string name="tools_net_transport">Jenis koneksi: %1$s</string>
-    <string name="tools_net_none">Tidak ada koneksi</string>
-    <string name="tools_net_other">Lainnya</string>
+    <string name="apps_search">Cari aplikasi</string>
+    <string name="apps_select_all">Pilih semua</string>
+    <string name="apps_invert_selection">Balik pilihan</string>
 
-    <!-- About / Miku intro -->
-    <string name="menu_about">Tentang</string>
-    <string name="about_title">Tentang</string>
-    <string name="about_app_title">MikuBox for Android</string>
-    <string name="about_app_desc">Klien proksi bertenaga Mihomo dengan tema Hatsune Miku.</string>
-    <string name="about_version">Versi %1$s</string>
-    <string name="uwu_about_miku_title">Siapa Hatsune Miku?</string>
-    <string name="uwu_about_miku_summary">Hatsune Miku adalah penyanyi virtual berbasis Vocaloid yang dirilis oleh Crypton Future Media, dengan kode CV01. Dikenal dengan rambut twintail toska panjang dan suaranya yang jernih, ia adalah gadis berusia 16 tahun dan idola virtual yang terkenal di seluruh dunia. Ia aktif di bidang musik, konser, dan anime, serta sangat dicintai para penggemarnya.</string>
-    <string name="uwu_miku_gender_title">Jenis kelamin</string>
-    <string name="uwu_miku_gender_summary">Perempuan</string>
-    <string name="uwu_miku_birthday_title">Ulang tahun</string>
-    <string name="uwu_miku_birthday_summary">31 Agustus</string>
-    <string name="uwu_miku_age_title">Usia</string>
-    <string name="uwu_miku_age_summary">16</string>
-    <string name="uwu_miku_voice_title">Pengisi suara</string>
-    <string name="uwu_miku_voice_summary">Saki Fujita</string>
-    <string name="uwu_miku_weight_title">Berat</string>
-    <string name="uwu_miku_weight_summary">42 kg</string>
-    <string name="uwu_miku_height_title">Tinggi</string>
-    <string name="uwu_miku_height_summary">158 cm</string>
-    <string name="license">Lisensi</string>
-    <string name="about_license_summary">MikuBox dirilis di bawah lisensi Apache-2.0. Mihomo dan komponen lain yang disertakan tetap berada di bawah lisensinya masing-masing.</string>
-    <string name="settings_section_backup">Cadangan</string>
-    <string name="settings_export">Ekspor</string>
-    <string name="settings_export_summary">Simpan profil dan pengaturan ke berkas</string>
-    <string name="settings_import">Impor</string>
-    <string name="settings_import_summary">Pulihkan profil dan pengaturan dari berkas</string>
-    <string name="toast_backup_exported">Cadangan diekspor</string>
-    <string name="toast_backup_imported">Cadangan diimpor</string>
-    <string name="toast_backup_failed">Cadangan gagal</string>
-
-    <!-- Proxies / node list -->
-    <string name="menu_proxies">Proksi</string>
-    <string name="proxies_title">Proksi</string>
-    <string name="proxies_empty_disconnected">Sambungkan dulu untuk memuat dan mengelola node.</string>
-    <string name="proxies_empty_none">Profil aktif tidak punya grup yang bisa dipilih.</string>
     <string name="proxies_test">Uji latensi</string>
     <string name="proxies_sort_delay">Urutkan berdasarkan latensi</string>
-    <string name="proxies_testing">Menguji…</string>
-    <string name="proxies_delay_ms">%1$d ms</string>
-    <string name="proxies_delay_timeout">waktu habis</string>
-    <string name="toast_node_selected">Beralih ke %1$s</string>
-    <string name="toast_node_select_failed">Tidak dapat mengganti node</string>
-    <string name="splash_version">Version %1$s</string>
 
-    <!-- Navigation drawer -->
-    <string name="drawer_greeting">Hai, Miku 💕</string>
-    <string name="drawer_subtitle">Ayo lakukan yang terbaik!</string>
-    <string name="drawer_section_manage">Kelola</string>
-    <string name="drawer_section_tools">Alat &amp; info</string>
+    <string name="theme_hue">Hue</string>
+    <string name="theme_saturation">Saturasi</string>
+    <string name="theme_lightness">Kecerahan</string>
 
-    <!-- DNS override -->
-    <string name="settings_dns">DNS</string>
-    <string name="settings_dns_summary">Ganti DNS profil dengan milik Anda</string>
-    <string name="dns_title">DNS</string>
-    <string name="dns_override">Ganti DNS</string>
-    <string name="dns_override_summary">Ganti bagian dns tiap profil dengan blok di bawah</string>
-    <string name="dns_yaml_hint">DNS (YAML)</string>
-    <string name="dns_invalid_title">Konfigurasi DNS tidak valid</string>
-    <string name="dns_restart_hint">Sambungkan ulang untuk menerapkan perubahan.</string>
-    <string name="action_save">Simpan</string>
-    <string name="action_reset">Atur ulang</string>
-    <string name="toast_dns_saved">Penggantian DNS disimpan</string>
-    <string name="toast_dns_reset">Disetel ke DNS bawaan</string>
-
-    <!-- Home search / sort -->
-    <string name="search_hint">Mencari sesuatu?</string>
-    <string name="sort_by_name">Nama</string>
-    <string name="sort_by_updated">Baru diperbarui</string>
-    <string name="action_sort">Urutkan</string>
-    <string name="action_menu">Menu</string>
-    <string name="action_refresh">Segarkan langganan</string>
-    <string name="toast_no_subscriptions">Tidak ada langganan untuk disegarkan</string>
-    <string name="toast_subscriptions_updated">%1$d/%2$d langganan diperbarui</string>
-    <string name="dialog_refresh_subscriptions_title">Segarkan langganan?</string>
-    <string name="dialog_refresh_subscriptions_message">Segarkan %1$d langganan sekarang?</string>
-    <string name="dialog_update_subscription_title">Perbarui langganan?</string>
-    <string name="dialog_update_subscription_message">Perbarui %1$s dari URL langganannya?</string>
-
-    <!-- Core / connection settings -->
-    <string name="settings_section_core">Inti</string>
-    <string name="settings_mode">Mode keluar</string>
-    <string name="settings_log">Level log</string>
-    <string name="settings_tun_stack">Stack TUN</string>
-    <string name="settings_allow_lan">Izinkan LAN</string>
-    <string name="settings_allow_lan_summary">Biarkan perangkat lain memakai proksi ini</string>
-    <string name="settings_ipv6">IPv6</string>
-    <string name="settings_ipv6_summary">Rutekan IPv6 melalui terowongan</string>
-    <string name="settings_autoconnect">Sambung otomatis saat dibuka</string>
-    <string name="settings_autoconnect_summary">Mulai VPN saat aplikasi dibuka</string>
-    <string name="settings_test_url">URL uji latensi</string>
-    <string name="settings_test_timeout">Batas waktu uji latensi</string>
-    <string name="mode_follow">Ikuti konfig</string>
-    <string name="greeting_morning">Selamat pagi…</string>
-    <string name="greeting_afternoon">Selamat siang…</string>
-    <string name="greeting_evening">Selamat sore…</string>
-    <string name="greeting_night">Selamat malam…</string>
-    <string name="about_links_title">Tautan</string>
-    <string name="about_link_github">Repositori GitHub</string>
-    <string name="about_link_telegram">Kanal Telegram</string>
-    <string name="about_link_telegram_chinese">Kanal Telegram Tionghoa</string>
-    <string name="settings_unified_delay">Latensi terpadu</string>
-    <string name="settings_unified_delay_summary">Gunakan satu metode pengukuran latensi untuk semua proksi</string>
-    <string name="settings_tcp_concurrent">TCP serentak</string>
-    <string name="settings_tcp_concurrent_summary">Hubungkan ke beberapa alamat IP secara bersamaan</string>
+    <string name="action_select">Pilih</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_share">Bagikan</string>
+    <string name="action_update">Perbarui</string>
 </resources>

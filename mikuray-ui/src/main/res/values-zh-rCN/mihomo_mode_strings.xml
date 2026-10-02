@@ -1,0 +1,17 @@
+<resources>
+    <string name="mihomo_mode_rule">规则</string>
+    <string name="mihomo_mode_global">全局</string>
+    <string name="mihomo_mode_direct">直连</string>
+    <string name="mihomo_global_exit">全局出口：%1$s</string>
+    <string name="mihomo_choose_exit">选择代理组或代理节点</string>
+    <string name="mihomo_exit_search">搜索代理</string>
+    <string name="mihomo_exit_filter_all">全部</string>
+    <string name="mihomo_exit_filter_groups">代理组</string>
+    <string name="mihomo_exit_filter_nodes">节点</string>
+    <string name="mihomo_exit_section_groups">代理组</string>
+    <string name="mihomo_exit_section_nodes">节点</string>
+    <string name="mihomo_exit_empty">没有匹配项</string>
+    <string name="mihomo_mode_failed">无法应用选择，请检查当前配置。</string>
+    <string name="mihomo_mode_selected">已选中</string>
+    <string name="mihomo_select_exit">选择代理</string>
+</resources>

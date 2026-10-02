@@ -1,0 +1,45 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.miku.ray.widget.UwuPreferenceCategory android:key="pref_category_core_settings" android:title="@string/title_core_settings" app:sectionIcon="@drawable/rmx_settings_line">
+        <Preference android:title="@string/mihomo_section_core_basics" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <ListPreference android:icon="@drawable/rmx_system_search_eye_line" android:key="sniffer.enable" android:title="@string/mihomo_setting_sniffer_enable" app:layout="@layout/uwu_top" />
+        <ListPreference android:icon="@drawable/rmx_system_search_eye_line" android:key="sniffer.override-destination" android:title="@string/mihomo_setting_sniffer_override_destination" app:layout="@layout/uwu_mid" />
+        <androidx.preference.SwitchPreferenceCompat android:icon="@drawable/rmx_device_base_station_line" android:key="allow-lan" android:title="@string/mihomo_setting_allow_lan" app:layout="@layout/uwu_mid_switch" app:widgetLayout="@layout/uwu_widget_material_switch" />
+        <EditTextPreference android:icon="@drawable/rmx_hashtag" android:key="mixed-port" android:title="@string/mihomo_setting_mixed_port" app:layout="@layout/uwu_mid" />
+        <androidx.preference.SwitchPreferenceCompat android:defaultValue="false" android:icon="@drawable/rmx_toggle_line" android:key="pref_dynamic_socks_port" android:summary="@string/summary_pref_dynamic_socks_port" android:title="@string/title_pref_dynamic_socks_port" app:layout="@layout/uwu_mid_switch" app:widgetLayout="@layout/uwu_widget_material_switch" />
+        <ListPreference android:icon="@drawable/rmx_file_list_line" android:key="log-level" android:title="@string/mihomo_setting_log_level" app:layout="@layout/uwu_mid" />
+        <ListPreference android:key="mode" android:title="@string/mihomo_route_mode" android:icon="@drawable/rmx_route_line" app:layout="@layout/uwu_bot" />
+        <Preference android:title="@string/mihomo_section_core_overrides" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <ListPreference android:defaultValue="Loyalsoldier/v2ray-rules-dat" android:entries="@array/geo_files_sources_entries" android:entryValues="@array/geo_files_sources_values" android:icon="@drawable/rmx_download_cloud_2_line" android:key="pref_geo_files_sources" android:summary="%s" android:title="@string/asset_geo_files_sources" app:dialogIcon="@drawable/rmx_download_cloud_2_line" app:layout="@layout/uwu_top" />
+        <EditTextPreference android:key="hosts" android:title="@string/mihomo_extra_hosts" android:icon="@drawable/rmx_business_at_line" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:key="global-ua" android:title="@string/mihomo_extra_global_ua" android:icon="@drawable/rmx_user_line" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:key="authentication" android:title="@string/mihomo_extra_authentication" android:icon="@drawable/rmx_system_lock_password_line" app:layout="@layout/uwu_bot" />
+    </com.miku.ray.widget.UwuPreferenceCategory>
+    <com.miku.ray.widget.UwuPreferenceCategory android:key="mihomo_dns_category" android:title="DNS" app:sectionIcon="@drawable/rmx_business_global_line">
+        <Preference android:title="@string/mihomo_section_dns_resolvers" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <EditTextPreference android:icon="@drawable/rmx_device_server_line" android:key="dns.nameserver" android:title="@string/mihomo_setting_dns_nameserver" app:layout="@layout/uwu_top" />
+        <EditTextPreference android:icon="@drawable/rmx_device_server_line" android:key="dns.direct-nameserver" android:title="@string/mihomo_setting_dns_direct_nameserver" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_device_server_line" android:key="dns.default-nameserver" android:title="@string/mihomo_setting_dns_default_nameserver" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_device_server_line" android:key="dns.proxy-server-nameserver" android:title="@string/mihomo_setting_dns_proxy_server_nameserver" app:layout="@layout/uwu_mid" />
+        <SwitchPreferenceCompat android:defaultValue="false" android:icon="@drawable/rmx_add_circle_line" android:key="dns.append-system" android:title="@string/mihomo_append_system" app:layout="@layout/uwu_mid_switch" app:widgetLayout="@layout/uwu_widget_material_switch" />
+        <Preference android:title="@string/mihomo_section_dns_behavior" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <EditTextPreference android:icon="@drawable/rmx_history_line" android:key="dns.fallback" android:title="@string/mihomo_setting_dns_fallback" app:layout="@layout/uwu_top" />
+        <ListPreference android:icon="@drawable/rmx_device_database_2_line" android:key="dns.cache-algorithm" android:title="@string/mihomo_setting_dns_cache_algorithm" app:layout="@layout/uwu_mid" />
+        <ListPreference android:icon="@drawable/rmx_route_line" android:key="dns.respect-rules" android:title="@string/mihomo_setting_dns_respect_rules" app:layout="@layout/uwu_mid" />
+        <ListPreference android:icon="@drawable/rmx_document_file_list_line" android:key="dns.use-hosts" android:title="@string/mihomo_setting_dns_use_hosts" app:layout="@layout/uwu_mid" />
+        <ListPreference android:icon="@drawable/rmx_document_file_list_line" android:key="dns.use-system-hosts" android:title="@string/mihomo_setting_dns_use_system_hosts" app:layout="@layout/uwu_mid" />
+        <ListPreference android:icon="@drawable/rmx_flashlight_line" android:key="dns.prefer-h3" android:title="@string/mihomo_setting_dns_prefer_h3" app:layout="@layout/uwu_mid" />
+        <ListPreference android:icon="@drawable/rmx_route_line" android:key="dns.direct-nameserver-follow-policy" android:title="@string/mihomo_setting_dns_direct_nameserver_follow_policy" app:layout="@layout/uwu_mid" />
+        <ListPreference android:icon="@drawable/rmx_global_line" android:key="dns.ipv6" android:title="@string/mihomo_setting_dns_ipv6" app:layout="@layout/uwu_bot" />
+        <Preference android:title="@string/mihomo_section_dns_fakeip" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <ListPreference android:icon="@drawable/rmx_design_magic_line" android:key="dns.enhanced-mode" android:title="@string/mihomo_setting_dns_enhanced_mode" app:layout="@layout/uwu_top" />
+        <EditTextPreference android:icon="@drawable/rmx_map_pin_line" android:key="dns.fake-ip-range" android:title="@string/mihomo_setting_dns_fake_ip_range" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_filter_3_line" android:key="dns.fake-ip-filter" android:title="@string/mihomo_setting_dns_fake_ip_filter" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:key="dns.nameserver-policy" android:title="@string/mihomo_extra_dns_nameserver_policy" android:icon="@drawable/rmx_document_file_settings_line" app:layout="@layout/uwu_bot" />
+        <Preference android:title="@string/mihomo_section_dns_fallback" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <EditTextPreference android:key="dns.fallback-filter.ipcidr" android:title="@string/mihomo_extra_dns_fallback_filter_ipcidr" android:icon="@drawable/rmx_node_tree" app:layout="@layout/uwu_top" />
+        <ListPreference android:key="dns.fallback-filter.geoip" android:title="@string/mihomo_extra_dns_fallback_filter_geoip" android:icon="@drawable/rmx_global_line" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_global_line" android:key="dns.fallback-filter.geoip-code" android:title="@string/mihomo_filter_country" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_group_line" android:key="dns.fallback-filter.geosite" android:title="@string/mihomo_filter_geosite" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_business_at_line" android:key="dns.fallback-filter.domain" android:title="@string/mihomo_filter_domain" app:layout="@layout/uwu_bot" />
+    </com.miku.ray.widget.UwuPreferenceCategory>
+</PreferenceScreen>

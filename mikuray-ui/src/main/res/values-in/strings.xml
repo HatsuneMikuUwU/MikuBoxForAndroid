@@ -1,0 +1,1931 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="test_build_info_title">Build pengujian</string>
+    <string name="test_build_info_message">Ini adalah build pengujian MikuRay. Kalau menemukan bug, kabari owner atau laporkan di Telegram grup dengan men-tag owner.\n\nTelegram channel: %1$s</string>
+    <string name="test_build_info_channel">@uwuowoumuchannel</string>
+    <string name="test_build_info_dont_show_again">Jangan tampilkan lagi</string>
+    <string name="app_widget_name">Tombol Switch</string>
+    <string name="widget_status_connected">Konek</string>
+    <string name="widget_status_disconnected">Gak konek</string>
+    <string name="widget_no_server_selected">Belum ada server dipilih</string>
+    <string name="empty_server_list_title">Belum ada profil</string>
+    <string name="empty_server_list_message">Belum ada profil, yuk tambahin profil dulu</string>
+    <string name="empty_subscription_list_title">Belum ada langganan</string>
+    <string name="empty_subscription_list_message">Belum ada langganan, yuk tambahin langganan dulu</string>
+    <string name="empty_routing_list_title">Belum ada aturan routing</string>
+    <string name="empty_routing_list_message">Belum ada aturan routing, yuk tambahin aturan dulu</string>
+    <string name="app_tile_name">Tombol Switch</string>
+    <string name="app_tile_first_use">Baru pertama pake fitur ini ya? Tambahin server lewat aplikasi dulu gih</string>
+    <string name="navigation_drawer_open">Buka menu navigasi</string>
+    <string name="navigation_drawer_close">Tutup menu navigasi</string>
+    <string name="migration_success">Wih, pindahan data sukses!</string>
+    <string name="action_stop_service">Matiin servis</string>
+    <string name="migration_fail">Yahh, pindahan datanya gagal nih!</string>
+    <string name="pull_down_to_refresh">Tarik ke bawah dong buat refresh!</string>
+
+    <string name="notification_action_stop_v2ray">Stop</string>
+    <string name="notification_connect_time">waktu : %s</string>
+    <string formatted="false" name="notification_data_usage">total : ↑ %s  ↓ %s</string>
+    <string name="toast_permission_denied">Duh, ga dapet izin nih</string>
+    <string name="toast_permission_denied_notification">Izin notifikasinya ditolak euy</string>
+    <string name="notification_action_more">Klik buat liat lebih banyak</string>
+    <string name="toast_services_start">Nyalain Servis</string>
+    <string name="toast_services_stop">Matiin Servis</string>
+    <string name="toast_services_success">Asik, Servis Berhasil Jalan</string>
+    <string name="toast_services_restart_success">Asik, Servis Berhasil Dinyalain Ulang</string>
+    <string name="toast_services_failure">Waduh, Servis Gagal Jalan</string>
+
+    <string name="title_server">Konfig</string>
+    <string name="menu_item_add_config">Tambah konfig</string>
+    <string name="menu_item_save_config">Simpen konfig</string>
+    <string name="menu_item_edit_config">Edit konfig</string>
+    <string name="menu_item_del_config">Hapus konfig</string>
+    <string name="menu_item_import_config_qrcode">Impor dari QR Code</string>
+    <string name="menu_item_import_config_clipboard">Impor dari Clipboard</string>
+    <string name="menu_item_import_config_local">Impor dari HP</string>
+    <string name="menu_item_import_config_policy_group">Tambah [Grup Policy]</string>
+    <string name="menu_item_import_config_proxy_chain">Tambah [Proxy chain]</string>
+    <string name="menu_item_import_config_manually_vmess">Tambah [VMess]</string>
+    <string name="menu_item_import_config_manually_vless">Tambah [VLESS]</string>
+    <string name="menu_item_import_config_manually_ss">Tambah [Shadowsocks]</string>
+    <string name="menu_item_import_config_manually_socks">Tambah [SOCKS]</string>
+    <string name="menu_item_import_config_manually_http">Tambah [HTTP]</string>
+    <string name="menu_item_import_config_manually_trojan">Tambah [Trojan]</string>
+    <string name="menu_item_import_config_manually_wireguard">Tambah [Wireguard]</string>
+    <string name="menu_item_import_config_manually_hysteria2">Tambah [Hysteria2]</string>
+    <string name="del_config_comfirm">Yakin mau dihapus nih?</string>
+    <string name="del_invalid_config_comfirm">Dites dulu napa sebelum dihapus! Yakin mau ngehapus?</string>
+    <string name="server_lab_remarks">Nama</string>
+    <string name="server_lab_address">Alamat</string>
+    <string name="server_lab_port">Port</string>
+    <string name="server_lab_id">ID</string>
+    <string name="server_lab_alterid">AlterId</string>
+    <string name="server_lab_security">Keamanan</string>
+    <string name="server_lab_network">Jaringan</string>
+    <string name="server_lab_more_function">Transport</string>
+    <string name="server_lab_head_type">Tipe Header</string>
+    <string name="server_lab_mode_type">Mode gRPC</string>
+    <string name="server_lab_request_host">Host</string>
+    <string name="server_lab_request_host_http">Host HTTP</string>
+    <string name="server_lab_request_host_ws">Host WS</string>
+    <string name="server_lab_request_host_httpupgrade">Host HTTPUpgrade</string>
+    <string name="server_lab_request_host_xhttp">Host xHTTP</string>
+    <string name="server_lab_request_host_h2">Host H2</string>
+    <string name="server_lab_request_host_quic">Keamanan QUIC</string>
+    <string name="server_lab_request_host_grpc">Otoritas gRPC</string>
+    <string name="server_lab_path">Path</string>
+    <string name="server_lab_path_ws">Path WS</string>
+    <string name="server_lab_path_httpupgrade">Path HTTPUpgrade</string>
+    <string name="server_lab_path_xhttp">Path xHTTP</string>
+    <string name="server_lab_path_h2">Path H2</string>
+    <string name="server_lab_path_quic">Kunci QUIC</string>
+    <string name="server_lab_path_kcp">Seed KCP</string>
+    <string name="server_lab_path_grpc">Nama Servis gRPC</string>
+    <string name="server_lab_stream_security">TLS</string>
+    <string name="server_lab_stream_fingerprint">Fingerprint</string>
+    <string name="server_lab_stream_alpn">Alpn</string>
+    <string name="server_lab_allow_insecure">Bolehin Insecure</string>
+    <string name="server_lab_sni">SNI</string>
+    <string name="server_lab_address3">Alamat</string>
+    <string name="server_lab_port3">Port</string>
+    <string name="server_lab_id3">Password</string>
+    <string name="server_lab_security3">Keamanan</string>
+    <string name="server_lab_id4">Password</string>
+    <string name="server_lab_id4_tip">Opsional</string>
+    <string name="server_lab_security4">User</string>
+    <string name="server_lab_security4_tip">Opsional</string>
+    <string name="server_lab_encryption">Enkripsi</string>
+    <string name="server_lab_flow">Flow</string>
+    <string name="server_lab_public_key">PublicKey</string>
+    <string name="server_lab_preshared_key">PreSharedKey</string>
+    <string name="server_lab_preshared_key_tip">Opsional</string>
+    <string name="server_lab_short_id">ShortId</string>
+    <string name="server_lab_spider_x">SpiderX</string>
+    <string name="server_lab_mldsa65_verify">Mldsa65Verify</string>
+    <string name="server_lab_secret_key">SecretKey</string>
+    <string name="server_lab_reserved">Reserved</string>
+    <string name="server_lab_reserved_tip">Opsional, dipisah pake koma</string>
+    <string name="server_lab_local_address">Alamat lokal</string>
+    <string name="server_lab_local_address_tip">Opsional IPv4/IPv6, dipisah pake koma</string>
+    <string name="server_lab_local_mtu">MTU</string>
+    <string name="server_lab_local_mtu_tip">Opsional, bawaan 1420</string>
+    <string name="server_lab_kcp_mtu">MTU mKCP</string>
+    <string name="server_lab_kcp_mtu_tip">Opsional, core bawaan 1350</string>
+    <string name="server_lab_kcp_tti">TTI mKCP</string>
+    <string name="server_lab_kcp_tti_tip">Opsional, core bawaan 50</string>
+    <string name="toast_success">Mantap Berhasil</string>
+    <string name="toast_delete_success">Berhasil dihapus</string>
+    <string name="toast_failure">Yah Gagal</string>
+    <string name="toast_none_data">Kosong melompong nih</string>
+    <string name="toast_incorrect_protocol">Protokolnya salah woi</string>
+    <string name="toast_decoding_failed">Gagal nge-decode nih</string>
+    <string name="title_file_chooser">Pilih konfig yak</string>
+    <string name="toast_require_file_manager">Install File Manager dulu dong.</string>
+    <string name="server_customize_config">Konfig kustom</string>
+    <string name="toast_config_file_invalid">Konfignya ngaco / ga valid</string>
+    <string name="server_lab_content">Isi</string>
+    <string name="toast_none_data_clipboard">Gak ada apa-apa di clipboard kamu</string>
+    <string name="toast_invalid_url">URL-nya ngaco</string>
+    <string name="toast_insecure_url_protocol">Plis jangan pake alamat HTTP langganan yang ga aman</string>
+    <string name="server_lab_need_inbound">Pastiin port inbound-nya udah pas sama settingan ya</string>
+    <string name="toast_malformed_josn">Format konfignya berantakan</string>
+    <string name="server_lab_request_host6">Host (SNI) (Opsional)</string>
+    <string name="toast_action_not_allowed">Eh, ga boleh ngelakuin ini</string>
+    <string name="server_obfs_password">Password Obfs</string>
+    <string name="server_lab_port_hop">Port Hopping</string>
+    <string name="server_lab_port_hop_tip">Bakal nimpa port aslinya</string>
+    <string name="server_lab_port_hop_interval">Interval Port Hopping</string>
+    <string name="server_lab_bandwidth_down">Limit Bandwidth turun</string>
+    <string name="server_lab_bandwidth_down_tip">Satuan: k/m/g/t</string>
+    <string name="server_lab_bandwidth_up">Limit Bandwidth naik</string>
+    <string name="server_lab_bandwidth_up_tip">Satuan: k/m/g/t</string>
+    <string name="server_lab_xhttp_mode">Mode XHTTP</string>
+    <string name="server_lab_xhttp_extra">XHTTP Extra</string>
+    <string name="server_lab_xhttp_extra_tip">JSON mentah, format: { XHTTPObject }</string>
+    <string name="server_lab_final_mask">finalMask</string>
+    <string name="server_lab_final_mask_tip">JSON mentah, format: { FinalMaskObject }</string>
+    <string name="server_lab_ech_config_list">EchConfigList</string>
+    <string name="server_lab_verify_peer_cert_by_name">Verifikasi Sertifikat Peer lewat Nama</string>
+    <string name="server_lab_pinned_ca256">Fingerprint Sertifikat</string>
+    <string name="server_lab_pinned_ca256_tip">SHA-256</string>
+    <string name="pinned_ca256_action_fetch">Ambil &amp; isi fingerprint sertifikat</string>
+    <string name="toast_fetch_cert_sha256_success">Fingerprint sertifikat berhasil diambil</string>
+    <string name="toast_fetch_cert_sha256_failed">Gagal ambil fingerprint sertifikat</string>
+    <string name="server_lab_browser_dialer">Aktifin Browser Dialer</string>
+    <string name="server_lab_browser_dialer_tip">Cuma support xhttp (packet-up) sama outbound ws; Settingan TLS mungkin dicuekin atau malah bentrok</string>
+
+    <string name="toast_asset_copy_failed">Gagal nyalin file, pake File Manager aja coba</string>
+    <string name="menu_item_add_asset">Tambah aset</string>
+    <string name="menu_item_add_file">Tambah file</string>
+    <string name="menu_item_add_url">Tambah URL</string>
+    <string name="menu_item_scan_qrcode">Scan QR Code</string>
+    <string name="title_url">URL</string>
+    <string name="menu_item_download_file">Download file</string>
+    <string name="title_user_asset_add_url">Tambah URL aset</string>
+    <string name="msg_file_not_found">Filenya ga ketemu cuy</string>
+    <string name="msg_remark_is_duplicate">Nama catatannya udah ada yang pake tuh</string>
+    <string name="asset_geo_files_sources">Sumber file Geo</string>
+
+    <string name="msg_dialog_progress">Sabar, lagi loading...</string>
+    <string name="menu_item_search">Cari</string>
+    <string name="menu_item_select_all">Pilih semua</string>
+    <string name="menu_item_invert_selection">Balik pilihan</string>
+    <string name="msg_enter_keywords">Ketik kata kuncinya</string>
+    <string name="switch_bypass_apps_mode">Mode Bypass</string>
+    <string name="menu_item_select_proxy_app">Pilih aplikasi proxy otomatis</string>
+    <string name="msg_downloading_content">Lagi ngedownload nih</string>
+    <string name="menu_item_export_proxy_app">Salin ke Clipboard</string>
+    <string name="menu_item_import_proxy_app">Paste dari Clipboard</string>
+    <string name="per_app_proxy_settings">Settingan per-aplikasi</string>
+    <string name="per_app_proxy_settings_enable">Aktifin per-aplikasi</string>
+    <string name="per_app_system_app_name">%1$s (Sistem)</string>
+    <string name="app_picker_unknown_app">Aplikasi ga jelas (UID ga ketahuan)</string>
+
+    <string name="title_settings">Settingan</string>
+    <string name="title_advanced">Settingan Lanjutan</string>
+    <string name="title_core_settings">Settingan Core</string>
+    <string name="title_vpn_settings">Settingan VPN</string>
+    <string name="title_pref_per_app_proxy">Proxy per-aplikasi</string>
+    <string name="summary_pref_per_app_proxy">Umum: App yang dicentang pake proxy, yang nggak langsung konek asli; \nMode Bypass: App yang dicentang konek asli, yang nggak pake proxy. \nPilihan buat milih otomatis ada di menu yak</string>
+    <string name="title_pref_is_booted">Konek setelah perangkat nyala</string>
+    <string name="summary_pref_is_booted">Nyambung otomatis ke server yang dipilih setelah perangkat nyala. Android mungkin ngebatesin proses mulai di background.</string>
+    <string name="title_system_vpn_settings">Settingan VPN Sistem</string>
+    <string name="summary_system_vpn_settings">Buka settingan VPN Android buat atur Always-on VPN, kalau didukung sama perangkat ini.</string>
+    <string name="toast_system_vpn_settings_unavailable">Settingan VPN sistem nggak tersedia.</string>
+
+    <string name="subscription_updater_job_tips">Tugas bakal jalan di background, progressnya bisa dipantau lewat notifikasi.</string>
+    <string name="summary_pref_update_subscription">Matiin biar cuma tes/sortir server yang udah ada, tanpa narik ulang konten langganan.</string>
+    <string name="title_pref_auto_test_after_update_subscription">Auto tes abis update langganan</string>
+    <string name="summary_pref_auto_test_after_update_subscription">Testing otomatis lumayan makan waktu. Kalo diaktifin, tugasnya jalan di background; kalo enggak, jalan di halaman ini.</string>
+    <string name="title_pref_auto_remove_invalid_after_test">Auto hapus konfig ngaco abis dites</string>
+    <string name="summary_pref_auto_remove_invalid_after_test">Hasil tes belum tentu akurat 100%; konfig yang kehapus ga bisa balik lagi lho.</string>
+
+    <string name="server_lab_mux">Mux</string>
+    <string name="server_lab_mux_enabled">Aktifin Mux</string>
+    <string name="server_lab_mux_concurrency">Koneksi TCP</string>
+    <string name="server_lab_mux_xudp_concurrency">Koneksi XUDP</string>
+    <string name="server_lab_mux_concurrency_tip">dari -1 sampe 1024</string>
+    <string name="server_lab_mux_xudp_quic">Gimana nanganin QUIC di tunnel mux</string>
+
+    <string name="title_pref_speed_enabled">Tampilin kecepatan</string>
+    <string name="summary_pref_speed_enabled">Biar keliatan speed sekarang di notif.\nIkon notifnya bakal berubah ngikutin pemakaian kamu.</string>
+    <string name="title_pref_hide_direct_traffic_notification">Sembunyiin direct traffic</string>
+    <string name="summary_pref_hide_direct_traffic_notification">Sembunyiin info traffic direct di notif, yang keliatan cuma traffic proxy aja.</string>
+    <string name="title_pref_show_group_name_notification">Tampilin nama grup di notif</string>
+    <string name="summary_pref_show_group_name_notification">Nampilin nama grup langganan di samping judul server di notif.</string>
+
+    <string name="title_pref_show_realtime_traffic_ip">Tampilin traffic real-time ganti IP</string>
+    <string name="summary_pref_show_realtime_traffic_ip">Ganti teks IP di layar utama jadi kecepatan upload/download real-time, kayak di notifikasi.</string>
+    <string name="summary_pref_disabled_realtime_traffic_ip">Dimatiin selama "%1$s" lagi aktif.</string>
+
+    <string name="title_pref_sniffing_enabled">Aktifin Sniffing</string>
+    <string name="summary_pref_sniffing_enabled">Cobain sniff domain dari paketnya (bawaannya nyala)</string>
+    <string name="title_pref_route_only_enabled">Aktifin routeOnly</string>
+    <string name="summary_pref_route_only_enabled">Pake domain hasil sniff cuma buat routing, IP targetnya dibiarin aja.</string>
+
+    <string name="title_pref_local_dns_enabled">Aktifin DNS Lokal</string>
+    <string name="summary_pref_local_dns_enabled">DNS diurus sama modul DNS core (Disaranin banget kalo kamu butuh routing lewatin LAN dan alamat lokal)</string>
+
+    <string name="title_pref_fake_dns_enabled">Aktifin DNS Palsu (Fake DNS)</string>
+    <string name="summary_pref_fake_dns_enabled">DNS lokal bakal ngasih IP palsu (lebih cepet, tapi kadang bikin beberapa app ngambek)</string>
+    <string name="title_pref_fake_dns_ip_pool">Rentang alamat FakeIP</string>
+    <string name="summary_pref_fake_dns_ip_pool">CIDR IPv4 buat alamat DNS palsu. Gunakan rentang benchmark privat kayak 198.18.0.0/15.</string>
+    <string name="error_invalid_fake_dns_ip_pool">Masukin CIDR IPv4 yang valid dari /1 sampai /30, misalnya 198.18.0.0/15.</string>
+
+    <string name="title_pref_ipv6_enabled">Aktifin IPv6</string>
+    <string name="summary_pref_ipv6_enabled">Tambahin alamat dan rute IPv6 ke antarmuka VPN</string>
+
+    <string name="title_pref_prefer_ipv6">Utamain IPv6</string>
+    <string name="summary_pref_prefer_ipv6">Prioritasin alamat IPv6 pas lagi nyari nama domain</string>
+
+    <string name="title_pref_remote_dns">DNS Remote</string>
+
+    <string name="title_pref_remote_dns_tip">udp/tcp/https/quic, Opsional. Bisa isi beberapa server dipisah koma, mis. 8.8.8.8,1.1.1.1</string>
+    <string name="summary_pref_remote_dns">DNS</string>
+
+    <string name="title_pref_vpn_dns">DNS VPN</string>
+
+    <string name="title_pref_vpn_dns_tip">Cuma IPv4/v6</string>
+    <string name="title_pref_vpn_bypass_lan">Bypass LAN lewat VPN gak?</string>
+
+    <string name="title_pref_vpn_interface_address">Alamat Antarmuka VPN</string>
+
+    <string name="title_pref_vpn_mtu">MTU VPN</string>
+
+    <string name="title_pref_vpn_mtu_tip">Bawaan 1500</string>
+
+    <string name="title_pref_domestic_dns">DNS Domestik</string>
+
+    <string name="title_pref_domestic_dns_tip">Opsional. Bisa isi beberapa server dipisah koma, mis. 223.5.5.5,119.29.29.29</string>
+    <string name="summary_pref_domestic_dns">DNS</string>
+
+    <string name="title_pref_dns_hosts">Host DNS</string>
+
+    <string name="title_pref_dns_hosts_tip">Format: domain:alamat,…</string>
+    <string name="summary_pref_dns_hosts">domain:alamat,…</string>
+
+    <string name="title_pref_delay_test_url">URL buat tes ping</string>
+    <string name="summary_pref_delay_test_url">URL</string>
+    <string name="title_pref_real_ping_concurrency">Konkurensi tes ping</string>
+    <string name="title_pref_country_code_timeout">Timeout tes kode negara (detik)</string>
+
+    <string name="title_pref_ip_api_url">URL tes info koneksi saat ini</string>
+    <string name="summary_pref_ip_api_url">URL</string>
+    <string name="title_pref_show_isp_info">Tampilin nama ISP</string>
+    <string name="summary_pref_show_isp_info">Tampilin nama ISP/organisasi di sebelah IP yang kedeteksi</string>
+    <string name="title_pref_hide_scroll_buttons">Sembunyiin tombol scroll yang ngambang</string>
+    <string name="summary_pref_hide_scroll_buttons">Sembunyiin tombol scroll ke atas/bawah/server terpilih yang ngambang di list server. Kalo dinyalain, pake \"Menuju profile terpilih\" di menu lainnya aja ya.</string>
+    <string name="title_pref_compact_list_actions">Gabungin tombol aksi server ke menu overflow</string>
+    <string name="summary_pref_compact_list_actions">Sembunyiin tombol share/edit/hapus di tiap baris server pas mode list, terus akses lewat satu tombol overflow aja, sama kayak di mode grid.</string>
+    <string name="title_pref_fab_extended">Tombol connect extended</string>
+    <string name="summary_pref_fab_extended">Nampilin timer koneksi di tombol connect pas VPN lagi nyala</string>
+
+    <string name="title_pref_proxy_sharing_enabled">Bolehin koneksi dari LAN</string>
+    <string name="summary_pref_proxy_sharing_enabled">Device lain bisa numpang proxy pake IP HP kamu via proxy lokal. Nyalain pas di jaringan yang kamu percaya aja ya, biar ga ada yang nebeng diam-diam</string>
+    <string name="toast_warning_pref_proxysharing_short">Ngebolehin koneksi dari LAN. Pastiin kamu lagi di jaringan yang aman ya</string>
+    <string name="title_pref_socks_port">Port proxy lokal</string>
+    <string name="title_pref_enable_local_proxy">Aktifin proxy lokal</string>
+    <string name="summary_pref_enable_local_proxy">Kalo dimatiin, proxy SOCKS ga ada yang jalan, jadi fungsi kayak update langganan ga bisa pake proxy</string>
+    <string name="title_pref_socks_enable_udp">UDP SOCKS5</string>
+    <string name="summary_pref_socks_enable_udp">Otentikasi SOCKS5 tuh kurang aman kalo pake UDP.</string>
+    <string name="summary_pref_socks_port">Port proxy lokal</string>
+    <string name="title_pref_dynamic_socks_port">Port proxy lokalnya acak aja (Dinamis)</string>
+    <string name="summary_pref_dynamic_socks_port">Bikin port proxy lokal secara acak tiap kali inbound dibikin</string>
+    <string name="title_pref_socks_username">Username proxy lokal</string>
+    <string name="title_pref_socks_username_tip">Opsional</string>
+    <string name="summary_pref_socks_username">Username</string>
+    <string name="title_pref_socks_password">Password proxy lokal</string>
+    <string name="title_pref_socks_password_tip">Opsional</string>
+    <string name="summary_pref_socks_password">Password</string>
+
+    <string name="title_pref_local_dns_port">Port DNS lokal</string>
+    <string name="summary_pref_local_dns_port">Port DNS lokal</string>
+
+    <string name="title_pref_confirm_remove">Konfirmasi pas mau hapus konfig</string>
+    <string name="summary_pref_confirm_remove">Nanya lagi pake popup gak nih kalo kamu mau ngehapus konfig?</string>
+
+    <string name="title_pref_start_scan_immediate">Langsung mulai scan aja</string>
+    <string name="summary_pref_start_scan_immediate">Langsung buka kamera buat scan pas masuk aplikasi, kalo nggak, kamu bisa milih scan atau milih foto dari menu di atas</string>
+
+    <string name="title_pref_append_http_proxy">Nempelin Proxy HTTP ke VPN</string>
+    <string name="summary_pref_append_http_proxy">Proxy HTTP bakal dipake langsung dari (browser/ beberapa app yang dukung), tanpa kudu lewat perangkat virtual NIC (Buat Android 10+ doang)</string>
+
+    <string name="title_pref_double_column_display">Aktifin tampilan dua kolom</string>
+    <string name="summary_pref_double_column_display">Daftar profil ditampilin dalam dua kolom, bikin lebih banyak konten yang muat di layar.</string>
+
+    <string name="title_pref_group_all_display">Tampilin semua grup</string>
+    <string name="summary_pref_group_all_display">Nambahin tab ekstra "Semua Tab"</string>
+    <string name="title_pref_group_all_tab_icon">Ikon tab \"Semua\"</string>
+    <string name="title_pref_tab_badge_limit">Batas angka badge tab</string>
+    <string name="tab_badge_limit_unlimited">Tidak terbatas</string>
+
+    <string name="title_pref_feedback">Kasih Masukan</string>
+    <string name="summary_pref_feedback">Laporin bug atau ngasih ide ke GitHub kuy</string>
+    <string name="summary_pref_tg_group">Gabung Grup Telegram Sini</string>
+    <string name="toast_tg_app_not_found">Aplikasi Telegram-nya ga ada di HP kamu euy</string>
+    <string name="title_privacy_policy">Kebijakan Privasi</string>
+    <string name="title_qr_code">QR Code</string>
+    <string name="title_about">Tentang</string>
+    <string name="title_source_code">Kode Sumber</string>
+    <string name="title_oss_license">Lisensi Open Source</string>
+    <string name="title_tg_channel">Channel Telegram</string>
+
+    <string name="title_pref_promotion">Promosi</string>
+
+    <string name="title_pref_auto_update_subscription">Otomatis update langganan</string>
+    <string name="subscription_update_background_start">Update langganan di background</string>
+    <string name="subscription_update_updating">Update langganan: %s</string>
+    <string name="subscription_update_progress">Real delay: %1$s — %2$s</string>
+    <string name="summary_pref_auto_update_subscription">Update langganan kamu otomatis di background sesuai jadwal. Di beberapa HP, fitur ini kadang suka mandek</string>
+    <string name="title_pref_auto_update_interval">Jeda Update Otomatis</string>
+    <string name="title_pref_auto_update_interval_tip">Dalem menit, Paling cepet 15</string>
+
+    <string name="title_core_loglevel">Level Log</string>
+    <string name="title_outbound_domain_resolve_method">Metode pre-resolve domain outbound</string>
+    <string name="title_mode">Mode</string>
+    <string name="title_mode_help">Klik sini kalo butuh bantuan lagi</string>
+    <string name="title_language">Bahasa</string>
+    <string name="title_ui_settings">Settingan Tampilan</string>
+    <string name="title_pref_ui_mode_night">Settingan Mode Gelap</string>
+    <string name="title_pref_use_hev_tunnel">Aktifin Fitur Hev TUN</string>
+    <string name="summary_pref_use_hev_tunnel">Kalo nyala, TUN bakal pake hev-socks5-tunnel; kalo nggak, tetep pake xray-core.</string>
+    <string name="title_category_hev_tunnel">Hev Tunnel</string>
+    <string name="title_pref_hev_tunnel_loglevel">Level Log Hev Tun</string>
+    <string name="title_pref_hev_tunnel_rw_timeout">Batas waktu baca/tulis Hev Tun</string>
+    <string name="title_pref_hev_tunnel_rw_timeout_tip">timeout, detik, tcp,udp bawaan 300,60</string>
+    <string name="title_pref_hev_tunnel_icmp">ICMP Echo (ping)</string>
+    <string name="summary_pref_hev_tunnel_icmp">Ngebales permintaan ICMP echo lewat tunnel</string>
+    <string name="title_pref_hev_tunnel_udp_mode">Mode relay UDP</string>
+    <string name="summary_pref_hev_tunnel_udp_mode">Cara paket UDP diterusin lewat proxy SOCKS5</string>
+    <string name="title_pref_hev_tunnel_udp_address">Timpa alamat relay UDP</string>
+    <string name="title_pref_hev_tunnel_udp_address_tip">Opsional. Nimpa alamat UDP yang dikasih server SOCKS5. Biarin kosong aja kalo mau pake nilai dari server.</string>
+    <string name="title_pref_hev_tunnel_tcp_fastopen">TCP Fast Open</string>
+    <string name="summary_pref_hev_tunnel_tcp_fastopen">Ngurangin latensi koneksi di jaringan yang support</string>
+    <string name="title_pref_hev_tunnel_pipeline">Pipelining handshake SOCKS5</string>
+    <string name="summary_pref_hev_tunnel_pipeline">Eksperimental. Gabungin handshake SOCKS5 biar round trip-nya lebih dikit</string>
+
+    <string name="title_category_root_mode">Mode Root</string>
+    <string name="title_pref_root_mode">Mode Root (seluruh sistem)</string>
+    <string name="summary_pref_root_mode">Tangkep semua lalu lintas via iptables tanpa VpnService. Butuh akses root ya.</string>
+    <string name="title_pref_root_lan_sharing">Berbagi LAN / tethering Root</string>
+    <string name="summary_pref_root_lan_sharing">Bagi-bagi proxy ke klien USB/Wi-Fi yang tethered. Butuh akses root ya.</string>
+    <string name="toast_root_required">Akses root dibutuhin buat Mode Root, tapi gak ada di HP ini.</string>
+
+    <string name="title_logcat">Logcat</string>
+    <string name="logcat_share">Bagikan log</string>
+    <string name="logcat_copy">Salin</string>
+    <string name="logcat_clear">Bersihin</string>
+    <string name="title_service_restart">Restart Servis</string>
+    <string name="title_del_all_config">Hapus semua konfig</string>
+    <string name="title_del_duplicate_config">Hapus konfig yang dobel</string>
+    <string name="title_del_invalid_config">Hapus konfig yang ngaco</string>
+    <string name="title_export_all">Salin semua konfig ke clipboard</string>
+    <string name="title_sub_setting">Langganan</string>
+    <string name="sub_setting_remarks">Nama</string>
+    <string name="sub_setting_url">URL (Opsional)</string>
+    <string name="sub_setting_user_agent">User Agent</string>
+    <string name="sub_setting_request_headers">Header Permintaan</string>
+    <string name="sub_setting_request_headers_tip">Format JSON</string>
+    <string name="sub_setting_filter">Filter Reguler Catatan</string>
+    <string name="sub_setting_network_filter">Filter tipe jaringan</string>
+    <string name="sub_setting_network_filter_tip">Cuma simpen konfig sama tipe jaringan ini, pisahin pake koma. Contoh: ws,grpc,xhttp</string>
+    <string name="sub_setting_protocol_filter">Filter protokol</string>
+    <string name="sub_setting_protocol_filter_tip">Cuma simpen konfig sama protokol ini, pisahin pake koma. Contoh: vmess,vless,trojan,ss</string>
+    <string name="sub_setting_enable">Aktifin update</string>
+    <string name="sub_setting_usage">Dipakai %1$s • Sisa %2$s</string>
+    <string name="sub_setting_usage_used">Dipakai %1$s</string>
+    <string name="sub_setting_expire">Kedaluwarsa %1$s</string>
+    <string name="sub_setting_no_url">Tidak ada tautan langganan</string>
+    <string name="sub_auto_update">Biarin otomatis update</string>
+    <string name="sub_allow_insecure_url">Bolehin alamat HTTP ga aman</string>
+    <string name="sub_setting_pre_profile">Catatan konfig proxy sebelumnya</string>
+    <string name="sub_setting_next_profile">Catatan konfig proxy berikutnya</string>
+    <string name="sub_setting_pre_profile_tip">Catatan konfignya ada dan cuma satu-satunya</string>
+    <string name="toast_invalid_update_interval">Jeda updatenya ngaco. Paling dikit 15 menit ya.</string>
+    <string name="title_sub_update">Update langganan</string>
+    <string name="title_sort_sub">Urutkan</string>
+    <string name="group_order_by_added">Baru Ditambah</string>
+    <string name="group_order_by_updated">Baru Diupdate</string>
+    <string name="title_ping_all_server">Tcping semua konfig</string>
+    <string name="title_real_ping_all_server">Tes ping semua konfig</string>
+    <string name="title_user_asset_setting">File Aset</string>
+    <string name="title_filter_config">Saring / Filter Konfig</string>
+    <string name="filter_config_all">Semua</string>
+    <string name="title_del_duplicate_config_count">Berhasil ngehapus %d konfig yang kembar</string>
+    <string name="title_del_config_count">Berhasil ngehapus %d konfig</string>
+    <string name="title_import_config_count">Masukin %d konfig</string>
+    <string name="title_export_config_count">Salin %d konfig</string>
+    <string name="title_update_config_count">Nge-update %d konfig</string>
+    <string name="title_update_asset_count">Berhasil update %d file asset</string>
+    <string name="title_update_subscription_result">Berhasil update %1$d konfig (Sukses %2$d, Gagal %3$d, Di-skip %4$d)</string>
+    <string name="title_update_subscription_no_subscription">Yah, ga ada langganan nih</string>
+    <string name="title_sub_update_diff">Perubahan langganan (%s)</string>
+    <string name="sub_update_diff_added">Ditambahin:\n%s</string>
+    <string name="sub_update_diff_deleted">Dihapus:\n%s</string>
+    <string name="toast_server_not_found_in_group">Server yang kamu pilih ga ada di grup ini euy</string>
+    <string name="btn_scroll_to_selected_server">Menuju profile terpilih</string>
+    <string name="btn_scroll_to_top">Scroll ke atas</string>
+    <string name="btn_scroll_to_bottom">Scroll ke bawah</string>
+    <string name="toast_fragment_not_available">Waduh, ga nemu nih tampilan yang lagi kamu buka</string>
+    <string name="title_clear_test_results">Hapus hasil tes</string>
+    <string name="title_country_code_all_server">Uji kode negara semua server</string>
+    <string name="title_clear_country_codes">Hapus semua kode negara</string>
+    <string name="country_code_unknown">—</string>
+
+    <string name="tasker_start_service">Nyalain Servis</string>
+    <string name="tasker_setting_confirm">Sip, Konfirmasi</string>
+
+    <string name="routing_settings_domain_strategy">Strategi Domain</string>
+    <string name="routing_settings_title">Routing</string>
+    <string name="routing_settings_tips">Pisahin pake koma(,) yak, \ntinggal pilih mau pake domain, ip, atau proses</string>
+    <string name="routing_settings_save">Simpen</string>
+    <string name="routing_settings_delete">Bersihin</string>
+    <string name="routing_settings_rule_title">Aturan Routing</string>
+    <string name="routing_settings_add_rule">Tambah Aturan</string>
+    <string name="routing_settings_import_predefined_rulesets">Impor preset ruleset</string>
+    <string name="routing_settings_import_rulesets_tip">Ruleset kamu yang sekarang bakal ludes nih, yakin mau lanjut?</string>
+    <string name="routing_settings_import_rulesets_from_clipboard">Impor ruleset dari clipboard</string>
+    <string name="routing_settings_import_rulesets_from_qrcode">Impor ruleset dari QR Code</string>
+    <string name="routing_settings_export_rulesets_to_clipboard">Salin ruleset ke clipboard</string>
+    <string name="routing_settings_locked">Kunci</string>
+    <string name="routing_settings_locked_tip">Kunci ah, biar aturan ini tetep ada pas kamu ngimpor preset</string>
+    <string name="routing_settings_domain">domain</string>
+    <string name="routing_settings_ip">ip</string>
+    <string name="routing_settings_process">proses</string>
+    <string name="routing_settings_process_tip">Pisahin pake koma(,) yak,
+tinggal pilih mau pake domain, ip, atau proses
+Nama Paket — cuma bisa kalo kamu pake Xray TUN, routeOnly aktif, dan Android 10+</string>
+    <string name="routing_settings_port">port</string>
+    <string name="routing_settings_protocol">protokol</string>
+    <string name="routing_settings_protocol_tip">[http,tls,bittorrent]</string>
+    <string name="routing_settings_network">jaringan</string>
+    <string name="routing_settings_network_tip">[udp|tcp]</string>
+    <string name="routing_settings_outbound_tag_hint" translatable="false">proxy / direct / block / &lt;remarks&gt;</string>
+    <string name="routing_settings_outbound_tag">outboundTag</string>
+
+    <string name="connection_test_pending">Cek Koneksi</string>
+    <string name="connection_test_testing">Lagi ngecek…</string>
+    <string name="connection_test_testing_count">Ngecek %d konfig…</string>
+    <string name="connection_test_available">Sukses konek: %dms</string>
+    <string name="connection_test_error">Tes delay gagal: %s tidak dapat dijangkau</string>
+    <string name="connection_test_fail">Gak ada internet</string>
+    <string name="connection_test_error_status_code">Kode error: #%d</string>
+    <string name="connection_connected">Udah konek. Tap buat tes</string>
+    <string name="connection_not_connected">Gak konek</string>
+    <string name="connection_pending">Menghubungkan…</string>
+    <string name="connection_runing_task_left">Tes berjalan: %s</string>
+    <string name="connection_runing_tcping_task_left">TCPing: %s</string>
+    <string name="connection_runing_real_delay_task_left">Real delay: %s</string>
+    <string name="action_minimize">Minimize</string>
+    <string name="test_progress_counter">%1$d / %2$d</string>
+    <string name="test_progress_ping_ms">%dms</string>
+
+    <string name="import_subscription_success">Asik, Langganan Berhasil Masuk</string>
+    <string name="sub_import_name">Nama langganan</string>
+    <string name="sub_import_default_name">langganan impor</string>
+    <string name="import_subscription_failure">Yah, Impor Langganan Gagal</string>
+    <string name="title_fragment_settings">Settingan Fragmen</string>
+    <string name="title_pref_fragment_packets">Paket Fragmen</string>
+    <string name="title_pref_fragment_length">Panjang Fragmen</string>
+    <string name="title_pref_fragment_length_tip">min-max</string>
+    <string name="title_pref_fragment_interval">Jeda Fragmen</string>
+    <string name="title_pref_fragment_interval_tip">min-max</string>
+    <string name="title_pref_fragment_maxsplit">Maksimal Split Fragmen</string>
+    <string name="title_pref_fragment_enabled">Aktifin Fragmen</string>
+    <string name="title_pref_observatory_least_ping_interval">Interval leastPing</string>
+    <string name="title_pref_observatory_least_load_interval">Interval leastLoad</string>
+    <string name="title_pref_observatory_least_load_method">Metode HTTP leastLoad</string>
+    <string name="title_pref_observatory_least_load_sampling">Sampling leastLoad</string>
+    <string name="title_pref_observatory_least_load_timeout">Timeout leastLoad</string>
+    <string name="toast_invalid_observatory_duration">Durasinya ngaco. Pake nilai kayak 3m atau 30s ya.</string>
+    <string name="toast_invalid_observatory_sampling">Sampling-nya ngaco. Pake angka positif ya.</string>
+
+    <string name="update_check_for_update">Cek Update</string>
+    <string name="update_already_latest_version">Udah pake versi paling baru kok</string>
+    <string name="update_new_version_found">Ada versi baru nih bro: %s</string>
+    <string name="update_now">Gass Update Sekarang</string>
+    <string name="update_check_pre_release">Cek versi Pre-release</string>
+    <string name="update_checking_for_update">Lagi ngecek update bentar...</string>
+
+    <string name="title_policy_group_type">Tipe Grup Policy</string>
+    <string name="title_policy_group_subscription_id">Dari grup langganan</string>
+    <string name="title_policy_group_subscription_filter">Filter Reguler Catatan</string>
+    <string name="title_policy_group_test_outbounds">Uji outbound</string>
+    <string name="title_policy_group_fallback">Outbound cadangan</string>
+    <string name="title_policy_group_observatory">Observatory</string>
+    <string name="title_policy_group_fallback_tip">Opsional</string>
+
+    <string name="server_proxy_chain_members">Anggota Proxy Chain</string>
+    <string name="server_proxy_chain_pick_members">Pencet sini buat milih membernya</string>
+    <string name="server_proxy_chain_member_unselected">Pilih membernya dong</string>
+    <string name="server_proxy_chain_members_unselected">Pilih member dulu ya buat tiap baris chain</string>
+    <string name="server_proxy_chain_members_insufficient">Membernya kurang nih</string>
+    <string name="server_proxy_chain_members_invalid">Member chainnya ngaco: %1$s</string>
+
+    <string name="title_configuration_backup_restore">Backup &amp; Restore</string>
+    <string name="title_configuration_backup">Backup Konfig</string>
+    <string name="title_configuration_restore">Balikin Konfig</string>
+    <string name="title_configuration_share">Bagi-bagi Konfig</string>
+    <string name="backup_import_title">Impor file backup</string>
+    <string name="backup_import_message">Impor \"%1$s\"? Ini bakal nimpa settingan, profil, sama data aplikasi yang sekarang lho.</string>
+    <string name="title_pin_server">Pin Server</string>
+    <string name="action_pin_server">Pin ke atas</string>
+    <string name="action_unpin_server">Lepas pin</string>
+    <string name="toast_server_pinned">Server dipin ke atas</string>
+    <string name="toast_server_unpinned">Pin server dilepas</string>
+    <string name="toast_pinned_server_delete_blocked">Lepas pin server dulu sebelum dihapus</string>
+    <string name="title_profile_storage_cleanup">Beresin Penyimpanan Konfig</string>
+    <string name="message_profile_storage_cleanup">Hapus data konfig yang udah gak dipake sama grup manapun? Konfig yang lagi dipilih dan data yang gak bisa dipastikan aman bakal tetap disimpan.</string>
+    <string name="toast_profile_storage_cleanup">Konfig nganggur yang dihapus: %1$d</string>
+    <string name="toast_profile_storage_cleanup_skipped">Gak bisa mastiin data konfig mana yang nganggur. Gak ada yang dihapus.</string>
+    <string name="title_webdav_config_setting">Settingan WebDAV</string>
+    <string name="title_webdav_config_setting_unknown">Atur WebDAV-nya dulu dong sebelum make.</string>
+    <string name="title_webdav_url">URL Server WebDAV</string>
+    <string name="title_webdav_user">Username</string>
+    <string name="title_webdav_pass">Password</string>
+    <string name="title_webdav_remote_path">Folder remote (opsional)</string>
+
+    <string name="status">Status</string>
+    <string name="import_configuration">Masukin Konfig Baru</string>
+    <string name="add_server_manually">Tambah Server Manual Sendiri</string>
+    <string name="management">Manajemen</string>
+    <string name="action_export">Ekspor Keluar</string>
+    <string name="action_duplicates">Yang Kembar</string>
+    <string name="action_clean_invalid">Sapu Bersih yang Ngaco</string>
+    <string name="action_delete_all">Hapus Semuanya</string>
+    <string name="app_settings">Settingan App</string>
+    <string name="tools_and_info">Alat &amp; Info Lain</string>
+    <string name="desc_logcat">Cek log koneksi kalo ada error</string>
+    <string name="desc_check_update">Cek &amp; Install versi paling *fresh*</string>
+    <string name="desc_backup_restore">Simpen aman konfig kamu atau balikin lagi</string>
+    <string name="desc_about">Info versi sama lisensi sumber terbuka</string>
+    <string name="share_configuration">Bagi-bagi Konfig</string>
+    <string name="share_qrcode">Pake QR Code</string>
+    <string name="export_to_clipboard">Salin ke Clipboard</string>
+    <string name="export_full_config_to_clipboard">Salin mentahan full konfignya ke Clipboard</string>
+    <string name="share_as_file">Bagikan sebagai file</string>
+
+    <string name="title_export_group_file">Ekspor/bagikan grup sebagai file</string>
+    <string name="title_import_mikuray_count">%d konfig berhasil diimpor</string>
+    <string name="title_import_mikuray_error">Gagal impor file .mikuray</string>
+    <string name="title_import_mikuray_wrong_password">Password salah atau file .mikuray rusak</string>
+
+    <string name="mikuray_password_export_title">Bikin password</string>
+    <string name="mikuray_password_export_desc">Password ini bakal dipakai buat enkripsi file .mikuray-nya. Kamu butuh password yang sama buat impor filenya lagi, jadi jangan sampai lupa.</string>
+    <string name="mikuray_password_import_title">Masukkan password</string>
+    <string name="mikuray_password_import_desc">File .mikuray ini terenkripsi. Masukkan password yang dipakai waktu ngeekspor filenya.</string>
+    <string name="mikuray_password_confirm_button">Lanjut</string>
+    <string name="mikuray_password_hint">Password</string>
+    <string name="mikuray_password_confirm_hint">Konfirmasi password</string>
+    <string name="mikuray_password_error_empty">Password gak boleh kosong</string>
+    <string name="mikuray_password_error_mismatch">Password gak sama</string>
+    <string name="ruleset_management">Atur Ruleset</string>
+    <string name="title_pref_app_theme">Tema Warna App</string>
+    <string name="summary_pref_app_theme">Pilih palet warna aksen yang pas buat app ini</string>
+    <string name="pref_theme_color_title">Warna Tema</string>
+    <string name="title_pref_dynamic_color">Warna Dinamis (Material You)</string>
+    <string name="summary_pref_dynamic_color">Pake warna yang nyatu sama wallpaper HP (Android 12+). Ini bakal nimpa tema warna yang kamu pilih</string>
+    <string name="summary_pref_dynamic_color_unavailable">Butuh Android 12 ke atas bro</string>
+    <string name="title_pref_true_black">Hitam Pekat (AMOLED)</string>
+    <string name="summary_pref_true_black">Bikin background bener-bener hitam biar hemat batre (AMOLED). Cuma aktif pas dark mode nyala</string>
+    <string name="pref_true_black_only_in_night_mode">Cuma jalan pas dark mode doang</string>
+    <string name="title_pref_icon_shape">Bentuk Ikon</string>
+    <string name="title_pref_arrow_shape">Bentuk Panah</string>
+    <string name="summary_pref_icon_shape">Pilih bentuk ikon profil sesuka kamu</string>
+    <string name="pref_custom_dpi">Atur DPI Aplikasi</string>
+    <string name="pref_font_size">Ukuran Font</string>
+    <string name="pref_font_size_preview_format">Aa · %s</string>
+    <string name="pref_custom_color_title">Warna Tema Kustom</string>
+    <string name="pref_custom_color_reset">Balikin ke preset</string>
+    <string name="indicator_style_title">Pilih Model Indikator</string>
+    <string name="pref_indicator_style_title">Model Indikator Server</string>
+    <string name="pref_indicator_style_summary">Pilih tampilan indikator buat server yang lagi aktif</string>
+    <string name="summary_navigate_ui_settings">UI umum, tema, tampilan, chip pencarian, blur, banner, suara, dll.</string>
+    <string name="summary_navigate_vpn_settings">IPv6, keep awake, DNS, HTTP proxy, bypass LAN, interface, MTU, Hev TUN, timer TCP/WS, proxy per aplikasi, mode Root, dll.</string>
+    <string name="summary_navigate_core_settings">Sniffing, route only, proxy lokal/sharing, SOCKS, DNS, level log, resolusi domain, file geo, dll.</string>
+    <string name="summary_navigate_fragment_settings">Status fragment, panjang, interval, maxsplit, paket, dll.</string>
+    <string name="summary_navigate_advanced_settings">Auto-start, URL API delay/IP, strategi routing, mode, sembunyiin dari recent apps, dll.</string>
+    <string name="summary_navigate_per_app_proxy_settings">Pilih aplikasi mana aja yang mau pakai proxy</string>
+    <string name="title_ui_general">Umum</string>
+    <string name="title_category_notification">Notifikasi</string>
+    <string name="title_ui_theme">Tema</string>
+    <string name="title_ui_appearance">Tampilan</string>
+    <string name="transport_layer_security">Keamanan Transport Layer</string>
+    <string name="del_config_dialog_comfirm_message">Yakin mau hapus konfigurasi ini? Kalo udah dihapus, datanya bakal hilang permanen dan nggak bisa dibalikin lagi lho.</string>
+    <string name="del_sub_dialog_comfirm_message">Yakin mau hapus langganan ini? Kalo udah dihapus, datanya bakal hilang permanen dan nggak bisa dibalikin lagi lho.</string>
+    <string name="title_sub_group_options">Opsi Grup</string>
+    <string name="sub_group_option_delete">Hapus Grup</string>
+    <string name="sub_group_option_clear_traffic">Bersihin Traffic Grup</string>
+    <string name="del_routing_dialog_comfirm_message">Yakin mau hapus settingan routing ini? Kalo udah dihapus, datanya bakal hilang permanen dan nggak bisa dibalikin lagi lho.</string>
+    <string name="del_file_asset_dialog_comfirm_message">Yakin mau hapus file aset ini? Kalo udah dihapus, datanya bakal hilang permanen dan nggak bisa dibalikin lagi lho.</string>
+    <string name="del_button_dialog_comfirm">Hapus</string>
+    <string name="menu_item_search_main">Cari konfig</string>
+    <string name="title_search_bar_chip">Chip Bar Pencarian</string>
+    <string name="pref_action_clear_total_traffic_title">Hapus data traffic</string>
+    <string name="action_clear_total_traffic_button">Hapus</string>
+    <string name="confirm_clear_total_traffic">Hapus data traffic chip beserta riwayat harian/bulanannya?</string>
+    <string name="toast_total_traffic_cleared">Data traffic chip udah dihapus</string>
+    <string name="pref_search_bar_chip_title">Chip bar pencarian</string>
+    <string name="pref_search_bar_chip_disabled">Nonaktif</string>
+    <string name="pref_search_bar_chip_weather">Cuaca</string>
+    <string name="pref_search_bar_chip_total_traffic">Total penggunaan traffic</string>
+    <string name="pref_search_bar_chip_dual_swipe">Dual (swipe)</string>
+    <string name="pref_search_bar_chip_info_weather">Chip cuaca bisa diklik untuk buka detail prakiraan</string>
+    <string name="pref_search_bar_chip_info_traffic">Chip traffic bisa diklik untuk buka detail pemakaian data</string>
+    <string name="pref_search_bar_chip_info_dual">Swipe atas/bawah di chip untuk ganti konten. Tap untuk buka detail</string>
+    <string name="pref_search_chip_gradient_title">Background chip gradasi</string>
+    <string name="pref_search_chip_gradient_summary">Terapin background gradasi (warna primary ke tertiary) di chip bar pencarian pas chip cuaca atau chip total pemakaian lagi aktif</string>
+
+    <string name="pref_weather_unit_title">Satuan Suhu</string>
+    <string name="pref_weather_custom_location_title">Lokasi Kustom</string>
+    <string name="pref_weather_custom_location_dialog_message">Masukin nama tempat (contoh: Jakarta) atau koordinat pakai format \"latitude,longitude\". Kosongin aja kalo mau pakai lokasi kamu sekarang.</string>
+    <string name="pref_weather_custom_location_summary_auto">Pakai lokasi kamu sekarang</string>
+    <string name="pref_weather_custom_location_summary_current_coords">Pakai lokasi sekarang (%1$.2f, %2$.2f)</string>
+    <string name="weather_condition_clear">Cerah</string>
+    <string name="weather_condition_partly_cloudy">Berawan sebagian</string>
+    <string name="weather_condition_cloudy">Berawan</string>
+    <string name="weather_condition_fog">Berkabut</string>
+    <string name="weather_condition_rain_light">Hujan ringan</string>
+    <string name="weather_condition_rain_heavy">Hujan lebat</string>
+    <string name="weather_condition_snow">Salju</string>
+    <string name="weather_condition_thunder">Badai petir</string>
+    <string name="weather_condition_thunder_hail">Badai petir sama es</string>
+    <string name="weather_condition_unknown">Gak diketahui</string>
+    <string name="weather_forecast_title">Prakiraan cuaca</string>
+    <string name="weather_feels_like">Kerasanya kayak %1$s</string>
+    <string name="weather_max_min">Maks %1$s  Min %2$s</string>
+    <string name="weather_summary_title">Ringkasan</string>
+    <string name="weather_summary_condition">Bakal %1$s sepanjang hari nih.</string>
+    <string name="weather_summary_high_low">Paling tinggi %1$s, paling rendah %2$s.</string>
+    <string name="weather_summary_rain_likely">Kayaknya bakal hujan deres — bawa payung ya.</string>
+    <string name="weather_summary_rain_possible">Kayaknya bakal hujan deh.</string>
+    <string name="weather_summary_rain_slight">Ada dikit-dikit kemungkinan hujan.</string>
+    <string name="weather_summary_windy">Anginnya bakal lumayan kenceng hari ini.</string>
+    <string name="weather_hourly_forecast_title">Prakiraan per jam</string>
+    <string name="weather_daily_forecast_title">Prakiraan harian</string>
+    <string name="weather_now">Sekarang</string>
+    <string name="weather_today">Hari ini</string>
+    <string name="weather_forecast_load_error">Gagal memuat prakiraan</string>
+    <string name="menu_item_refresh_weather">Segarkan</string>
+    <string name="weather_details_title">Detail</string>
+    <string name="weather_detail_humidity">Kelembapan</string>
+    <string name="weather_detail_dew_point">Titik Embun</string>
+    <string name="weather_detail_wind">Angin</string>
+    <string name="weather_detail_wind_gusts">Hembusan Angin</string>
+    <string name="weather_detail_pressure">Tekanan Udara</string>
+    <string name="weather_detail_visibility">Jarak Pandang</string>
+    <string name="weather_detail_cloud_cover">Tutupan Awan</string>
+    <string name="weather_detail_uv_index">Indeks UV</string>
+    <string name="weather_detail_sunrise">Matahari Terbit</string>
+    <string name="weather_detail_sunset">Matahari Terbenam</string>
+    <string name="weather_detail_precipitation">Curah Hujan</string>
+    <string name="weather_detail_air_quality">Kualitas Udara</string>
+    <string name="weather_wind_format">%1$d km/j %2$s</string>
+    <string name="weather_speed_kmh_format">%1$d km/j</string>
+    <string name="weather_pressure_format">%1$d hPa</string>
+    <string name="weather_visibility_km_format">%1$.1f km</string>
+    <string name="weather_visibility_m_format">%1$d m</string>
+    <string name="weather_precipitation_format">%1$.1f mm</string>
+    <string name="weather_compass_n">U</string>
+    <string name="weather_compass_ne">TL</string>
+    <string name="weather_compass_e">T</string>
+    <string name="weather_compass_se">TG</string>
+    <string name="weather_compass_s">S</string>
+    <string name="weather_compass_sw">BD</string>
+    <string name="weather_compass_w">B</string>
+    <string name="weather_compass_nw">BL</string>
+    <string name="weather_aqi_good">Baik</string>
+    <string name="weather_aqi_moderate">Sedang</string>
+    <string name="weather_aqi_unhealthy_sensitive">Gak sehat buat kelompok sensitif</string>
+    <string name="weather_aqi_unhealthy">Gak sehat</string>
+    <string name="weather_aqi_very_unhealthy">Sangat gak sehat</string>
+    <string name="weather_aqi_hazardous">Berbahaya</string>
+
+    <string name="title_vpn_sound_settings">Suara</string>
+    <string name="title_pref_sound_on_connect">Bunyi Koneksi</string>
+    <string name="summary_pref_sound_on_connect">Bunyi pas nyambung atau putus koneksi</string>
+    <string name="title_pref_custom_connect_sound">Bunyi Koneksi Custom</string>
+    <string name="summary_pref_custom_connect_sound">Belum ada bunyi custom — ketuk untuk memilih file audio</string>
+    <string name="title_pref_custom_disconnect_sound">Bunyi Putus Koneksi Custom</string>
+    <string name="summary_pref_custom_disconnect_sound">Belum ada bunyi custom — ketuk untuk memilih file audio</string>
+    <string name="title_pref_delete_custom_sounds">Hapus Bunyi Custom</string>
+    <string name="summary_pref_delete_custom_sounds">Hapus kedua bunyi koneksi custom</string>
+    <string name="custom_sound_delete_confirm">Hapus semua bunyi koneksi custom dan gunakan kembali bunyi bawaan?</string>
+    <string name="custom_sound_invalid">File tersebut tidak dapat dibaca sebagai audio</string>
+    <string name="custom_sound_none_to_remove">Belum ada bunyi koneksi custom</string>
+    <string name="custom_sound_added">Bunyi custom berhasil ditambahkan</string>
+    <string name="custom_sounds_removed">Bunyi koneksi custom berhasil dihapus</string>
+    <string name="ip_unknown">IP: Nggak ke-detect</string>
+    <string name="title_pref_app_font">Gaya Font</string>
+    <string name="title_category_app_font">Font</string>
+    <string name="title_pref_app_font_use_custom">Pake Font Kustom</string>
+    <string name="summary_pref_app_font_use_custom">Ganti font di atas pake font dari penyimpanan internal</string>
+    <string name="title_pref_app_font_custom_pick">Pilih Font Kustom</string>
+    <string name="summary_pref_app_font_custom_pick_empty">Belum ada file font — tap buat pilih .ttf/.otf dari penyimpanan internal</string>
+    <string name="title_pref_app_font_custom_delete">Hapus Font Kustom</string>
+    <string name="summary_pref_app_font_custom_delete_empty">Belum ada font kustom yang dipasang</string>
+    <string name="summary_pref_app_font_custom_delete_set">Lagi dipake: %1$s</string>
+    <string name="custom_font_delete_confirm">Hapus font kustom dan balik ke font bawaan?</string>
+    <string name="custom_font_invalid">Gagal baca file itu sebagai font (cuma .ttf/.otf/.ttc)</string>
+    <string name="custom_font_none_to_remove">Belum ada font kustom yang dipasang</string>
+    <string name="group_order">Urutan</string>
+    <string name="group_order_origin">Urutan Asli</string>
+    <string name="group_order_by_name">Sesuai Nama</string>
+    <string name="group_order_by_delay">Sesuai Delay</string>
+    <string name="title_more_menu">Menu Lainnya</string>
+    <string name="title_import_menu">Menu Impor</string>
+    <string name="routing_settings_import_predefined_rulesets_title">Preset</string>
+    <string name="routing_settings_import_rulesets_from_clipboard_title">Clipboard</string>
+    <string name="routing_settings_import_rulesets_from_qrcode_title">QR Code</string>
+    <string name="title_pref_category_style">Gaya Judul Kategori</string>
+    <string name="scan_code">Scan Kode QR</string>
+    <string name="select_photo">Pilih Foto</string>
+    <string name="pref_show_splash_title">Tampilin splash screen</string>
+    <string name="pref_show_splash_summary">Tampilin splash screen pas aplikasi dibuka</string>
+    <string name="title_pref_dynamic_color_banner">Tema Dinamis dari Banner Beranda</string>
+    <string name="summary_pref_dynamic_color_banner">Skema warna tema bakal otomatis nyesuaiin sama gambar Banner Beranda kamu.</string>
+    <string name="title_pref_keep_awake">Bikin HP tetep aktif</string>
+    <string name="summary_pref_keep_awake">Nahan partial wake lock pas VPN lagi nyambung. Dibutuhin buat HP Xiaomi/HyperOS; kalo di Samsung/Pixel malah bikin boros baterai — mending biarin mati aja.</string>
+    <string name="title_reset_traffic">Reset Penggunaan Data</string>
+    <string name="reset_traffic_scope_profile">Cuma profil yang dipilih</string>
+    <string name="reset_traffic_scope_group">Cuma di grup \"%1$s\"</string>
+    <string name="reset_traffic_scope_all">Di semua grup</string>
+    <string name="confirm_reset_traffic_profile">Reset penggunaan data buat profil ini?</string>
+    <string name="confirm_reset_traffic_group">Reset penggunaan data semua server di grup ini?</string>
+    <string name="confirm_reset_traffic_all">Reset penggunaan data buat semua grup? Nggak bisa dibatalin lho ya</string>
+    <string name="confirm_clear_test_results_group">Hapus hasil tes buat semua server di grup ini?</string>
+    <string name="confirm_clear_test_results_all">Hapus hasil tes buat semua grup?</string>
+    <string name="confirm_clear_country_codes_group">Hapus kode negara buat semua server di grup ini?</string>
+    <string name="confirm_clear_country_codes_all">Hapus kode negara buat semua grup?</string>
+    <string name="pref_traffic_enabled_title">Tampilin Penggunaan Data</string>
+    <string name="pref_traffic_enabled_summary">Tampilin jumlah upload dan download di tiap server</string>
+    <string name="label_total_traffic_upload">Upload</string>
+    <string name="label_total_traffic_download">Download</string>
+    <string name="label_total_traffic_up">Up</string>
+    <string name="label_total_traffic_down">Down</string>
+    <string name="label_total_traffic_combined">Gabungan</string>
+    <string name="label_total_traffic_today">Hari Ini</string>
+    <string name="label_total_traffic_month">Bulan Ini</string>
+    <string name="title_total_traffic_history">7 Hari Terakhir</string>
+    <string name="label_total_traffic_no_history">Belum ada data pemakaian</string>
+    <string name="pref_network_security_enabled_title">Tampilin Jaringan dan Keamanan</string>
+    <string name="pref_network_security_enabled_summary">Tampilin info transport dan keamanan di tiap server</string>
+    <string name="pref_disable_sensor_text_title">Tampilin Alamat Lengkap</string>
+    <string name="pref_disable_sensor_text_summary">Tampilin IP/domain server secara lengkap tanpa disensor pakai ***</string>
+    <string name="title_pref_send_hwid">Kirim HWID</string>
+    <string name="summary_pref_send_hwid">Kirim ID perangkat pas lagi update langganan</string>
+    <string name="title_pref_hide_from_recent_apps">Sembunyikan dari recent apps</string>
+    <string name="summary_pref_hide_from_recent_apps">Sembunyikan app dari recent tasks pas lagi jalan di background</string>
+    <string name="title_pref_tcp_keepalive_idle">TCP Keepalive idle</string>
+    <string name="title_pref_tcp_keepalive_idle_tip">Detik, 0 = nonaktif</string>
+    <string name="title_pref_ws_heartbeat_period">WS Ping Interval</string>
+    <string name="title_pref_ws_heartbeat_period_tip">Detik, 0 = nonaktif</string>
+
+     <string name="title_banner_settings_character">Karakter banner settingan</string>
+     <string name="summary_banner_settings_character">Pilih ilustrasi Hatsune Miku yang tampil di banner settingan</string>
+     <string name="banner_settings_character_custom">Gambar custom</string>
+     <string name="title_banner_settings_character_custom">Gambar karakter banner custom</string>
+     <string name="summary_banner_settings_character_custom">Pilih gambar dari perangkatmu</string>
+     <string name="summary_banner_settings_character_custom_selected">Pilih gambar custom</string>
+     <string name="title_banner_settings_character_delete">Hapus gambar karakter banner custom</string>
+     <string name="summary_banner_settings_character_delete">Hapus gambar custom dan gunakan karakter bawaan</string>
+     <string name="title_banner_character_layout">Ukuran &amp; posisi karakter banner</string>
+     <string name="summary_banner_character_layout">Atur lebar, tinggi, dan margin ilustrasi banner</string>
+     <string name="banner_character_slider_width_label">Lebar</string>
+     <string name="banner_character_slider_height_label">Tinggi</string>
+     <string name="banner_character_slider_margin_top_label">Margin atas</string>
+     <string name="banner_character_slider_margin_bottom_label">Margin bawah</string>
+     <string name="banner_character_slider_margin_end_label">Margin kanan</string>
+     <string name="uwu_banner_settings_title">Halo disana…</string>
+    <string name="uwu_banner_settings_summary">"Met dateng di menu
+settingan, monggo
+pilih aja opsi mana
+yang kamu butuhin."</string>
+    <string name="uwu_maintainer_title">Aplikasi ini dalam pemeliharaan</string>
+    <string name="uwu_maintainer_summary">Tim Developer HatsuneMikuUwU</string>
+    <string name="uwu_name_title">Nama App</string>
+    <string name="uwu_version_name_title">Nama Versi</string>
+    <string name="uwu_version_code_title">Kode Versi</string>
+    <string name="uwu_package_name_title">Nama Paket</string>
+    <string name="uwu_mikubox_author_title">Pembuat</string>
+    <string name="uwu_build_date_title">Tanggal Build</string>
+    <string name="uwu_update_summary">Yuk update %1$s master!</string>
+    <string name="uwu_about_version_title">Tentang Aplikasi</string>
+    <string name="uwu_about_version_summary">Klik di sini atau ikon panah buat cari tau lebih lanjut tentang aplikasi ini.</string>
+    <string name="uwu_splash_title">Dibikin sama ❤️\noleh HatsuneMikuUwU Development</string>
+    <string name="uwu_splash_summary">Versi %1$s (%2$d)</string>
+
+     <string name="uwu_miku_gender_title">Jenis Kelamin</string>
+    <string name="uwu_miku_gender_summary">Cewek</string>
+    <string name="uwu_miku_birthday_title">Ulang Tahun</string>
+    <string name="uwu_miku_birthday_summary">31 Agustus</string>
+    <string name="uwu_miku_age_title">Umur</string>
+    <string name="uwu_miku_age_summary">16</string>
+    <string name="uwu_miku_voice_title">Suara</string>
+    <string name="uwu_miku_voice_summary">Saki Fujita</string>
+    <string name="uwu_miku_weight_title">Berat</string>
+    <string name="uwu_miku_weight_summary">42 kg</string>
+    <string name="uwu_miku_height_title">Tinggi</string>
+    <string name="uwu_miku_height_summary">158 cm</string>
+    <string name="uwu_about_miku_title">Siapa itu Hatsune Miku?</string>
+    <string name="uwu_about_miku_summary">Hatsune Miku itu penyanyi virtual berbasis Vocaloid yang dirilis sama Crypton Future Media, kode namanya CV01. Dikenal gara-gara rambut twintail panjang warna biru kehijauan sama suaranya yang jernih, dia itu cewek 16 tahun dan idola virtual yang terkenal sedunia. Dia aktif di musik, konser, dan anime, plus disayang banget sama fans-fansnya.</string>
+
+    <string name="title_character_license">Lisensi Karakter</string>
+    <string name="summary_character_license">Hatsune Miku sama karakter Vocaloid lainnya itu punya Crypton Future Media, Inc. Aplikasi ini make mereka berdasarkan Piapro Character License (PCL), yang ngebolehin fan pake gratis buat karya non-komersial. Kalo mau dipake buat komersial, kudu minta izin sendiri ke Crypton.\n\nhttps://piapro.net/en_for_creators.html</string>
+
+    <string name="uwu_random_text_1">Hari yang pas buat nyanyi!</string>
+    <string name="uwu_random_text_2">Semangat terus hari ini, Master!</string>
+    <string name="uwu_random_text_3">"Ayo berjuang! 39!"</string>
+    <string name="uwu_random_text_4">Lagi nyari daun bawang ya?</string>
+    <string name="uwu_random_text_5">"Fokus ya! Ready, go!"</string>
+    <string name="uwu_random_text_6">Miku-Miku ni shite ageru!</string>
+    <string name="uwu_random_text_7">Okaeri, Master!</string>
+    <string name="uwu_random_text_8">Rasain melodinya..!</string>
+    <string name="uwu_random_text_9">Tembus nada tertingginya!</string>
+    <string name="uwu_random_text_10">Lagi nulis lirik buat Miku?</string>
+
+    <string name="uwu_greeting_morning">Met pagi...</string>
+    <string name="uwu_greeting_afternoon">Met siang...</string>
+    <string name="uwu_greeting_evening">Met sore...</string>
+    <string name="uwu_greeting_night">Met malem...</string>
+    <string name="uwu_greeting_late_night">"Udah waktunya tidur nih..."</string>
+
+    <string name="uwu_profile_banner_title_custom">Hai, %1$s</string>
+
+    <string name="banner_profile_category">Profil</string>
+    <string name="profile_name_custom_title">Nama header</string>
+    <string name="profile_name_custom_dialog">Ganti nama tampilan</string>
+    <string name="banner_profile_custom_title">Ganti banner profil</string>
+    <string name="banner_profile_custom_summary">Pasang gambar kustom buat header profil (opsional)</string>
+    <string name="title_profile_banner_shape">Bentuk gambar profil</string>
+    <string name="delete_custom_banner_profile">Hapus banner profil kustom</string>
+    <string name="delete_custom_banner_profile_summary">Banner kustom dihapus. Bakal balik pakai banner profil bawaan</string>
+    <string name="custom_banner_profile_set">Banner profil berhasil diupdate.</string>
+
+    <string name="home_banner_category">Banner Beranda</string>
+    <string name="home_banner_disable_title">Nonaktifin banner beranda</string>
+    <string name="home_banner_disable_summary">Sembunyiin gambar banner di bagian paling atas layar beranda</string>
+    <string name="home_banner_custom_title">Ganti banner beranda</string>
+    <string name="home_banner_custom_summary">Pasang gambar kustom buat header beranda (opsional)</string>
+    <string name="home_banner_delete_title">Hapus banner beranda kustom</string>
+    <string name="home_banner_delete_summary">Banner kustom dihapus. Bakal balik pakai banner beranda bawaan</string>
+    <string name="home_banner_updated">Banner beranda berhasil diupdate.</string>
+    <string name="theme_banner_updated">Banner berhasil diupdate.</string>
+    <string name="theme_banner_delete_title">Hapus banner kustom</string>
+    <string name="theme_banner_delete_summary">Banner kustom dihapus. Bakal balik pakai banner bawaan</string>
+    <string name="pref_home_banner_height_title">Tinggi banner</string>
+    <string name="pref_header_top_row_padding_title">Padding atas header</string>
+
+    <string name="sheet_banner_category">Banner Bottomsheet</string>
+    <string name="sheet_banner_custom_title">Ganti banner sheet</string>
+    <string name="sheet_banner_custom_summary">Pasang gambar kustom buat bottomsheet (opsional)</string>
+    <string name="sheet_banner_delete_title">Hapus banner sheet kustom</string>
+    <string name="sheet_banner_delete_summary">Banner kustom dihapus. Bakal balik pakai banner sheet bawaan</string>
+    <string name="sheet_banner_updated">Banner sheet berhasil diupdate.</string>
+    <string name="particles_enable_title">Nyalain animasi partikel</string>
+    <string name="particles_enable_summary">Nampilin efek partikel di bottomsheet</string>
+    <string name="snowflakes_enable_title">Nyalain animasi salju</string>
+    <string name="snowflakes_enable_summary">Nampilin efek salju yang turun di layar Home</string>
+    <string name="title_category_quick_actions">Aksi Cepat</string>
+    <string name="title_pref_show_quick_actions">Tampilkan bar aksi cepat</string>
+    <string name="summary_pref_show_quick_actions">Nampilin baris tombol pintasan di bawah kartu status koneksi buat update subscription, test country code, tcping, dan test real delay</string>
+    <string name="snowflakes_speed_title">Kecepatan salju</string>
+    <string name="snowflakes_speed_value">Kecepatan: %1$s</string>
+    <string name="snowflakes_speed_summary_value">Kecepatan animasi: %1$s</string>
+    <string name="snowflakes_count_title">Jumlah snowflake</string>
+    <string name="snowflakes_count_value">Jumlah snowflake: %1$d</string>
+    <string name="snowflakes_count_summary_value">Jumlah snowflake: %1$d</string>
+    <string name="snowflakes_settings_title">Atur animasi salju</string>
+    <string name="snowflakes_size_value">Ukuran snowflake: %1$s×</string>
+    <string name="snowflakes_opacity_value">Transparansi: %1$s</string>
+    <string name="snowflakes_wind_value">Kekuatan angin: %1$s×</string>
+    <string name="snowflakes_life_value">Masa hidup: %1$s dtk</string>
+    <string name="snowflakes_settings_summary_value">Kecepatan: %1$s · Snowflake: %2$d · Ukuran: %3$s× · Transparansi: %4$s · Angin: %5$s× · Masa hidup: %6$s dtk</string>
+
+    <string name="pref_particles_settings_title">Settingan animasi partikel</string>
+    <string name="pref_particles_settings_summary">Atur kecepatan, ukuran, kepadatan, dan lainnya</string>
+
+    <string name="particles_slider_frame_delay_label">Kecepatan animasi (frame delay)</string>
+    <string name="particles_slider_line_length_label">Panjang garis</string>
+    <string name="particles_slider_line_thickness_label">Ketebalan garis</string>
+    <string name="particles_slider_radius_max_label">Radius partikel maksimum</string>
+    <string name="particles_slider_radius_min_label">Radius partikel minimum</string>
+    <string name="particles_slider_density_label">Kepadatan partikel</string>
+    <string name="particles_slider_speed_factor_label">Faktor kecepatan gerak</string>
+
+    <string name="selected_banner_category">Style Profil yang Dipilih</string>
+    <string name="selected_banner_enable_title">Style banner buat profil yang dipilih</string>
+    <string name="selected_banner_enable_summary">Nampilin gambar banner di belakang kartu server yang aktif. Bakal pake banner bawaan kalo kamu gak pasang yang kustom</string>
+    <string name="title_category_toolbar_style">Gaya toolbar</string>
+    <string name="title_pref_toolbar_center_subtitle_mode">Subtitle toolbar center</string>
+    <string name="summary_pref_toolbar_center_subtitle_mode">Nampilin subtitle center pake animasi fade, bukan title polos biasa</string>
+    <string name="selected_banner_dim_title">Intensitas overlay banner</string>
+    <string name="sheet_banner_dim_title">Intensitas overlay banner</string>
+    <string name="selected_banner_custom_title">Ganti banner profil yang dipilih</string>
+    <string name="selected_banner_custom_summary">Pasang gambar kustom buat kartu server yang dipilih (opsional)</string>
+    <string name="selected_banner_delete_title">Hapus banner kustom profil yang dipilih</string>
+    <string name="selected_banner_delete_summary">Banner kustom dihapus. Bakal balik pakai banner bawaan</string>
+    <string name="selected_banner_updated">Banner profil yang dipilih berhasil diupdate.</string>
+    <string name="pref_indicator_style_summary_disabled_by_banner">Dimatiin selama style banner profil yang dipilih lagi aktif</string>
+
+    <string name="title_alerter_info">Info</string>
+    <string name="title_alerter_success">Mantap Berhasil</string>
+    <string name="label_enable">Aktifin</string>
+    <string name="label_disable">Matiin</string>
+    <string name="title_alerter_error">Yah Gagal</string>
+
+    <string name="title_pref_enable_blur">Aktifin Blur</string>
+    <string name="summary_pref_enable_blur">Nyalain efek blur di background window</string>
+    <string name="title_pref_blur_bottom_status">Blur Card Status Bawah</string>
+    <string name="summary_pref_blur_bottom_status">Aktifin efek blur di card status bagian bawah</string>
+    <string name="title_pref_blur_bottom_blob_anim">Animasi Blob Cair</string>
+    <string name="summary_pref_blur_bottom_blob_anim">Tampilin animasi blob cair yang mengambang di blur card status bagian bawah</string>
+    <string name="pref_blur_intensity">Kekuatan Blur</string>
+    <string name="blur_intensity_radius_label">Radius Blur (2–100)</string>
+    <string name="blur_intensity_rounds_label">Pengulangan Blur (1–15)</string>
+    <string name="summary_blur_intensity_value">Radius: %1$d · Diulang: %2$d</string>
+    <string name="summary_blur_intensity_system_value">Radius: %1$d · Blur sistem</string>
+    <string name="pref_blur_bottom_intensity">Kekuatan Blur Kartu Bawah</string>
+    <string name="blur_bottom_radius_label">Radius BlurView (0–25)</string>
+    <string name="blur_bottom_alpha_label">Opasitas Background (0–100%)</string>
+    <string name="summary_blur_bottom_intensity_value">Radius: %1$.1f · Opasitas: %2$d%%</string>
+    <string name="title_blur_settings">Settingan Blur</string>
+    <string name="title_blur_warning">Pengulangan yang kegedean (10+) bisa bikin FPS-nya ngedrop lho. Mending 2-5 kali pengulangan aja sama radius 25-40.</string>
+    <string name="toast_allow_insecure_deprecated">Node ini pake koneksi tanpa enkripsi. Komunikasi kamu bisa aja keliatan langsung sama jaringan perantara yang dikuasai pemerintah otoriter.\nDemi keamanan, node kayak gini gak bisa konek lewat Xray core versi 26.2.6+.\nKalo ini node bikinan sendiri, aktifin enkripsi keamanan kayak TLS, atau pake certificate pinning (pinnedCA256).\nKalo ini node dari penyedia layanan, hubungin penyedianya buat pembaruan teknis. Kalo penyedianya nolak, mending pindah ke penyedia yang lebih peduli keamanan pengguna.\nInfo lebih lanjut: https://github.com/2dust/v2rayN/discussions/9460</string>
+
+    <string name="uwu_skip">Lewatin</string>
+    <string name="uwu_next">Lanjut</string>
+    <string name="uwu_start">Mulai</string>
+    <string name="uwu_welcome_title">Met dateng di</string>
+    <string name="uwu_welcome_summary_3">Dibikin sama Cinta, Kotlin, kode Java, dan lainnya.</string>
+    <string name="uwu_welcome_page3_desc">Nikmatin internet cepet dan aman sama balutan desain imut ala Miku.</string>
+
+    <string name="sub_setting_tab_icon">Ikon tab</string>
+    <string name="sub_setting_tab_icon_hint">Ditampilin di sebelah nama grup di tab bar</string>
+    <string name="sub_tab_icon_none">Nggak ada</string>
+
+    <string name="title_pref_reset_all_settings">Reset Semua Settingan</string>
+    <string name="dialog_reset_settings_title">Reset Semua Settingan?</string>
+    <string name="dialog_reset_settings_message">Ini bakal balikin semua settingan ke nilai default.\n\nProfil server dan langganan gak bakal dihapus.\n\nTindakan ini gak bisa dibatalin.</string>
+    <string name="dialog_reset_settings_confirm">Reset</string>
+    <string name="reset_settings_success">Settingan udah direset ke default.</string>
+
+    <string name="searchpreference_search">Cari…</string>
+    <string name="searchpreference_clear">Hapus</string>
+    <string name="searchpreference_more">Lainnya</string>
+    <string name="searchpreference_clear_history">Hapus riwayat</string>
+    <string name="searchpreference_no_results">Nggak ada hasil</string>
+
+    <string name="title_pref_app_icon">Ikon Aplikasi</string>
+    <string name="app_icon_updated">Ikon aplikasi berhasil diupdate. Mungkin butuh waktu bentar biar muncul di layar beranda.</string>
+    <string name="title_pref_custom_app_name">Nama Aplikasi</string>
+    <string name="summary_pref_custom_app_name">Juga ngubah nama ikon di launcher/app-drawer. Beberapa launcher nyimpen cache nama lama sampe kamu restart atau reboot.</string>
+
+    <string name="subtitle_server_config">Atur detail koneksi buat server ini</string>
+    <string name="subtitle_routing_edit">Tambah atau edit satu aturan routing</string>
+    <string name="subtitle_routing_setting">Kelola aturan routing custom kamu</string>
+    <string name="subtitle_check_update">Cek ada versi app yang lebih baru gak</string>
+    <string name="subtitle_logcat">Liat log runtime aplikasi</string>
+    <string name="subtitle_weather_forecast">Detail perkiraan cuaca per jam &amp; harian</string>
+    <string name="subtitle_backup">Backup atau restore konfigurasi kamu</string>
+    <string name="subtitle_app_picker">Pilih aplikasi yang mau dimasukin</string>
+    <string name="subtitle_per_app_proxy">Pilih aplikasi yang pake VPN</string>
+    <string name="subtitle_about">Info app, versi, sama credits</string>
+    <string name="subtitle_library">Library open source yang dipake app ini</string>
+    <string name="subtitle_user_asset">Kelola file geo data sama asset</string>
+    <string name="subtitle_user_asset_url">Tambah file asset dari URL</string>
+    <string name="subtitle_sub_edit">Edit settingan langganan ini</string>
+    <string name="subtitle_sub_setting">Kelola langganan kamu</string>
+    <string name="subtitle_fragment_settings">Atur fragmentasi traffic</string>
+    <string name="subtitle_core_settings">Atur core engine proxy</string>
+    <string name="subtitle_vpn_settings">Atur kelakuan koneksi VPN</string>
+    <string name="subtitle_advanced_settings">Konfigurasi lanjutan aplikasi</string>
+    <string name="subtitle_ui_settings">Kustomisasi tampilan aplikasi</string>
+    <string name="subtitle_settings">Preferensi sama konfigurasi aplikasi</string>
+
+    <string name="action_export_ui_theme">Ekspor tema</string>
+    <string name="ui_theme_export_name_title">Kasih nama temanya</string>
+    <string name="ui_theme_export_name_message">Masukkan nama buat file tema yang mau diekspor.</string>
+    <string name="ui_theme_export_name_hint">Nama tema</string>
+    <string name="ui_theme_export_name_error_empty">Isi nama tema dulu.</string>
+    <string name="action_import_ui_theme">Impor tema</string>
+    <string name="ui_theme_exported">Asik, tema berhasil diekspor.</string>
+    <string name="ui_theme_export_failed">Yah, temanya gagal diekspor.</string>
+    <string name="ui_theme_import_title">Impor tema UI</string>
+    <string name="ui_theme_import_message">Semua settingan UI, banner, sama font kustom di HP ini bakal diganti sama tema yang kamu pilih lho.</string>
+    <string name="ui_theme_imported">Asik, tema berhasil diimpor. Tampilannya lagi diperbarui nih.</string>
+    <string name="ui_theme_import_failed">Yah, temanya gagal diimpor: %1$s</string>
+    <string name="title_pref_use_system_blur">Pake blur sistem</string>
+    <string name="summary_pref_use_system_blur">Pake blur jendela bawaan Android kalo ada</string>
+
+    <!-- Strings for arrays.xml entries -->
+    <string name="mux_xudp_quic_reject">tolak</string>
+    <string name="mux_xudp_quic_allow">bolehin</string>
+    <string name="mux_xudp_quic_skip">skip aja</string>
+    <string name="share_export_clipboard">Salin ke Clipboard</string>
+    <string name="share_export_full_clipboard">Salin semua isi konfig ke Clipboard</string>
+    <string name="share_edit">Edit aja</string>
+    <string name="share_delete">Hapus</string>
+    <string name="mode_entry_vpn">VPN</string>
+    <string name="mode_entry_proxy_only">Cuma Proxy</string>
+    <string name="browser_dialer_mode_disable">Matiin</string>
+    <string name="browser_dialer_mode_okhttp">OkHttp</string>
+    <string name="browser_dialer_mode_webview">WebView</string>
+    <string name="ui_mode_night_follow_system">Ikutin Sistem HP</string>
+    <string name="ui_mode_night_light">Terang</string>
+    <string name="ui_mode_night_dark">Gelap</string>
+    <string name="ui_mode_night_auto">Otomatis (Siang/Malam)</string>
+    <string name="preset_ruleset_china_whitelist">Whitelist China</string>
+    <string name="preset_ruleset_china_blacklist">Blacklist China</string>
+    <string name="preset_ruleset_global">Global Aja</string>
+    <string name="preset_ruleset_iran_whitelist">Whitelist Iran</string>
+    <string name="preset_ruleset_russia_whitelist">Whitelist Rusia</string>
+    <string name="vpn_bypass_lan_follow_config">Ikutin Konfig</string>
+    <string name="vpn_bypass_lan_bypass">Bypass</string>
+    <string name="vpn_bypass_lan_not_bypass">Ga dibypass</string>
+    <string name="outbound_resolve_do_not_resolve">Gausah di-resolve</string>
+    <string name="outbound_resolve_add_dns_hosts">Resolve terus tambahin ke DNS Hosts</string>
+    <string name="outbound_resolve_replace_domain">Resolve terus gantiin domainnya</string>
+    <string name="policy_group_least_ping">Ping Paling Kecil</string>
+    <string name="policy_group_least_load">Beban Paling Dikit</string>
+    <string name="policy_group_random">Random Aja</string>
+    <string name="policy_group_round_robin">Round Robin</string>
+    <string name="config_backup_local">Lokal</string>
+    <string name="config_backup_webdav">WebDAV</string>
+
+    <!-- MikuBox additions (2026-10-02, deliberate deviation from upstream MikuRay): strings for MikuBox-specific surfaces. Upstream re-sync would remove them. -->
+    <string name="mihomo_autoconnect_title">Sambungkan otomatis saat mulai</string>
+    <string name="mihomo_autoconnect_summary">Sambungkan profil terpilih saat aplikasi dimulai, jika izin VPN sudah diberikan.</string>
+    <string name="mihomo_update_when_connected_only">Perbarui hanya saat terhubung</string>
+    <string name="mihomo_update_when_connected_only_summary">Pembaruan langganan hanya dijalankan saat VPN terhubung, sehingga penyedia tidak pernah dihubungi secara langsung.</string>
+    <string name="mihomo_yaml_parse_failed">Gagal mengurai YAML: %1$s</string>
+    <string name="mihomo_config_parse_failed">Tidak dapat mengurai profil — perbaiki di editor YAML mentah: %1$s</string>
+    <string name="mihomo_group_name_hint">Nama grup</string>
+    <string name="mihomo_group_create_title">Buat grup</string>
+    <string name="mihomo_group_manage_title">Kelola grup</string>
+    <string name="subscription_update_requires_connection">Perbarui hanya saat terhubung: tunnel sedang mati, jadi langganan tidak diambil. Sambungkan dulu, lalu perbarui lagi.</string>
+    <string name="btn_add_sub_description">Tambahkan langganan atau grup konfigurasi</string>
+    <string name="menu_add_subscription">Tambah langganan</string>
+    <string name="menu_add_title">Tambah</string>
+    <string name="mihomo_group_manage_empty">Grup Miku bawaan menampung profil dan tidak dapat dihapus. Anda dapat membuat grup baru.</string>
+    <string name="mihomo_group_entry_count">%1$s · %2$d profil</string>
+    <string name="mihomo_group_delete_title">Hapus grup “%1$s”?</string>
+    <string name="mihomo_group_delete_message">Profil dan langganan di grup ini kembali ke Miku. Isi, pengaturan langganan, dan koneksi saat ini tetap dipertahankan.</string>
+    <string name="mihomo_group_delete_action">Hapus grup</string>
+    <string name="mihomo_group_choose_title">Grup</string>
+    <string name="mihomo_group_new_action">Grup baru</string>
+    <string name="mihomo_group_name_required">Masukkan nama grup</string>
+    <string name="mihomo_group_name_exists">Nama grup sudah dipakai</string>
+    <string name="mihomo_group_default_undeletable">Grup bawaan tidak dapat dihapus</string>
+    <string name="mihomo_group_missing">Grup tidak dikenal</string>
+    <string name="mihomo_routing_title">Routing</string>
+    <string name="mihomo_routing_description">Dalam mode rule, lalu lintas dipisah per profil dan kebijakan. Rule yang dimatikan tidak ikut pencocokan; lalu lintas yang tidak cocok dengan rule mana pun tersambung langsung. Perubahan berlaku pada koneksi berikutnya, atau sambungkan ulang sekarang.</string>
+    <string name="mihomo_routing_apply_now">Terapkan ke koneksi saat ini</string>
+    <string name="mihomo_routing_saved_next_connect">Disimpan — berlaku pada koneksi berikutnya</string>
+    <string name="mihomo_routing_reconnecting">Menyambung ulang…</string>
+    <string name="mihomo_routing_reconnect_failed">Tidak dapat menyambung ulang — coba lagi secara manual</string>
+    <string name="mihomo_routing_empty">Belum ada profil — impor profil atau langganan terlebih dahulu.</string>
+    <string name="mihomo_routing_no_rules">File ini tidak punya rule pemisah lalu lintas</string>
+    <string name="mihomo_routing_parse_failed">Tidak dapat mengurai: %1$s</string>
+    <plurals name="mihomo_routing_rule_count">
+        <item quantity="one">%1$d rule</item>
+        <item quantity="other">%1$d rule</item>
+    </plurals>
+    <string name="mihomo_vpn_battery_ok">Optimisasi baterai Android diabaikan; izin latar belakang dan autostart khusus vendor masih perlu diberikan terpisah.</string>
+    <string name="mihomo_vpn_battery_off">Optimisasi baterai Android belum diabaikan — ketuk untuk memintanya. Keputusannya ada pada Anda dan sistem.</string>
+    <string name="mihomo_vpn_always_on_enabled">VPN Selalu-aktif sistem aktif.\u0020</string>
+    <string name="mihomo_vpn_lockdown_on">Blokir koneksi tanpa VPN aktif; sistem memblokir jaringan selama pemulihan.</string>
+    <string name="mihomo_vpn_lockdown_off">Blokir koneksi tanpa VPN nonaktif.</string>
+    <string name="mihomo_vpn_always_on_hint">Ketuk untuk membuka pengaturan VPN sistem. Sistem mengelola pemulihan koneksi — tidak perlu mengunci aplikasi di Recents; menutup layar aplikasi tidak memutus koneksi.</string>
+    <string name="mihomo_vpn_recovery_paused">Pemulihan otomatis gagal tiga kali berturut-turut dan dijeda. Periksa profil dan izin latar belakang, lalu sambungkan secara manual.</string>
+    <string name="mihomo_vpn_recovery_summary">Mencoba pulih setelah interupsi tak terduga; kegagalan berulang akan mundur teratur dan berhenti sementara alih-alih terus mengambil alih jaringan. Memaksa berhenti aplikasi atau mencabut izin VPN akan memutus koneksi.</string>
+    <string name="mihomo_vpn_recovery_title">Status pemulihan koneksi</string>
+    <string name="mihomo_vpn_bg_category">Proteksi koneksi latar belakang</string>
+    <string name="mihomo_vpn_always_on_title">VPN Sistem · Selalu-aktif</string>
+    <string name="mihomo_vpn_battery_title">Izinkan mengabaikan optimisasi baterai</string>
+    <string name="mihomo_vpn_oem_title_coloros">Pengaturan latar belakang ColorOS / OnePlus</string>
+    <string name="mihomo_vpn_oem_title">Pengaturan latar belakang aplikasi</string>
+    <string name="mihomo_vpn_oem_summary">Izinkan aktivitas latar belakang, autostart, dan peluncuran terkait di info aplikasi sistem (opsinya tergantung sistem). Aplikasi tidak dapat memberikannya sendiri; pengecualian optimisasi baterai bukan berarti pengecualian pembersihan vendor.</string>
+    <string name="mihomo_vpn_open_settings_failed">Tidak dapat membuka pengaturan sistem — buka info aplikasi MikuBox dari Pengaturan sistem.</string>
+    <string-array name="allowinsecures" translatable="false">
+        <item></item>
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+    <string-array name="app_font_entries" translatable="false">
+        <item>Default</item>
+        <item>IOS 15</item>
+        <item>Google Sans</item>
+        <item>Roboto</item>
+        <item>Poppins</item>
+        <item>ChocoCooky</item>
+        <item>SimpleDay</item>
+        <item>Fucek</item>
+        <item>SF Pro Display</item>
+        <item>Dancing Script</item>
+        <item>Cream</item>
+        <item>OneUI</item>
+        <item>Inconsolata</item>
+        <item>Emily\'s Candy</item>
+        <item>Summer Dream</item>
+        <item>Rine</item>
+        <item>Evolve Sans</item>
+    </string-array>
+    <string-array name="app_font_values" translatable="false">
+        <item>default</item>
+        <item>ios15</item>
+        <item>google</item>
+        <item>roboto</item>
+        <item>poppins</item>
+        <item>chococooky</item>
+        <item>simpleday</item>
+        <item>fucek</item>
+        <item>sfprodisplay</item>
+        <item>dancingscript</item>
+        <item>cream</item>
+        <item>oneui</item>
+        <item>inconsolata</item>
+        <item>emilyscandy</item>
+        <item>summerdream</item>
+        <item>rine</item>
+        <item>evolve</item>
+    </string-array>
+    <string-array name="app_icon_entries" translatable="false">
+        <item>Project SEKAI</item>
+        <item>Teal</item>
+        <item>Basic</item>
+        <item>Cherry Pop</item>
+        <item>Rabbit Hole</item>
+        <item>Mesmerizer</item>
+        <item>Sakura</item>
+        <item>Magical Mirai 2024</item>
+        <item>Deep Sea Girl</item>
+        <item>Snow Miku 2025</item>
+        <item>Symphony 2022</item>
+        <item>Racing Miku 2025</item>
+        <item>Cinnamiku</item>
+        <item>Retry Now</item>
+    </string-array>
+    <string-array name="app_icon_values" translatable="false">
+        <item>default</item>
+        <item>mikuTeal</item>
+        <item>basic</item>
+        <item>cherryPop</item>
+        <item>rabbitHole</item>
+        <item>mesmerizer</item>
+        <item>sakura</item>
+        <item>magicalMirai2024</item>
+        <item>deepSeaGirl</item>
+        <item>snowMiku2025</item>
+        <item>symphony2022</item>
+        <item>racingMiku2025</item>
+        <item>cinnamiku</item>
+        <item>retryNow</item>
+    </string-array>
+    <string-array name="app_name_entries" translatable="false">
+        <item>@string/app_name</item>
+        <item>@string/app_name_variant_miku1</item>
+        <item>@string/app_name_variant_miku2</item>
+        <item>@string/app_name_variant_miku3</item>
+        <item>@string/app_name_variant_miku4</item>
+        <item>@string/app_name_variant_miku5</item>
+        <item>@string/app_name_variant_miku6</item>
+        <item>@string/app_name_variant_miku7</item>
+        <item>@string/app_name_variant_miku8</item>
+        <item>@string/app_name_variant_miku9</item>
+        <item>@string/app_name_variant_miku10</item>
+        <item>@string/app_name_variant_miku11</item>
+        <item>@string/app_name_variant_miku12</item>
+    </string-array>
+    <string-array name="app_name_values" translatable="false">
+        <item>default</item>
+        <item>miku1</item>
+        <item>miku2</item>
+        <item>miku3</item>
+        <item>miku4</item>
+        <item>miku5</item>
+        <item>miku6</item>
+        <item>miku7</item>
+        <item>miku8</item>
+        <item>miku9</item>
+        <item>miku10</item>
+        <item>miku11</item>
+        <item>miku12</item>
+    </string-array>
+    <string name="app_name_variant_miku1">HatsuneRay</string>
+    <string name="app_name_variant_miku10">MikuProxy</string>
+    <string name="app_name_variant_miku11">MikuExpo</string>
+    <string name="app_name_variant_miku12">v2mikuNG</string>
+    <string name="app_name_variant_miku2">MikuNG</string>
+    <string name="app_name_variant_miku3">HatsuneNG</string>
+    <string name="app_name_variant_miku4">MikuTunnel</string>
+    <string name="app_name_variant_miku5">MikuBoard</string>
+    <string name="app_name_variant_miku6">MikuPoi</string>
+    <string name="app_name_variant_miku7">MikuHub</string>
+    <string name="app_name_variant_miku8">MikuCube</string>
+    <string name="app_name_variant_miku9">MikuDayo</string>
+    <string name="app_widget_traffic_detail_name">Detail Lalu Lintas</string>
+    <string-array name="banner_settings_character_entries" translatable="false">
+        <item>Hatsune Miku V2</item>
+        <item>Hatsune Miku V2 Chinese</item>
+        <item>Hatsune Miku V2 Append</item>
+        <item>Hatsune Miku V3</item>
+        <item>Hatsune Miku V3 English</item>
+        <item>Hatsune Miku V4</item>
+        <item>Hatsune Miku Super Pack</item>
+        <item>Hatsune Miku V6</item>
+        <item>@string/banner_settings_character_custom</item>
+    </string-array>
+    <string-array name="banner_settings_character_values" translatable="false">
+        <item>uwu_banner_miku_v2</item>
+        <item>uwu_banner_miku_v2_chinese</item>
+        <item>uwu_banner_miku_v2_append</item>
+        <item>uwu_banner_miku_v3</item>
+        <item>uwu_banner_miku_v3_english</item>
+        <item>uwu_banner_miku_v4</item>
+        <item>uwu_banner_miku_super_pack</item>
+        <item>uwu_banner_miku_v6</item>
+        <item>custom</item>
+    </string-array>
+    <string-array name="bool_dropdown_entries" translatable="false">
+        <item>@string/label_enable</item>
+        <item>@string/label_disable</item>
+    </string-array>
+    <string-array name="bool_dropdown_values" translatable="false">
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+    <string-array name="browser_dialer_mode" translatable="false">
+        <item>@string/browser_dialer_mode_disable</item>
+        <item>@string/browser_dialer_mode_okhttp</item>
+        <item>@string/browser_dialer_mode_webview</item>
+    </string-array>
+    <string-array name="browser_dialer_mode_value" translatable="false">
+        <item>Disable</item>
+        <item>OkHttp</item>
+        <item>WebView</item>
+    </string-array>
+    <string-array name="category_style_entries" translatable="false">
+        <item>Gradient</item>
+        <item>Hatsune Miku (Teal)</item>
+        <item>Hatsune Miku (Project SEKAI)</item>
+        <item>Kasane Teto (UTAU)</item>
+        <item>Kasane Teto (Synthesizer)</item>
+        <item>Akita Neru</item>
+        <item>Hatsune Miku (Basic)</item>
+        <item>Hatsune Miku (Cherry Pop)</item>
+        <item>Hatsune Miku (Rabbit Hole)</item>
+        <item>Hatsune Miku (Mesmerizer)</item>
+        <item>Hatsune Miku (Sakura)</item>
+        <item>Hatsune Miku (Magical Mirai 2024)</item>
+        <item>Hatsune Miku (Deep Sea Girl)</item>
+        <item>Hatsune Miku (Snow Miku 2025)</item>
+        <item>Hatsune Miku (Symphony 2022)</item>
+        <item>Hatsune Miku (Racing Miku 2025)</item>
+        <item>Hatsune Miku (Cinnamiku)</item>
+        <item>Hatsune Miku (Retry Now)</item>
+    </string-array>
+    <string-array name="category_style_values" translatable="false">
+        <item>gradient</item>
+        <item>miku</item>
+        <item>miku2</item>
+        <item>teto</item>
+        <item>teto2</item>
+        <item>neru</item>
+        <item>basic</item>
+        <item>cherry_pop</item>
+        <item>rabbit_hole</item>
+        <item>mesmerizer</item>
+        <item>sakura</item>
+        <item>magical_mirai_2024</item>
+        <item>deep_sea_girl</item>
+        <item>snow_miku_2025</item>
+        <item>symphony_2022</item>
+        <item>racing_miku_2025</item>
+        <item>cinnamiku</item>
+        <item>retry_now</item>
+    </string-array>
+    <string-array name="config_backup_options" translatable="false">
+        <item>@string/config_backup_local</item>
+        <item>@string/config_backup_webdav</item>
+    </string-array>
+    <string-array name="core_loglevel" translatable="false">
+        <item>debug</item>
+        <item>info</item>
+        <item>warning</item>
+        <item>error</item>
+        <item>none</item>
+    </string-array>
+    <string-array name="flows" translatable="false">
+        <item></item>
+        <item>xtls-rprx-vision</item>
+        <item>xtls-rprx-vision-udp443</item>
+    </string-array>
+    <string-array name="fragment_packets" translatable="false">
+        <item>tlshello</item>
+        <item>1-1</item>
+        <item>1-2</item>
+        <item>1-3</item>
+        <item>1-5</item>
+    </string-array>
+    <string-array name="geo_files_sources_entries" translatable="false">
+        <item>Loyalsoldier/v2ray-rules-dat</item>
+        <item>runetfreedom/russia-v2ray-rules-dat</item>
+        <item>Chocolate4U/Iran-v2ray-rules</item>
+    </string-array>
+    <string-array name="geo_files_sources_values" translatable="false">
+        <item>Loyalsoldier/v2ray-rules-dat</item>
+        <item>runetfreedom/russia-v2ray-rules-dat</item>
+        <item>Chocolate4U/Iran-v2ray-rules</item>
+    </string-array>
+    <string-array name="header_type_kcp_and_quic" translatable="false">
+        <item>none</item>
+        <item>srtp</item>
+        <item>utp</item>
+        <item>wechat-video</item>
+        <item>dtls</item>
+        <item>wireguard</item>
+        <item>dns</item>
+    </string-array>
+    <string-array name="header_type_tcp" translatable="false">
+        <item>none</item>
+        <item>http</item>
+    </string-array>
+    <string-array name="hev_tunnel_icmp" translatable="false">
+        <item>off</item>
+        <item>reply</item>
+    </string-array>
+    <string-array name="hev_tunnel_loglevel" translatable="false">
+        <item>error</item>
+        <item>warn</item>
+        <item>info</item>
+        <item>debug</item>
+    </string-array>
+    <string-array name="hev_tunnel_udp_mode" translatable="false">
+        <item>udp</item>
+        <item>tcp</item>
+    </string-array>
+    <string-array name="icon_shape_entries" translatable="false">
+        <item>Arch</item>
+        <item>Arrow</item>
+        <item>Boom</item>
+        <item>Bun</item>
+        <item>Burst</item>
+        <item>Circle</item>
+        <item>Clover 4</item>
+        <item>Clover 8</item>
+        <item>Cookie 4</item>
+        <item>Cookie 6</item>
+        <item>Cookie 7</item>
+        <item>Cookie 9</item>
+        <item>Cookie 12</item>
+        <item>Diamond</item>
+        <item>Fan</item>
+        <item>Flower</item>
+        <item>Gem</item>
+        <item>Ghost-ish</item>
+        <item>Heart</item>
+        <item>Hexagon</item>
+        <item>Oval</item>
+        <item>Pentagon</item>
+        <item>Pill</item>
+        <item>Pixel Circle</item>
+        <item>Pixel Triangle</item>
+        <item>Puffy</item>
+        <item>Puffy Diamond</item>
+        <item>Semicircle</item>
+        <item>Slanted Square</item>
+        <item>Soft Boom</item>
+        <item>Soft Burst</item>
+        <item>Square</item>
+        <item>Sunny</item>
+        <item>Triangle</item>
+        <item>Very Sunny</item>
+    </string-array>
+    <string-array name="icon_shape_values" translatable="false">
+        <item>uwu_shape_arch</item>
+        <item>uwu_shape_arrow</item>
+        <item>uwu_shape_boom</item>
+        <item>uwu_shape_bun</item>
+        <item>uwu_shape_burst</item>
+        <item>uwu_shape_circle</item>
+        <item>uwu_shape_clover_4</item>
+        <item>uwu_shape_clover_8</item>
+        <item>uwu_shape_cookie_4</item>
+        <item>uwu_shape_cookie_6</item>
+        <item>uwu_shape_cookie_7</item>
+        <item>uwu_shape_cookie_9</item>
+        <item>uwu_shape_cookie_12</item>
+        <item>uwu_shape_diamond</item>
+        <item>uwu_shape_fan</item>
+        <item>uwu_shape_flower</item>
+        <item>uwu_shape_gem</item>
+        <item>uwu_shape_ghostish</item>
+        <item>uwu_shape_heart</item>
+        <item>uwu_shape_hexagon</item>
+        <item>uwu_shape_oval</item>
+        <item>uwu_shape_pentagon</item>
+        <item>uwu_shape_pill</item>
+        <item>uwu_shape_pixel_circle</item>
+        <item>uwu_shape_pixel_triangle</item>
+        <item>uwu_shape_puffy</item>
+        <item>uwu_shape_puffy_diamond</item>
+        <item>uwu_shape_semicircle</item>
+        <item>uwu_shape_slanted_square</item>
+        <item>uwu_shape_soft_boom</item>
+        <item>uwu_shape_soft_burst</item>
+        <item>uwu_shape_square</item>
+        <item>uwu_shape_sunny</item>
+        <item>uwu_shape_triangle</item>
+        <item>uwu_shape_very_sunny</item>
+    </string-array>
+    <string name="ip_connected">IP: %1$s</string>
+    <string-array name="language_select" translatable="false">
+        <item>auto</item>
+        <item>English</item>
+        <item>中文简体</item>
+        <item>Русский</item>
+        <item>Bahasa Indonesia</item>
+    </string-array>
+    <string-array name="language_select_value" translatable="false">
+        <item></item>
+        <item>en</item>
+        <item>zh-CN</item>
+        <item>ru</item>
+        <item>in</item>
+    </string-array>
+    <string name="mihomo_allow_bypass">Izinkan aplikasi melewati VPN</string>
+    <string name="mihomo_app_diagnostics">Aplikasi dan diagnostik</string>
+    <string name="mihomo_append_system">Tambahkan DNS sistem</string>
+    <string name="mihomo_batch_test_unavailable">Uji massal tidak tersedia untuk konfigurasi penuh. Sambungkan dulu, lalu gunakan uji koneksi.</string>
+    <string name="mihomo_choose_exit">Pilih grup proxy atau node</string>
+    <string name="mihomo_disabled">Nonaktif</string>
+    <string name="mihomo_dns_hijack">Tujuan pembajakan DNS</string>
+    <string name="mihomo_dns_hijack_hint">Pisahkan entri dengan spasi atau baris baru, mis. any:53 tcp://any:53. Kosongkan untuk mematikan pembajakan; saat mati gunakan server DNS VPN yang dapat dijangkau. Sambungkan ulang untuk menerapkan.</string>
+    <string name="mihomo_enabled">Aktif</string>
+    <string name="mihomo_exit_empty">Tidak ada yang cocok</string>
+    <string name="mihomo_exit_filter_all">Semua</string>
+    <string name="mihomo_exit_filter_groups">Grup</string>
+    <string name="mihomo_exit_filter_nodes">Node</string>
+    <string name="mihomo_exit_search">Cari proxy</string>
+    <string name="mihomo_exit_section_groups">Grup proxy</string>
+    <string name="mihomo_exit_section_nodes">Node</string>
+    <string name="mihomo_extra_authentication">Autentikasi HTTP/SOCKS (user:password per baris)</string>
+    <string name="mihomo_extra_dns_fallback_filter_geoip">Filter fallback GeoIP</string>
+    <string name="mihomo_extra_dns_fallback_filter_ipcidr">Rentang IP filter fallback</string>
+    <string name="mihomo_extra_dns_nameserver_policy">Kebijakan nameserver DNS (JSON)</string>
+    <string name="mihomo_extra_external_controller">Kontroler eksternal</string>
+    <string name="mihomo_extra_external_controller_address">Alamat listen kontroler</string>
+    <string name="mihomo_extra_external_controller_secret">Rahasia kontroler</string>
+    <string name="mihomo_extra_global_ua">User-Agent unduhan core</string>
+    <string name="mihomo_extra_hosts">Hosts (JSON)</string>
+    <string name="mihomo_filter_country">Wilayah DNS fallback</string>
+    <string name="mihomo_filter_domain">Filter domain DNS fallback</string>
+    <string name="mihomo_filter_geosite">Kategori situs DNS fallback</string>
+    <string name="mihomo_fingerprint">Sidik jari klien TLS global</string>
+    <string name="mihomo_follow_profile">Ikuti profil</string>
+    <string name="mihomo_geo_low_memory">Memori rendah (memconservative)</string>
+    <string name="mihomo_geo_standard">Pemuat standar</string>
+    <string name="mihomo_global_exit">Keluar global: %1$s</string>
+    <string name="mihomo_icmp_timeout">Batas waktu ICMP TUN (detik)</string>
+    <string name="mihomo_invalid_value">Nilai di luar rentang yang diizinkan</string>
+    <string name="mihomo_ipv6_inbound">Masuk IPv6</string>
+    <string name="mihomo_mode_direct">Langsung</string>
+    <string name="mihomo_mode_failed">Tidak dapat menerapkan pilihan. Periksa profil aktif.</string>
+    <string name="mihomo_mode_global">Global</string>
+    <string name="mihomo_mode_rule">Rule</string>
+    <string name="mihomo_mode_selected">Terpilih</string>
+    <string name="mihomo_network_cellular">Sambungkan saat memakai data seluler</string>
+    <string name="mihomo_network_ethernet">Sambungkan saat memakai Ethernet</string>
+    <string name="mihomo_network_other">Sambungkan di jaringan lain</string>
+    <string name="mihomo_network_wifi">Sambungkan saat memakai Wi-Fi</string>
+    <string name="mihomo_on_demand">Koneksi sesuai permintaan</string>
+    <string name="mihomo_on_demand_connecting">Sambungan otomatis diaktifkan di jaringan ini</string>
+    <string name="mihomo_on_demand_excluded">Wi-Fi yang dikecualikan</string>
+    <string name="mihomo_on_demand_excluded_hint">Satu nama Wi-Fi persis dan peka huruf besar-kecil per baris, maksimum 32 byte UTF-8. Jika nama tidak dapat dibaca, VPN tetap dijeda.</string>
+    <string name="mihomo_on_demand_hint">Sambungkan di jaringan yang diizinkan; jeda di Wi-Fi yang dikecualikan. Pemutusan manual berlaku sampai pergantian jaringan berikutnya. Mematikan ini tidak mengubah koneksi saat ini.</string>
+    <string name="mihomo_on_demand_paused">Dijeda di jaringan ini; memantau perubahan</string>
+    <string name="mihomo_on_demand_permission">Izin nama Wi-Fi</string>
+    <string name="mihomo_on_demand_permission_hint">Hanya diperlukan untuk pengecualian Wi-Fi: berikan izin lokasi presisi, lalu pilih Izinkan sepanjang waktu di pengaturan sistem dan aktifkan lokasi perangkat. Ketuk untuk mengizinkan atau membuka pengaturan.</string>
+    <string name="mihomo_on_demand_permission_ready">Izin lokasi diberikan. Tetap aktifkan lokasi perangkat agar nama Wi-Fi bisa dibaca.</string>
+    <string name="mihomo_on_demand_setup">Pilih profil yang sudah diunduh dan berikan izin VPN terlebih dahulu.</string>
+    <string name="mihomo_on_demand_ssid_missing">Dijeda: tidak dapat membaca nama Wi-Fi. Periksa izin lokasi.</string>
+    <string name="mihomo_on_demand_stop">Matikan dan putuskan</string>
+    <string name="mihomo_on_demand_waiting">Menunggu jaringan</string>
+    <string name="mihomo_performance">Kinerja dan koneksi Mihomo</string>
+    <string name="mihomo_preview_advanced">Konkurensi TCP, delay terpadu, pencarian proses, pemuat Geo hemat memori, TLS, keep-alive, skrip konfigurasi dan diagnostik aplikasi</string>
+    <string name="mihomo_preview_core">Mode routing, port, akses LAN, sniffing, resolver DNS, Fake-IP dan sumber data Geo</string>
+    <string name="mihomo_preview_vpn">IPv6, tetap bangun, pembajakan DNS, stack TUN, rute VPN, MTU, proxy per aplikasi, batas waktu dan koneksi sesuai permintaan</string>
+    <string name="mihomo_process_always">Selalu cari tahu proses</string>
+    <string name="mihomo_process_requirement">Butuh Android 10 atau lebih baru dan VPN aktif</string>
+    <string name="mihomo_process_strict">Cari tahu saat rule proses memintanya</string>
+    <string name="mihomo_proxy_exclusions">Domain yang dikecualikan dari proxy sistem</string>
+    <string name="mihomo_route_addresses">Rute VPN khusus (CIDR, satu per baris)</string>
+    <string name="mihomo_route_all">Route semua lalu lintas</string>
+    <string name="mihomo_route_custom">Rute include khusus</string>
+    <string name="mihomo_route_mode">Mode routing proxy</string>
+    <string name="mihomo_route_profile">Pakai rute include dari profil</string>
+    <string name="mihomo_route_public">Lewati jaringan privat</string>
+    <string name="mihomo_script">Skrip konfigurasi</string>
+    <string name="mihomo_script_add">Skrip baru</string>
+    <string name="mihomo_script_bindings">Tetapkan skrip ke profil</string>
+    <string name="mihomo_script_bindings_hint">Pilih skrip khusus, warisi skrip global, atau matikan skrip untuk setiap profil</string>
+    <string name="mihomo_script_delete">Hapus skrip</string>
+    <string name="mihomo_script_delete_hint">Hapus “%1$s”? Profil yang terikat akan menonaktifkan skrip, bukan mewarisi skrip global.</string>
+    <string name="mihomo_script_deleted">Skrip ini telah dihapus.</string>
+    <string name="mihomo_script_edit">Edit dan uji skrip</string>
+    <string name="mihomo_script_enable">Aktifkan skrip global</string>
+    <string name="mihomo_script_error">Skrip gagal</string>
+    <string name="mihomo_script_hint">Definisikan main(config) dan kembalikan objek konfigurasi. Pratinjau tidak mengubah koneksi. Tanpa akses file, jaringan, atau timer; batas eksekusi 2 detik. Pengaturan UI dan kolom TUN Android diprioritaskan.</string>
+    <string name="mihomo_script_inherit">Warisi skrip global</string>
+    <string name="mihomo_script_library">Pustaka skrip</string>
+    <string name="mihomo_script_library_hint">Buat, edit, ganti nama, dan hapus skrip yang dapat dipakai ulang</string>
+    <string name="mihomo_script_name">Nama skrip</string>
+    <string name="mihomo_script_name_invalid">Masukkan nama yang unik</string>
+    <string name="mihomo_script_none">Matikan skrip</string>
+    <string name="mihomo_script_preview_profile">Pratinjau profil: %1$s</string>
+    <string name="mihomo_script_rename">Ganti nama</string>
+    <string name="mihomo_script_result">Hasil skrip (sebelum override pengaturan)</string>
+    <string name="mihomo_script_save">Validasi dan simpan</string>
+    <string name="mihomo_script_summary">Berlaku untuk profil yang mewarisi skrip global, sebelum override pengaturan. Kesalahan menghentikan koneksi.</string>
+    <string name="mihomo_script_test">Pratinjau hasil</string>
+    <string name="mihomo_section_adv_controller">Kontroler eksternal</string>
+    <string name="mihomo_section_adv_keepalive">Keep-alive</string>
+    <string name="mihomo_section_adv_performance">Kinerja core</string>
+    <string name="mihomo_section_adv_tls">Keamanan transport</string>
+    <string name="mihomo_section_core_basics">Dasar</string>
+    <string name="mihomo_section_core_overrides">Override &amp; ekstra</string>
+    <string name="mihomo_section_dns_behavior">Perilaku &amp; cache</string>
+    <string name="mihomo_section_dns_fakeip">Fake-IP &amp; mode enhanced</string>
+    <string name="mihomo_section_dns_fallback">Filter fallback</string>
+    <string name="mihomo_section_dns_resolvers">Resolver</string>
+    <string name="mihomo_section_vpn_general">Umum</string>
+    <string name="mihomo_section_vpn_routing">Routing &amp; split tunneling</string>
+    <string name="mihomo_section_vpn_tun">Antarmuka TUN</string>
+    <string name="mihomo_select_exit">Pilih proxy</string>
+    <string name="mihomo_setting_allow_lan">Izinkan LAN · allow-lan</string>
+    <string name="mihomo_setting_disable_keep_alive">Nonaktifkan keep-alive · disable-keep-alive</string>
+    <string name="mihomo_setting_dns_cache_algorithm">Algoritma cache DNS · dns.cache-algorithm</string>
+    <string name="mihomo_setting_dns_default_nameserver">Server nama DNS bootstrap · dns.default-nameserver</string>
+    <string name="mihomo_setting_dns_direct_nameserver">Server nama DNS trafik langsung · dns.direct-nameserver</string>
+    <string name="mihomo_setting_dns_direct_nameserver_follow_policy">Server nama langsung mengikuti kebijakan · dns.direct-nameserver-follow-policy</string>
+    <string name="mihomo_setting_dns_enhanced_mode">Mode DNS yang disempurnakan · dns.enhanced-mode</string>
+    <string name="mihomo_setting_dns_fake_ip_filter">Daftar filter Fake-IP · dns.fake-ip-filter</string>
+    <string name="mihomo_setting_dns_fake_ip_range">Rentang Fake-IP · dns.fake-ip-range</string>
+    <string name="mihomo_setting_dns_fallback">Server DNS cadangan · dns.fallback</string>
+    <string name="mihomo_setting_dns_ipv6">Resolusi DNS IPv6 · dns-ipv6</string>
+    <string name="mihomo_setting_dns_nameserver">Server nama DNS · dns.nameserver</string>
+    <string name="mihomo_setting_dns_prefer_h3">Utamakan HTTP/3 · dns-prefer-h3</string>
+    <string name="mihomo_setting_dns_proxy_server_nameserver">Server nama DNS domain proksi · dns.proxy-server-nameserver</string>
+    <string name="mihomo_setting_dns_respect_rules">DNS mengikuti aturan routing · dns.respect-rules</string>
+    <string name="mihomo_setting_dns_use_hosts">Gunakan hosts · dns.use-hosts</string>
+    <string name="mihomo_setting_dns_use_system_hosts">Gunakan hosts sistem · dns.use-system-hosts</string>
+    <string name="mihomo_setting_find_process_mode">Pencocokan proses · find-process-mode</string>
+    <string name="mihomo_setting_geodata_loader">Pemuat geodata · geodata-loader</string>
+    <string name="mihomo_setting_geodata_mode">Mode geodata · geodata-mode</string>
+    <string name="mihomo_setting_ipv6">IPv6 · ipv6</string>
+    <string name="mihomo_setting_keep_alive_idle">Keep-alive idle (detik) · keep-alive-idle</string>
+    <string name="mihomo_setting_keep_alive_interval">Interval keep-alive (detik) · keep-alive-interval</string>
+    <string name="mihomo_setting_log_level">Level log · log-level</string>
+    <string name="mihomo_setting_mixed_port">Port campuran · mixed-port</string>
+    <string name="mihomo_setting_sniffer_enable">Pengendusan domain · sniffer.enable</string>
+    <string name="mihomo_setting_sniffer_override_destination">Penimpaan tujuan pengendusan · sniffer.override-destination</string>
+    <string name="mihomo_setting_tcp_concurrent">Konkurensi TCP · tcp-concurrent</string>
+    <string name="mihomo_setting_tun_stack">Tumpukan TUN · tun.stack</string>
+    <string name="mihomo_setting_unified_delay">Delay terpadu · unified-delay</string>
+    <string name="mihomo_settings_hint">Sambungkan ulang untuk menerapkan; ikuti profil mempertahankan nilainya</string>
+    <string name="mihomo_settings_title">mihomo settings</string>
+    <string name="mihomo_skip_tls">Lewati verifikasi sertifikat</string>
+    <string name="mihomo_tls_verification">Verifikasi sertifikat TLS</string>
+    <string name="mihomo_udp_timeout">Batas waktu UDP TUN (detik)</string>
+    <string name="mihomo_verify_tls">Verifikasi sertifikat</string>
+    <string name="mihomo_vpn_route_mode">Mode rute VPN</string>
+    <string-array name="mode_entries" translatable="false">
+        <item>@string/mode_entry_vpn</item>
+        <item>@string/mode_entry_proxy_only</item>
+    </string-array>
+    <string-array name="mode_type_grpc" translatable="false">
+        <item>gun</item>
+        <item>multi</item>
+    </string-array>
+    <string-array name="mode_value" translatable="false">
+        <item>VPN</item>
+        <item>Proxy only</item>
+    </string-array>
+    <string-array name="mux_enabled_entries" translatable="false">
+        <item>@string/label_disable</item>
+        <item>@string/label_enable</item>
+    </string-array>
+    <string-array name="mux_enabled_values" translatable="false">
+        <item>false</item>
+        <item>true</item>
+    </string-array>
+    <string-array name="mux_xudp_quic_entries" translatable="false">
+        <item>@string/mux_xudp_quic_reject</item>
+        <item>@string/mux_xudp_quic_allow</item>
+        <item>@string/mux_xudp_quic_skip</item>
+    </string-array>
+    <string-array name="mux_xudp_quic_value" translatable="false">
+        <item>reject</item>
+        <item>allow</item>
+        <item>skip</item>
+    </string-array>
+    <string-array name="networks" translatable="false">
+        <item>tcp</item>
+        <item>kcp</item>
+        <item>ws</item>
+        <item>httpupgrade</item>
+        <item>xhttp</item>
+        <item>h2</item>
+        <item>grpc</item>
+    </string-array>
+    <string-array name="observatory_least_load_method" translatable="false">
+        <item>GET</item>
+        <item>HEAD</item>
+    </string-array>
+    <string-array name="outbound_domain_resolve_method" translatable="false">
+        <item>@string/outbound_resolve_do_not_resolve</item>
+        <item>@string/outbound_resolve_add_dns_hosts</item>
+        <item>@string/outbound_resolve_replace_domain</item>
+    </string-array>
+    <string-array name="outbound_domain_resolve_method_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="outbound_tag" translatable="false">
+        <item>proxy</item>
+        <item>direct</item>
+        <item>block</item>
+    </string-array>
+    <string-array name="policy_group_type" translatable="false">
+        <item>@string/policy_group_least_ping</item>
+        <item>@string/policy_group_least_load</item>
+        <item>@string/policy_group_random</item>
+        <item>@string/policy_group_round_robin</item>
+    </string-array>
+    <string name="pref_header_top_row_padding_summary_value">%1$ddp</string>
+    <string name="pref_home_banner_height_summary_value">%1$ddp</string>
+    <string-array name="preset_rulesets" translatable="false">
+        <item>@string/preset_ruleset_china_whitelist</item>
+        <item>@string/preset_ruleset_china_blacklist</item>
+        <item>@string/preset_ruleset_global</item>
+        <item>@string/preset_ruleset_iran_whitelist</item>
+        <item>@string/preset_ruleset_russia_whitelist</item>
+    </string-array>
+    <string name="profile_editor_actions">Tindakan untuk %1$s</string>
+    <string name="profile_editor_add_field">Tambah field</string>
+    <string name="profile_editor_add_item">Tambah entri</string>
+    <string name="profile_editor_allow_lan">Izinkan akses LAN</string>
+    <string name="profile_editor_back">Kembali dari %1$s</string>
+    <string name="profile_editor_disabled">Nonaktif</string>
+    <string name="profile_editor_empty">Belum ada entri</string>
+    <string name="profile_editor_enabled">Aktif</string>
+    <string name="profile_editor_fields">%1$d field</string>
+    <string name="profile_editor_general">Umum</string>
+    <string name="profile_editor_group">Grup · %1$s</string>
+    <string name="profile_editor_hint">Simpan, lalu sambungkan ulang. Edit visual menghapus komentar YAML.</string>
+    <string name="profile_editor_item">Entri %1$d</string>
+    <string name="profile_editor_items">%1$d entri</string>
+    <string name="profile_editor_log_level">Level log</string>
+    <string name="profile_editor_mixed_port">Mixed port</string>
+    <string name="profile_editor_mode">Mode routing</string>
+    <string name="profile_editor_move_down">Turunkan</string>
+    <string name="profile_editor_move_up">Naikkan</string>
+    <string name="profile_editor_remove">Hapus</string>
+    <string name="profile_editor_sections">Konfigurasi</string>
+    <string name="profile_editor_title">Editor konfigurasi</string>
+    <string name="profile_editor_visual">Visual</string>
+    <string name="profile_editor_yaml">YAML</string>
+    <string name="profile_section_dns">DNS</string>
+    <string name="profile_section_groups">Grup proxy</string>
+    <string name="profile_section_providers">Penyedia proxy</string>
+    <string name="profile_section_proxies">Proxy</string>
+    <string name="profile_section_rule_providers">Penyedia rule</string>
+    <string name="profile_section_rules">Rule routing</string>
+    <string name="profile_visual_summary">Perubahan visual memformat ulang YAML dan menghapus komentar. Gunakan mode YAML untuk mengedit teks asli.</string>
+    <string name="protocol_http">HTTP</string>
+    <string name="protocol_hysteria2">Hysteria2</string>
+    <string name="protocol_policy_group">Grup Kebijakan</string>
+    <string name="protocol_proxy_chain">Rantai Proxy</string>
+    <string name="protocol_shadowsocks">Shadowsocks</string>
+    <string name="protocol_socks">Socks</string>
+    <string name="protocol_trojan">Trojan</string>
+    <string name="protocol_vless">VLESS</string>
+    <string name="protocol_vmess">VMess</string>
+    <string name="protocol_wireguard">Wireguard</string>
+    <string name="reset">Atur ulang</string>
+    <string-array name="routing_domain_strategy" translatable="false">
+        <item>AsIs</item>
+        <item>IPIfNonMatch</item>
+        <item>IPOnDemand</item>
+    </string-array>
+    <string-array name="search_bar_chip_entries" translatable="false">
+        <item>@string/pref_search_bar_chip_disabled</item>
+        <item>@string/pref_search_bar_chip_weather</item>
+        <item>@string/pref_search_bar_chip_total_traffic</item>
+        <item>@string/pref_search_bar_chip_dual_swipe</item>
+    </string-array>
+    <string-array name="search_bar_chip_values" translatable="false">
+        <item>disabled</item>
+        <item>weather</item>
+        <item>total_traffic</item>
+        <item>dual_swipe</item>
+    </string-array>
+    <string-array name="securitys" translatable="false">
+        <item>chacha20-poly1305</item>
+        <item>aes-128-gcm</item>
+        <item>auto</item>
+        <item>none</item>
+        <item>zero</item>
+    </string-array>
+    <string name="selected_banner_dim_summary_value">%1$d%%</string>
+    <string-array name="share_method" translatable="false">
+        <item>@string/share_qrcode</item>
+        <item>@string/share_export_clipboard</item>
+        <item>@string/share_export_full_clipboard</item>
+    </string-array>
+    <string-array name="share_method_more" translatable="false">
+        <item>@string/share_qrcode</item>
+        <item>@string/share_export_clipboard</item>
+        <item>@string/share_export_full_clipboard</item>
+        <item>@string/share_edit</item>
+        <item>@string/share_delete</item>
+    </string-array>
+    <string-array name="share_sub_method" translatable="false">
+        <item>@string/share_qrcode</item>
+        <item>@string/share_export_clipboard</item>
+    </string-array>
+    <string name="sheet_banner_dim_summary_value">%1$d%%</string>
+    <string-array name="ss_securitys" translatable="false">
+        <item>aes-256-gcm</item>
+        <item>aes-128-gcm</item>
+        <item>chacha20-poly1305</item>
+        <item>chacha20-ietf-poly1305</item>
+        <item>xchacha20-poly1305</item>
+        <item>xchacha20-ietf-poly1305</item>
+        <item>none</item>
+        <item>plain</item>
+        <item>2022-blake3-aes-128-gcm</item>
+        <item>2022-blake3-aes-256-gcm</item>
+        <item>2022-blake3-chacha20-poly1305</item>
+    </string-array>
+    <string-array name="streamsecurity_alpn" translatable="false">
+        <item></item>
+        <item>h3</item>
+        <item>h2</item>
+        <item>http/1.1</item>
+        <item>h3,h2,http/1.1</item>
+        <item>h3,h2</item>
+        <item>h2,http/1.1</item>
+    </string-array>
+    <string-array name="streamsecurity_utls" translatable="false">
+        <item></item>
+        <item>chrome</item>
+        <item>firefox</item>
+        <item>safari</item>
+        <item>ios</item>
+        <item>android</item>
+        <item>edge</item>
+        <item>360</item>
+        <item>qq</item>
+        <item>random</item>
+        <item>randomized</item>
+    </string-array>
+    <string-array name="streamsecuritys" translatable="false">
+        <item></item>
+        <item>tls</item>
+    </string-array>
+    <string-array name="streamsecuritys_entries" translatable="false">
+        <item>@string/label_disable</item>
+        <item>TLS</item>
+    </string-array>
+    <string-array name="streamsecurityxs" translatable="false">
+        <item></item>
+        <item>tls</item>
+        <item>reality</item>
+    </string-array>
+    <string-array name="streamsecurityxs_entries" translatable="false">
+        <item>@string/label_disable</item>
+        <item>TLS</item>
+        <item>REALITY</item>
+    </string-array>
+    <plurals name="sub_setting_server_count">
+        <item quantity="one">%1$d server</item>
+        <item quantity="other">%1$d server</item>
+    </plurals>
+    <string name="subscription_initial_fetch_failed">Langganan tersimpan, tetapi unduhan pertama gagal. Periksa alamat dan jaringan, lalu simpan lagi untuk mencoba ulang.</string>
+    <string name="subscription_update_through_proxy">Perbarui lewat proxy</string>
+    <string name="subscription_update_through_proxy_summary">Pakai proxy yang berjalan. Hanya untuk unduhan pertama, sambungkan langsung jika tidak ada proxy berjalan; pembaruan berikutnya tetap memakai preferensi ini.</string>
+    <string name="subtitle_about_update">Versi, pembaruan dan pemeriksaan otomatis</string>
+    <string name="subtitle_ui_alerts">Suara notifikasi dan koneksi</string>
+    <string name="subtitle_ui_banner">Banner, profil dan gambar</string>
+    <string name="subtitle_ui_home">Layar utama, daftar dan bilah pencarian</string>
+    <string name="summary_navigate_about_update">Info versi, periksa pembaruan dan aktifkan pemeriksaan otomatis</string>
+    <string name="summary_navigate_ui_alerts">Notifikasi kecepatan dan suara koneksi</string>
+    <string name="summary_navigate_ui_banner">Banner utama dan sheet, gaya serta profil terpilih</string>
+    <string name="summary_navigate_ui_home">Perilaku layar utama, daftar dan chip bilah pencarian</string>
+    <string name="summary_pref_auto_check_update">Tanya GitHub untuk rilis lebih baru pada setiap cold start</string>
+    <string-array name="tab_badge_limit_entries" translatable="false">
+        <item>@string/tab_badge_limit_unlimited</item>
+        <item>99+</item>
+        <item>999+</item>
+        <item>9999+</item>
+    </string-array>
+    <string-array name="tab_badge_limit_values" translatable="false">
+        <item>0</item>
+        <item>99</item>
+        <item>999</item>
+        <item>9999</item>
+    </string-array>
+    <string name="title_about_update">Tentang &amp; pembaruan</string>
+    <string name="title_about_update_category">Pembaruan</string>
+    <string name="title_pref_auto_check_update">Periksa pembaruan saat mulai</string>
+    <string name="title_ui_alerts">Notifikasi &amp; suara</string>
+    <string name="title_ui_banner">Banner &amp; personalisasi</string>
+    <string name="title_ui_home">Utama &amp; daftar</string>
+    <string-array name="ui_mode_night" translatable="false">
+        <item>@string/ui_mode_night_follow_system</item>
+        <item>@string/ui_mode_night_light</item>
+        <item>@string/ui_mode_night_dark</item>
+        <item>@string/ui_mode_night_auto</item>
+    </string-array>
+    <string-array name="ui_mode_night_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="update_available_toast">Versi baru %1$s tersedia</string>
+    <string name="uwu_profile_banner_title">master</string>
+    <string-array name="uwu_random_text" translatable="false">
+        <item>@string/uwu_random_text_1</item>
+        <item>@string/uwu_random_text_2</item>
+        <item>@string/uwu_random_text_3</item>
+        <item>@string/uwu_random_text_4</item>
+        <item>@string/uwu_random_text_5</item>
+        <item>@string/uwu_random_text_6</item>
+        <item>@string/uwu_random_text_7</item>
+        <item>@string/uwu_random_text_8</item>
+        <item>@string/uwu_random_text_9</item>
+        <item>@string/uwu_random_text_10</item>
+    </string-array>
+    <string name="version_line_with_core">v%1$s (mihomo %2$s)</string>
+    <string-array name="vpn_bypass_lan" translatable="false">
+        <item>@string/vpn_bypass_lan_follow_config</item>
+        <item>@string/vpn_bypass_lan_bypass</item>
+        <item>@string/vpn_bypass_lan_not_bypass</item>
+    </string-array>
+    <string-array name="vpn_bypass_lan_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="vpn_interface_address" translatable="false">
+        <item>10.10.14.x</item>
+        <item>10.1.0.x</item>
+        <item>10.0.0.x</item>
+        <item>172.31.0.x</item>
+        <item>172.20.0.x</item>
+        <item>172.16.0.x</item>
+        <item>192.168.100.x</item>
+    </string-array>
+    <string-array name="vpn_interface_address_value" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string name="weather_loading">Memuat…</string>
+    <string name="weather_temp_format">%d°C</string>
+    <string-array name="weather_unit_entries" translatable="false">
+        <item>Celsius (°C)</item>
+        <item>Fahrenheit (°F)</item>
+        <item>Auto</item>
+    </string-array>
+    <string-array name="weather_unit_values" translatable="false">
+        <item>true</item>
+        <item>false</item>
+        <item></item>
+    </string-array>
+    <string-array name="xhttp_mode" translatable="false">
+        <item>auto</item>
+        <item>packet-up</item>
+        <item>stream-up</item>
+        <item>stream-one</item>
+    </string-array>
+    <!-- Accessibility labels for controls that carry no visible text
+         (N1/N7/N10-N11/N22/N27/N29 of the 2026-10-02 a11y pass). -->
+    <string name="a11y_open_main_menu">Buka menu utama</string>
+    <string name="a11y_more_options">Opsi lainnya</string>
+    <string name="subscription_import_url_hint">URL langganan</string>
+    <string name="a11y_selected">Dipilih</string>
+    <string name="a11y_status_card_test_action">Uji kecepatan profil terpilih</string>
+    <string name="qr_code_description">Kode QR konfigurasi</string>
+    <string name="qr_flashlight_toggle">Buka/matikan senter</string>
+    <string name="profile_editor_edit_row">Edit %1$s</string>
+    <string name="a11y_navigate_back">Kembali</string>
+</resources>

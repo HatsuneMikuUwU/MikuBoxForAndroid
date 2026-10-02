@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.server.ServerGroupActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            style="?attr/collapsingToolbarLayoutLargeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:background="?attr/colorBg"
+            app:collapsedTitleTextAppearance="?attr/textAppearanceTitleLargeEmphasized"
+            app:collapsedTitleTextColor="?attr/colorOnSurface"
+            app:contentScrim="?attr/colorBg"
+            app:expandedTitleGravity="center_horizontal|bottom"
+            app:expandedTitleMarginBottom="24dp"
+            app:expandedTitleMarginEnd="24dp"
+            app:expandedTitleMarginStart="24dp"
+            app:expandedTitleMarginTop="96dp"
+            app:expandedTitleTextAppearance="?attr/textAppearanceDisplaySmallEmphasized"
+            app:expandedTitleTextColor="?attr/colorOnSurface"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleCollapseMode="fade"
+            app:titleMaxLines="3">
+
+            <TextView
+                android:id="@+id/custom_expanded_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:elevation="0dp"
+                android:theme="@style/AppThemeToolbarCircleNavigationButton"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/server_scroll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="0dp">
+
+                <com.miku.ray.widget.UwuHeaderIconView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="12dp"
+                    app:sectionIcon="@drawable/rmx_device_base_station_line" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_server"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="?attr/colorCard"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_spacing_dp16">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding_spacing_dp16"
+                    android:hint="@string/server_lab_remarks"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_finance_price_tag_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_remarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding_spacing_dp16"
+                    android:hint="@string/title_policy_group_type"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_settings_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/sp_policy_group_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="?attr/colorOnSurface"
+                        app:simpleItems="@array/policy_group_type" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding_spacing_dp16"
+                    android:hint="@string/title_policy_group_subscription_id"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_rss_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/sp_policy_group_sub_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="?attr/colorOnSurface"
+                        app:simpleItems="@array/policy_group_type" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/title_policy_group_subscription_filter"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_system_filter_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_policy_group_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_policy_group_test_outbounds"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/title_policy_group_test_outbounds"
+                    android:visibility="gone"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_health_medical_pulse_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/chk_policy_group_test_outbounds"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="?attr/colorOnSurface"
+                        app:simpleItems="@array/bool_dropdown_entries" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_policy_group_fallback"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/title_policy_group_fallback"
+                    android:visibility="gone"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:helperText="@string/title_policy_group_fallback_tip"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_arrow_go_back_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/sp_policy_group_fallback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="5dp">
+
+                <com.miku.ray.widget.UwuHeaderIconView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="12dp"
+                    app:sectionIcon="@drawable/rmx_device_radar_line" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_policy_group_observatory"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="?attr/colorCard"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_spacing_dp16">
+
+                <LinearLayout
+                    android:id="@+id/layout_policy_group_observatory_ping"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_pref_observatory_least_ping_interval"
+                        app:boxStrokeWidth="1.5dp"
+                        app:boxStrokeWidthFocused="1.5dp"
+                        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                        app:startIconDrawable="@drawable/rmx_time_line"
+                        app:startIconTint="?attr/colorOnSurfaceVariant">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_policy_group_observatory_least_ping_interval"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="?attr/colorOnSurface" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_policy_group_observatory_load"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_spacing_dp16"
+                        android:hint="@string/title_pref_observatory_least_load_interval"
+                        app:boxStrokeWidth="1.5dp"
+                        app:boxStrokeWidthFocused="1.5dp"
+                        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                        app:startIconDrawable="@drawable/rmx_time_line"
+                        app:startIconTint="?attr/colorOnSurfaceVariant">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_policy_group_observatory_least_load_interval"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="?attr/colorOnSurface" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_spacing_dp16"
+                        android:hint="@string/title_pref_observatory_least_load_method"
+                        app:boxStrokeWidth="1.5dp"
+                        app:boxStrokeWidthFocused="1.5dp"
+                        app:endIconDrawable="@drawable/ic_dropdown_selector"
+                        app:endIconMode="dropdown_menu"
+                        app:endIconTint="?attr/colorOnSurfaceVariant"
+                        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                        app:startIconDrawable="@drawable/rmx_git_branch_line"
+                        app:startIconTint="?attr/colorOnSurfaceVariant">
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/sp_policy_group_observatory_least_load_method"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:textColor="?attr/colorOnSurface"
+                            app:simpleItems="@array/observatory_least_load_method" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_spacing_dp16"
+                        android:hint="@string/title_pref_observatory_least_load_sampling"
+                        app:boxStrokeWidth="1.5dp"
+                        app:boxStrokeWidthFocused="1.5dp"
+                        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                        app:startIconDrawable="@drawable/rmx_hashtag"
+                        app:startIconTint="?attr/colorOnSurfaceVariant">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_policy_group_observatory_least_load_sampling"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="?attr/colorOnSurface" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_pref_observatory_least_load_timeout"
+                        app:boxStrokeWidth="1.5dp"
+                        app:boxStrokeWidthFocused="1.5dp"
+                        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                        app:startIconDrawable="@drawable/rmx_time_line"
+                        app:startIconTint="?attr/colorOnSurfaceVariant">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_policy_group_observatory_least_load_timeout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="?attr/colorOnSurface" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

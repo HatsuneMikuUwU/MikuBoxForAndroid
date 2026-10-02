@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="4dp"
+    android:id="@+id/font_picker_card"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="?attr/colorCard"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp">
+
+        <TextView
+            android:id="@+id/textFontLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="17sp"
+            tools:text="Google Sans" />
+
+        <ImageView
+            android:id="@+id/imageFontCheck"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="12dp"
+            android:contentDescription="@null"
+            android:src="@drawable/rmx_checkbox_circle_line"
+            android:visibility="gone"
+            app:tint="?attr/colorPrimary" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

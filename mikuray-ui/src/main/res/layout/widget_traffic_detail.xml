@@ -1,0 +1,310 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/traffic_widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/traffic_widget_card_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:id="@+id/traffic_widget_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="14dp"
+        android:paddingEnd="14dp"
+        android:paddingStart="14dp"
+        android:paddingTop="14dp">
+
+        <ImageView
+            android:id="@+id/traffic_widget_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/label_total_traffic_combined"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/traffic_widget_combined_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/traffic_widget_combined_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="@string/label_total_traffic_combined"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/traffic_widget_upload_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/traffic_widget_upload_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/traffic_widget_upload_icon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no" />
+
+                    <TextView
+                        android:id="@+id/traffic_widget_upload_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/traffic_widget_upload_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="@string/label_total_traffic_upload"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/traffic_widget_download_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/traffic_widget_download_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/traffic_widget_download_icon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no" />
+
+                    <TextView
+                        android:id="@+id/traffic_widget_download_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/traffic_widget_download_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="@string/label_total_traffic_download"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/traffic_widget_today_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/traffic_widget_today_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:id="@+id/traffic_widget_today_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/traffic_widget_today_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:text="@string/label_total_traffic_today"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/traffic_widget_month_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/traffic_widget_month_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:id="@+id/traffic_widget_month_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/traffic_widget_month_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:text="@string/label_total_traffic_month"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/traffic_widget_history_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_total_traffic_history"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/traffic_widget_upload_dot"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:id="@+id/traffic_widget_upload_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:layout_marginStart="3dp"
+                android:text="@string/label_total_traffic_up"
+                android:textSize="11sp" />
+
+            <ImageView
+                android:id="@+id/traffic_widget_download_dot"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:id="@+id/traffic_widget_download_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="@string/label_total_traffic_down"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/traffic_widget_chart"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginTop="8dp"
+            android:importantForAccessibility="no"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/traffic_widget_history_empty"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:gravity="center"
+            android:text="@string/label_total_traffic_no_history"
+            android:textSize="12sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</FrameLayout>
+

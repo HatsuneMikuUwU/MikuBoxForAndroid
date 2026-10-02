@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Debug-only affordance for the ported MikuRay screens.
+
+    The settings screens are not exported in the release manifest, which is what
+    we want in the shipped app but makes them unreachable from adb while porting
+    and reviewing. This override exists only in the debug variant (and is
+    replaced by the main manifest's exported="false" in release builds).
+-->
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+
+        <!--
+            A loopback SOCKS5 upstream (see LocalSocks5Provider). Declared as a
+            provider so it starts with the process, which is what a profile
+            pointing at 127.0.0.1:11080 needs to carry real traffic on an
+            emulator, where the machine running it cannot host the listener.
+        -->
+        <provider
+            android:name="com.mikubox.mihomo.debug.LocalSocks5Provider"
+            android:authorities="${applicationId}.local-socks5"
+            android:exported="false" />
+
+        <activity
+            android:name="com.miku.ray.ui.main.MainActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.backup.BackupActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.perappproxy.PerAppProxyActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.subscription.SubEditActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.subscription.SubSettingActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.about.AboutActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.about.LibraryActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.logcat.LogcatActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.routing.RoutingSettingActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.preference.activity.SettingsActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.preference.activity.UiSettingsActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.preference.activity.VpnSettingsActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.preference.activity.CoreSettingsActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+        <activity
+            android:name="com.miku.ray.ui.preference.activity.AdvancedSettingsActivity"
+            android:exported="true"
+            tools:replace="android:exported" />
+
+    </application>
+</manifest>

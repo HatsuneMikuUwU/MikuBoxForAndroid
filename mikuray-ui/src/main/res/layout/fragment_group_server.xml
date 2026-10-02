@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="62dp"
+        android:scrollbars="vertical"
+        app:fastScrollAutoHide="true"
+        app:fastScrollAutoHideDelay="1500"
+        app:fastScrollPopupBgColor="?attr/colorPrimary"
+        app:fastScrollPopupTextColor="?attr/colorOnPrimary"
+        app:fastScrollThumbColor="?attr/colorPrimary"
+        app:fastScrollThumbInactiveColor="?attr/colorOutline"
+        app:fastScrollTrackColor="#00000000" />
+
+    <LinearLayout
+        android:id="@+id/layout_empty_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingEnd="40dp"
+        android:paddingStart="40dp"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="152dp"
+            android:layout_height="152dp"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.30"
+                android:importantForAccessibility="no"
+                android:src="@drawable/uwu_bg_icon"
+                app:tint="?attr/colorPrimary" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                android:src="@drawable/rmx_file_text_line"
+                app:tint="?attr/colorPrimary" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/text_empty_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/empty_server_list_message"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_scroll_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0"
+        android:gravity="end"
+        android:orientation="vertical"
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:visibility="gone">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_scroll_to_top"
+            style="@style/Widget.Material3Expressive.Button.IconButton.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="@string/btn_scroll_to_top"
+            android:minHeight="55dp"
+            android:minWidth="55dp"
+            app:backgroundTint="?attr/colorPrimary"
+            app:icon="@drawable/rmx_arrows_arrow_up_s_line"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="?attr/colorOnPrimary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_scroll_to_bottom"
+            style="@style/Widget.Material3Expressive.Button.IconButton.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="@string/btn_scroll_to_bottom"
+            android:minHeight="55dp"
+            android:minWidth="55dp"
+            app:backgroundTint="?attr/colorPrimary"
+            app:icon="@drawable/rmx_arrows_arrow_down_s_line"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="?attr/colorOnPrimary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_scroll_to_selected"
+            style="@style/Widget.Material3Expressive.Button.IconButton.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/btn_scroll_to_selected_server"
+            android:minHeight="55dp"
+            android:minWidth="55dp"
+            app:backgroundTint="?attr/colorPrimary"
+            app:icon="@drawable/rmx_crosshair_line"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="?attr/colorOnPrimary" />
+
+    </LinearLayout>
+
+</FrameLayout>

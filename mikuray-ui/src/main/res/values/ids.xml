@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- N15: stable ids for the home screen's programmatically created mode tabs
+     (RoutingModeView), so screen-reader trees and uiautomator dumps can target
+     them instead of falling back to text or coordinates. -->
+<resources>
+    <item type="id" name="routing_mode_tab_rule" />
+    <item type="id" name="routing_mode_tab_global" />
+    <item type="id" name="routing_mode_tab_direct" />
+</resources>

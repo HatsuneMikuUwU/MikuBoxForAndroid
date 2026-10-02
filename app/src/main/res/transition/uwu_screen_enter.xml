@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Screen transitions run on the content, not on the window: animating the whole
+    window (translate + alpha) dragged the status-bar strip along and left a seam
+    between the two screens. The matching scale is added in code, because the
+    framework's transition inflater only knows a fixed set of tags and `scale`
+    is not one of them.
+-->
+<fade xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="220"
+    android:fadingMode="fade_in"
+    android:interpolator="@android:interpolator/decelerate_cubic" />

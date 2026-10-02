@@ -1,0 +1,1197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">MikuRay</string>
+    <!-- F26: the brand strings are the one place the app layer deliberately
+         overrides this layer (the product is MikuBox, not MikuRay), so they
+         are marked untranslatable here and carry no locale copies — the app
+         layer owns the wording in every locale. -->
+    <string name="uwu_welcome_summary_1" translatable="false">MikuRay,</string>
+    <string name="uwu_welcome_summary_2" translatable="false">V2Ray/Xray client for Android with a Miku UI style.</string>
+    <string name="uwu_welcome_page1_desc" translatable="false">Free and open source V2Ray/Xray client for Android.</string>
+    <string name="uwu_welcome_page2_desc" translatable="false">Supports VLESS, VMess, Trojan, Shadowsocks, and more.</string>
+    <string name="test_build_info_title">Test build</string>
+    <string name="test_build_info_message">This is a test build of MikuRay. If you find a bug, please notify the owner or report it in the Telegram group by tagging the owner.\n\nTelegram channel: %1$s</string>
+    <string name="test_build_info_channel">@uwuowoumuchannel</string>
+    <string name="test_build_info_dont_show_again">Don’t show again</string>
+    <string name="app_widget_name">Switch</string>
+    <string name="app_widget_traffic_detail_name">Traffic Detail</string>
+    <string name="widget_status_connected">Connected</string>
+    <string name="widget_status_disconnected">Disconnected</string>
+    <string name="widget_no_server_selected">No server selected</string>
+    <string name="empty_server_list_title">No profile</string>
+    <string name="empty_server_list_message">No profile, please add a profile</string>
+    <string name="empty_subscription_list_title">No subscription</string>
+    <string name="empty_subscription_list_message">No subscription, please add a subscription</string>
+    <string name="empty_routing_list_title">No routing rule</string>
+    <string name="empty_routing_list_message">No routing rule, please add a rule</string>
+    <string name="app_tile_name">Switch</string>
+    <string name="app_tile_first_use">First use of this feature, please use the app to add server</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="migration_success">Data migration success!</string>
+    <string name="action_stop_service">Stop service</string>
+    <string name="migration_fail">Data migration failed!</string>
+    <string name="pull_down_to_refresh">Please pull down to refresh!</string>
+
+    <string name="notification_action_stop_v2ray">Stop</string>
+    <string name="notification_connect_time">timer : %s</string>
+    <string formatted="false" name="notification_data_usage">total : ↑ %s  ↓ %s</string>
+    <string name="toast_permission_denied">Unable to obtain the permission</string>
+    <string name="toast_permission_denied_notification">Unable to obtain the notification permission</string>
+    <string name="notification_action_more">Click for more</string>
+    <string name="toast_services_start">Start Services</string>
+    <string name="toast_services_stop">Stop Services</string>
+    <string name="toast_services_success">Start Services Success</string>
+    <string name="toast_services_restart_success">Service restarted successfully</string>
+    <string name="toast_services_failure">Start Services Failure</string>
+
+    <string name="title_server">Config</string>
+    <string name="menu_item_add_config">Add config</string>
+    <string name="menu_item_save_config">Save config</string>
+    <string name="menu_item_edit_config">Edit config</string>
+    <string name="menu_item_del_config">Delete config</string>
+    <string name="menu_item_import_config_qrcode">Import from QRcode</string>
+    <string name="menu_item_import_config_clipboard">Import from Clipboard</string>
+    <string name="menu_item_import_config_local">Import from locally</string>
+    <string name="menu_item_import_config_policy_group">Add [Policy group]</string>
+    <string name="menu_item_import_config_proxy_chain">Add [Proxy chain]</string>
+    <string name="menu_item_import_config_manually_vmess">Add [VMess]</string>
+    <string name="menu_item_import_config_manually_vless">Add [VLESS]</string>
+    <string name="menu_item_import_config_manually_ss">Add [Shadowsocks]</string>
+    <string name="menu_item_import_config_manually_socks">Add [SOCKS]</string>
+    <string name="menu_item_import_config_manually_http">Add [HTTP]</string>
+    <string name="menu_item_import_config_manually_trojan">Add [Trojan]</string>
+    <string name="menu_item_import_config_manually_wireguard">Add [Wireguard]</string>
+    <string name="menu_item_import_config_manually_hysteria2">Add [Hysteria2]</string>
+    <string name="del_config_comfirm">Confirm delete ?</string>
+    <string name="del_invalid_config_comfirm">Please test before deleting! Confirm delete ?</string>
+    <string name="server_lab_remarks">remarks</string>
+    <string name="server_lab_address">address</string>
+    <string name="server_lab_port">port</string>
+    <string name="server_lab_id">id</string>
+    <string name="server_lab_alterid">alterId</string>
+    <string name="server_lab_security">security</string>
+    <string name="server_lab_network">Network</string>
+    <string name="server_lab_more_function">Transport</string>
+    <string name="server_lab_head_type">head type</string>
+    <string name="server_lab_mode_type">gRPC mode</string>
+    <string name="server_lab_request_host">host</string>
+    <string name="server_lab_request_host_http">http host</string>
+    <string name="server_lab_request_host_ws">ws host</string>
+    <string name="server_lab_request_host_httpupgrade">httpupgrade host</string>
+    <string name="server_lab_request_host_xhttp">xhttp host</string>
+    <string name="server_lab_request_host_h2">h2 host</string>
+    <string name="server_lab_request_host_quic">QUIC security</string>
+    <string name="server_lab_request_host_grpc">gRPC Authority</string>
+    <string name="server_lab_path">path</string>
+    <string name="server_lab_path_ws">ws path</string>
+    <string name="server_lab_path_httpupgrade">httpupgrade path</string>
+    <string name="server_lab_path_xhttp">xhttp path</string>
+    <string name="server_lab_path_h2">h2 path</string>
+    <string name="server_lab_path_quic">QUIC key</string>
+    <string name="server_lab_path_kcp">kcp seed</string>
+    <string name="server_lab_path_grpc">gRPC serviceName</string>
+    <string name="server_lab_stream_security">TLS</string>
+    <string name="server_lab_stream_fingerprint">Fingerprint</string>
+    <string name="server_lab_stream_alpn">Alpn</string>
+    <string name="server_lab_allow_insecure">allowInsecure</string>
+    <string name="server_lab_sni">SNI</string>
+    <string name="server_lab_address3">address</string>
+    <string name="server_lab_port3">port</string>
+    <string name="server_lab_id3">password</string>
+    <string name="server_lab_security3">security</string>
+    <string name="server_lab_id4">Password</string>
+    <string name="server_lab_id4_tip">Optional</string>
+    <string name="server_lab_security4">User</string>
+    <string name="server_lab_security4_tip">Optional</string>
+    <string name="server_lab_encryption">encryption</string>
+    <string name="server_lab_flow">flow</string>
+    <string name="server_lab_public_key">PublicKey</string>
+    <string name="server_lab_preshared_key">PreSharedKey</string>
+    <string name="server_lab_preshared_key_tip">Optional</string>
+    <string name="server_lab_short_id">ShortId</string>
+    <string name="server_lab_spider_x">SpiderX</string>
+    <string name="server_lab_mldsa65_verify">Mldsa65Verify</string>
+    <string name="server_lab_secret_key">SecretKey</string>
+    <string name="server_lab_reserved">Reserved</string>
+    <string name="server_lab_reserved_tip">Optional, separated by commas</string>
+    <string name="server_lab_local_address">Local address</string>
+    <string name="server_lab_local_address_tip">Optional IPv4/IPv6, separated by commas</string>
+    <string name="server_lab_local_mtu">Mtu</string>
+    <string name="server_lab_local_mtu_tip">Optional, default 1420</string>
+    <string name="server_lab_kcp_mtu">mKCP MTU</string>
+    <string name="server_lab_kcp_mtu_tip">Optional, core default 1350</string>
+    <string name="server_lab_kcp_tti">mKCP TTI</string>
+    <string name="server_lab_kcp_tti_tip">Optional, core default 50</string>
+    <string name="toast_success">Success</string>
+    <string name="toast_delete_success">Deleted successfully</string>
+    <string name="toast_failure">Failure</string>
+    <string name="toast_none_data">There is nothing</string>
+    <string name="toast_incorrect_protocol">Incorrect protocol</string>
+    <string name="toast_decoding_failed">Decoding failed</string>
+    <string name="title_file_chooser">Select a config</string>
+    <string name="toast_require_file_manager">Please install a File Manager.</string>
+    <string name="server_customize_config">Customize config</string>
+    <string name="toast_config_file_invalid">Invalid config</string>
+    <string name="server_lab_content">Content</string>
+    <string name="toast_none_data_clipboard">There is no data in the clipboard</string>
+    <string name="toast_invalid_url">Invalid URL</string>
+    <string name="toast_insecure_url_protocol">Please do not use the insecure HTTP protocol subscription address</string>
+    <string name="server_lab_need_inbound">Ensure inbounds port is consistent with the settings</string>
+    <string name="toast_malformed_josn">Config malformed</string>
+    <string name="server_lab_request_host6">Host(SNI)(Optional)</string>
+    <string name="toast_action_not_allowed">Action not allowed</string>
+    <string name="server_obfs_password">Obfs password</string>
+    <string name="server_lab_port_hop">Port Hopping</string>
+    <string name="server_lab_port_hop_tip">Will override the port</string>
+    <string name="server_lab_port_hop_interval">Port Hopping Interval</string>
+    <string name="server_lab_bandwidth_down">Bandwidth down</string>
+    <string name="server_lab_bandwidth_down_tip">Supported units: k/m/g/t</string>
+    <string name="server_lab_bandwidth_up">Bandwidth up</string>
+    <string name="server_lab_bandwidth_up_tip">Supported units: k/m/g/t</string>
+    <string name="server_lab_xhttp_mode">XHTTP Mode</string>
+    <string name="server_lab_xhttp_extra">XHTTP Extra</string>
+    <string name="server_lab_xhttp_extra_tip">Raw JSON, format: { XHTTPObject }</string>
+    <string name="server_lab_final_mask">finalMask</string>
+    <string name="server_lab_final_mask_tip">Raw JSON, format: { FinalMaskObject }</string>
+    <string name="server_lab_ech_config_list">EchConfigList</string>
+    <string name="server_lab_verify_peer_cert_by_name">Verify Peer Cert By Name</string>
+    <string name="server_lab_pinned_ca256">Certificate fingerprint</string>
+    <string name="server_lab_pinned_ca256_tip">SHA-256</string>
+    <string name="pinned_ca256_action_fetch">Fetch and fill certificate fingerprint</string>
+    <string name="toast_fetch_cert_sha256_success">Certificate fingerprint fetched successfully</string>
+    <string name="toast_fetch_cert_sha256_failed">Failed to fetch certificate fingerprint</string>
+    <string name="server_lab_browser_dialer">Enable Browser Dialer</string>
+    <string name="server_lab_browser_dialer_tip">Only supports xhttp (packet-up) and ws outbound; TLS-related settings may be ignored or conflict</string>
+    <string name="toast_allow_insecure_deprecated">Current node uses an unencrypted connection. Your communication may be directly viewed by network intermediate facilities controlled by authoritarian governments.\nFor security reasons, such nodes cannot be connected via Xray core version 26.2.6+.\nIf it is a self-built node, please enable security encryption such as TLS, or pin the certificate pinnedCA256.\nIf it is a provider node, please contact the service provider to complete the technical upgrade. If the service provider refuses to cooperate, it is recommended to switch to a provider that pays more attention to user security.\nFor more information, please visit https://github.com/2dust/v2rayN/discussions/9460</string>
+
+    <string name="uwu_skip">Skip</string>
+    <string name="uwu_next">Next</string>
+    <string name="uwu_start">Start</string>
+    <string name="uwu_welcome_title">Welcome to</string>
+    <string name="uwu_welcome_summary_3">Made with Heart, Kotlin, Java code and more.</string>
+    <string name="uwu_welcome_page3_desc">Experience fast, secure internet wrapped in a cute Miku-inspired design.</string>
+
+    <string name="toast_asset_copy_failed">File copy failed, please use File Manager</string>
+    <string name="menu_item_add_asset">Add asset</string>
+    <string name="menu_item_add_file">Add files</string>
+    <string name="menu_item_add_url">Add URL</string>
+    <string name="menu_item_scan_qrcode">Scan QRcode</string>
+    <string name="title_url">URL</string>
+    <string name="menu_item_download_file">Download files</string>
+    <string name="title_user_asset_add_url">Add asset URL</string>
+    <string name="msg_file_not_found">File not found</string>
+    <string name="msg_remark_is_duplicate">The remarks already exists</string>
+    <string name="asset_geo_files_sources">Geo files source</string>
+
+    <string name="msg_dialog_progress">Loading</string>
+    <string name="menu_item_search">Search</string>
+    <string name="menu_item_select_all">Select all</string>
+    <string name="menu_item_invert_selection">Invert selection</string>
+    <string name="msg_enter_keywords">Enter keywords</string>
+    <string name="switch_bypass_apps_mode">Bypass Mode</string>
+    <string name="menu_item_select_proxy_app">Auto select proxy app</string>
+    <string name="msg_downloading_content">Downloading content</string>
+    <string name="menu_item_export_proxy_app">Export to Clipboard</string>
+    <string name="menu_item_import_proxy_app">Import from Clipboard</string>
+    <string name="per_app_proxy_settings">Per-app settings</string>
+    <string name="per_app_proxy_settings_enable">Enable per-app</string>
+    <!-- The picker marks system apps in the row label itself, so the marker
+         reads out loud with the name (was a bare "** " prefix). -->
+    <string name="per_app_system_app_name">%1$s (System)</string>
+    <string name="app_picker_unknown_app">Unknown app (unidentified UID)</string>
+
+    <string name="title_settings">Settings</string>
+    <string name="title_advanced">Advanced Settings</string>
+    <string name="title_core_settings">Core Settings</string>
+    <string name="title_vpn_settings">VPN Settings</string>
+    <string name="title_pref_per_app_proxy">Per-app proxy</string>
+    <string name="summary_pref_per_app_proxy">General: Checked apps use proxy, unchecked apps connect directly; \nBypass mode: checked apps connect directly, unchecked apps use proxy. \nThe option to automatically select proxy applications is in the menu</string>
+    <string name="title_pref_is_booted">Connect after device boot</string>
+    <string name="summary_pref_is_booted">Automatically connect to the selected server after the device starts. Android may restrict background starts.</string>
+    <string name="title_system_vpn_settings">System VPN settings</string>
+    <string name="summary_system_vpn_settings">Open Android VPN settings to configure Always-on VPN, if supported by this device.</string>
+    <string name="toast_system_vpn_settings_unavailable">System VPN settings are unavailable.</string>
+
+    <string name="subscription_updater_job_tips">The task will run in the background, and progress information will be displayed in the notification.</string>
+    <string name="summary_pref_update_subscription">Turn off to skip re-fetching subscription content and only test/sort existing servers.</string>
+    <string name="title_pref_auto_test_after_update_subscription">Auto test after updating subscription</string>
+    <string name="summary_pref_auto_test_after_update_subscription">Automated testing takes a long time. If enabled, the task will run in the background; otherwise, it will run on the current page.</string>
+    <string name="title_pref_auto_remove_invalid_after_test">Auto delete invalid config after testing</string>
+    <string name="summary_pref_auto_remove_invalid_after_test">Test results may not be accurate; deleted config cannot be recovered.</string>
+
+    <string name="server_lab_mux">Mux</string>
+    <string name="server_lab_mux_enabled">Enable Mux</string>
+    <string name="server_lab_mux_concurrency">TCP connections</string>
+    <string name="server_lab_mux_xudp_concurrency">XUDP connections</string>
+    <string name="server_lab_mux_concurrency_tip">range -1 to 1024</string>
+    <string name="server_lab_mux_xudp_quic">Handling of QUIC in mux tunnel</string>
+
+    <string name="title_pref_speed_enabled">Enable speed display</string>
+    <string name="summary_pref_speed_enabled">Display current speed in the notification.\nNotification icon would change based on
+        usage.</string>
+    <string name="title_pref_hide_direct_traffic_notification">Hide direct traffic</string>
+    <string name="summary_pref_hide_direct_traffic_notification">Hide the direct traffic stats from the notification, only proxy traffic is shown.</string>
+    <string name="title_pref_show_group_name_notification">Show group name in notification</string>
+    <string name="summary_pref_show_group_name_notification">Show the subscription group name next to the server title in the notification.</string>
+
+    <string name="title_pref_show_realtime_traffic_ip">Show real-time traffic instead of IP</string>
+    <string name="summary_pref_show_realtime_traffic_ip">Replace the IP text on the home screen with live upload/download speed, just like the notification.</string>
+    <string name="summary_pref_disabled_realtime_traffic_ip">Disabled while "%1$s" is enabled.</string>
+
+    <string name="title_pref_sniffing_enabled">Enable Sniffing</string>
+    <string name="summary_pref_sniffing_enabled">Try sniff domain from the packet (default on)</string>
+    <string name="title_pref_route_only_enabled">Enable routeOnly</string>
+    <string name="summary_pref_route_only_enabled">Use the sniffed domain name for routing only, and keep the target address as the IP address.</string>
+
+    <string name="title_pref_local_dns_enabled">Enable local DNS</string>
+    <string name="summary_pref_local_dns_enabled">DNS processed by core‘s DNS module (Recommended if you need routing bypassing LAN and mainland addresses)</string>
+
+    <string name="title_pref_fake_dns_enabled">Enable fake DNS</string>
+    <string name="summary_pref_fake_dns_enabled">Local DNS returns fake IP addresses (faster, but it may not work for some apps)</string>
+    <string name="title_pref_fake_dns_ip_pool">FakeIP address range</string>
+    <string name="summary_pref_fake_dns_ip_pool">IPv4 CIDR used for fake DNS addresses. Use a private benchmark range such as 198.18.0.0/15.</string>
+    <string name="error_invalid_fake_dns_ip_pool">Enter a valid IPv4 CIDR range from /1 to /30, for example 198.18.0.0/15.</string>
+
+    <string name="title_pref_ipv6_enabled">Enable IPv6</string>
+    <string name="summary_pref_ipv6_enabled">Add IPv6 address and routes to the VPN interface</string>
+
+    <string name="title_pref_prefer_ipv6">Prefer IPv6</string>
+    <string name="summary_pref_prefer_ipv6">Prefer IPv6 addresses when resolving domain names</string>
+
+    <string name="title_pref_remote_dns">Remote DNS</string>
+
+    <string name="title_pref_remote_dns_tip">udp/tcp/https/quic, Optional. Separate multiple servers with a comma, e.g. 8.8.8.8,1.1.1.1</string>
+    <string name="summary_pref_remote_dns">DNS</string>
+
+    <string name="title_pref_vpn_dns">VPN DNS</string>
+
+    <string name="title_pref_vpn_dns_tip">Only IPv4/v6</string>
+    <string name="title_pref_vpn_bypass_lan">Does VPN bypass LAN</string>
+
+    <string name="title_pref_vpn_interface_address">VPN Interface Address</string>
+
+    <string name="title_pref_vpn_mtu">VPN MTU</string>
+
+    <string name="title_pref_vpn_mtu_tip">Default 1500</string>
+
+    <string name="title_pref_domestic_dns">Domestic DNS</string>
+
+    <string name="title_pref_domestic_dns_tip">Optional. Separate multiple servers with a comma, e.g. 223.5.5.5,119.29.29.29</string>
+    <string name="summary_pref_domestic_dns">DNS</string>
+
+    <string name="title_pref_dns_hosts">DNS hosts</string>
+
+    <string name="title_pref_dns_hosts_tip">Format: domain:address,…</string>
+    <string name="summary_pref_dns_hosts">domain:address,…</string>
+
+    <string name="title_pref_delay_test_url">True delay test url </string>
+    <string name="summary_pref_delay_test_url">Url</string>
+    <string name="title_pref_real_ping_concurrency">True delay test concurrency</string>
+    <string name="title_pref_country_code_timeout">Country code test timeout (s)</string>
+
+    <string name="title_pref_ip_api_url">Current connection info test url</string>
+    <string name="summary_pref_ip_api_url">Url</string>
+    <string name="title_pref_show_isp_info">Show ISP name</string>
+    <string name="summary_pref_show_isp_info">Display the ISP/organization name next to the detected IP</string>
+    <string name="title_pref_hide_scroll_buttons">Hide floating scroll buttons</string>
+    <string name="summary_pref_hide_scroll_buttons">Hide the scroll-to-top/bottom/selected buttons that float over the server list. When enabled, use \"Go to selected profile\" from the more menu instead.</string>
+    <string name="title_pref_compact_list_actions">Collapse server actions into overflow menu</string>
+    <string name="summary_pref_compact_list_actions">Hide the share/edit/remove buttons on each server row in list view and access them from a single overflow button instead, just like in grid view.</string>
+    <string name="title_pref_fab_extended">Extended connect button</string>
+    <string name="summary_pref_fab_extended">Show the connection timer on the connect button while the VPN is running</string>
+
+    <string name="title_pref_proxy_sharing_enabled">Allow connections from the LAN</string>
+    <string name="summary_pref_proxy_sharing_enabled">Other devices can connect to proxy by your IP address through local proxy. Only enable in trusted networks to avoid unauthorized connections</string>
+    <string name="toast_warning_pref_proxysharing_short">Allow connections from the LAN. Make sure you are in a trusted network</string>
+    <string name="title_pref_socks_port">Local proxy port</string>
+    <string name="title_pref_enable_local_proxy">Enable local proxy</string>
+    <string name="summary_pref_enable_local_proxy">When disabled, no SOCKS proxy is available, so subscription updates and similar actions cannot use the proxy</string>
+    <string name="title_pref_socks_enable_udp">SOCKS5 UDP</string>
+    <string name="summary_pref_socks_enable_udp">SOCKS5 authentication is not fully secure when using UDP.</string>
+    <string name="summary_pref_socks_port">Local proxy port</string>
+    <string name="title_pref_dynamic_socks_port">Enable dynamic local proxy port</string>
+    <string name="summary_pref_dynamic_socks_port">Generate a random local proxy port each time the inbound is created</string>
+    <string name="title_pref_socks_username">Local proxy username</string>
+    <string name="title_pref_socks_username_tip">Optional</string>
+    <string name="summary_pref_socks_username">Username</string>
+    <string name="title_pref_socks_password">Local proxy password</string>
+    <string name="title_pref_socks_password_tip">Optional</string>
+    <string name="summary_pref_socks_password">Password</string>
+
+    <string name="title_pref_local_dns_port">Local DNS port</string>
+    <string name="summary_pref_local_dns_port">Local DNS port</string>
+
+    <string name="title_pref_confirm_remove">Delete config confirmation</string>
+    <string name="summary_pref_confirm_remove">Whether deleting a config requires a second confirmation by the user</string>
+
+    <string name="title_pref_start_scan_immediate">Start scanning immediately</string>
+    <string name="summary_pref_start_scan_immediate">Open the camera to scan immediately at startup, otherwise you can choose to scan the code or select a photo in the toolbar</string>
+
+    <string name="title_pref_append_http_proxy">Append HTTP Proxy to VPN</string>
+    <string name="summary_pref_append_http_proxy">HTTP proxy will be used directly from (browser/ some supported apps), without going through the virtual NIC device (Android 10+)</string>
+
+    <string name="title_pref_double_column_display">Enable double column display</string>
+    <string name="summary_pref_double_column_display">The profile list is displayed in double columns, allowing more content to be displayed on the screen.</string>
+
+    <string name="title_pref_group_all_display">Enable show all groups</string>
+    <string name="summary_pref_group_all_display">Add an extra "All Tabs" page</string>
+    <string name="title_pref_group_all_tab_icon">\"All\" tab icon</string>
+    <string name="title_pref_tab_badge_limit">Tab badge count limit</string>
+    <string name="tab_badge_limit_unlimited">Unlimited</string>
+
+    <string name="title_pref_feedback">Feedback</string>
+    <string name="summary_pref_feedback">Feedback enhancements or bugs to GitHub</string>
+    <string name="summary_pref_tg_group">Join Telegram Group</string>
+    <string name="toast_tg_app_not_found">Telegram app not found</string>
+    <string name="title_privacy_policy">Privacy policy</string>
+    <string name="title_qr_code">QR code</string>
+    <string name="title_about">About</string>
+    <string name="title_source_code">Source code</string>
+    <string name="title_oss_license">Open Source licenses</string>
+    <string name="title_tg_channel">Telegram channel</string>
+
+    <string name="title_pref_promotion">Promotion</string>
+
+    <string name="title_pref_auto_update_subscription">Automatic update subscriptions</string>
+    <string name="subscription_update_background_start">Updating subscriptions in background</string>
+    <string name="subscription_update_updating">Updating subscription: %s</string>
+    <string name="subscription_update_progress">Real delay: %1$s — %2$s</string>
+    <string name="summary_pref_auto_update_subscription">Update your subscriptions automatically at set intervals in the background. Depending on the device, this feature may not always work</string>
+    <string name="title_pref_auto_update_interval">Auto Update Interval</string>
+    <string name="title_pref_auto_update_interval_tip">Minutes, Min value 15</string>
+
+    <string name="title_core_loglevel">Log Level</string>
+    <string name="title_outbound_domain_resolve_method">Outbound domain pre-resolve method</string>
+    <string name="title_mode">Mode</string>
+    <string name="title_mode_help">Click me for more help</string>
+    <string name="title_language">Language</string>
+    <string name="title_ui_settings">App &amp; appearance</string>
+    <string name="title_ui_home">Home &amp; list</string>
+    <string name="subtitle_ui_home">Home screen, list and search bar</string>
+    <string name="summary_navigate_ui_home">Home screen behaviour, list and search bar chips</string>
+    <string name="title_ui_banner">Banners &amp; personalization</string>
+    <string name="subtitle_ui_banner">Banners, profile and images</string>
+    <string name="summary_navigate_ui_banner">Home and sheet banners, selected style and profile</string>
+    <string name="title_ui_alerts">Notification &amp; sound</string>
+    <string name="subtitle_ui_alerts">Notification and connection sounds</string>
+    <string name="summary_navigate_ui_alerts">Speed notification and connection sounds</string>
+    <string name="title_about_update">About &amp; updates</string>
+    <string name="subtitle_about_update">Version, updates and auto-check</string>
+    <string name="summary_navigate_about_update">Version info, check for updates and launch auto-check</string>
+    <string name="title_about_update_category">Update</string>
+    <string name="title_pref_auto_check_update">Check for updates on launch</string>
+    <string name="summary_pref_auto_check_update">Ask GitHub for a newer release on every cold start</string>
+    <string name="update_available_toast">New version %1$s available</string>
+    <string name="title_pref_ui_mode_night">UI mode settings</string>
+    <string name="title_pref_use_hev_tunnel">Enable Hev TUN Feature</string>
+    <string name="summary_pref_use_hev_tunnel">When enabled, TUN will use hev-socks5-tunnel; otherwise, it will use xray-core.</string>
+    <string name="title_category_hev_tunnel">Hev Tunnel</string>
+    <string name="title_pref_hev_tunnel_loglevel">Hev Tun Log Level</string>
+    <string name="title_pref_hev_tunnel_rw_timeout">Hev Tun read/write timeout</string>
+    <string name="title_pref_hev_tunnel_rw_timeout_tip">Seconds, tcp/udp default 300,60</string>
+    <string name="title_pref_hev_tunnel_icmp">ICMP Echo (ping)</string>
+    <string name="summary_pref_hev_tunnel_icmp">Reply to ICMP echo requests through the tunnel</string>
+    <string name="title_pref_hev_tunnel_udp_mode">UDP relay mode</string>
+    <string name="summary_pref_hev_tunnel_udp_mode">How UDP packets are relayed over the SOCKS5 proxy</string>
+    <string name="title_pref_hev_tunnel_udp_address">Override UDP relay address</string>
+    <string name="title_pref_hev_tunnel_udp_address_tip">Optional. Overrides the UDP address returned by the SOCKS5 server. Leave empty to use the server-provided value.</string>
+    <string name="title_pref_hev_tunnel_tcp_fastopen">TCP Fast Open</string>
+    <string name="summary_pref_hev_tunnel_tcp_fastopen">Reduces connection latency on supported networks</string>
+    <string name="title_pref_hev_tunnel_pipeline">SOCKS5 handshake pipelining</string>
+    <string name="summary_pref_hev_tunnel_pipeline">Experimental. Pipelines the SOCKS5 handshake to reduce round trips</string>
+
+    <string name="title_category_root_mode">Root mode</string>
+    <string name="title_pref_root_mode">Root mode (system-wide)</string>
+    <string name="summary_pref_root_mode">Capture all traffic via iptables without VpnService. Requires root.</string>
+    <string name="title_pref_root_lan_sharing">Root LAN / tethering sharing</string>
+    <string name="summary_pref_root_lan_sharing">Share the proxy with tethered USB/Wi-Fi clients. Requires root.</string>
+    <string name="toast_root_required">Root access is required for Root mode but is not available on this device.</string>
+
+    <string name="title_logcat">Logcat</string>
+    <string name="logcat_share">Share log</string>
+    <string name="logcat_copy">Copy</string>
+    <string name="logcat_clear">Clear</string>
+    <string name="title_service_restart">Service restart</string>
+    <string name="title_del_all_config">Delete all config</string>
+    <string name="title_del_duplicate_config">Delete duplicate config</string>
+    <string name="title_del_invalid_config">Delete invalid config</string>
+    <string name="title_export_all">Export configs to clipboard</string>
+    <string name="title_sub_setting">Subscription</string>
+    <string name="sub_setting_remarks">remarks</string>
+    <string name="sub_setting_url">Optional URL</string>
+    <string name="sub_setting_user_agent">User Agent</string>
+    <string name="sub_setting_request_headers">Request Headers</string>
+    <string name="sub_setting_request_headers_tip">JSON format</string>
+    <string name="sub_setting_filter">Remarks regular filter</string>
+    <string name="sub_setting_network_filter">Network type filter</string>
+    <string name="sub_setting_network_filter_tip">Only keep configs with these network types, comma separated. e.g. ws,grpc,xhttp</string>
+    <string name="sub_setting_protocol_filter">Protocol filter</string>
+    <string name="sub_setting_protocol_filter_tip">Only keep configs with these protocols, comma separated. e.g. vmess,vless,trojan,ss</string>
+    <string name="sub_setting_enable">Enable update</string>
+    <plurals name="sub_setting_server_count">
+        <item quantity="one">%1$d server</item>
+        <item quantity="other">%1$d servers</item>
+    </plurals>
+    <string name="sub_setting_usage">Used %1$s • Remaining %2$s</string>
+    <string name="sub_setting_usage_used">Used %1$s</string>
+    <string name="sub_setting_expire">Expires %1$s</string>
+    <string name="sub_setting_no_url">No subscription link</string>
+    <string name="sub_auto_update">Enable automatic update</string>
+    <string name="sub_allow_insecure_url">Allow insecure HTTP address</string>
+    <string name="sub_setting_pre_profile">Previous proxy config remarks</string>
+    <string name="sub_setting_next_profile">Next proxy config remarks</string>
+    <string name="sub_setting_pre_profile_tip">The config remarks exist and are unique</string>
+    <string name="toast_invalid_update_interval">Invalid update interval. Minimum is 15 minutes.</string>
+    <string name="title_sub_update">Update subscription</string>
+    <string name="title_sort_sub">Sort</string>
+    <string name="group_order_by_added">Recently Added</string>
+    <string name="group_order_by_updated">Recently Updated</string>
+    <string name="title_ping_all_server">Tcping all configs</string>
+    <string name="title_real_ping_all_server">Real delay config</string>
+    <string name="title_country_code_all_server">Test country code</string>
+    <string name="title_user_asset_setting">Asset files</string>
+    <string name="title_filter_config">Filter config</string>
+    <string name="filter_config_all">All</string>
+    <string name="title_del_duplicate_config_count">Delete %d duplicate configs</string>
+    <string name="title_del_config_count">Delete %d configs</string>
+    <string name="title_import_config_count">Import %d configs</string>
+    <string name="title_export_config_count">Export %d configs</string>
+    <string name="title_update_config_count">Update %d configs</string>
+    <string name="title_update_asset_count">Updated %d asset files</string>
+    <string name="title_update_subscription_result">Updated %1$d configs (%2$d success, %3$d failed, %4$d skipped)</string>
+    <string name="title_update_subscription_no_subscription">No subscriptions</string>
+    <string name="title_sub_update_diff">Subscription changes (%s)</string>
+    <string name="sub_update_diff_added">Added:\n%s</string>
+    <string name="sub_update_diff_deleted">Deleted:\n%s</string>
+    <string name="toast_server_not_found_in_group">Selected server not found in current group</string>
+    <string name="btn_scroll_to_selected_server">Go to selected profile</string>
+    <string name="btn_scroll_to_top">Scroll to top</string>
+    <string name="btn_scroll_to_bottom">Scroll to bottom</string>
+    <string name="toast_fragment_not_available">Unable to locate current view</string>
+    <string name="title_clear_test_results">Clear test results</string>
+    <string name="title_clear_country_codes">Clear country codes</string>
+    <string name="country_code_unknown">—</string>
+
+    <string name="tasker_start_service">Start Service</string>
+    <string name="tasker_setting_confirm">Confirm</string>
+
+    <string name="routing_settings_domain_strategy">Domain strategy</string>
+    <string name="routing_settings_title">Routing</string>
+    <string name="routing_settings_tips">Separated by commas(,), \nchoose domain or ip or process</string>
+    <string name="routing_settings_save">Save</string>
+    <string name="routing_settings_delete">Clear</string>
+    <string name="routing_settings_rule_title">Routing Rule</string>
+    <string name="routing_settings_add_rule">Add rule</string>
+    <string name="routing_settings_import_predefined_rulesets">Import predefined rulesets</string>
+    <string name="routing_settings_import_rulesets_tip">Existing rulesets will be deleted, are you sure to continue?</string>
+    <string name="routing_settings_import_rulesets_from_clipboard">Import ruleset from clipboard</string>
+    <string name="routing_settings_import_rulesets_from_qrcode">Import ruleset from QRcode</string>
+    <string name="routing_settings_export_rulesets_to_clipboard">Export ruleset to clipboard</string>
+    <string name="routing_settings_locked">Locked</string>
+    <string name="routing_settings_locked_tip">Locked, keep this rule when import presets</string>
+    <string name="routing_settings_domain">domain</string>
+    <string name="routing_settings_ip">ip</string>
+    <string name="routing_settings_process">process</string>
+    <string name="routing_settings_process_tip">Separated by commas(,),
+choose domain or ip or process
+Package Name — only supported when using Xray TUN, routeOnly enabled, and Android 10+</string>
+    <string name="routing_settings_port">port</string>
+    <string name="routing_settings_protocol">protocol</string>
+    <string name="routing_settings_protocol_tip">[http,tls,bittorrent]</string>
+    <string name="routing_settings_network">network</string>
+    <string name="routing_settings_network_tip">[udp|tcp]</string>
+    <string name="routing_settings_outbound_tag_hint" translatable="false">proxy / direct / block / &lt;remarks&gt;</string>
+    <string name="routing_settings_outbound_tag">outboundTag</string>
+
+    <string name="connection_test_pending">Check Connection</string>
+    <string name="connection_test_testing">Testing…</string>
+    <string name="connection_test_testing_count">Testing %d configs…</string>
+    <string name="connection_test_available">Success connected: %dms</string>
+    <!-- F16: the line names what failed — the delay-test endpoint, not the
+         tunnel — so a connected card no longer contradicts itself. -->
+    <string name="connection_test_error">Delay test failed: %s unreachable</string>
+    <string name="connection_test_fail">No Internet</string>
+    <string name="connection_test_error_status_code">Error code: #%d</string>
+    <string name="connection_connected">Connected. Tap to test</string>
+    <string name="connection_not_connected">Disconnected</string>
+    <string name="connection_pending">Connecting…</string>
+    <string name="connection_runing_task_left">Running tests: %s</string>
+    <string name="connection_runing_tcping_task_left">TCPing: %s</string>
+    <string name="connection_runing_real_delay_task_left">Real delay: %s</string>
+    <string name="action_minimize">Minimize</string>
+    <string name="test_progress_counter">%1$d / %2$d</string>
+    <string name="test_progress_ping_ms">%dms</string>
+
+    <string name="import_subscription_success">Subscription imported Successfully</string>
+    <string name="import_subscription_failure">Import subscription failed</string>
+    <string name="sub_import_name">Subscription name</string>
+    <string name="sub_import_default_name">import sub</string>
+    <string name="title_fragment_settings">Fragment Settings</string>
+    <string name="title_pref_fragment_packets">Fragment Packets</string>
+    <string name="title_pref_fragment_length">Fragment Length</string>
+    <string name="title_pref_fragment_length_tip">min-max</string>
+    <string name="title_pref_fragment_interval">Fragment Interval</string>
+    <string name="title_pref_fragment_interval_tip">min-max</string>
+    <string name="title_pref_fragment_maxsplit">Fragment Max Split</string>
+    <string name="title_pref_fragment_enabled">Enable Fragment</string>
+    <string name="title_pref_observatory_least_ping_interval">leastPing Interval</string>
+    <string name="title_pref_observatory_least_load_interval">leastLoad Interval</string>
+    <string name="title_pref_observatory_least_load_method">leastLoad HTTP Method</string>
+    <string name="title_pref_observatory_least_load_sampling">leastLoad Sampling</string>
+    <string name="title_pref_observatory_least_load_timeout">leastLoad Timeout</string>
+    <string name="toast_invalid_observatory_duration">Invalid duration. Use a value like 3m or 30s.</string>
+    <string name="toast_invalid_observatory_sampling">Invalid sampling. Use a positive number.</string>
+
+    <string name="update_check_for_update">Check for update</string>
+    <string name="update_already_latest_version">Already on the latest version</string>
+    <string name="update_new_version_found">New version found: %s</string>
+    <string name="update_now">Update now</string>
+    <string name="update_check_pre_release">Check Pre-release</string>
+    <string name="update_checking_for_update">Checking for update…</string>
+
+    <string name="title_policy_group_type">Policy group type</string>
+    <string name="title_policy_group_subscription_id">From subscription group</string>
+    <string name="title_policy_group_subscription_filter">Remarks regular filter</string>
+    <string name="title_policy_group_test_outbounds">Test outbounds</string>
+    <string name="title_policy_group_fallback">Fallback outbound</string>
+    <string name="title_policy_group_observatory">Observatory</string>
+    <string name="title_policy_group_fallback_tip">Optional</string>
+
+    <string name="server_proxy_chain_members">Proxy chain members</string>
+    <string name="server_proxy_chain_pick_members">Tap here to pick member</string>
+    <string name="server_proxy_chain_member_unselected">Select a member</string>
+    <string name="server_proxy_chain_members_unselected">Please select member for each chain row</string>
+    <string name="server_proxy_chain_members_insufficient">Insufficient members</string>
+    <string name="server_proxy_chain_members_invalid">Invalid chain members: %1$s</string>
+
+    <string name="title_configuration_backup_restore">Backup &amp; Restore</string>
+    <string name="title_configuration_backup">Backup config</string>
+    <string name="title_configuration_restore">Restore config</string>
+    <string name="title_configuration_share">Share config</string>
+    <string name="backup_import_title">Import backup file</string>
+    <string name="backup_import_message">Import \"%1$s\"? This will overwrite your current settings, profiles, and app data.</string>
+    <string name="title_pin_server">Pin Server</string>
+    <string name="action_pin_server">Pin to top</string>
+    <string name="action_unpin_server">Unpin</string>
+    <string name="toast_server_pinned">Server pinned to top</string>
+    <string name="toast_server_unpinned">Server unpinned</string>
+    <string name="toast_pinned_server_delete_blocked">Unpin the server first before deleting it</string>
+    <string name="title_profile_storage_cleanup">Repair profile storage</string>
+    <string name="message_profile_storage_cleanup">Delete profile data that is no longer used by any group? Selected profiles and data that cannot be safely classified will be kept.</string>
+    <string name="toast_profile_storage_cleanup">Unused profiles removed: %1$d</string>
+    <string name="toast_profile_storage_cleanup_skipped">Profile storage could not be safely classified. Nothing was removed.</string>
+    <string name="title_webdav_config_setting">WebDAV Settings</string>
+    <string name="title_webdav_config_setting_unknown">Please configure WebDAV first.</string>
+    <string name="title_webdav_url">WebDAV server URL</string>
+    <string name="title_webdav_user">Username</string>
+    <string name="title_webdav_pass">Password</string>
+    <string name="title_webdav_remote_path">Remote directory (optional)</string>
+
+    <string name="status">Status</string>
+    <string name="import_configuration">Import Configuration</string>
+    <string name="add_server_manually">Add Server Manually</string>
+    <string name="protocol_vmess">VMess</string>
+    <string name="protocol_vless">VLESS</string>
+    <string name="protocol_trojan">Trojan</string>
+    <string name="protocol_shadowsocks">Shadowsocks</string>
+    <string name="protocol_socks">Socks</string>
+    <string name="protocol_http">HTTP</string>
+    <string name="protocol_hysteria2">Hysteria2</string>
+    <string name="protocol_wireguard">Wireguard</string>
+    <string name="protocol_policy_group">Policy Group</string>
+    <string name="protocol_proxy_chain">Proxy Chain</string>
+    <string name="management">Management</string>
+    <string name="action_export">Export</string>
+    <string name="action_duplicates">Duplicates</string>
+    <string name="action_clean_invalid">Clean Invalid</string>
+    <string name="action_delete_all">Delete All</string>
+    <string name="app_settings">App Settings</string>
+    <string name="tools_and_info">Tools &amp; Info</string>
+    <string name="desc_logcat">View connection and app error logs</string>
+    <string name="desc_check_update">Check and install the latest version</string>
+    <string name="desc_backup_restore">Export or import your configurations</string>
+    <string name="desc_about">Version info and open-source licenses</string>
+    <string name="share_configuration">Share Configuration</string>
+    <string name="share_qrcode">QRcode</string>
+    <string name="export_to_clipboard">Export to clipboard</string>
+    <string name="export_full_config_to_clipboard">Export full config to clipboard</string>
+    <string name="share_as_file">Share as file</string>
+
+    <string name="title_export_group_file">Export/share group as file</string>
+    <string name="title_import_mikuray_count">Imported %d configs</string>
+    <string name="title_import_mikuray_error">Failed to import .mikuray file</string>
+    <string name="title_import_mikuray_wrong_password">Wrong password or corrupted .mikuray file</string>
+
+    <string name="mikuray_password_export_title">Set a password</string>
+    <string name="mikuray_password_export_desc">This password will encrypt the .mikuray file. You\'ll need it again to import the file, so don\'t lose it.</string>
+    <string name="mikuray_password_import_title">Enter password</string>
+    <string name="mikuray_password_import_desc">This .mikuray file is encrypted. Enter the password used when it was exported.</string>
+    <string name="mikuray_password_confirm_button">Continue</string>
+    <string name="mikuray_password_hint">Password</string>
+    <string name="mikuray_password_confirm_hint">Confirm password</string>
+    <string name="mikuray_password_error_empty">Password can\'t be empty</string>
+    <string name="mikuray_password_error_mismatch">Passwords don\'t match</string>
+    <string name="ruleset_management">Ruleset Management</string>
+    <string name="title_pref_app_theme">App Color Theme</string>
+    <string name="summary_pref_app_theme">Choose the accent color palette for the app</string>
+    <string name="pref_theme_color_title">Theme Color</string>
+    <string name="title_pref_dynamic_color">Dynamic Color (Material You)</string>
+    <string name="summary_pref_dynamic_color">Use wallpaper-based colors (Android 12+). Overrides the selected color theme</string>
+    <string name="summary_pref_dynamic_color_unavailable">Requires Android 12 or higher</string>
+    <string name="title_pref_true_black">True Black (AMOLED)</string>
+    <string name="summary_pref_true_black">Set background to pure black to save battery on AMOLED displays. Only active in dark mode</string>
+    <string name="pref_true_black_only_in_night_mode">Only available in dark mode</string>
+    <string name="title_pref_icon_shape">Icon Shape</string>
+    <string name="title_pref_arrow_shape">Arrow Shape</string>
+    <string name="summary_pref_icon_shape">Choose the shape style for profile icons</string>
+    <string name="pref_custom_dpi">Custom App DPI</string>
+    <string name="pref_font_size">Font Size</string>
+    <string name="pref_font_size_preview_format">Aa · %s</string>
+    <string name="reset">Reset</string>
+    <string name="pref_custom_color_title">Custom Theme Color</string>
+    <string name="pref_custom_color_reset">Reset to Preset</string>
+    <string name="indicator_style_title">Select Indicator Style</string>
+    <string name="pref_indicator_style_title">Server Indicator Style</string>
+    <string name="pref_indicator_style_summary">Select the active server indicator display</string>
+    <string name="summary_navigate_ui_settings">Theme, appearance, fonts and blur effects</string>
+    <string name="summary_navigate_vpn_settings">IPv6, keep awake, DNS, HTTP proxy, bypass LAN, interface, MTU, Hev TUN, TCP/WS timers, per-app proxy, Root mode, etc.</string>
+    <string name="summary_navigate_core_settings">Sniffing, route only, local proxy/sharing, SOCKS, DNS, log level, domain resolve, geo files, etc.</string>
+    <string name="summary_navigate_fragment_settings">Fragment status, length, interval, maxsplit, packets, etc.</string>
+    <string name="summary_navigate_advanced_settings">Auto-start, delay/IP API URLs, routing strategy, mode, hide from recent apps, etc.</string>
+    <string name="summary_navigate_per_app_proxy_settings">Choose which apps go through the proxy</string>
+    <string name="title_ui_general">General</string>
+    <string name="title_category_notification">Notification</string>
+    <string name="title_ui_theme">Theme</string>
+    <string name="title_ui_appearance">Appearance</string>
+    <string name="transport_layer_security">Transport Layer Security</string>
+    <string name="del_config_dialog_comfirm_message">Are you sure you want to delete this? Once deleted, the configuration is gone forever and can\'t be recovered.</string>
+    <string name="del_sub_dialog_comfirm_message">Are you sure you want to delete this subscription? Once deleted, the data is gone forever and can\'t be recovered.</string>
+    <string name="title_sub_group_options">Group Options</string>
+    <string name="sub_group_option_delete">Delete Group</string>
+    <string name="sub_group_option_clear_traffic">Clear Group Traffic</string>
+    <string name="del_routing_dialog_comfirm_message">Are you sure you want to delete this routing setting? Once deleted, the data is gone forever and can\'t be recovered.</string>
+    <string name="del_file_asset_dialog_comfirm_message">Are you sure you want to delete this asset file? Once deleted, the data is gone forever and can\'t be recovered.</string>
+    <string name="del_button_dialog_comfirm">Delete</string>
+    <string name="menu_item_search_main">Search config</string>
+    <string name="title_vpn_sound_settings">Sound</string>
+    <string name="weather_temp_format">%d°C</string>
+    <string name="title_search_bar_chip">Search Bar Chip</string>
+    <string name="pref_action_clear_total_traffic_title">Clear traffic data</string>
+    <string name="action_clear_total_traffic_button">Clear</string>
+    <string name="confirm_clear_total_traffic">Clear traffic chip data along with its daily/monthly history?</string>
+    <string name="toast_total_traffic_cleared">Traffic chip data cleared</string>
+    <string name="pref_search_bar_chip_title">Search bar chip</string>
+    <string name="pref_search_bar_chip_disabled">Disabled</string>
+    <string name="pref_search_bar_chip_weather">Weather</string>
+    <string name="pref_search_bar_chip_total_traffic">Total traffic usage</string>
+    <string name="pref_search_bar_chip_dual_swipe">Dual (swipe)</string>
+    <string name="pref_search_bar_chip_info_weather">Weather chip can be clicked to open forecast details</string>
+    <string name="pref_search_bar_chip_info_traffic">Traffic chip can be clicked to open data usage details</string>
+    <string name="pref_search_bar_chip_info_dual">Swipe vertically on the chip to switch content. Tap to open details</string>
+    <string name="pref_search_chip_gradient_title">Gradient chip background</string>
+    <string name="pref_search_chip_gradient_summary">Apply a primary-to-tertiary gradient background on the search bar chip while the weather or total traffic chip is active</string>
+
+    <string name="pref_weather_unit_title">Temperature Unit</string>
+    <string name="pref_weather_custom_location_title">Custom Location</string>
+    <string name="pref_weather_custom_location_dialog_message">Enter a place name (e.g. London) or coordinates as \"latitude,longitude\". Leave empty to use your current location.</string>
+    <string name="pref_weather_custom_location_summary_auto">Using your current location</string>
+    <string name="pref_weather_custom_location_summary_current_coords">Using current location (%1$.2f, %2$.2f)</string>
+    <string name="weather_condition_clear">Clear</string>
+    <string name="weather_condition_partly_cloudy">Partly Cloudy</string>
+    <string name="weather_condition_cloudy">Cloudy</string>
+    <string name="weather_condition_fog">Foggy</string>
+    <string name="weather_condition_rain_light">Light Rain</string>
+    <string name="weather_condition_rain_heavy">Heavy Rain</string>
+    <string name="weather_condition_snow">Snow</string>
+    <string name="weather_condition_thunder">Thunderstorm</string>
+    <string name="weather_condition_thunder_hail">Thunderstorm with Hail</string>
+    <string name="weather_condition_unknown">Unknown</string>
+    <string name="weather_forecast_title">Weather Forecast</string>
+    <string name="weather_feels_like">Feels like %1$s</string>
+    <string name="weather_max_min">Max %1$s  Min %2$s</string>
+    <string name="weather_summary_title">Summary</string>
+    <string name="weather_summary_condition">Expect %1$s throughout the day.</string>
+    <string name="weather_summary_high_low">High %1$s, low %2$s.</string>
+    <string name="weather_summary_rain_likely">Rain is likely — bring an umbrella.</string>
+    <string name="weather_summary_rain_possible">Showers are possible later on.</string>
+    <string name="weather_summary_rain_slight">A slight chance of rain.</string>
+    <string name="weather_summary_windy">Winds will be noticeable today.</string>
+    <string name="weather_hourly_forecast_title">Hourly Forecast</string>
+    <string name="weather_daily_forecast_title">Daily Forecast</string>
+    <string name="weather_now">Now</string>
+    <string name="weather_today">Today</string>
+    <string name="weather_forecast_load_error">Couldn\'t load the forecast</string>
+    <string name="menu_item_refresh_weather">Refresh</string>
+    <string name="weather_details_title">Details</string>
+    <string name="weather_detail_humidity">Humidity</string>
+    <string name="weather_detail_dew_point">Dew Point</string>
+    <string name="weather_detail_wind">Wind</string>
+    <string name="weather_detail_wind_gusts">Wind Gusts</string>
+    <string name="weather_detail_pressure">Pressure</string>
+    <string name="weather_detail_visibility">Visibility</string>
+    <string name="weather_detail_cloud_cover">Cloud Cover</string>
+    <string name="weather_detail_uv_index">UV Index</string>
+    <string name="weather_detail_sunrise">Sunrise</string>
+    <string name="weather_detail_sunset">Sunset</string>
+    <string name="weather_detail_precipitation">Precipitation</string>
+    <string name="weather_detail_air_quality">Air Quality</string>
+    <string name="weather_wind_format">%1$d km/h %2$s</string>
+    <string name="weather_speed_kmh_format">%1$d km/h</string>
+    <string name="weather_pressure_format">%1$d hPa</string>
+    <string name="weather_visibility_km_format">%1$.1f km</string>
+    <string name="weather_visibility_m_format">%1$d m</string>
+    <string name="weather_precipitation_format">%1$.1f mm</string>
+    <string name="weather_compass_n">N</string>
+    <string name="weather_compass_ne">NE</string>
+    <string name="weather_compass_e">E</string>
+    <string name="weather_compass_se">SE</string>
+    <string name="weather_compass_s">S</string>
+    <string name="weather_compass_sw">SW</string>
+    <string name="weather_compass_w">W</string>
+    <string name="weather_compass_nw">NW</string>
+    <string name="weather_aqi_good">Good</string>
+    <string name="weather_aqi_moderate">Moderate</string>
+    <string name="weather_aqi_unhealthy_sensitive">Unhealthy for sensitive groups</string>
+    <string name="weather_aqi_unhealthy">Unhealthy</string>
+    <string name="weather_aqi_very_unhealthy">Very unhealthy</string>
+    <string name="weather_aqi_hazardous">Hazardous</string>
+
+    <string name="title_pref_sound_on_connect">Connection Sound</string>
+    <string name="summary_pref_sound_on_connect">Play a sound when connected or disconnected</string>
+    <string name="title_pref_custom_connect_sound">Custom Connect Sound</string>
+    <string name="summary_pref_custom_connect_sound">No custom sound selected — tap to choose an audio file</string>
+    <string name="title_pref_custom_disconnect_sound">Custom Disconnect Sound</string>
+    <string name="summary_pref_custom_disconnect_sound">No custom sound selected — tap to choose an audio file</string>
+    <string name="title_pref_delete_custom_sounds">Remove Custom Sounds</string>
+    <string name="summary_pref_delete_custom_sounds">Remove both custom connection sounds</string>
+    <string name="custom_sound_delete_confirm">Remove all custom connection sounds and restore the built-in sounds?</string>
+    <string name="custom_sound_invalid">Couldn\'t read that file as audio</string>
+    <string name="custom_sound_none_to_remove">No custom connection sounds are set</string>
+    <string name="custom_sound_added">Custom sound added successfully</string>
+    <string name="custom_sounds_removed">Custom connection sounds removed successfully</string>
+    <string name="ip_unknown">IP: unknown</string>
+    <string name="ip_connected">IP: %1$s</string>
+    <string name="title_pref_app_font">Font Style</string>
+    <string name="title_category_app_font">Font</string>
+    <string name="title_pref_app_font_use_custom">Use Custom Font</string>
+    <string name="summary_pref_app_font_use_custom">Override the font above with one picked from internal storage</string>
+    <string name="title_pref_app_font_custom_pick">Pick Custom Font</string>
+    <string name="summary_pref_app_font_custom_pick_empty">No font file selected — tap to choose a .ttf/.otf from internal storage</string>
+    <string name="title_pref_app_font_custom_delete">Remove Custom Font</string>
+    <string name="summary_pref_app_font_custom_delete_empty">No custom font is set</string>
+    <string name="summary_pref_app_font_custom_delete_set">Currently set: %1$s</string>
+    <string name="custom_font_delete_confirm">Remove the custom font and go back to the default font?</string>
+    <string name="custom_font_invalid">Couldn\'t read that file as a font (.ttf/.otf/.ttc only)</string>
+    <string name="custom_font_none_to_remove">No custom font is set</string>
+    <string name="group_order">Order</string>
+    <string name="group_order_origin">Origin</string>
+    <string name="group_order_by_name">By Name</string>
+    <string name="group_order_by_delay">By Delay</string>
+    <string name="title_more_menu">More Menu</string>
+    <string name="title_import_menu">Import Menu</string>
+    <string name="routing_settings_import_predefined_rulesets_title">Predefined</string>
+    <string name="routing_settings_import_rulesets_from_clipboard_title">Clipboard</string>
+    <string name="routing_settings_import_rulesets_from_qrcode_title">QRcode</string>
+    <string name="title_pref_category_style">Category Title Style</string>
+    <string name="scan_code">Scan QR Code</string>
+    <string name="select_photo">Select Photo</string>
+    <string name="pref_show_splash_title">Show splash screen</string>
+    <string name="pref_show_splash_summary">Show splash screen when application is run</string>
+    <string name="title_pref_dynamic_color_banner">Dynamic Theme from Home Banner</string>
+    <string name="summary_pref_dynamic_color_banner">The theme color scheme will dynamically adapt to your Home Banner image.</string>
+    <string name="title_pref_keep_awake">Keep device awake</string>
+    <string name="summary_pref_keep_awake">Hold a partial wake lock while the VPN is connected. Needed on Xiaomi/HyperOS; on Samsung/Pixel it just drains battery — leave off.</string>
+    <string name="title_reset_traffic">Reset Data Usage</string>
+    <string name="reset_traffic_scope_profile">Selected profile only</string>
+    <string name="reset_traffic_scope_group">Only in \"%1$s\" group</string>
+    <string name="reset_traffic_scope_all">In all groups</string>
+    <string name="confirm_reset_traffic_profile">Reset data usage for this profile?</string>
+    <string name="confirm_reset_traffic_group">Reset data usage for all servers in this group?</string>
+    <string name="confirm_reset_traffic_all">Reset data usage for all groups? This cannot be undone</string>
+    <string name="confirm_clear_test_results_group">Clear test results for all servers in this group?</string>
+    <string name="confirm_clear_test_results_all">Clear test results for all groups?</string>
+    <string name="confirm_clear_country_codes_group">Clear country codes for all servers in this group?</string>
+    <string name="confirm_clear_country_codes_all">Clear country codes for all groups?</string>
+    <string name="pref_traffic_enabled_title">Show Data Usage</string>
+    <string name="pref_traffic_enabled_summary">Show upload and download traffic on each server</string>
+    <string name="label_total_traffic_upload">Upload</string>
+    <string name="label_total_traffic_download">Download</string>
+    <string name="label_total_traffic_up">Up</string>
+    <string name="label_total_traffic_down">Down</string>
+    <string name="label_total_traffic_combined">Combined</string>
+    <string name="label_total_traffic_today">Today</string>
+    <string name="label_total_traffic_month">This Month</string>
+    <string name="title_total_traffic_history">Last 7 Days</string>
+    <string name="label_total_traffic_no_history">No usage recorded yet</string>
+    <string name="pref_disable_sensor_text_title">Show Full Address</string>
+    <string name="pref_disable_sensor_text_summary">Show full server IP/domain without *** masking</string>
+    <string name="pref_network_security_enabled_title">Show Network and Security</string>
+    <string name="pref_network_security_enabled_summary">Show transport and security info on each server</string>
+    <string name="title_pref_send_hwid">Send HWID</string>
+    <string name="summary_pref_send_hwid">Send device ID when updating subscription</string>
+    <string name="title_pref_hide_from_recent_apps">Hide from recent tasks</string>
+    <string name="summary_pref_hide_from_recent_apps">Hide the app from recent tasks when running in background</string>
+    <string name="title_pref_tcp_keepalive_idle">TCP Keepalive idle</string>
+    <string name="title_pref_tcp_keepalive_idle_tip">Seconds, 0 = disabled</string>
+    <string name="title_pref_ws_heartbeat_period">WS Ping Interval</string>
+    <string name="title_pref_ws_heartbeat_period_tip">Seconds, 0 = disabled</string>
+
+    <string name="title_banner_settings_character">Settings banner character</string>
+    <string name="summary_banner_settings_character">Choose which Hatsune Miku artwork appears on the settings banner</string>
+    <string name="banner_settings_character_custom">Custom image</string>
+    <string name="title_banner_settings_character_custom">Custom banner character image</string>
+    <string name="summary_banner_settings_character_custom">Choose an image from your device</string>
+    <string name="summary_banner_settings_character_custom_selected">Choose custom image</string>
+    <string name="title_banner_settings_character_delete">Remove custom banner character image</string>
+    <string name="summary_banner_settings_character_delete">Remove the selected custom image and use the default character</string>
+    <string name="title_banner_character_layout">Banner character size &amp; position</string>
+    <string name="summary_banner_character_layout">Fine-tune the width, height, and margins of the banner artwork</string>
+    <string name="banner_character_slider_width_label">Width</string>
+    <string name="banner_character_slider_height_label">Height</string>
+    <string name="banner_character_slider_margin_top_label">Top margin</string>
+    <string name="banner_character_slider_margin_bottom_label">Bottom margin</string>
+    <string name="banner_character_slider_margin_end_label">End margin</string>
+    <string name="uwu_banner_settings_title">Hello there...</string>
+    <string name="uwu_banner_settings_summary">"Welcome to the settings
+menu, please select
+whichever option
+you need."</string>
+    <string name="uwu_maintainer_title">This app is under maintenance</string>
+    <string name="uwu_maintainer_summary">HatsuneMikuUwU Development</string>
+    <string name="uwu_name_title">App Name</string>
+    <string name="uwu_version_name_title">Version Name</string>
+    <string name="uwu_version_code_title">Version Code</string>
+    <string name="uwu_package_name_title">Package Name</string>
+    <string name="uwu_mikubox_author_title">Author</string>
+    <string name="uwu_build_date_title">Build Date</string>
+    <string name="uwu_update_summary">"Let\'s update %1$s master!"</string>
+    <string name="uwu_about_version_title">About app</string>
+    <string name="uwu_about_version_summary">Tap here or arrow icon to know more about the app.</string>
+    <string name="uwu_splash_title">Made With ❤️\nby HatsuneMikuUwU Development</string>
+    <string name="uwu_splash_summary">Version %1$s (%2$d)</string>
+
+    <string name="uwu_miku_gender_title">Gender </string>
+    <string name="uwu_miku_gender_summary">Female</string>
+    <string name="uwu_miku_birthday_title">Birthday </string>
+    <string name="uwu_miku_birthday_summary">August 31</string>
+    <string name="uwu_miku_age_title">Age </string>
+    <string name="uwu_miku_age_summary">16</string>
+    <string name="uwu_miku_voice_title">Voice </string>
+    <string name="uwu_miku_voice_summary">Saki Fujita</string>
+    <string name="uwu_miku_weight_title">Weight </string>
+    <string name="uwu_miku_weight_summary">42 kg</string>
+    <string name="uwu_miku_height_title">Height </string>
+    <string name="uwu_miku_height_summary">158 cm</string>
+    <string name="uwu_about_miku_title">Who is Hatsune Miku?</string>
+    <string name="uwu_about_miku_summary">Hatsune Miku is a Vocaloid-based virtual singer released by Crypton Future Media, code-named CV01. Known for her long turquoise twintails and clear voice, she is a 16-year-old girl and a globally renowned virtual idol. She is active in music, concerts, and anime, and is deeply loved by her fans.</string>
+
+    <string name="title_character_license">Character License</string>
+    <string name="summary_character_license">Hatsune Miku and other Vocaloid characters are the property of Crypton Future Media, Inc. This app uses them under the Piapro Character License (PCL), which permits free, non-commercial fan use. Commercial use requires separate permission from Crypton.\n\nhttps://piapro.net/en_for_creators.html</string>
+
+    <string name="uwu_random_text_1">Beautiful day for a song!</string>
+    <string name="uwu_random_text_2">Have a great day, Master!</string>
+    <string name="uwu_random_text_3">"Let\'s do our best! 39!"</string>
+    <string name="uwu_random_text_4">Looking for a leek?</string>
+    <string name="uwu_random_text_5">"Focus! Ready, go!"</string>
+    <string name="uwu_random_text_6">Miku-Miku ni shite ageru!</string>
+    <string name="uwu_random_text_7">Welcome back, Master!</string>
+    <string name="uwu_random_text_8">Let the music in..!</string>
+    <string name="uwu_random_text_9">Reach the highest note!</string>
+    <string name="uwu_random_text_10">Writing lyrics for me?</string>
+
+    <string name="uwu_greeting_morning">Good morning...</string>
+    <string name="uwu_greeting_afternoon">Good afternoon...</string>
+    <string name="uwu_greeting_evening">Good evening...</string>
+    <string name="uwu_greeting_night">Good night...</string>
+    <string name="uwu_greeting_late_night">"It's time to go to sleep..."</string>
+
+    <string name="uwu_profile_banner_title">master</string>
+    <string name="uwu_profile_banner_title_custom">Hi, %1$s</string>
+
+    <string name="banner_profile_category">Profile</string>
+    <string name="profile_name_custom_title">Header name</string>
+    <string name="profile_name_custom_dialog">Change display name</string>
+    <string name="banner_profile_custom_title">Change profile banner</string>
+    <string name="banner_profile_custom_summary">Set a custom image for the profile header (optional)</string>
+    <string name="title_profile_banner_shape">Profile image shape</string>
+    <string name="delete_custom_banner_profile">Remove custom profile banner</string>
+    <string name="delete_custom_banner_profile_summary">Custom banner removed. Default profile banner will be used instead</string>
+    <string name="custom_banner_profile_set">Profile banner updated successfully.</string>
+
+    <string name="home_banner_category">Home Banner</string>
+    <string name="home_banner_disable_title">Disable home banner</string>
+    <string name="home_banner_disable_summary">Hide the banner image at the top of the home screen</string>
+    <string name="home_banner_custom_title">Change home banner</string>
+    <string name="home_banner_custom_summary">Set a custom image for the home header (optional)</string>
+    <string name="home_banner_delete_title">Remove custom home banner</string>
+    <string name="home_banner_delete_summary">Custom banner removed. Default home banner will be used instead</string>
+    <string name="home_banner_updated">Home banner updated successfully.</string>
+    <string name="theme_banner_updated">Banner updated successfully.</string>
+    <string name="theme_banner_delete_title">Remove custom banner</string>
+    <string name="theme_banner_delete_summary">Custom banner removed. Default banner will be used instead</string>
+    <string name="pref_home_banner_height_title">Banner height</string>
+    <string name="pref_home_banner_height_summary_value">%1$ddp</string>
+    <string name="pref_header_top_row_padding_title">Header top padding</string>
+    <string name="pref_header_top_row_padding_summary_value">%1$ddp</string>
+
+    <string name="sheet_banner_category">Bottomsheet Banner</string>
+    <string name="sheet_banner_custom_title">Change sheet banner</string>
+    <string name="sheet_banner_custom_summary">Set a custom image for the bottomsheet (optional)</string>
+    <string name="sheet_banner_delete_title">Remove custom sheet banner</string>
+    <string name="sheet_banner_delete_summary">Custom banner removed. Default sheet banner will be used instead</string>
+    <string name="sheet_banner_updated">Sheet banner updated successfully.</string>
+    <string name="particles_enable_title">Enable particles animation</string>
+    <string name="particles_enable_summary">Show the particles effect in bottomsheet</string>
+    <string name="snowflakes_enable_title">Enable snowfall animation</string>
+    <string name="snowflakes_enable_summary">Show falling snowflakes on the Home screen</string>
+    <string name="title_category_quick_actions">Quick Actions</string>
+    <string name="title_pref_show_quick_actions">Show quick actions bar</string>
+    <string name="summary_pref_show_quick_actions">Show a row of shortcut buttons below the connection status card for subscription update, country code test, tcping, and real delay test</string>
+    <string name="snowflakes_speed_title">Snowfall speed</string>
+    <string name="snowflakes_speed_value">Speed: %1$s</string>
+    <string name="snowflakes_speed_summary_value">Animation speed: %1$s</string>
+    <string name="snowflakes_count_title">Snowflake amount</string>
+    <string name="snowflakes_count_value">Snowflakes: %1$d</string>
+    <string name="snowflakes_count_summary_value">Snowflake amount: %1$d</string>
+    <string name="snowflakes_settings_title">Snowfall settings</string>
+    <string name="snowflakes_size_value">Size: %1$s×</string>
+    <string name="snowflakes_opacity_value">Opacity: %1$s</string>
+    <string name="snowflakes_wind_value">Wind: %1$s×</string>
+    <string name="snowflakes_life_value">Lifetime: %1$s s</string>
+    <string name="snowflakes_settings_summary_value">Speed: %1$s · Snowflakes: %2$d · Size: %3$s× · Opacity: %4$s · Wind: %5$s× · Lifetime: %6$s s</string>
+
+    <string name="pref_particles_settings_title">Particle animation settings</string>
+    <string name="pref_particles_settings_summary">Adjust speed, size, density and more</string>
+
+    <string name="particles_slider_frame_delay_label">Animation speed (frame delay)</string>
+    <string name="particles_slider_line_length_label">Line length</string>
+    <string name="particles_slider_line_thickness_label">Line thickness</string>
+    <string name="particles_slider_radius_max_label">Particle max radius</string>
+    <string name="particles_slider_radius_min_label">Particle min radius</string>
+    <string name="particles_slider_density_label">Particle density</string>
+    <string name="particles_slider_speed_factor_label">Movement speed factor</string>
+
+    <string name="selected_banner_category">Selected Profile Style</string>
+    <string name="selected_banner_enable_title">Banner style for selected profile</string>
+    <string name="selected_banner_enable_summary">Show a banner image behind the active server card. Uses the default banner unless a custom one is set</string>
+    <string name="title_category_toolbar_style">Toolbar style</string>
+    <string name="title_pref_toolbar_center_subtitle_mode">Center toolbar subtitle</string>
+    <string name="summary_pref_toolbar_center_subtitle_mode">Show a centered subtitle with fade animation instead of the plain standard title</string>
+    <string name="selected_banner_dim_title">Banner overlay strength</string>
+    <string name="selected_banner_dim_summary_value">%1$d%%</string>
+    <string name="sheet_banner_dim_title">Banner overlay strength</string>
+    <string name="sheet_banner_dim_summary_value">%1$d%%</string>
+    <string name="selected_banner_custom_title">Change selected profile banner</string>
+    <string name="selected_banner_custom_summary">Set a custom image for the selected server card (optional)</string>
+    <string name="selected_banner_delete_title">Remove custom selected profile banner</string>
+    <string name="selected_banner_delete_summary">Custom banner removed. Default banner will be used instead</string>
+    <string name="selected_banner_updated">Selected profile banner updated successfully.</string>
+    <string name="pref_indicator_style_summary_disabled_by_banner">Disabled while the selected profile banner style is active</string>
+
+    <string name="title_alerter_info">Info</string>
+    <string name="title_alerter_success">Success</string>
+    <string name="label_enable">Enable</string>
+    <string name="label_disable">Disable</string>
+    <string name="title_alerter_error">Error</string>
+
+    <string name="title_pref_enable_blur">Enable Blur</string>
+    <string name="summary_pref_enable_blur">Enable background blur effect on windows</string>
+    <string name="title_pref_blur_bottom_status">Blur Status Bottom Card</string>
+    <string name="summary_pref_blur_bottom_status">Enable blur effect on the status  bottom card</string>
+    <string name="title_pref_blur_bottom_blob_anim">Liquid Blob Animation</string>
+    <string name="summary_pref_blur_bottom_blob_anim">Show a floating liquid blob animation on the bottom status blur</string>
+    <string name="pref_blur_intensity">Blur Intensity</string>
+    <string name="blur_intensity_radius_label">Blur Radius (2–100)</string>
+    <string name="blur_intensity_rounds_label">Blur Iterations (1–15)</string>
+    <string name="summary_blur_intensity_value">Radius: %1$d · Iterations: %2$d</string>
+    <string name="summary_blur_intensity_system_value">Radius: %1$d · System blur</string>
+    <string name="pref_blur_bottom_intensity">Bottom Card Blur Intensity</string>
+    <string name="blur_bottom_radius_label">BlurView Radius (0–25)</string>
+    <string name="blur_bottom_alpha_label">Background Opacity (0–100%)</string>
+    <string name="summary_blur_bottom_intensity_value">Radius: %1$.1f · Opacity: %2$d%%</string>
+    <string name="title_blur_settings">Blur Settings</string>
+    <string name="title_blur_warning">High iterations (10+) may cause FPS drops. Recommended: 2-5 iterations with radius 25-40</string>
+
+    <string name="sub_setting_tab_icon">Tab icon</string>
+    <string name="sub_setting_tab_icon_hint">Shown next to the group name in the tab bar</string>
+    <string name="sub_tab_icon_none">None</string>
+
+    <string name="weather_loading">Loading…</string>
+
+    <string name="title_pref_reset_all_settings">Reset All Settings</string>
+    <string name="dialog_reset_settings_title">Reset All Settings?</string>
+    <string name="dialog_reset_settings_message">This will restore all settings to their default values.\n\nServer profiles and subscriptions will not be deleted.\n\nThis action cannot be undone.</string>
+    <string name="dialog_reset_settings_confirm">Reset</string>
+    <string name="reset_settings_success">Settings have been reset to default.</string>
+
+    <string name="searchpreference_search">Search…</string>
+    <string name="searchpreference_clear">Clear</string>
+    <string name="searchpreference_more">More</string>
+    <string name="searchpreference_clear_history">Clear history</string>
+    <string name="searchpreference_no_results">No results</string>
+
+    <string name="title_pref_app_icon">App Icon</string>
+    <string name="app_icon_updated">App icon updated. It may take a moment to appear on your home screen.</string>
+
+    <string name="title_pref_custom_app_name">App Name</string>
+    <string name="summary_pref_custom_app_name">Also renames the launcher/app-drawer icon. Some launchers cache the old name until you restart them or reboot.</string>
+    <string name="app_name_variant_miku1">HatsuneRay</string>
+    <string name="app_name_variant_miku2">MikuNG</string>
+    <string name="app_name_variant_miku3">HatsuneNG</string>
+    <string name="app_name_variant_miku4">MikuTunnel</string>
+    <string name="app_name_variant_miku5">MikuBoard</string>
+    <string name="app_name_variant_miku6">MikuPoi</string>
+    <string name="app_name_variant_miku7">MikuHub</string>
+    <string name="app_name_variant_miku8">MikuCube</string>
+    <string name="app_name_variant_miku9">MikuDayo</string>
+    <string name="app_name_variant_miku10">MikuProxy</string>
+    <string name="app_name_variant_miku11">MikuExpo</string>
+    <string name="app_name_variant_miku12">v2mikuNG</string>
+
+    <string name="subtitle_server_config">Configure the connection details for this server</string>
+    <string name="subtitle_routing_edit">Add or edit a single routing rule</string>
+    <string name="subtitle_routing_setting">Manage your custom routing rules</string>
+    <string name="subtitle_check_update">See if a newer app version is available</string>
+    <string name="subtitle_logcat">View the app\'s runtime logs</string>
+    <string name="subtitle_weather_forecast">Hourly and daily forecast details</string>
+    <string name="subtitle_backup">Back up or restore your configuration</string>
+    <string name="subtitle_app_picker">Choose which apps to include</string>
+    <string name="subtitle_per_app_proxy">Choose which apps use the VPN</string>
+    <string name="subtitle_about">App info, version, and credits</string>
+    <string name="subtitle_library">Open source libraries used by this app</string>
+    <string name="subtitle_user_asset">Manage geo data and asset files</string>
+    <string name="subtitle_user_asset_url">Add an asset file from a URL</string>
+    <string name="subtitle_sub_edit">Edit this subscription\'s settings</string>
+    <string name="subtitle_sub_setting">Manage your subscriptions</string>
+    <string name="subtitle_fragment_settings">Configure traffic fragmentation</string>
+    <string name="subtitle_core_settings">Configure the proxy core engine</string>
+    <string name="subtitle_vpn_settings">Configure VPN connection behavior</string>
+    <string name="subtitle_advanced_settings">Advanced app configuration</string>
+    <string name="subtitle_ui_settings">Theme, appearance and fonts</string>
+        <string name="subtitle_settings">App preferences and configuration</string>
+    <string name="action_export_ui_theme">Export theme</string>
+    <string name="ui_theme_export_name_title">Name your theme</string>
+    <string name="ui_theme_export_name_message">Enter a name for the theme file you want to export.</string>
+    <string name="ui_theme_export_name_hint">Theme name</string>
+    <string name="ui_theme_export_name_error_empty">Enter a theme name.</string>
+    <string name="action_import_ui_theme">Import theme</string>
+    <string name="ui_theme_exported">Theme exported successfully.</string>
+    <string name="ui_theme_export_failed">Unable to export the theme.</string>
+    <string name="ui_theme_import_title">Import UI theme</string>
+    <string name="ui_theme_import_message">All UI settings, banners, and custom fonts on this device will be replaced by the selected theme.</string>
+    <string name="ui_theme_imported">Theme imported successfully. Updating the appearance.</string>
+    <string name="ui_theme_import_failed">Unable to import the theme: %1$s</string>
+    <string name="title_pref_use_system_blur">Use system blur</string>
+    <string name="summary_pref_use_system_blur">Use native Android window blur when available</string>
+
+    <!-- Strings for arrays.xml entries -->
+    <string name="mux_xudp_quic_reject">reject</string>
+    <string name="mux_xudp_quic_allow">allow</string>
+    <string name="mux_xudp_quic_skip">skip</string>
+    <string name="share_export_clipboard">Export to clipboard</string>
+    <string name="share_export_full_clipboard">Export full config to clipboard</string>
+    <string name="share_edit">Edit</string>
+    <string name="share_delete">Delete</string>
+    <string name="mode_entry_vpn">VPN</string>
+    <string name="mode_entry_proxy_only">Proxy only</string>
+    <string name="browser_dialer_mode_disable">Disable</string>
+    <string name="browser_dialer_mode_okhttp">OkHttp</string>
+    <string name="browser_dialer_mode_webview">WebView</string>
+    <string name="ui_mode_night_follow_system">Follow system</string>
+    <string name="ui_mode_night_light">Light</string>
+    <string name="ui_mode_night_dark">Dark</string>
+    <string name="ui_mode_night_auto">Auto (day/night)</string>
+    <string name="preset_ruleset_china_whitelist">China Whitelist</string>
+    <string name="preset_ruleset_china_blacklist">China Blacklist</string>
+    <string name="preset_ruleset_global">Global</string>
+    <string name="preset_ruleset_iran_whitelist">Iran Whitelist</string>
+    <string name="preset_ruleset_russia_whitelist">Russia Whitelist</string>
+    <string name="vpn_bypass_lan_follow_config">Follow config</string>
+    <string name="vpn_bypass_lan_bypass">Bypass</string>
+    <string name="vpn_bypass_lan_not_bypass">Not Bypass</string>
+    <string name="outbound_resolve_do_not_resolve">Do not resolve</string>
+    <string name="outbound_resolve_add_dns_hosts">Resolve and add to DNS Hosts</string>
+    <string name="outbound_resolve_replace_domain">Resolve and replace domain</string>
+    <string name="policy_group_least_ping">Least Ping</string>
+    <string name="policy_group_least_load">Least Load</string>
+    <string name="policy_group_random">Random</string>
+    <string name="policy_group_round_robin">Round Robin</string>
+    <string name="config_backup_local">Local</string>
+    <string name="config_backup_webdav">WebDAV</string>
+
+    <!-- MikuBox additions (2026-10-02, deliberate deviation from upstream
+         MikuRay): strings for MikuBox-specific surfaces — the routing screen,
+         group dialogs, the subscription editor's extra row, the VPN background
+         protection section and the profile-editor YAML precheck. Upstream
+         re-sync would remove them; they are documented in the fix notes. -->
+    <string name="mihomo_autoconnect_title">Auto-connect on start</string>
+    <string name="mihomo_autoconnect_summary">Connect the selected profile when the app starts, if VPN consent was already granted.</string>
+    <string name="mihomo_update_when_connected_only">Update only while connected</string>
+    <string name="mihomo_update_when_connected_only_summary">Subscription updates run only while the VPN is connected, so the provider is never contacted directly.</string>
+    <string name="mihomo_yaml_parse_failed">Failed to parse YAML: %1$s</string>
+    <string name="mihomo_config_parse_failed">Could not parse the profile — fix it in the raw YAML editor: %1$s</string>
+    <string name="mihomo_group_name_hint">Group name</string>
+    <string name="mihomo_group_create_title">Create group</string>
+    <string name="mihomo_group_manage_title">Manage groups</string>
+    <string name="mihomo_group_manage_empty">The default Miku group collects profiles and cannot be deleted. You can create new groups.</string>
+    <string name="mihomo_group_entry_count">%1$s · %2$d profiles</string>
+    <string name="mihomo_group_delete_title">Delete group “%1$s”?</string>
+    <string name="mihomo_group_delete_message">Profiles and subscriptions in this group move back to Miku. Their content, subscription settings and the current connection are kept.</string>
+    <string name="mihomo_group_delete_action">Delete group</string>
+    <string name="mihomo_group_choose_title">Groups</string>
+    <!-- The home screen's add-config dialog and its screen-reader labels
+         (hard-coded Chinese before; the create/manage entries reuse the
+         mihomo_group_* strings above). -->
+    <string name="menu_add_title">Add</string>
+    <string name="menu_add_subscription">Add subscription</string>
+    <string name="btn_add_sub_description">Add a subscription or config group</string>
+    <!-- The subscription gate: updateWhenConnectedOnly refuses to contact the
+         provider while the tunnel is down, and the editor says so. -->
+    <string name="subscription_update_requires_connection">Update only while connected: the tunnel is down, so the subscription was not fetched. Connect first, then update again.</string>
+    <string name="mihomo_group_new_action">New group</string>
+    <string name="mihomo_group_name_required">Enter a group name</string>
+    <string name="mihomo_group_name_exists">This group name is already in use</string>
+    <string name="mihomo_group_default_undeletable">The default group cannot be deleted</string>
+    <string name="mihomo_group_missing">Unknown group</string>
+    <string name="mihomo_routing_title">Routing</string>
+    <string name="mihomo_routing_description">In rule mode traffic is split by profile and policy. Disabled rules take no part in matching; traffic matching no rule goes direct. Changes apply on the next connection, or reconnect right away.</string>
+    <string name="mihomo_routing_apply_now">Apply to the current connection</string>
+    <string name="mihomo_routing_saved_next_connect">Saved — applies on the next connection</string>
+    <string name="mihomo_routing_reconnecting">Reconnecting…</string>
+    <string name="mihomo_routing_reconnect_failed">Could not reconnect — retry manually</string>
+    <string name="mihomo_routing_empty">No profiles yet — import a profile or subscription first.</string>
+    <string name="mihomo_routing_no_rules">This file has no rules to split traffic</string>
+    <string name="mihomo_routing_parse_failed">Could not parse: %1$s</string>
+    <plurals name="mihomo_routing_rule_count">
+        <item quantity="one">%1$d rule</item>
+        <item quantity="other">%1$d rules</item>
+    </plurals>
+    <string name="mihomo_vpn_battery_ok">Android battery optimization is ignored; vendor-specific background and autostart permissions still need to be granted separately.</string>
+    <string name="mihomo_vpn_battery_off">Android battery optimization is not ignored yet — tap to request it. The decision is up to you and the system.</string>
+    <string name="mihomo_vpn_always_on_enabled">System Always-on VPN is on.\u0020</string>
+    <string name="mihomo_vpn_lockdown_on">Block connections without VPN is on; the system blocks the network during recovery.</string>
+    <string name="mihomo_vpn_lockdown_off">Block connections without VPN is off.</string>
+    <string name="mihomo_vpn_always_on_hint">Tap to open the system VPN settings. The system manages connection recovery — no need to pin the app in Recents; closing the app screens does not disconnect.</string>
+    <string name="mihomo_vpn_recovery_paused">Automatic recovery failed three times in a row and is paused. Check the profile and background permissions, then connect manually.</string>
+    <string name="mihomo_vpn_recovery_summary">Tries to recover after an unexpected interruption; repeated failures back off and pause instead of retaking the network. Force-stopping the app or revoking VPN permission interrupts the connection.</string>
+    <string name="mihomo_vpn_recovery_title">Connection recovery status</string>
+    <string name="mihomo_vpn_bg_category">Background connection protection</string>
+    <string name="mihomo_vpn_always_on_title">System VPN · Always-on</string>
+    <string name="mihomo_vpn_battery_title">Allow ignoring battery optimization</string>
+    <string name="mihomo_vpn_oem_title_coloros">ColorOS / OnePlus background settings</string>
+    <string name="mihomo_vpn_oem_title">App background settings</string>
+    <string name="mihomo_vpn_oem_summary">Allow background activity, autostart and related launching in the system app info (options vary by system). The app cannot grant these itself; a battery optimization exemption is not a vendor cleanup exemption.</string>
+    <string name="mihomo_vpn_open_settings_failed">Could not open system settings — open MikuBox app info from the system Settings.</string>
+    <!-- Accessibility labels for controls that carry no visible text
+         (N1/N7/N10-N11/N22/N27/N29 of the 2026-10-02 a11y pass). -->
+    <string name="a11y_open_main_menu">Open main menu</string>
+    <string name="a11y_more_options">More options</string>
+    <string name="subscription_import_url_hint">Subscription URL</string>
+    <string name="a11y_selected">Selected</string>
+    <string name="a11y_status_card_test_action">Speed-test the selected profile</string>
+    <string name="qr_code_description">Configuration QR code</string>
+    <string name="qr_flashlight_toggle">Toggle flashlight</string>
+    <string name="profile_editor_edit_row">Edit %1$s</string>
+    <string name="a11y_navigate_back">Back</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mihomo_on_demand">按需连接</string>
+    <string name="mihomo_on_demand_hint">在允许的网络上连接，进入排除的 Wi-Fi 时断开。手动断开后，本次网络不再自动重连。关闭此开关保留当前连接。</string>
+    <string name="mihomo_network_wifi">在 Wi-Fi 下连接</string>
+    <string name="mihomo_network_cellular">在移动网络下连接</string>
+    <string name="mihomo_network_ethernet">在以太网下连接</string>
+    <string name="mihomo_network_other">在其他网络下连接</string>
+    <string name="mihomo_on_demand_excluded">排除的 Wi-Fi</string>
+    <string name="mihomo_on_demand_excluded_hint">每行一个完整 Wi-Fi 名称，区分大小写，最长 32 个 UTF-8 字节。无法读取名称时保持断开。</string>
+    <string name="mihomo_on_demand_permission">读取 Wi-Fi 名称权限</string>
+    <string name="mihomo_on_demand_permission_hint">仅排除指定 Wi-Fi 时需要：授予精确位置，再到系统设置选择“始终允许”，并开启设备定位。点击授权或进入设置。</string>
+    <string name="mihomo_on_demand_permission_ready">已授予位置权限。请保持设备定位开启，以读取 Wi-Fi 名称。</string>
+    <string name="mihomo_on_demand_waiting">等待网络</string>
+    <string name="mihomo_on_demand_connecting">当前网络允许自动连接</string>
+    <string name="mihomo_on_demand_paused">当前网络暂停连接，正在监听网络变化</string>
+    <string name="mihomo_on_demand_ssid_missing">已暂停：无法读取 Wi-Fi 名称，请检查定位权限。</string>
+    <string name="mihomo_on_demand_setup">请先选择已下载的配置并授予 VPN 权限。</string>
+    <string name="mihomo_on_demand_stop">停用并断开</string>
+    <string name="mihomo_script">配置覆写脚本</string>
+    <string name="mihomo_script_enable">启用全局脚本</string>
+    <string name="mihomo_script_summary">用于继承全局脚本的配置，在设置覆写前执行；脚本错误会停止连接。</string>
+    <string name="mihomo_script_edit">编辑与测试脚本</string>
+    <string name="mihomo_script_hint">定义 main(config) 并返回配置对象。预览不改变连接。不提供文件、网络或定时器访问，执行限时 2 秒。设置项与 Android TUN 字段优先。</string>
+    <string name="mihomo_script_save">校验并保存</string>
+    <string name="mihomo_script_test">预览结果</string>
+    <string name="mihomo_script_result">脚本结果（尚未应用设置覆写）</string>
+    <string name="mihomo_script_error">脚本执行失败</string>
+    <string name="mihomo_script_library">脚本库</string>
+    <string name="mihomo_script_library_hint">新建、编辑、重命名和删除可复用脚本</string>
+    <string name="mihomo_script_bindings">按配置绑定脚本</string>
+    <string name="mihomo_script_bindings_hint">为每个配置选择专用脚本、继承全局脚本或禁用脚本</string>
+    <string name="mihomo_script_inherit">继承全局脚本</string>
+    <string name="mihomo_script_none">禁用脚本</string>
+    <string name="mihomo_script_add">新建脚本</string>
+    <string name="mihomo_script_rename">重命名</string>
+    <string name="mihomo_script_delete">删除脚本</string>
+    <string name="mihomo_script_deleted">此脚本已被删除。</string>
+    <string name="mihomo_script_delete_hint">删除“%1$s”？绑定此脚本的配置将改为禁用脚本，不会自动改用全局脚本。</string>
+    <string name="mihomo_script_name">脚本名称</string>
+    <string name="mihomo_script_name_invalid">请输入不重复的名称</string>
+    <string name="mihomo_script_preview_profile">预览配置：%1$s</string>
+</resources>

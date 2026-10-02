@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.File
+import java.io.ByteArrayOutputStream
+import java.time.LocalDate
 import java.util.Properties
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
@@ -8,6 +10,16 @@ import java.util.zip.ZipOutputStream
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.aboutLibraries)
+}
+
+// The about screen reads the licence list the plugin generates from the
+// dependency graph, exactly as MikuRay's does.
+aboutLibraries {
+    collect {
+        includeTestVariants.set(false)
+        filterVariants.addAll("debug", "release")
+    }
 }
 
 val localProps = Properties().apply {
@@ -21,17 +33,38 @@ fun secret(name: String): String? =
         ?: System.getenv(name)?.takeIf { it.isNotBlank() }
 
 android {
-    namespace = "top.uwu.mikubox"
+    namespace = "com.mikubox.mihomo"
     compileSdk = 36
     buildToolsVersion = "36.1.0"
     ndkVersion = "29.0.13599879"
 
     defaultConfig {
-        applicationId = "top.uwu.mikubox"
+        testInstrumentationRunner = "com.mikubox.mihomo.RuntimeSmokeInstrumentation"
+        applicationId = "com.mikubox.mihomo"
         minSdk = 24
         targetSdk = 36
-        versionCode = 10
-        versionName = "UwU-1.0.0"
+        // Release workflows override both with the pushed tag (and the CI run
+        // number, which only ever grows) so a tagged build reports and sorts
+        // as the version it publishes. Local builds read the same values from
+        // gradle.properties (appVersionName/appVersionCode) — the single source
+        // :mikuray-ui reads too, so the about screen cannot drift from the
+        // package version again.
+        val releaseVersionName = (findProperty("versionNameOverride") as String?)?.takeIf { it.isNotBlank() }
+            ?: (findProperty("appVersionName") as String?)?.takeIf { it.isNotBlank() }
+            ?: error("Set appVersionName in gradle.properties or pass -PversionNameOverride")
+        val releaseVersionCode = (findProperty("versionCodeOverride") as String?)?.toIntOrNull()
+            ?: (findProperty("appVersionCode") as String?)?.toIntOrNull()
+            ?: error("Set appVersionCode in gradle.properties or pass -PversionCodeOverride")
+        versionCode = releaseVersionCode
+        versionName = releaseVersionName
+
+        // The ported banner card (uwu_banner_theme / uwu_maintainer) reads these
+        // the same way MikuRay's does — MikuRay declares them as resValues in its
+        // build script, so the vendored layouts expect the names to exist.
+        val bannerVersionName = releaseVersionName
+        resValue("string", "uwu_version_name", bannerVersionName)
+        resValue("string", "uwu_package_name", "com.mikubox.mihomo")
+        resValue("string", "uwu_build_date", LocalDate.now().toString())
 
         externalNativeBuild {
             cmake {
@@ -57,7 +90,19 @@ android {
 
     buildFeatures {
         viewBinding = true
+        // The ported screens read BuildConfig.VERSION_NAME / APPLICATION_ID the
+        // way MikuRay's do (the about screen prints both).
+        buildConfig = true
     }
+
+    // MikuRay's vendored sources are compiled by :mikuray-ui (they need to see
+    // the view bindings generated there), so this module only compiles MikuBox's
+    // own code and consumes the rest as a dependency. The java filter alone
+    // leaves the .kt files to this module's Kotlin compiler, which then ships
+    // duplicate classes the release dexer rejects.
+    sourceSets.getByName("main").java.filter.exclude("com/miku/ray/**")
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 
     splits {
         abi {
@@ -69,6 +114,11 @@ android {
     }
 
     packaging {
+        // ART can map DEX directly instead of inflating every file on cold
+        // starts. Keep this explicit for Debug APKs as well as Release.
+        dex {
+            useLegacyPackaging = false
+        }
         resources {
             excludes += listOf(
                 "DebugProbesKt.bin",
@@ -89,7 +139,12 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // R8 shrinking only — proguard-rules.pro pins -dontobfuscate so stack
+            // traces stay readable, and carries an explicit keep for the
+            // MihomoCore native methods (AGP's default file keeps `native
+            // <methods>` too; the explicit rule does not depend on it).
+            isMinifyEnabled = true
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -104,6 +159,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
+        // MikuRay's sources use java.time and java.util.stream on API 24.
+        isCoreLibraryDesugaringEnabled = true
     }
 }
 
@@ -113,14 +170,91 @@ val mihomoJniLibsDir = layout.buildDirectory.dir("generated/mihomo-jniLibs")
 
 android.sourceSets.getByName("main").jniLibs.srcDir(mihomoJniLibsDir)
 
+val mihomoOverlay = layout.buildDirectory.file("mihomo-overlay.json")
+val mihomoPatchedMod = layout.buildDirectory.file("mihomo-patched.mod")
+val patchedSingTun = layout.buildDirectory.dir("patched/sing-tun")
+val prepareMihomoOverlay by tasks.registering {
+    inputs.file(mihomoBridgeDir.resolve("go.mod"))
+    inputs.file(mihomoBridgeDir.resolve("go.sum"))
+    inputs.dir(rootProject.file("core/patches"))
+    outputs.file(mihomoOverlay)
+    outputs.file(mihomoPatchedMod)
+    outputs.dir(patchedSingTun)
+    // Module-cache paths differ across hosts and can disappear after cleanup.
+    outputs.upToDateWhen { false }
+    doLast {
+        exec {
+            workingDir = mihomoBridgeDir
+            commandLine("go", "mod", "download", "github.com/metacubex/sing-tun")
+        }
+        val modulePath = ByteArrayOutputStream()
+        exec {
+            workingDir = mihomoBridgeDir
+            commandLine("go", "list", "-m", "-f", "{{.Dir}}", "github.com/metacubex/sing-tun")
+            standardOutput = modulePath
+        }
+        val singTunDir = File(modulePath.toString().trim())
+        check(singTunDir.resolve("stack_gvisor_filter.go").isFile) { "sing-tun filter source not found" }
+        // Go forbids overlays inside GOMODCACHE. Patch an isolated generated
+        // copy instead, with a separate modfile shared by builds and tests.
+        patchedSingTun.get().asFile.walkTopDown().forEach { it.setWritable(true) }
+        sync {
+            from(singTunDir)
+            exclude("stack_gvisor_filter.go")
+            into(patchedSingTun)
+            dirPermissions { unix("0755") }
+            filePermissions { unix("0644") }
+        }
+        rootProject.file("core/patches/stack_gvisor_filter.go").copyTo(
+            patchedSingTun.get().file("stack_gvisor_filter.go").asFile, overwrite = true)
+        val patchedMod = mihomoPatchedMod.get().asFile
+        mihomoBridgeDir.resolve("go.mod").copyTo(patchedMod, overwrite = true)
+        mihomoBridgeDir.resolve("go.sum").copyTo(patchedMod.resolveSibling("mihomo-patched.sum"), overwrite = true)
+        exec {
+            workingDir = mihomoBridgeDir
+            commandLine("go", "mod", "edit", "-modfile=${patchedMod.absolutePath}",
+                "-replace=github.com/metacubex/sing-tun=${patchedSingTun.get().asFile.absolutePath}")
+        }
+        val overlay = mihomoOverlay.get().asFile
+        overlay.parentFile.mkdirs()
+        fun jsonPath(file: File) = file.absolutePath.replace("\\", "\\\\").replace("\"", "\\\"")
+        val replacements = mapOf(
+            mihomoSourceDir.resolve("listener/sing_tun/server_notwindows.go") to rootProject.file("core/patches/server_notwindows.go"),
+            mihomoSourceDir.resolve("dns/patch_android.go") to rootProject.file("core/patches/patch_android.go"),
+        )
+        overlay.writeText("{\"Replace\":{" + replacements.entries.joinToString(",") {
+            "\"${jsonPath(it.key)}\":\"${jsonPath(it.value)}\""
+        } + "}}")
+    }
+}
+
+val testMihomoBridge by tasks.registering {
+    group = "verification"
+    description = "Tests the native bridge with the same dependency patches shipped in APKs."
+    dependsOn(prepareMihomoOverlay)
+    doLast {
+        exec {
+            workingDir = mihomoBridgeDir
+            commandLine("go", "test", "-modfile=${mihomoPatchedMod.get().asFile.absolutePath}",
+                "-overlay=${mihomoOverlay.get().asFile.absolutePath}", "-tags", "with_gvisor cmfa", "./...")
+        }
+    }
+}
+
 val buildMihomoBridge by tasks.registering {
     group = "build"
-    description = "Builds the bundled HSSkyBoy/mihomo Alpha JNI bridge for every Android ABI."
+    description = "Builds the bundled MetaCubeX/mihomo JNI bridge for every Android ABI."
+    dependsOn(prepareMihomoOverlay)
     inputs.dir(mihomoBridgeDir)
+    inputs.dir(rootProject.file("core/patches"))
     inputs.dir(mihomoSourceDir)
+    inputs.file(mihomoOverlay)
+    inputs.file(mihomoPatchedMod)
+    inputs.dir(patchedSingTun)
     outputs.dir(mihomoJniLibsDir)
 
     doLast {
+        val overlay = mihomoOverlay.get().asFile
         val ndkDir = android.ndkDirectory
         val hostOs = System.getProperty("os.name").lowercase()
         val (hostTag, exeExt) = when {
@@ -155,8 +289,22 @@ val buildMihomoBridge by tasks.registering {
                 environment("CC", clangDir.resolve(compiler + exeExt).absolutePath)
 
                 commandLine(
-                    "go", "build", "-trimpath", "-buildmode=c-shared",
-                    "-ldflags=-s -w", "-o", output.absolutePath, "."
+                    // with_gvisor matches Mihomo's own release build; without the
+                    // tag the gvisor/mixed TUN stacks are unavailable at runtime.
+                    //
+                    // cmfa drops Mihomo's root-only Android paths. Its sing-tun
+                    // binding reads /data/system/packages.xml to build per-app
+                    // rules; an unprivileged app gets EACCES, that step fails, and
+                    // the TUN listener is never started while hub.Parse still
+                    // reports success - a VPN that is up with no traffic at all.
+                    // The tag is Mihomo's own switch for apps that embed the core
+                    // and own the VpnService themselves.
+                    "go", "build", "-modfile=${mihomoPatchedMod.get().asFile.absolutePath}",
+                    "-overlay=${overlay.absolutePath}", "-trimpath", "-buildmode=c-shared",
+                    "-tags", "with_gvisor cmfa",
+                    // MetaCubeX tags carry a placeholder in constant.Version; stamp the
+                    // pinned core release so MihomoVersion() reports what actually shipped.
+                    "-ldflags=-s -w -X github.com/metacubex/mihomo/constant.Version=1.19.32", "-o", output.absolutePath, "."
                 )
             }
         }
@@ -167,6 +315,12 @@ tasks.configureEach {
     if (name.contains("CMake") || name.endsWith("JniLibFolders")) {
         dependsOn(buildMihomoBridge)
     }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    // Keep this module from recompiling the vendored sources that belong to
+    // :mikuray-ui (see the source set exclude above for why).
+    exclude("com/miku/ray/**")
 }
 
 val stripDebugApkMetadata by tasks.registering {
@@ -274,6 +428,8 @@ kotlin {
 }
 
 dependencies {
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.14.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -282,4 +438,39 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.zxing.core)
+
+    // MikuRay's design layer (resources) and its icon set. Both are
+    // resource-only modules; the screens that consume them live in this module
+    // under com.miku.ray.*.
+    implementation(project(":mikuray-ui"))
+    implementation(project(":remixicon"))
+
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.viewpager2)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.palette)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.runtime)
+
+    // Open-source licence list on the about screen.
+    implementation(libs.aboutlibraries.view)
+
+    // MikuRay's vendored sources use these directly.
+    implementation(libs.glide)
+    implementation(libs.ucrop)
+    implementation(libs.editorkit)
+    implementation(libs.language.base)
+    implementation(libs.language.json)
+    implementation(libs.flexbox)
+    implementation(libs.okhttp)
+    implementation(libs.gson)
+    implementation(libs.snakeyaml)
+    implementation(libs.mmkv)
+    implementation(libs.play.services.location)
+    implementation(libs.zxing.lite)
+    implementation(libs.work.multiprocess)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }

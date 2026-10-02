@@ -1,0 +1,5 @@
+# Gradle wrapper scripts must keep their native line endings:
+# gradlew is executed by sh under WSL/Linux and a CRLF shebang
+# makes the kernel look for the interpreter "/bin/sh\r".
+gradlew text eol=lf
+gradlew.bat text eol=crlf

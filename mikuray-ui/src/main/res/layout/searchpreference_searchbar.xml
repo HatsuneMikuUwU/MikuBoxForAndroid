@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/search_card"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:foregroundGravity="center_vertical"
+        app:cardBackgroundColor="?attr/colorCard"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+        <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginStart="4dp"
+                android:contentDescription="@string/searchpreference_search"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_aim_color"
+                app:tint="@null" />
+
+        <EditText
+                android:id="@+id/search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/searchpreference_search"
+                android:imeOptions="actionSearch"
+                android:inputType="textNoSuggestions"
+                android:minHeight="50dp"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
+
+        <ImageView
+                android:id="@+id/clear"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_icon_button"
+                android:contentDescription="@string/searchpreference_clear"
+                android:padding="10dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/rmx_close_line"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+        <ImageView
+                android:id="@+id/more"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_icon_button"
+                android:contentDescription="@string/searchpreference_more"
+                android:padding="10dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/rmx_more_2_line"
+                app:tint="?attr/colorOnSurfaceVariant" />
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

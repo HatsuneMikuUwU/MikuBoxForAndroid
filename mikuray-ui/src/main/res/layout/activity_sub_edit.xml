@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SubEditActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            style="?attr/collapsingToolbarLayoutLargeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:background="?attr/colorBg"
+            app:collapsedTitleTextAppearance="?attr/textAppearanceTitleLargeEmphasized"
+            app:collapsedTitleTextColor="?attr/colorOnSurface"
+            app:contentScrim="?attr/colorBg"
+            app:expandedTitleGravity="center_horizontal|bottom"
+            app:expandedTitleMarginBottom="24dp"
+            app:expandedTitleMarginEnd="24dp"
+            app:expandedTitleMarginStart="24dp"
+            app:expandedTitleMarginTop="96dp"
+            app:expandedTitleTextAppearance="?attr/textAppearanceDisplaySmallEmphasized"
+            app:expandedTitleTextColor="?attr/colorOnSurface"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleCollapseMode="fade"
+            app:titleMaxLines="3">
+
+            <TextView
+                android:id="@+id/custom_expanded_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:elevation="0dp"
+                android:theme="@style/AppThemeToolbarCircleNavigationButton"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/edit_scroll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            app:cardBackgroundColor="?attr/colorCard"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_spacing_dp16">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sub_setting_remarks"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_finance_price_tag_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_remarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_tab_icon"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_tab_icon"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/rmx_arrows_arrow_drop_down_line"
+                    app:endIconMode="custom"
+                    app:helperText="@string/sub_setting_tab_icon_hint"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/filter_all"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_tab_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="none"
+                        android:text="@string/sub_tab_icon_none"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_url"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_external_link_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_url"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:inputType="textMultiLine"
+                        android:maxLines="5"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:textColor="?attr/colorOnSurface"
+                        tools:ignore="TextFields" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_user_agent"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_user_faces_robot_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_user_agent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_request_headers"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:helperText="@string/sub_setting_request_headers_tip"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_editor_list_check_3"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_request_headers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_filter"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_system_filter_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_network_filter"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:helperText="@string/sub_setting_network_filter_tip"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_device_network_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_network_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_protocol_filter"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:helperText="@string/sub_setting_protocol_filter_tip"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_system_filter_2_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_protocol_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_pre_profile"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:helperText="@string/sub_setting_pre_profile_tip"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_arrows_arrow_left_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/et_pre_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_next_profile"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:helperText="@string/sub_setting_pre_profile_tip"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_arrows_arrow_right_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/et_next_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textColor="?attr/colorOnSurface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/title_pref_auto_update_interval"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:helperText="@string/title_pref_auto_update_interval_tip"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_system_timer_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_update_interval"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textColor="?attr/colorOnSurface"
+                        tools:ignore="TextFields" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_setting_enable"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_toggle_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/chk_enable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="?attr/colorOnSurface"
+                        app:simpleItems="@array/bool_dropdown_entries" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_allow_insecure_url"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_lock_unlock_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/allow_insecure_url"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="?attr/colorOnSurface"
+                        app:simpleItems="@array/bool_dropdown_entries" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/sub_auto_update"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_refresh_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/auto_update_check"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="?attr/colorOnSurface"
+                        app:simpleItems="@array/bool_dropdown_entries" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- MikuBox addition (2026-10-02, deliberate deviation from
+                     upstream MikuRay): exposes the profile store's
+                     updateWhenConnectedOnly flag. Re-syncing this layout from
+                     upstream removes the row; SubEditActivity re-adds the
+                     wiring, the store keeps the flag either way. -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_spacing_dp16"
+                    android:hint="@string/mihomo_update_when_connected_only"
+                    app:boxStrokeWidth="1.5dp"
+                    app:boxStrokeWidthFocused="1.5dp"
+                    app:endIconDrawable="@drawable/ic_dropdown_selector"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?attr/colorOnSurfaceVariant"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+                    app:startIconDrawable="@drawable/rmx_refresh_line"
+                    app:startIconTint="?attr/colorOnSurfaceVariant">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/update_when_connected_only"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="?attr/colorOnSurface"
+                        app:simpleItems="@array/bool_dropdown_entries" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="subscription_initial_fetch_failed">订阅已保存，但首次下载失败。请检查地址和网络，重新保存即可重试。</string>
+    <string name="subscription_update_through_proxy">通过代理更新</string>
+    <string name="subscription_update_through_proxy_summary">优先使用已连接的代理；首次尚无配置且未连接时先直连下载，后续仍按代理设置更新。</string>
+</resources>

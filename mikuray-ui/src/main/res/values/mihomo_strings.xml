@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mihomo_batch_test_unavailable">Batch tests are not available for full configurations. Connect first, then use the connection test.</string>
+
+    <!-- The version line under About and Check update: the embedded core's
+         version is labelled as mihomo's, so it is not mistaken for a second
+         app version. Lives here because the screens reading it are vendored
+         sources compiled by this module, whose R only sees these resources. -->
+    <string name="version_line_with_core">v%1$s (mihomo %2$s)</string>
+</resources>

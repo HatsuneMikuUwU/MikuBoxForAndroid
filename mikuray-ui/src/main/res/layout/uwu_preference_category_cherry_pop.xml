@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="0dp"
+    android:layout_marginTop="0dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:baselineAligned="false"
+    android:gravity="center_vertical"
+    android:paddingEnd="24dp"
+    android:paddingStart="24dp">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/uwu_icon_cherry_pop" />
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+        <TextView
+            android:id="@android:id/title"
+            style="@style/PreferenceCategoryTitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@android:id/summary"
+            style="@style/PreferenceSummaryTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@android:id/title"
+            android:layout_alignStart="@android:id/title"
+            android:layout_below="@android:id/title"
+            android:layout_gravity="start"
+            android:ellipsize="end"
+            android:maxLines="10"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            android:textColor="?android:attr/textColorPrimary"
+            android:visibility="gone" />
+    </RelativeLayout>
+    <include
+        layout="@layout/image_frame" />
+</LinearLayout>

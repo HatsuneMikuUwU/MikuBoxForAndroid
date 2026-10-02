@@ -1,0 +1,33 @@
+<resources>
+    <string name="profile_editor_title">配置编辑器</string>
+    <string name="profile_editor_hint">保存后重连生效；可视化修改会移除注释。</string>
+    <string name="profile_visual_summary">可视化修改会重新排版并移除注释。若要保留原文格式，请使用 YAML 编辑。</string>
+    <string name="profile_section_proxies">代理节点</string>
+    <string name="profile_section_groups">策略组</string>
+    <string name="profile_section_rules">分流规则</string>
+    <string name="profile_section_dns">DNS</string>
+    <string name="profile_section_providers">节点提供者</string>
+    <string name="profile_section_rule_providers">规则集</string>
+    <string name="profile_editor_general">基础设置</string>
+    <string name="profile_editor_sections">配置内容</string>
+    <string name="profile_editor_empty">暂无条目</string>
+    <string name="profile_editor_fields">%1$d 个字段</string>
+    <string name="profile_editor_items">%1$d 个条目</string>
+    <string name="profile_editor_item">第 %1$d 项</string>
+    <string name="profile_editor_enabled">已开启</string>
+    <string name="profile_editor_disabled">已关闭</string>
+    <string name="profile_editor_actions">%1$s的操作</string>
+    <string name="profile_editor_move_up">上移</string>
+    <string name="profile_editor_move_down">下移</string>
+    <string name="profile_editor_remove">删除</string>
+    <string name="profile_editor_back">返回上一级：%1$s</string>
+    <string name="profile_editor_add_item">添加条目</string>
+    <string name="profile_editor_add_field">添加字段</string>
+    <string name="profile_editor_mode">运行模式</string>
+    <string name="profile_editor_log_level">日志级别</string>
+    <string name="profile_editor_mixed_port">混合端口</string>
+    <string name="profile_editor_allow_lan">允许局域网访问</string>
+    <string name="profile_editor_visual">可视化</string>
+    <string name="profile_editor_yaml">YAML</string>
+    <string name="profile_editor_group">配置组 · %1$s</string>
+</resources>

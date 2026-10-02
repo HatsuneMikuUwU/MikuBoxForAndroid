@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search_view"
+        android:icon="@drawable/rmx_search_line"
+        android:title="@string/menu_item_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_tips"
+        android:icon="@drawable/rmx_information_line"
+        android:title="@string/switch_bypass_apps_mode"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/select_all"
+        android:icon="@drawable/rmx_system_checkbox_multiple_line"
+        android:title="@string/menu_item_select_all"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/invert_selection"
+        android:icon="@drawable/rmx_system_checkbox_multiple_line"
+        android:title="@string/menu_item_invert_selection"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/select_proxy_app"
+        android:icon="@drawable/rmx_file_text_line"
+        android:title="@string/menu_item_select_proxy_app"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/import_proxy_app"
+        android:icon="@drawable/rmx_file_text_line"
+        android:title="@string/menu_item_import_proxy_app"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/export_proxy_app"
+        android:icon="@drawable/rmx_file_text_line"
+        android:title="@string/menu_item_export_proxy_app"
+        app:showAsAction="withText" />
+
+</menu>

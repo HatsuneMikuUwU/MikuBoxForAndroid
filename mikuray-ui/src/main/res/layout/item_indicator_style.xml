@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardImage"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="4dp"
+    android:clickable="false"
+    android:focusable="true"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="?attr/colorOutlineVariant"
+    app:strokeWidth="0dp">
+
+    <FrameLayout
+        android:id="@+id/cardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:id="@+id/imagePreviewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/contentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp"
+                android:paddingTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:orientation="vertical"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="Because You're Here"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="17sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:layout_marginEnd="8dp"
+                            android:checkable="false"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:text="PinocchioP"
+                            android:textAppearance="?attr/textAppearanceTitleSmall"
+                            android:textSize="12sp"
+                            app:chipBackgroundColor="?attr/colorSecondaryContainer"
+                            app:chipMinTouchTargetSize="0dp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1.0" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@android:color/transparent"
+                                android:clickable="false"
+                                android:contentDescription="@string/title_configuration_share"
+                                android:focusable="false"
+                                app:srcCompat="@drawable/rmx_share_line"
+                                app:tint="?attr/colorOnSurfaceVariant" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@android:color/transparent"
+                                android:clickable="false"
+                                android:contentDescription="@string/menu_item_edit_config"
+                                android:focusable="false"
+                                app:srcCompat="@drawable/rmx_edit_line"
+                                app:tint="?attr/colorOnSurfaceVariant" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@android:color/transparent"
+                                android:clickable="false"
+                                android:contentDescription="@string/menu_item_del_config"
+                                android:focusable="false"
+                                app:srcCompat="@drawable/rmx_delete_bin_line"
+                                app:tint="?attr/colorError" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="www.mikuexpo.com"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1.0" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="39ms"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:textColor="@color/colorPing"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/overlayContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp" />
+
+        <ImageView
+            android:id="@+id/imageCheck"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center"
+            android:src="@drawable/rmx_checkbox_circle_line"
+            android:tint="?attr/colorPrimary"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+</com.google.android.material.card.MaterialCardView>

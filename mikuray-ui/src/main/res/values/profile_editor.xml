@@ -1,0 +1,33 @@
+<resources>
+    <string name="profile_editor_title">Config editor</string>
+    <string name="profile_editor_hint">Save, then reconnect. Visual edits remove YAML comments.</string>
+    <string name="profile_visual_summary">Visual changes reformat YAML and remove comments. Use YAML mode to edit the original text.</string>
+    <string name="profile_section_proxies">Proxies</string>
+    <string name="profile_section_groups">Proxy groups</string>
+    <string name="profile_section_rules">Routing rules</string>
+    <string name="profile_section_dns">DNS</string>
+    <string name="profile_section_providers">Proxy providers</string>
+    <string name="profile_section_rule_providers">Rule providers</string>
+    <string name="profile_editor_general">General</string>
+    <string name="profile_editor_sections">Configuration</string>
+    <string name="profile_editor_empty">No entries yet</string>
+    <string name="profile_editor_fields">%1$d fields</string>
+    <string name="profile_editor_items">%1$d entries</string>
+    <string name="profile_editor_item">Item %1$d</string>
+    <string name="profile_editor_enabled">Enabled</string>
+    <string name="profile_editor_disabled">Disabled</string>
+    <string name="profile_editor_actions">Actions for %1$s</string>
+    <string name="profile_editor_move_up">Move up</string>
+    <string name="profile_editor_move_down">Move down</string>
+    <string name="profile_editor_remove">Remove</string>
+    <string name="profile_editor_back">Back from %1$s</string>
+    <string name="profile_editor_add_item">Add entry</string>
+    <string name="profile_editor_add_field">Add field</string>
+    <string name="profile_editor_mode">Routing mode</string>
+    <string name="profile_editor_log_level">Log level</string>
+    <string name="profile_editor_mixed_port">Mixed port</string>
+    <string name="profile_editor_allow_lan">Allow LAN access</string>
+    <string name="profile_editor_visual">Visual</string>
+    <string name="profile_editor_yaml">YAML</string>
+    <string name="profile_editor_group">Group · %1$s</string>
+</resources>

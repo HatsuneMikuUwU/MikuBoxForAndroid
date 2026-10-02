@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="?attr/dialogPreferredPadding"
+    android:paddingTop="?attr/dialogPreferredPadding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title"
+            style="?attr/textAppearanceTitleMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="@string/title_real_ping_all_server"
+            android:textColor="?attr/colorOnSurface" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_counter"
+            style="?attr/textAppearanceBodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+    </LinearLayout>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:indeterminate="true"
+        app:trackCornerRadius="4dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_url_test_result" />
+
+</LinearLayout>

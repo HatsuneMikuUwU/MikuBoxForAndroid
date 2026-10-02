@@ -1,0 +1,7 @@
+<resources>
+    <string name="tile_select_profile">Select a profile first</string>
+    <string name="tile_disconnected">Disconnected</string>
+    <string name="tile_connecting">Connecting…</string>
+    <string name="tile_connected">Connected</string>
+    <string name="tile_disconnecting">Disconnecting…</string>
+</resources>

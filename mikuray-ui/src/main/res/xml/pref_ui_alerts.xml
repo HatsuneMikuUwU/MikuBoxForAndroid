@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_notification"
+        android:title="@string/title_category_notification"
+        app:sectionIcon="@drawable/rmx_system_notification_badge_line">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:icon="@drawable/rmx_speed_line"
+            android:key="pref_speed_enabled"
+            android:summary="@string/summary_pref_speed_enabled"
+            android:title="@string/title_pref_speed_enabled"
+            app:layout="@layout/uwu_top_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+         <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_eye_off_line"
+            app:dependency="pref_speed_enabled"
+            android:key="pref_hide_direct_traffic_notification"
+            android:summary="@string/summary_pref_hide_direct_traffic_notification"
+            android:title="@string/title_pref_hide_direct_traffic_notification"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+         <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_group_line"
+            android:key="pref_show_group_name_notification"
+            android:summary="@string/summary_pref_show_group_name_notification"
+            android:title="@string/title_pref_show_group_name_notification"
+            app:layout="@layout/uwu_bot_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_vpn_sound_settings"
+        android:title="@string/title_vpn_sound_settings"
+        app:sectionIcon="@drawable/rmx_volume_up_line">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:icon="@drawable/rmx_volume_up_line"
+            android:key="pref_sound_on_connect"
+            android:summary="@string/summary_pref_sound_on_connect"
+            android:title="@string/title_pref_sound_on_connect"
+            app:layout="@layout/uwu_top_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+        <Preference
+            android:dependency="pref_sound_on_connect"
+            android:icon="@drawable/rmx_volume_up_line"
+            android:key="action_pick_custom_connect_sound"
+            android:summary="@string/summary_pref_custom_connect_sound"
+            android:title="@string/title_pref_custom_connect_sound"
+            app:layout="@layout/uwu_mid" />
+        <Preference
+            android:dependency="pref_sound_on_connect"
+            android:icon="@drawable/rmx_volume_up_line"
+            android:key="action_pick_custom_disconnect_sound"
+            android:summary="@string/summary_pref_custom_disconnect_sound"
+            android:title="@string/title_pref_custom_disconnect_sound"
+            app:layout="@layout/uwu_mid" />
+        <Preference
+            android:icon="@drawable/rmx_delete_bin_line"
+            android:key="action_delete_custom_sounds"
+            android:summary="@string/summary_pref_delete_custom_sounds"
+            android:title="@string/title_pref_delete_custom_sounds"
+            app:layout="@layout/uwu_bot" />
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+</PreferenceScreen>

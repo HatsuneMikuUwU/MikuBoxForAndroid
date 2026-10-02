@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_more_menu"
+        android:icon="@drawable/rmx_file_add_line"
+        android:title="@string/menu_item_add_asset"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/download_file"
+        android:icon="@drawable/rmx_download_cloud_line"
+        android:title="@string/menu_item_download_file"
+        app:showAsAction="always" />
+
+</menu>

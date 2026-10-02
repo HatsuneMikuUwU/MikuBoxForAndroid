@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_export_ui_theme"
+        android:icon="@drawable/rmx_system_export_line"
+        android:title="@string/action_export_ui_theme"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_import_ui_theme"
+        android:icon="@drawable/rmx_system_import_line"
+        android:title="@string/action_import_ui_theme"
+        app:showAsAction="ifRoom" />
+</menu>

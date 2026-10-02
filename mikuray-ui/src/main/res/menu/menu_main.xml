@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_add_config"
+        android:icon="@drawable/rmx_file_add_line"
+        android:title="@string/menu_item_add_config"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_more_menu"
+        android:icon="@drawable/rmx_system_more_line"
+        android:title="More"
+        app:showAsAction="always" />
+</menu>

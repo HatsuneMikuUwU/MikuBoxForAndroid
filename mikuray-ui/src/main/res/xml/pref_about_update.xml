@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.miku.ray.ui.preference.CustomBannerPreference
+        android:key="pref_navigate_check_update"
+        android:layout="@layout/uwu_banner_theme"
+        android:summary="@string/uwu_update_summary"
+        android:title="@string/update_check_for_update"
+        app:icon="@drawable/rmx_download_cloud_line" />
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_about_update"
+        android:title="@string/title_about_update_category"
+        app:sectionIcon="@drawable/rmx_download_cloud_line">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_download_cloud_line"
+            android:key="pref_auto_check_update"
+            android:summary="@string/summary_pref_auto_check_update"
+            android:title="@string/title_pref_auto_check_update"
+            app:layout="@layout/uwu_sin_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+</PreferenceScreen>

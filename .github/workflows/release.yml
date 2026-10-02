@@ -1,0 +1,98 @@
+name: Build release
+
+# Cutting a tag builds the signed release APKs and publishes them as a
+# draft GitHub release. Publish after verifying signed assets; the in-app
+# updater only reads published releases.
+# Touching this file re-registers the workflow with Actions — the 2026-09
+# branch history rewrite dropped it from the registry, so tag pushes
+# silently did nothing until it was pushed again.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout with the pinned mihomo core
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Go for the mihomo bridge
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: core/mihomo-bridge/go.mod
+          cache: true
+          cache-dependency-path: |
+            core/mihomo-bridge/go.sum
+            core/mihomo/go.sum
+
+      - name: Install the pinned Android build tools
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install \
+            "ndk;29.0.13599879" "cmake;3.22.1"
+
+      - name: Verify Kotlin and native regressions
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:testDebugUnitTest :app:testMihomoBridge :app:lintDebug --no-daemon --console=plain
+
+      - name: Restore the release signing keystore
+        run: echo "$KEYSTORE_BASE64" | base64 --decode > release.keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+
+      - name: Build signed release APKs
+        run: |
+          chmod +x gradlew
+          # The version code is the version name decomposed base-100:
+          # vA.B.C -> A*100^2 + B*100 + C (v0.1.5 -> 105, v1.0.0 -> 10000).
+          # Each component owns exactly two digits, and nothing is read from
+          # previous releases, so re-cutting a tag yields the same code.
+          VERSION_NAME="${GITHUB_REF_NAME#v}"
+          IFS='.' read -r MAJOR MINOR PATCH _ <<<"$VERSION_NAME"
+          digits() { local d="${1:-0}"; d="${d%%[!0-9]*}"; echo "${d:-0}"; }
+          VERSION_CODE=$(( $(digits "$MAJOR") * 10000 + $(digits "$MINOR") * 100 + $(digits "$PATCH") ))
+          echo "VERSION_NAME=$VERSION_NAME VERSION_CODE=$VERSION_CODE"
+          ./gradlew :app:assembleRelease --no-daemon --stacktrace \
+            -PversionNameOverride="$VERSION_NAME" \
+            -PversionCodeOverride="$VERSION_CODE"
+          # The updater compares the release's version code with the installed
+          # one; publish it as a tiny asset next to the APKs.
+          printf '{"versionCode": %d, "versionName": "%s"}\n' \
+            "$VERSION_CODE" "$VERSION_NAME" \
+            > app/build/outputs/apk/release/version.json
+        env:
+          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
+          ALIAS_NAME: ${{ secrets.ALIAS_NAME }}
+          ALIAS_PASS: ${{ secrets.ALIAS_PASS }}
+
+      - name: Rename APKs to mikubox-<tag>-<abi>
+        run: |
+          cd app/build/outputs/apk/release
+          for apk in app-*-release.apk; do
+            abi="${apk#app-}"
+            mv "$apk" "mikubox-${GITHUB_REF_NAME}-${abi%-release.apk}.apk"
+          done
+          ls -1 ./*.apk
+
+      - name: Publish the GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          generate_release_notes: true
+          files: |
+            app/build/outputs/apk/release/mikubox-*.apk
+            app/build/outputs/apk/release/version.json

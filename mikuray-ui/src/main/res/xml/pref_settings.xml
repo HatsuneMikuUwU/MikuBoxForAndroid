@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.miku.ray.ui.preference.BannerSettingsPreference
+        android:key="pref_banner_settings_card"
+        android:layout="@layout/uwu_banner_settings" />
+
+    <ListPreference
+        android:defaultValue="uwu_banner_miku_v6"
+        android:entries="@array/banner_settings_character_entries"
+        android:entryValues="@array/banner_settings_character_values"
+        android:icon="@drawable/rmx_media_gallery_line"
+        android:key="pref_banner_settings_character"
+        android:summary="@string/summary_banner_settings_character"
+        android:title="@string/title_banner_settings_character"
+        app:dialogIcon="@drawable/rmx_media_gallery_line"
+        app:isPreferenceVisible="false"
+        app:layout="@layout/uwu_top" />
+
+    <Preference
+        android:icon="@drawable/rmx_media_gallery_line"
+        android:key="pref_custom_banner_settings_character"
+        android:summary="@string/summary_banner_settings_character_custom"
+        android:title="@string/title_banner_settings_character_custom"
+        app:isPreferenceVisible="false"
+        app:layout="@layout/uwu_mid" />
+
+    <Preference
+        android:icon="@drawable/rmx_delete_bin_line"
+        android:key="action_delete_banner_settings_character"
+        android:summary="@string/summary_banner_settings_character_delete"
+        android:title="@string/title_banner_settings_character_delete"
+        app:isPreferenceVisible="false"
+        app:layout="@layout/uwu_mid" />
+
+    <com.miku.ray.ui.dialog.BannerCharacterLayoutDialog
+        android:icon="@drawable/rmx_arrows_expand_diagonal_line"
+        android:key="pref_banner_character_layout"
+        android:summary="@string/summary_banner_character_layout"
+        android:title="@string/title_banner_character_layout"
+        app:isPreferenceVisible="false"
+        app:layout="@layout/uwu_bot" />
+
+     <Preference
+        android:icon="@drawable/rmx_business_verified_badge_line"
+        android:layout="@layout/uwu_maintainer"
+        android:summary="@string/uwu_maintainer_summary"
+        android:title="@string/uwu_maintainer_title"
+        app:selectable="false" />
+
+    <Preference
+        android:icon="@drawable/rmx_palette_line"
+        android:key="pref_navigate_ui_settings"
+        android:summary="@string/summary_navigate_ui_settings"
+        android:title="@string/title_ui_settings"
+        app:layout="@layout/uwu_top" />
+
+    <Preference
+        android:icon="@drawable/rmx_system_shield_line"
+        android:key="pref_navigate_vpn_settings"
+        android:summary="@string/mihomo_preview_vpn"
+        android:title="@string/title_vpn_settings"
+        app:layout="@layout/uwu_mid" />
+
+    <Preference
+        android:icon="@drawable/rmx_router_line"
+        android:key="pref_navigate_core_settings"
+        android:summary="@string/mihomo_preview_core"
+        android:title="@string/title_core_settings"
+        app:layout="@layout/uwu_mid" />
+
+
+
+     <Preference
+        android:icon="@drawable/rmx_system_settings_2_line"
+        android:key="pref_navigate_advanced_settings"
+        android:summary="@string/mihomo_preview_advanced"
+        android:title="@string/title_advanced"
+        app:layout="@layout/uwu_mid" />
+
+    <Preference
+        android:icon="@drawable/rmx_information_line"
+        android:key="pref_navigate_about_update"
+        android:summary="@string/summary_navigate_about_update"
+        android:title="@string/title_about_update"
+        app:layout="@layout/uwu_bot" />
+
+</PreferenceScreen>

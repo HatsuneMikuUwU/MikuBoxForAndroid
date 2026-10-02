@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <cache-path
+        name="logs"
+        path="logs/" />
+    <!-- Ported backup, profile export and crash-log sharing use cache files. -->
+    <cache-path name="cache" path="." />
+</paths>

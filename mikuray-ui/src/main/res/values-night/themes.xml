@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+   <style name="AppThemeBase" parent="Theme.Material3Expressive.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.LargeComponent</item>
+        <item name="android:colorBackground">?colorBg</item>
+        <item name="android:windowBackground">?colorBg</item>
+        <item name="colorBg">?colorSurface</item>
+        <item name="colorCard">?colorSurfaceContainerLow</item>
+        <item name="snackbarStyle">@style/Widget.Material3.Snackbar</item>
+        <item name="bottomSheetDialogTheme">@style/AppThemeBottomSheetDialog</item>
+        <item name="sideSheetDialogTheme">@style/AppThemeSideSheetDialog</item>
+        <item name="materialAlertDialogTheme">@style/AppThemeAlertDialog</item>
+        <item name="alertDialogTheme">@style/AppThemeAlertDialog</item>
+        <item name="android:scrollbarSize">0.0dip</item>
+        <item name="android:listDivider">@null</item>
+        <item name="android:colorEdgeEffect">@null</item>
+        <item name="elevation">0.0dip</item>
+        <item name="preferenceTheme">@style/AppThemePreference</item>
+        <item name="android:homeAsUpIndicator">@drawable/rmx_arrows_arrow_left_double_line</item>
+        <item name="actionOverflowButtonStyle">@style/AppTheme.OverflowButton</item>
+
+    </style>
+
+    <style name="ThemeOverlay.App.TrueBlack" parent="@style/ThemeOverlay.Material3Expressive">
+        <item name="android:windowBackground">#ff000000</item>
+        <item name="android:colorBackground">#ff000000</item>
+        <item name="colorSurface">#ff000000</item>
+        <item name="colorOnBackground">#fff5f5f5</item>
+        <item name="colorOnSurface">#fff5f5f5</item>
+
+        <item name="colorSurfaceContainerLowest">#ff000000</item>
+        <item name="colorSurfaceContainerLow">#ff0d0d0d</item>
+        <item name="colorSurfaceContainer">#ff121212</item>
+        <item name="colorSurfaceContainerHigh">#ff1a1a1a</item>
+        <item name="colorSurfaceContainerHighest">#ff242424</item>
+        <item name="colorSurfaceVariant">#ff1a1a1a</item>
+        <item name="colorOnSurfaceVariant">#ffcac4d0</item>
+
+        <item name="colorOutline">#ff938f99</item>
+        <item name="colorOutlineVariant">#ff49454f</item>
+        <item name="colorSurfaceInverse">#ffe6e1e5</item>
+        <item name="colorOnSurfaceInverse">#ff313033</item>
+
+        <item name="colorBg">#ff000000</item>
+        <item name="colorCard">#ff131313</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+
+        <item name="alertDialogTheme">@style/ThemeOverlay.App.TrueBlack.AlertDialog</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.TrueBlack.AlertDialog</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TrueBlack.AlertDialog" parent="@style/ThemeOverlay.Material3Expressive.MaterialAlertDialog.Centered">
+        <item name="shapeAppearance">@style/AppThemeAlertDialogShape</item>
+        <item name="android:colorBackground">#ff131313</item>
+        <item name="colorSurfaceContainerHigh">#ff131313</item>
+        <item name="android:windowAnimationStyle">@style/MaterialAlertDialog.Material3.Animation</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="buttonBarPositiveButtonStyle">@style/CustomDialogFilledButtonPrimary</item>
+        <item name="buttonBarNegativeButtonStyle">@style/CustomDialogFilledButtonSecondary</item>
+        <item name="buttonBarNeutralButtonStyle">@style/CustomDialogFilledButtonNeutral</item>
+        <item name="dialogCornerRadius">28dp</item>
+        <item name="android:listPreferredItemHeightSmall">60dp</item>
+        <item name="android:windowMinWidthMajor">91%</item>
+        <item name="android:windowMinWidthMinor">91%</item>
+        <item name="materialAlertDialogTitleIconStyle">@style/AppThemeAlertDialogTitleIcon</item>
+    </style>
+
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="subscription_initial_fetch_failed">Subscription saved, but the initial download failed. Check the address and network, then save again to retry.</string>
+    <string name="subscription_update_through_proxy">Update through proxy</string>
+    <string name="subscription_update_through_proxy_summary">Use the running proxy. For the first download only, connect directly if no proxy is running; later updates keep this preference.</string>
+</resources>

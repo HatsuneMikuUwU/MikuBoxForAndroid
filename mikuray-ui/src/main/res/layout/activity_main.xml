@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/banner_home"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:id="@+id/header_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/uwu_banner_home" />
+
+            <View
+                android:id="@+id/header_image_fade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/uwu_bg_fade_bottom" />
+        </FrameLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            app:elevation="0dp">
+
+            <LinearLayout
+                android:id="@+id/header_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/header_top_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="3dp"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="16dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_home"
+                            style="@style/Widget.Material3Expressive.Button.IconButton.Filled"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/a11y_open_main_menu"
+                            android:minHeight="55dp"
+                            android:minWidth="55dp"
+                            app:backgroundTint="?attr/colorCard"
+                            app:icon="@drawable/ic_btn_home_color"
+                            app:iconGravity="textStart"
+                            app:iconPadding="0dp"
+                            app:iconTint="@null" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_more_menu"
+                            style="@style/Widget.Material3Expressive.Button.IconButton.Filled"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/a11y_more_options"
+                            android:minHeight="55dp"
+                            android:minWidth="55dp"
+                            app:backgroundTint="?attr/colorCard"
+                            app:icon="@drawable/ic_btn_more_menu_color"
+                            app:iconGravity="textStart"
+                            app:iconPadding="0dp"
+                            app:iconTint="@null" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:gravity="end|center"
+                        android:orientation="vertical">
+
+                        <com.miku.ray.marquee.text.Greetings
+                            android:id="@+id/tv_greeting_sub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:textAppearance="?attr/textAppearanceBodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textStyle="bold" />
+
+                        <com.miku.ray.marquee.text.UserNameTextView
+                            android:id="@+id/tv_username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <com.miku.ray.widget.ProfileBannerImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@android:color/transparent"
+                        android:elevation="0dp"
+                        android:outlineProvider="none"
+                        app:elevation="0dp"
+                        app:siBorderColor="?attr/colorPrimary"
+                        app:siBorderWidth="3dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="3dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_add_config"
+                        style="@style/Widget.Material3Expressive.Button.IconButton.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:contentDescription="@string/menu_item_add_config"
+                        android:minHeight="55dp"
+                        android:minWidth="55dp"
+                        app:backgroundTint="?attr/colorCard"
+                        app:icon="@drawable/ic_btn_add_config_color"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconTint="@null" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="?attr/colorCard"
+                        app:cardCornerRadius="28dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="10dp">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/ic_aim_color" android:importantForAccessibility="no" />
+
+                            <androidx.appcompat.widget.SearchView
+                                android:id="@+id/search_view_inline"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                app:closeIcon="@null"
+                                app:iconifiedByDefault="false"
+                                app:queryBackground="@android:color/transparent"
+                                app:queryHint="@string/menu_item_search_main"
+                                app:searchIcon="@null" />
+
+                            <LinearLayout
+                                android:id="@+id/layout_weather_chip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_weather_chip"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingEnd="10dp"
+                                android:paddingStart="8dp"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:id="@+id/iv_weather_icon"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:src="@drawable/rmx_weather_sun_line"
+                                    android:tint="?attr/colorOnSurfaceVariant"
+                                    android:visibility="gone" />
+
+                                <TextView
+                                    android:id="@+id/tv_weather_temp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:textAppearance="?attr/textAppearanceBodySmall"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="13sp"
+                                    android:visibility="gone"
+                                    tools:text="29°C" />
+
+                                <ImageView
+                                    android:id="@+id/iv_total_traffic_icon"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:src="@drawable/rmx_business_bar_chart_line"
+                                    android:tint="?attr/colorOnSurfaceVariant"
+                                    android:visibility="gone" />
+
+                                <TextView
+                                    android:id="@+id/tv_total_traffic"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:textAppearance="?attr/textAppearanceBodySmall"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="13sp"
+                                    android:visibility="gone"
+                                    tools:text="1.2 GB" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/app_bar">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nextFocusRight="@+id/fab"
+                android:scrollbars="vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/uwu_bg_fade_top" />
+
+            <LinearLayout
+                android:id="@+id/layout_tab_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="?attr/colorCard"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="0dp"
+                    app:contentPadding="5dp"
+                    app:strokeWidth="0dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipChildren="true"
+                        android:clipToOutline="true"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardCornerRadius="23dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:color/transparent"
+                            app:tabIndicator="@drawable/uwu_tabs_rounded_indicator"
+                            app:tabIndicatorColor="?attr/colorPrimary"
+                            app:tabIndicatorFullWidth="true"
+                            app:tabIndicatorHeight="40dp"
+                            app:tabMinWidth="0dp"
+                            app:tabMode="scrollable"
+                            app:tabPaddingEnd="0dp"
+                            app:tabPaddingStart="0dp"
+                            app:tabRippleColor="@android:color/transparent" />
+
+                    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_sub"
+                    style="@style/Widget.Material3Expressive.Button.IconButton.Filled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:minHeight="55dp"
+                    android:minWidth="55dp"
+                    app:backgroundTint="?attr/colorPrimary"
+                    app:icon="@drawable/rmx_add_circle_line"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="?attr/colorOnPrimary" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/uwu_bg_fade_bottom" />
+
+    </RelativeLayout>
+
+    <com.miku.ray.widget.SnowflakesView
+        android:id="@+id/snowflakes_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:importantForAccessibility="no"
+        android:visibility="gone" />
+
+    <com.miku.ray.ui.main.RoutingModeView
+        android:id="@+id/routing_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="114dp" />
+
+    <com.miku.ray.blurview.BlurView
+        android:id="@+id/blur_bottom_status"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp">
+
+            <LinearLayout
+                android:id="@+id/status_text_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@+id/fab"
+                android:orientation="vertical">
+
+                <com.miku.ray.ui.main.RollingIpTextView
+                    android:id="@+id/tv_ip_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12sp" />
+
+                <com.miku.ray.marquee.text.AutoMarqueeTextView
+                    android:id="@+id/tv_test_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:accessibilityLiveRegion="polite"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:text="@string/connection_test_pending"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/fab"
+                    style="?attr/extendedFloatingActionButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:elevation="0dp"
+                    android:fontFeatureSettings="tnum"
+                    android:outlineProvider="none"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp"
+                    app:elevation="0dp"
+                    app:icon="@drawable/rmx_media_play_line"
+                    app:iconGravity="end" />
+
+        </RelativeLayout>
+    </com.miku.ray.blurview.BlurView>
+
+    <LinearLayout
+        android:id="@+id/layout_quick_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_quick_sub_update"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/title_sub_update"
+            android:insetBottom="0dp"
+            android:insetTop="0dp"
+            app:backgroundTint="?attr/colorPrimaryContainer"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/rmx_cloud_line"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="24dp"
+            app:iconTint="?attr/colorOnPrimaryContainer" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_quick_country_code"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/title_country_code_all_server"
+            android:insetBottom="0dp"
+            android:insetTop="0dp"
+            app:backgroundTint="?attr/colorSecondaryContainer"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/rmx_global_line"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="24dp"
+            app:iconTint="?attr/colorOnSecondaryContainer" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_quick_tcping"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/title_ping_all_server"
+            android:insetBottom="0dp"
+            android:insetTop="0dp"
+            app:backgroundTint="?attr/colorTertiaryContainer"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/rmx_wifi_line"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="24dp"
+            app:iconTint="?attr/colorOnTertiaryContainer" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_quick_real_ping"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/title_real_ping_all_server"
+            android:insetBottom="0dp"
+            android:insetTop="0dp"
+            app:backgroundTint="?attr/colorSurfaceContainerHighest"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/rmx_speed_line"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="24dp"
+            app:iconTint="?attr/colorOnSurface" />
+
+    </LinearLayout>
+
+</FrameLayout>

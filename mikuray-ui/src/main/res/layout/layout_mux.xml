@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lay_mux_enabled"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/server_lab_mux_enabled"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:endIconDrawable="@drawable/ic_dropdown_selector"
+        app:endIconMode="dropdown_menu"
+        app:endIconTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_toggle_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/sp_mux_enabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textColor="?attr/colorOnSurface"
+            app:simpleItems="@array/mux_enabled_entries" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lay_mux_concurrency"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_mux_concurrency"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:helperText="@string/server_lab_mux_concurrency_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay_mux_enabled"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_hashtag"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_mux_concurrency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:nextFocusDown="@+id/et_mux_xudp_concurrency"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lay_mux_xudp_concurrency"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_mux_xudp_concurrency"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:helperText="@string/server_lab_mux_concurrency_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay_mux_concurrency"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_hashtag"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_mux_xudp_concurrency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:nextFocusDown="@+id/sp_mux_xudp_quic"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lay_mux_xudp_quic"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_mux_xudp_quic"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:endIconDrawable="@drawable/ic_dropdown_selector"
+        app:endIconMode="dropdown_menu"
+        app:endIconTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay_mux_xudp_concurrency"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_eth_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/sp_mux_xudp_quic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textColor="?attr/colorOnSurface"
+            app:simpleItems="@array/mux_xudp_quic_entries" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

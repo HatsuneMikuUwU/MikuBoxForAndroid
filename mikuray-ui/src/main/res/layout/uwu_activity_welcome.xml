@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+    <com.miku.ray.shapeimageview.Cookie4ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="-100dp"
+        android:padding="80dp"
+        android:src="@drawable/uwu_banner_author"
+        app:siBorderColor="?attr/colorSecondaryContainer"
+        app:siBorderWidth="3dp" />
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-100dp"
+        android:layout_marginStart="-50dp"
+        android:background="@drawable/uwu_shape_octagon"
+        android:backgroundTint="?attr/colorSecondaryContainer"
+        android:contentDescription="@null"
+        android:rotation="20.0" />
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="-100dp"
+        android:background="@drawable/uwu_shape_rounded_square"
+        android:backgroundTint="?attr/colorSecondaryContainer"
+        android:contentDescription="@null"
+        android:rotation="20.0" />
+    <LinearLayout
+        android:id="@+id/page1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="32dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/uwu_welcome_title"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/uwu_welcome_summary_1"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="32sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/uwu_welcome_page1_desc"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/uwu_dot"
+                app:tint="?attr/colorPrimary" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/uwu_dot"
+                app:tint="?attr/colorOnSurfaceVariant" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/uwu_dot"
+                app:tint="?attr/colorOnSurfaceVariant" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+            <!-- Deviation from upstream MikuRay (F37): the NEXT buttons drop
+                 textAllCaps so NEXT/Skip read with one casing style in every
+                 locale instead of shouting next to the title-case Skip. -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/page_1button"
+                style="@style/Widget.Material3Expressive.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:padding="16dp"
+                android:text="@string/uwu_next"
+                android:textAllCaps="false" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/page_1_skip"
+                style="@style/Widget.Material3Expressive.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:padding="16dp"
+                android:text="@string/uwu_skip"
+                android:textColor="?attr/colorPrimary"
+                app:icon="@drawable/rmx_arrows_arrow_right_line"
+                app:iconGravity="end"
+                app:iconPadding="16dp"
+                app:iconTint="?attr/colorPrimary"
+                app:rippleColor="?attr/colorOnPrimaryContainer"
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="2dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/page2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="32dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/uwu_welcome_summary_2"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="32sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/uwu_welcome_page2_desc"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/uwu_dot"
+                app:tint="?attr/colorOnSurfaceVariant" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/uwu_dot"
+                app:tint="?attr/colorPrimary" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/uwu_dot"
+                app:tint="?attr/colorOnSurfaceVariant" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/page_2button"
+                style="@style/Widget.Material3Expressive.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:padding="16dp"
+                android:text="@string/uwu_next"
+                android:textAllCaps="false" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/page_2_skip"
+                style="@style/Widget.Material3Expressive.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:padding="16dp"
+                android:text="@string/uwu_skip"
+                android:textColor="?attr/colorPrimary"
+                app:icon="@drawable/rmx_arrows_arrow_right_line"
+                app:iconGravity="end"
+                app:iconPadding="16dp"
+                app:iconTint="?attr/colorPrimary"
+                app:rippleColor="?attr/colorOnPrimaryContainer"
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="2dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/page3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="32dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/uwu_welcome_summary_3"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="32sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/uwu_welcome_page3_desc"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/uwu_dot"
+                app:tint="?attr/colorOnSurfaceVariant" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/uwu_dot"
+                app:tint="?attr/colorOnSurfaceVariant" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/uwu_dot"
+                app:tint="?attr/colorPrimary" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/page_3button"
+                style="@style/Widget.Material3Expressive.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/uwu_start"
+                android:textAllCaps="false" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

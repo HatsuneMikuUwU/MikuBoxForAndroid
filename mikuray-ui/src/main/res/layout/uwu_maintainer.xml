@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/uwu_maintainer_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="8dp"
+    android:clipToPadding="false"
+    app:cardBackgroundColor="?attr/colorPrimary"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="false"
+    app:contentPadding="0dp"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CardView.Single"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:clipToPadding="false"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="25dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start|center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@android:id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:ellipsize="marquee"
+                android:gravity="start"
+                android:maxLines="2"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@android:id/summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@android:id/title"
+                android:layout_below="@android:id/title"
+                android:layout_marginTop="2dp"
+                android:alpha="0.8"
+                android:maxLines="10"
+                android:textAppearance="?attr/textAppearanceTitleSmall"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@android:id/icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end|center"
+            android:layout_marginStart="8dp"
+            android:padding="6dp"
+            app:tint="?attr/colorOnPrimary" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

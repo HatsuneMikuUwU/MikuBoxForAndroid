@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="8dp"
+    android:paddingTop="12dp">
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider_dpi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stepSize="5.0"
+        android:valueFrom="75"
+        android:valueTo="125"
+        app:labelBehavior="floating"
+        app:tickVisibilityMode="hidden" />
+
+</LinearLayout>

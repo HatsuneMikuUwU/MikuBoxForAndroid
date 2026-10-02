@@ -1,0 +1,36 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.miku.ray.widget.UwuPreferenceCategory android:key="mihomo_performance" android:title="@string/mihomo_performance" app:sectionIcon="@drawable/rmx_media_equalizer_2_line">
+        <Preference android:title="@string/mihomo_section_adv_performance" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <androidx.preference.SwitchPreferenceCompat android:icon="@drawable/rmx_media_equalizer_2_line" android:key="unified-delay" android:title="@string/mihomo_setting_unified_delay" app:layout="@layout/uwu_top_switch" app:widgetLayout="@layout/uwu_widget_material_switch" />
+        <androidx.preference.SwitchPreferenceCompat android:icon="@drawable/rmx_flashlight_line" android:key="tcp-concurrent" android:title="@string/mihomo_setting_tcp_concurrent" app:layout="@layout/uwu_mid_switch" app:widgetLayout="@layout/uwu_widget_material_switch" />
+        <ListPreference android:icon="@drawable/rmx_apps_line" android:key="find-process-mode" android:title="@string/mihomo_setting_find_process_mode" app:layout="@layout/uwu_mid" />
+        <ListPreference android:icon="@drawable/rmx_download_cloud_2_line" android:key="geodata-loader" android:title="@string/mihomo_setting_geodata_loader" app:layout="@layout/uwu_mid" />
+        <ListPreference android:icon="@drawable/rmx_device_database_2_line" android:key="geodata-mode" android:title="@string/mihomo_setting_geodata_mode" app:layout="@layout/uwu_bot" />
+        <Preference android:title="@string/mihomo_section_adv_keepalive" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <EditTextPreference android:icon="@drawable/rmx_time_line" android:key="keep-alive-idle" android:title="@string/mihomo_setting_keep_alive_idle" app:layout="@layout/uwu_top" />
+        <EditTextPreference android:icon="@drawable/rmx_time_line" android:key="keep-alive-interval" android:title="@string/mihomo_setting_keep_alive_interval" app:layout="@layout/uwu_mid" />
+        <ListPreference android:icon="@drawable/rmx_time_line" android:key="disable-keep-alive" android:title="@string/mihomo_setting_disable_keep_alive" app:layout="@layout/uwu_bot" />
+        <Preference android:title="@string/mihomo_section_adv_tls" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <ListPreference android:key="tls-verification" android:title="@string/mihomo_tls_verification" android:icon="@drawable/rmx_system_shield_check_line" app:layout="@layout/uwu_top" />
+        <ListPreference android:key="global-client-fingerprint" android:title="@string/mihomo_fingerprint" android:icon="@drawable/rmx_device_fingerprint_line" app:layout="@layout/uwu_bot" />
+        <Preference android:title="@string/mihomo_section_adv_controller" android:selectable="false" app:layout="@layout/uwu_section_title" />
+        <ListPreference android:key="external-controller" android:title="@string/mihomo_extra_external_controller" android:icon="@drawable/rmx_development_terminal_box_line" app:layout="@layout/uwu_top" />
+        <EditTextPreference android:key="external-controller.address" android:title="@string/mihomo_extra_external_controller_address" android:icon="@drawable/rmx_development_terminal_box_line" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:key="external-controller.secret" android:title="@string/mihomo_extra_external_controller_secret" android:icon="@drawable/rmx_system_lock_password_line" app:layout="@layout/uwu_bot" />
+    </com.miku.ray.widget.UwuPreferenceCategory>
+    <com.miku.ray.widget.UwuPreferenceCategory android:key="pref_category_advanced" android:title="@string/mihomo_app_diagnostics" app:sectionIcon="@drawable/rmx_flashlight_line">
+        <androidx.preference.SwitchPreferenceCompat android:icon="@drawable/rmx_device_restart_line" android:key="pref_is_booted" android:summary="@string/summary_pref_is_booted" android:title="@string/title_pref_is_booted" app:layout="@layout/uwu_top_switch" app:widgetLayout="@layout/uwu_widget_material_switch" />
+        <Preference android:icon="@drawable/rmx_flashlight_line" android:key="pref_system_vpn_settings" android:summary="@string/summary_system_vpn_settings" android:title="@string/title_system_vpn_settings" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_external_link_line" android:key="pref_delay_test_url" android:summary="@string/summary_pref_delay_test_url" android:title="@string/title_pref_delay_test_url" app:dialogIcon="@drawable/rmx_external_link_line" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_hashtag" android:inputType="number" android:key="pref_real_ping_concurrency" android:summary="16" android:title="@string/title_pref_real_ping_concurrency" app:dialogIcon="@drawable/rmx_hashtag" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_hashtag" android:inputType="numberDecimal" android:key="pref_country_code_timeout" android:summary="3.5" android:title="@string/title_pref_country_code_timeout" app:dialogIcon="@drawable/rmx_hashtag" app:layout="@layout/uwu_mid" />
+        <EditTextPreference android:icon="@drawable/rmx_external_link_line" android:key="pref_ip_api_url" android:summary="@string/summary_pref_ip_api_url" android:title="@string/title_pref_ip_api_url" app:dialogIcon="@drawable/rmx_external_link_line" app:layout="@layout/uwu_mid" />
+        <androidx.preference.SwitchPreferenceCompat android:defaultValue="false" android:icon="@drawable/rmx_eye_off_line" android:key="hide_from_recent_apps" android:summary="@string/summary_pref_hide_from_recent_apps" android:title="@string/title_pref_hide_from_recent_apps" app:layout="@layout/uwu_bot_switch" app:widgetLayout="@layout/uwu_widget_material_switch" />
+    </com.miku.ray.widget.UwuPreferenceCategory>
+    <com.miku.ray.widget.UwuPreferenceCategory android:key="override_script" android:title="@string/mihomo_script" app:sectionIcon="@drawable/rmx_editor_code_view">
+        <androidx.preference.SwitchPreferenceCompat android:key="script.enabled" android:title="@string/mihomo_script_enable" android:summary="@string/mihomo_script_summary" android:icon="@drawable/rmx_editor_code_view" app:layout="@layout/uwu_top_switch" app:widgetLayout="@layout/uwu_widget_material_switch" />
+        <Preference android:key="script.source" android:title="@string/mihomo_script_edit" android:summary="@string/mihomo_script_hint" android:icon="@drawable/rmx_editor_code_view" app:layout="@layout/uwu_mid" />
+        <Preference android:key="script.library" android:title="@string/mihomo_script_library" android:summary="@string/mihomo_script_library_hint" android:icon="@drawable/rmx_document_folder_line" app:layout="@layout/uwu_mid" />
+        <Preference android:key="script.bindings" android:title="@string/mihomo_script_bindings" android:summary="@string/mihomo_script_bindings_hint" android:icon="@drawable/rmx_editor_link" app:layout="@layout/uwu_bot" />
+    </com.miku.ray.widget.UwuPreferenceCategory>
+</PreferenceScreen>

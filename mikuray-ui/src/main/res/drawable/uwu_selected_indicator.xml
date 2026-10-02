@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:gravity="center|left|top"
+        android:height="@null"
+        android:width="40dp">
+        <shape
+            android:shape="rectangle">
+            <solid
+                android:color="?attr/colorPrimary" />
+            <corners
+                android:radius="14dp" />
+        </shape>
+    </item>
+    <item
+        android:gravity="center|right|top"
+        android:height="40dp"
+        android:width="150dp">
+        <shape
+            android:shape="rectangle">
+            <solid
+                android:color="?attr/colorPrimary" />
+            <corners
+                android:radius="14dp" />
+        </shape>
+    </item>
+    <item
+        android:gravity="bottom|center|left"
+        android:height="40dp"
+        android:width="150dp">
+        <shape
+            android:shape="rectangle">
+            <solid
+                android:color="?attr/colorPrimary" />
+            <corners
+                android:radius="14dp" />
+        </shape>
+    </item>
+    <item
+        android:gravity="bottom|center|right"
+        android:height="@null"
+        android:width="40dp">
+        <shape
+            android:shape="rectangle">
+            <solid
+                android:color="?attr/colorPrimary" />
+            <corners
+                android:radius="14dp" />
+        </shape>
+    </item>
+    <item
+        android:bottom="3dp"
+        android:left="3dp"
+        android:right="3dp"
+        android:top="3dp">
+        <inset>
+            <shape
+                android:shape="rectangle">
+                <solid
+                    android:color="?attr/colorCard" />
+                <corners
+                    android:radius="14dp" />
+            </shape>
+        </inset>
+    </item>
+</layer-list>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_home_banner"
+        android:title="@string/home_banner_category"
+        app:sectionIcon="@drawable/rmx_home_line">
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_home_line"
+            android:key="pref_disable_home_banner"
+            android:summary="@string/home_banner_disable_summary"
+            android:title="@string/home_banner_disable_title"
+            app:layout="@layout/uwu_top_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_sparkling_line"
+            android:key="pref_enable_snowflakes"
+            android:summary="@string/snowflakes_enable_summary"
+            android:title="@string/snowflakes_enable_title"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <com.miku.ray.ui.dialog.SnowflakesSettingsDialog
+            android:dependency="pref_enable_snowflakes"
+            android:icon="@drawable/rmx_sparkling_line"
+            app:key="pref_snowflakes_settings"
+            app:layout="@layout/uwu_mid"
+            app:title="@string/snowflakes_settings_title" />
+
+        <com.miku.ray.ui.dialog.BannerHeightSliderDialog
+            android:icon="@drawable/rmx_design_ruler_2_line"
+            app:key="pref_home_banner_height"
+            app:layout="@layout/uwu_mid"
+            app:title="@string/pref_home_banner_height_title" />
+
+        <com.miku.ray.ui.dialog.HeaderTopRowPaddingDialog
+            android:icon="@drawable/rmx_design_pencil_ruler_line"
+            app:key="pref_header_top_row_padding"
+            app:layout="@layout/uwu_mid"
+            app:title="@string/pref_header_top_row_padding_title" />
+
+        <Preference
+            android:icon="@drawable/rmx_image_edit_line"
+            android:key="action_change_home_banner_image"
+            android:summary="@string/home_banner_custom_summary"
+            android:title="@string/home_banner_custom_title"
+            app:layout="@layout/uwu_mid" />
+
+        <Preference
+            android:icon="@drawable/rmx_delete_bin_line"
+            android:key="action_delete_home_banner_image"
+            android:summary="@string/home_banner_delete_summary"
+            android:title="@string/home_banner_delete_title"
+            app:layout="@layout/uwu_bot" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_sheet_banner"
+        android:title="@string/sheet_banner_category"
+        app:sectionIcon="@drawable/rmx_sparkling_line">
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_sparkling_line"
+            android:key="pref_enable_particles_sheet"
+            android:summary="@string/particles_enable_summary"
+            android:title="@string/particles_enable_title"
+            app:layout="@layout/uwu_top_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <com.miku.ray.ui.dialog.ParticlesSettingsDialog
+            android:icon="@drawable/rmx_sparkling_line"
+            android:key="pref_particles_settings"
+            android:summary="@string/pref_particles_settings_summary"
+            android:title="@string/pref_particles_settings_title"
+            app:layout="@layout/uwu_mid" />
+
+        <com.miku.ray.ui.dialog.SheetBannerDimSliderDialog
+            android:icon="@drawable/rmx_design_contrast_2_line"
+            app:key="pref_sheet_banner_dim"
+            app:layout="@layout/uwu_mid"
+            app:title="@string/sheet_banner_dim_title" />
+
+        <Preference
+            android:icon="@drawable/rmx_image_edit_line"
+            android:key="action_change_sheet_banner_image"
+            android:summary="@string/sheet_banner_custom_summary"
+            android:title="@string/sheet_banner_custom_title"
+            app:layout="@layout/uwu_mid" />
+
+        <Preference
+            android:icon="@drawable/rmx_delete_bin_line"
+            android:key="action_delete_sheet_banner_image"
+            android:summary="@string/sheet_banner_delete_summary"
+            android:title="@string/sheet_banner_delete_title"
+            app:layout="@layout/uwu_bot" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_selected_banner"
+        android:title="@string/selected_banner_category"
+        app:sectionIcon="@drawable/rmx_stack_line">
+
+        <Preference
+            android:icon="@drawable/rmx_stack_line"
+            android:key="pref_indicator_style"
+            android:summary="@string/pref_indicator_style_summary"
+            android:title="@string/pref_indicator_style_title"
+            app:layout="@layout/uwu_top" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:icon="@drawable/rmx_stack_line"
+            android:key="pref_selected_banner_style_enabled"
+            android:summary="@string/selected_banner_enable_summary"
+            android:title="@string/selected_banner_enable_title"
+            app:layout="@layout/uwu_mid_switch"
+            app:widgetLayout="@layout/uwu_widget_material_switch" />
+
+        <com.miku.ray.ui.dialog.SelectedBannerDimSliderDialog
+            android:icon="@drawable/rmx_design_contrast_2_line"
+            app:dependency="pref_selected_banner_style_enabled"
+            app:key="pref_selected_banner_dim"
+            app:layout="@layout/uwu_mid"
+            app:title="@string/selected_banner_dim_title" />
+
+        <Preference
+            android:icon="@drawable/rmx_image_edit_line"
+            android:key="action_change_selected_banner_image"
+            android:summary="@string/selected_banner_custom_summary"
+            android:title="@string/selected_banner_custom_title"
+            app:dependency="pref_selected_banner_style_enabled"
+            app:layout="@layout/uwu_mid" />
+
+        <Preference
+            android:icon="@drawable/rmx_delete_bin_line"
+            android:key="action_delete_selected_banner_image"
+            android:summary="@string/selected_banner_delete_summary"
+            android:title="@string/selected_banner_delete_title"
+            app:dependency="pref_selected_banner_style_enabled"
+            app:layout="@layout/uwu_bot" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+    <com.miku.ray.widget.UwuPreferenceCategory
+        android:key="pref_category_banner_profile"
+        android:title="@string/banner_profile_category"
+        app:sectionIcon="@drawable/rmx_user_heart_line">
+
+        <EditTextPreference
+            android:dialogTitle="@string/profile_name_custom_dialog"
+            android:icon="@drawable/rmx_edit_line"
+            android:inputType="textCapWords"
+            android:key="custom_profile_name"
+            android:singleLine="true"
+            android:title="@string/profile_name_custom_title"
+            app:dialogIcon="@drawable/rmx_edit_line"
+            app:layout="@layout/uwu_top" />
+
+        <Preference
+            android:icon="@drawable/rmx_image_edit_line"
+            android:key="action_change_profile_banner_image"
+            android:summary="@string/banner_profile_custom_summary"
+            android:title="@string/banner_profile_custom_title"
+            app:layout="@layout/uwu_mid" />
+
+        <ListPreference
+            android:defaultValue="uwu_shape_cookie_9"
+            android:entries="@array/icon_shape_entries"
+            android:entryValues="@array/icon_shape_values"
+            android:icon="@drawable/rmx_shapes_line"
+            android:key="profile_banner_shape"
+            android:summary="%s"
+            android:title="@string/title_profile_banner_shape"
+            app:dialogIcon="@drawable/rmx_shapes_line"
+            app:layout="@layout/uwu_mid" />
+
+        <Preference
+            android:icon="@drawable/rmx_delete_bin_line"
+            android:key="action_delete_profile_banner_image"
+            android:summary="@string/delete_custom_banner_profile_summary"
+            android:title="@string/delete_custom_banner_profile"
+            app:layout="@layout/uwu_bot" />
+
+    </com.miku.ray.widget.UwuPreferenceCategory>
+
+</PreferenceScreen>

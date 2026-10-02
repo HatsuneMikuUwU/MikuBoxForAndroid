@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/rmx_arrows_arrow_left_right_line"
+        android:shortcutDisabledMessage="@string/app_widget_name"
+        android:shortcutId="shortcuts_switch"
+        android:shortcutLongLabel="@string/app_widget_name"
+        android:shortcutShortLabel="@string/app_widget_name">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.miku.ray.ui.shortcut.ScSwitchActivity"
+            android:targetPackage="com.miku.ray" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/rmx_device_qr_scan_2_line"
+        android:shortcutDisabledMessage="@string/menu_item_import_config_qrcode"
+        android:shortcutId="shortcuts_scan"
+        android:shortcutLongLabel="@string/menu_item_import_config_qrcode"
+        android:shortcutShortLabel="@string/menu_item_import_config_qrcode">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.miku.ray.ui.shortcut.ScScannerActivity"
+            android:targetPackage="com.miku.ray" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/rmx_media_play_circle_line"
+        android:shortcutDisabledMessage="@string/toast_services_start"
+        android:shortcutId="shortcuts_start"
+        android:shortcutLongLabel="@string/toast_services_start"
+        android:shortcutShortLabel="@string/toast_services_start">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.miku.ray.ui.shortcut.ScStartActivity"
+            android:targetPackage="com.miku.ray" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/rmx_media_stop_circle_line"
+        android:shortcutDisabledMessage="@string/toast_services_stop"
+        android:shortcutId="shortcuts_stop"
+        android:shortcutLongLabel="@string/toast_services_stop"
+        android:shortcutShortLabel="@string/toast_services_stop">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.miku.ray.ui.shortcut.ScStopActivity"
+            android:targetPackage="com.miku.ray" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>

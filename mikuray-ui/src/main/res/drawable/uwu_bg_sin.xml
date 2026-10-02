@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?android:attr/colorControlHighlight">
+    <item
+        android:id="@android:id/background"
+        android:left="0dp"
+        android:right="0dp">
+        <shape
+            android:shape="rectangle">
+            <solid
+                android:color="?attr/colorCard" />
+            <corners
+                android:bottomLeftRadius="28dp"
+                android:bottomRightRadius="28dp"
+                android:topLeftRadius="28dp"
+                android:topRightRadius="28dp" />
+        </shape>
+    </item>
+</ripple>

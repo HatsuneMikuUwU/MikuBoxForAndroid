@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The screen being left behind: it fades out while the incoming one settles in. -->
+<fade xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="180"
+    android:fadingMode="fade_out"
+    android:interpolator="@android:interpolator/accelerate_cubic" />

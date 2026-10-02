@@ -1,212 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Строки этого приложения; остальные, включая переводы, лежат в :mikuray-ui. -->
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="scaffold_subtitle">君の世界に、歌を届けるね。</string>
 
-    <!-- Служба VPN -->
+    <!-- Экран знакомства: оформление из MikuRay, продукт — нет. -->
+    <string name="uwu_welcome_summary_1">MikuBox,</string>
+    <string name="uwu_welcome_summary_2">Клиент Mihomo (Clash) для Android в стиле Miku.</string>
+    <string name="uwu_welcome_page1_desc">Бесплатный клиент Mihomo (Clash.Meta) с открытым исходным кодом для Android.</string>
+    <string name="uwu_welcome_page2_desc">Поддерживает подписки Clash, наборы правил и группы прокси.</string>
+
     <string name="vpn_channel_name">Статус VPN</string>
     <string name="vpn_notification_running">Подключено</string>
+    <string name="vpn_notification_speeds">↑%1$s ↓%2$s</string>
+    <string name="vpn_notification_session">Сеанс ↑%1$s ↓%2$s</string>
+    <string name="vpn_notification_exit_ip">Выход %1$s</string>
     <string name="vpn_action_stop">Остановить</string>
+    <string name="vpn_tile_title">MikuBox VPN</string>
     <string name="subscription_channel_name">Обновления подписок</string>
     <string name="subscription_update_title">Обновление подписок</string>
-    <string name="vpn_tile_title">MikuBox VPN</string>
+
     <string name="mihomo_start_failed">Не удалось запустить Mihomo</string>
-    <string name="local_proxy_notification_running">Локальный прокси Mihomo запущен</string>
-    <string name="profile_default_name">Профиль</string>
-    <string name="profile_subscription_default_name">Подписка</string>
-    <string name="profile_imported_default_name">Импортированный профиль</string>
     <string name="error_mihomo_config_blank">Конфигурация Mihomo не может быть пустой</string>
+    <string name="error_import_file_empty">Файл пуст или не читается</string>
+    <string name="error_no_compatible_proxy_links">Совместимые с Mihomo ссылки на прокси не найдены</string>
+    <string name="error_subscription_empty">Подписка пуста</string>
+    <string name="error_subscription_http">HTTP подписки %1$d</string>
     <string name="error_subscription_url_blank">URL-адрес подписки не может быть пустым</string>
     <string name="error_unknown_profile">Неизвестный профиль %1$s</string>
-    <string name="error_subscription_empty">Подписка пуста</string>
-    <string name="error_no_compatible_proxy_links">Совместимые с Mihomo ссылки на прокси не найдены</string>
-    <string name="error_subscription_http">HTTP подписки %1$d</string>
+    <string name="profile_default_name">Профиль</string>
+    <string name="profile_imported_default_name">Импортированный профиль</string>
+    <string name="profile_subscription_default_name">Подписка</string>
 
-    <!-- Home UI -->
-    <string name="status_connected">Подключено · %1$s</string>
-    <string name="status_connected_no_profile">Подключено</string>
-    <string name="status_disconnected">Отключено</string>
-    <string name="status_no_profile">Нет профиля — добавьте подписку или конфигурацию ниже</string>
-    <string name="action_connect">Подключить</string>
-    <string name="action_disconnect">Отключить</string>
-    <string name="hint_subscription_url">URL подписки (Clash)</string>
-    <string name="hint_profile_name">Имя (необязательно)</string>
-    <string name="subscription_update_interval">Интервал автообновления</string>
-    <string name="subscription_update_when_connected">Обновлять только при подключении</string>
-    <string-array name="subscription_intervals">
-        <item>Каждые 6 часов</item>
-        <item>Каждые 12 часов</item>
-        <item>Каждые 24 часа</item>
-        <item>Каждые 3 дня</item>
-        <item>Каждые 7 дней</item>
-    </string-array>
-    <string name="action_add_profile">Добавить профиль</string>
-    <string name="action_add_subscription">Добавить и загрузить подписку</string>
-    <string name="action_import_clipboard">Импорт конфигурации из буфера обмена</string>
-    <string name="profiles_header">Профили</string>
-    <string name="profiles_empty">Профилей пока нет.</string>
-    <string name="action_update">Обновить</string>
-    <string name="action_delete">Удалить</string>
-    <string name="action_share">Поделиться</string>
-    <string name="action_select">Выбрать</string>
-    <string name="action_more">Ещё</string>
-    <string name="badge_subscription">Подписка</string>
-    <string name="badge_local">Локальный</string>
-    <string name="badge_selected">Выбран</string>
-    <string name="toast_subscription_added">Подписка добавлена, загрузка…</string>
-    <string name="toast_subscription_updated">Подписка обновлена</string>
-    <string name="toast_update_failed">Ошибка обновления: %1$s</string>
-    <string name="toast_config_imported">Конфигурация импортирована</string>
-    <string name="toast_clipboard_empty">Буфер обмена пуст</string>
-    <string name="toast_select_profile_first">Сначала выберите или добавьте профиль</string>
-    <string name="toast_import_failed">Ошибка импорта: %1$s</string>
+    <!-- Диалог добавления и подписи для скринридера (раньше были жёстко
+         заданным китайским текстом, теперь локализуются как остальное). -->
 
-    <!-- Navigation menu (bottom sheet) -->
-    <string name="app_settings">Настройки приложения</string>
-    <string name="tools_and_info">Инструменты и информация</string>
-    <string name="menu_home">Главная</string>
-    <string name="settings">Настройки</string>
-    <string name="menu_log">Logcat</string>
-    <string name="desc_menu_log">Просмотр логов приложения</string>
-    <string name="menu_tools">Инструменты</string>
-    <string name="desc_menu_tools">Пинг, скорость и другое</string>
-    <string name="desc_menu_about">Об этом приложении</string>
-    <string name="action_clear">Очистить</string>
-    <string name="logcat_read_failed">Не удалось прочитать лог: %1$s</string>
-    <string name="toast_coming_soon">Скоро</string>
+    <!-- Селектор per-app помечает системные приложения прямо в названии
+         строки, чтобы метка читалась вслух вместе с именем. -->
 
-    <!-- Settings -->
-    <string name="settings_section_appearance">Внешний вид</string>
-    <string name="settings_section_connection">Подключение</string>
-    <string name="settings_theme">Тема</string>
-    <string name="settings_theme_system">Как в системе</string>
-    <string name="settings_theme_light">Светлая</string>
-    <string name="settings_theme_dark">Тёмная</string>
-    <string name="settings_particles">Анимация частиц</string>
-    <string name="settings_particles_summary">Анимированный баннер в меню</string>
-    <string name="settings_boot">Запуск при загрузке</string>
-    <string name="settings_boot_summary">Переподключать выбранный профиль после перезагрузки</string>
-    <string name="settings_mtu">MTU</string>
-    <string name="settings_per_app">Прокси по приложениям</string>
-    <string name="per_app_mode_all">Все приложения</string>
-    <string name="per_app_mode_allow">Список разрешённых</string>
-    <string name="per_app_mode_disallow">Список исключённых</string>
+    <!-- Мост всегда включает DNS-модуль в режиме VPN; экран DNS обязан об
+         этом говорить, иначе dns.enable=false выглядит сломанным. -->
+    <string name="mihomo_dns_vpn_forced_hint">В режиме VPN DNS-модуль включён всегда (dns.enable=false в профиле переопределяется). Чтобы DNS отвечал без перехвата, очистите список DNS-hijack TUN.</string>
 
-    <!-- Tools -->
-    <string name="tools_connection_test">Проверка соединения</string>
-    <string name="tools_test_url">URL для проверки</string>
-    <string name="tools_run_test">Запустить проверку</string>
-    <string name="tools_testing">Проверка…</string>
-    <string name="tools_test_ok">HTTP %1$d · %2$d мс</string>
-    <string name="tools_test_failed">Ошибка: %1$s</string>
-    <string name="tools_network_info">Сведения о сети</string>
-    <string name="tools_net_transport">Тип соединения: %1$s</string>
-    <string name="tools_net_none">Нет соединения</string>
-    <string name="tools_net_other">Другое</string>
+    <string name="apps_search">Поиск приложений</string>
+    <string name="apps_select_all">Выбрать все</string>
+    <string name="apps_invert_selection">Инвертировать выбор</string>
 
-    <!-- About / Miku intro -->
-    <string name="menu_about">О программе</string>
-    <string name="about_title">О программе</string>
-    <string name="about_app_title">MikuBox for Android</string>
-    <string name="about_app_desc">Прокси-клиент на базе Mihomo в теме Hatsune Miku.</string>
-    <string name="about_version">Версия %1$s</string>
-    <string name="uwu_about_miku_title">Кто такая Хацунэ Мику?</string>
-    <string name="uwu_about_miku_summary">Хацунэ Мику — виртуальная певица на основе Vocaloid, выпущенная компанией Crypton Future Media под кодом CV01. Известная своими длинными бирюзовыми хвостиками и чистым голосом, она — 16-летняя девушка и всемирно известный виртуальный идол. Она активна в музыке, на концертах и в аниме, и её очень любят поклонники.</string>
-    <string name="uwu_miku_gender_title">Пол</string>
-    <string name="uwu_miku_gender_summary">Женский</string>
-    <string name="uwu_miku_birthday_title">День рождения</string>
-    <string name="uwu_miku_birthday_summary">31 августа</string>
-    <string name="uwu_miku_age_title">Возраст</string>
-    <string name="uwu_miku_age_summary">16</string>
-    <string name="uwu_miku_voice_title">Голос</string>
-    <string name="uwu_miku_voice_summary">Саки Фудзита</string>
-    <string name="uwu_miku_weight_title">Вес</string>
-    <string name="uwu_miku_weight_summary">42 кг</string>
-    <string name="uwu_miku_height_title">Рост</string>
-    <string name="uwu_miku_height_summary">158 см</string>
-    <string name="license">Лицензия</string>
-    <string name="about_license_summary">MikuBox распространяется по лицензии Apache-2.0. Mihomo и другие входящие компоненты остаются под своими лицензиями.</string>
-    <string name="settings_section_backup">Резервная копия</string>
-    <string name="settings_export">Экспорт</string>
-    <string name="settings_export_summary">Сохранить профили и настройки в файл</string>
-    <string name="settings_import">Импорт</string>
-    <string name="settings_import_summary">Восстановить профили и настройки из файла</string>
-    <string name="toast_backup_exported">Копия экспортирована</string>
-    <string name="toast_backup_imported">Копия импортирована</string>
-    <string name="toast_backup_failed">Сбой резервного копирования</string>
-
-    <!-- Proxies / node list -->
-    <string name="menu_proxies">Прокси</string>
-    <string name="proxies_title">Прокси</string>
-    <string name="proxies_empty_disconnected">Сначала подключитесь, чтобы загрузить и управлять узлами.</string>
-    <string name="proxies_empty_none">В активном профиле нет доступных для выбора групп.</string>
     <string name="proxies_test">Проверить задержку</string>
     <string name="proxies_sort_delay">Сортировать по задержке</string>
-    <string name="proxies_testing">Проверка…</string>
-    <string name="proxies_delay_ms">%1$d мс</string>
-    <string name="proxies_delay_timeout">таймаут</string>
-    <string name="toast_node_selected">Переключено на %1$s</string>
-    <string name="toast_node_select_failed">Не удалось переключить узел</string>
-    <string name="splash_version">Version %1$s</string>
 
-    <!-- Navigation drawer -->
-    <string name="drawer_greeting">Привет, Мику 💕</string>
-    <string name="drawer_subtitle">Постараемся!</string>
-    <string name="drawer_section_manage">Управление</string>
-    <string name="drawer_section_tools">Инструменты и сведения</string>
+    <string name="theme_hue">Оттенок</string>
+    <string name="theme_saturation">Насыщенность</string>
+    <string name="theme_lightness">Яркость</string>
 
-    <!-- DNS override -->
-    <string name="settings_dns">DNS</string>
-    <string name="settings_dns_summary">Заменить DNS профиля своим</string>
-    <string name="dns_title">DNS</string>
-    <string name="dns_override">Переопределить DNS</string>
-    <string name="dns_override_summary">Заменить раздел dns каждого профиля блоком ниже</string>
-    <string name="dns_yaml_hint">DNS (YAML)</string>
-    <string name="dns_invalid_title">Неверная конфигурация DNS</string>
-    <string name="dns_restart_hint">Переподключитесь, чтобы применить изменения.</string>
-    <string name="action_save">Сохранить</string>
-    <string name="action_reset">Сброс</string>
-    <string name="toast_dns_saved">Переопределение DNS сохранено</string>
-    <string name="toast_dns_reset">Сброшено к DNS по умолчанию</string>
-
-    <!-- Home search / sort -->
-    <string name="search_hint">Что-то ищете?</string>
-    <string name="sort_by_name">Имя</string>
-    <string name="sort_by_updated">Недавно обновлённые</string>
-    <string name="action_sort">Сортировка</string>
-    <string name="action_menu">Меню</string>
-    <string name="action_refresh">Обновить подписки</string>
-    <string name="toast_no_subscriptions">Нет подписок для обновления</string>
-    <string name="toast_subscriptions_updated">Обновлено %1$d/%2$d подписок</string>
-    <string name="dialog_refresh_subscriptions_title">Обновить подписки?</string>
-    <string name="dialog_refresh_subscriptions_message">Обновить %1$d подписок сейчас?</string>
-    <string name="dialog_update_subscription_title">Обновить подписку?</string>
-    <string name="dialog_update_subscription_message">Обновить «%1$s» по URL подписки?</string>
-
-    <!-- Core / connection settings -->
-    <string name="settings_section_core">Ядро</string>
-    <string name="settings_mode">Режим вывода</string>
-    <string name="settings_log">Уровень журнала</string>
-    <string name="settings_tun_stack">Стек TUN</string>
-    <string name="settings_allow_lan">Разрешить LAN</string>
-    <string name="settings_allow_lan_summary">Разрешить другим устройствам использовать этот прокси</string>
-    <string name="settings_ipv6">IPv6</string>
-    <string name="settings_ipv6_summary">Направлять IPv6 через туннель</string>
-    <string name="settings_autoconnect">Автоподключение при запуске</string>
-    <string name="settings_autoconnect_summary">Запускать VPN при открытии приложения</string>
-    <string name="settings_test_url">URL проверки задержки</string>
-    <string name="settings_test_timeout">Таймаут проверки задержки</string>
-    <string name="mode_follow">Как в конфиге</string>
-    <string name="greeting_morning">Доброе утро…</string>
-    <string name="greeting_afternoon">Добрый день…</string>
-    <string name="greeting_evening">Добрый вечер…</string>
-    <string name="greeting_night">Спокойной ночи…</string>
-    <string name="about_links_title">Ссылки</string>
-    <string name="about_link_github">Репозиторий GitHub</string>
-    <string name="about_link_telegram">Канал Telegram</string>
-    <string name="about_link_telegram_chinese">Китайский канал Telegram</string>
-    <string name="settings_unified_delay">Единая задержка</string>
-    <string name="settings_unified_delay_summary">Использовать единый метод измерения задержки для всех прокси</string>
-    <string name="settings_tcp_concurrent">Параллельный TCP</string>
-    <string name="settings_tcp_concurrent_summary">Подключаться к нескольким IP-адресам одновременно</string>
+    <string name="action_select">Выбрать</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_share">Поделиться</string>
+    <string name="action_update">Обновить</string>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Coming back (back gesture or toolbar up): the returning screen fades back in. -->
+<fade xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="220"
+    android:fadingMode="fade_in"
+    android:interpolator="@android:interpolator/decelerate_cubic" />

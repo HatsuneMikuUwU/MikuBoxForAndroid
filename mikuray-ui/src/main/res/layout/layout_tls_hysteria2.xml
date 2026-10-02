@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lay_stream_security"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/server_lab_stream_security"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:endIconDrawable="@drawable/ic_dropdown_selector"
+        app:endIconMode="dropdown_menu"
+        app:endIconTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_system_shield_check_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/sp_stream_security"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:nextFocusDown="@+id/et_sni"
+            android:textColor="?attr/colorOnSurface"
+            app:simpleItems="@array/streamsecuritys_entries" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lay_sni"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_sni"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay_stream_security"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_global_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_sni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:nextFocusDown="@+id/sp_stream_fingerprint"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lay_allow_insecure"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_allow_insecure"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:endIconDrawable="@drawable/ic_dropdown_selector"
+        app:endIconMode="dropdown_menu"
+        app:endIconTint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay_sni"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_system_shield_cross_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/sp_allow_insecure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:nextFocusDown="@+id/et_ech_config_list"
+            android:textColor="?attr/colorOnSurface"
+            app:simpleItems="@array/allowinsecures" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lay_ech_config_list"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_ech_config_list"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay_allow_insecure"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_editor_list_check_2"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_ech_config_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:nextFocusDown="@+id/et_pinned_ca256"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lay_pinned_ca256"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_spacing_dp16"
+        android:hint="@string/server_lab_pinned_ca256"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="1.5dp"
+        app:helperText="@string/server_lab_pinned_ca256_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay_ech_config_list"
+        app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
+        app:startIconDrawable="@drawable/rmx_document_certificate_2_line"
+        app:startIconTint="?attr/colorOnSurfaceVariant">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_pinned_ca256"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_pinned_ca256_action"
+        style="@style/Widget.Material3Expressive.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_spacing_dp8"
+        android:layout_marginTop="@dimen/padding_spacing_dp8"
+        android:text="@string/pinned_ca256_action_fetch"
+        android:textColor="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lay_pinned_ca256" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

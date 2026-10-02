@@ -62,6 +62,79 @@
 #
 ##############################################################################
 
+# --- local: WSL -> Windows Gradle bridge --------------------------------------
+# Build automation on this machine invokes the wrapper as
+#   bash -c "export JAVA_HOME='D:\...JAVA21'; export PATH=/d/...; ./gradlew ..."
+# where `bash` resolves to WSL bash (System32\bash.exe). Inside WSL this POSIX
+# script cannot use a win32 JAVA_HOME ($JAVA_HOME/bin/java does not exist) and
+# the distro has no Linux JDK/Android SDK/Go. In exactly that case, hand the
+# build to the Windows wrapper through cmd.exe interop. The guard keeps stock
+# behavior everywhere else: CI/Linux never sets a drive-letter JAVA_HOME, and
+# Git Bash/MSYS handles this script natively.
+case "$JAVA_HOME" in
+[A-Za-z]:[\\]*)
+  if __cmdexe=$(command -v cmd.exe 2>/dev/null) && grep -qi microsoft /proc/version 2>/dev/null; then
+    # WSL interop passes NO environment to Windows children here (verified:
+    # `cmd /c set` does not see WSL exports), so JAVA_HOME and the extra PATH
+    # entries must be set inside the cmd command line. Convert POSIX drive
+    # entries (/d/x -> D:\x) so tools the build execs by bare name (`go`,
+    # see app/build.gradle.kts) resolve against the Windows PATH. %PATH% is
+    # expanded by cmd itself. Resolve cmd.exe first; exec looks it up in PATH.
+    __winpath=''
+    __oldIFS=$IFS
+    IFS=:
+    for __p in $PATH; do
+      case "$__p" in
+        /[A-Za-z]/?*)
+          __drive=$(printf '%s' "$__p" | sed -e 's|^/\([A-Za-z]\)/.*|\1|' | tr 'a-z' 'A-Z')
+          __rest=$(printf '%s' "$__p" | sed -e 's|^/[A-Za-z]/||' | tr '/' '\\')
+          if [ -n "$__winpath" ]; then
+            __winpath="$__winpath;$__drive:\\$__rest"
+          else
+            __winpath="$__drive:\\$__rest"
+          fi
+          ;;
+      esac
+    done
+    IFS=$__oldIFS
+    __pathset=''
+    if [ -n "$__winpath" ]; then
+      __pathset="set PATH=$__winpath;%PATH%&& "
+    fi
+    # N25: the arguments are parsed twice — POSIX sh split them above, and
+    # cmd.exe parses the assembled command line again. Interop also mangles
+    # embedded quotes (see NOTE below), so an argument holding whitespace or a
+    # cmd metacharacter cannot be delivered faithfully: it splits into two
+    # arguments or changes meaning. Refuse those loudly instead of silently
+    # corrupting the invocation; cmd.exe/PowerShell take any arguments.
+    for __arg in "$@"; do
+      case "$__arg" in
+        # Allowlist: alphanumerics plus the punctuation gradle invocations
+        # actually carry (- + . / : = _ @ * ? and Windows path backslashes).
+        *[!-+./:=_@*?A-Za-z0-9\\]*)
+          printf '%s\n' \
+            "gradlew: refusing to pass this argument through the WSL cmd.exe bridge:" \
+            "  $__arg" \
+            "It contains whitespace or a cmd metacharacter, and the interop cannot" \
+            "deliver quoting intact (cmd re-parses the assembled command line). Run" \
+            "the invocation from cmd.exe or PowerShell, or use a form without spaces" \
+            "or special characters, e.g. -PappVersionName=0.2.3-beta." >&2
+          exit 2
+          ;;
+      esac
+    done
+    # NOTE: no quotes around the set values. WSL interop passes embedded
+    # quotes through as \" which cmd does not un-escape, so quoted values end
+    # up in variables with mangled names. `set VAR=value&& next` is safe: the
+    # value ends exactly at the && and JAVA_HOME/go paths carry no % or &&.
+    # The allowlist above is what makes passing the arguments through "$*"
+    # safe: no argument can hold a space or a cmd separator anymore.
+    exec "$__cmdexe" /c "set JAVA_HOME=$JAVA_HOME&& ${__pathset}gradlew.bat $*"
+  fi
+  ;;
+esac
+# ------------------------------------------------------------------------------
+
 # Attempt to set APP_HOME
 
 # Resolve links: $0 may be a link

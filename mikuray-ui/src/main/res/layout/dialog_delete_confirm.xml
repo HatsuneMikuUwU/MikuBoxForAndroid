@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="?attr/dialogPreferredPadding"
+    android:paddingTop="?attr/dialogPreferredPadding">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/dialog_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorError" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialog_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:maxLines="4"
+        android:scrollbars="none"
+        android:textAlignment="center"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textColor="?attr/colorError"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_icon" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_container"
+        style="?attr/materialCardViewFilledStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_title">
+
+        <!-- F17: the destructive-action warning was cut off at the dialog's
+             height with no way to read the rest. Bound the card and let the
+             message scroll instead of ellipsizing or truncating it. -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/message_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="220dp"
+            android:scrollbars="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/dialog_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="17sp" />
+
+        </androidx.core.widget.NestedScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

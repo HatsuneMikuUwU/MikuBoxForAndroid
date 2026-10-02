@@ -1,218 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 本应用自己的文案；其余文案（含各语言翻译）都在 :mikuray-ui 里。 -->
 <resources>
     <string name="app_name">MikuBox</string>
-    <string name="scaffold_subtitle">君の世界に、歌を届けるね。</string>
+
+    <!-- 引导页文案：界面来自 MikuRay，产品不是。 -->
+    <string name="uwu_welcome_summary_1">MikuBox，</string>
+    <string name="uwu_welcome_summary_2">基于 mihomo 内核、以初音风格装扮的 Android 客户端。</string>
+    <string name="uwu_welcome_page1_desc">自由开源的 Mihomo（Clash.Meta）Android 客户端。</string>
+    <string name="uwu_welcome_page2_desc">支持 Clash 订阅、规则集与策略组。</string>
+
+    <!-- VPN 通知、通知渠道与快捷开关磁贴。 -->
     <string name="vpn_channel_name">VPN 状态</string>
     <string name="vpn_notification_running">已连接</string>
+    <string name="vpn_notification_speeds">↑%1$s ↓%2$s</string>
+    <string name="vpn_notification_session">本次连接 ↑%1$s ↓%2$s</string>
+    <string name="vpn_notification_exit_ip">出口 %1$s</string>
     <string name="vpn_action_stop">停止</string>
+    <string name="vpn_tile_title">MikuBox VPN</string>
     <string name="subscription_channel_name">订阅更新</string>
     <string name="subscription_update_title">正在更新订阅</string>
-    <string name="vpn_tile_title">MikuBox VPN</string>
+
+    <!-- 本应用自己的导入、订阅与配置代码抛出的提示。 -->
     <string name="mihomo_start_failed">Mihomo 启动失败</string>
-    <string name="local_proxy_notification_running">本地 Mihomo 代理正在运行</string>
-    <string name="profile_default_name">配置文件</string>
-    <string name="profile_subscription_default_name">订阅</string>
-    <string name="profile_imported_default_name">导入的配置文件</string>
     <string name="error_mihomo_config_blank">Mihomo 配置不能为空</string>
+    <string name="error_import_file_empty">文件为空或无法读取</string>
+    <string name="error_no_compatible_proxy_links">未找到兼容 Mihomo 的代理链接</string>
+    <string name="error_subscription_empty">订阅为空</string>
+    <string name="error_subscription_http">订阅 HTTP 状态码 %1$d</string>
     <string name="error_subscription_url_blank">订阅地址不能为空</string>
     <string name="error_unknown_profile">未知配置文件 %1$s</string>
-    <string name="error_subscription_empty">订阅为空</string>
-    <string name="error_no_compatible_proxy_links">未找到兼容 Mihomo 的代理链接</string>
-    <string name="error_subscription_http">订阅 HTTP 状态码 %1$d</string>
+    <string name="profile_default_name">配置文件</string>
+    <string name="profile_imported_default_name">导入的配置文件</string>
+    <string name="profile_subscription_default_name">订阅</string>
 
-    <!-- Home UI -->
-    <string name="status_connected">已连接 · %1$s</string>
-    <string name="status_connected_no_profile">已连接</string>
-    <string name="status_disconnected">未连接</string>
-    <string name="status_no_profile">暂无配置文件 — 请在下方添加订阅或配置</string>
-    <string name="action_connect">连接</string>
-    <string name="action_disconnect">断开连接</string>
-    <string name="hint_subscription_url">订阅地址（Clash）</string>
-    <string name="hint_profile_name">名称（可选）</string>
-    <string name="subscription_update_interval">自动更新间隔</string>
-    <string name="subscription_update_when_connected">仅在连接时更新</string>
-    <string-array name="subscription_intervals">
-        <item>每 6 小时</item>
-        <item>每 12 小时</item>
-        <item>每 24 小时</item>
-        <item>每 3 天</item>
-        <item>每 7 天</item>
-    </string-array>
-    <string name="action_add_profile">添加配置文件</string>
-    <string name="action_add_subscription">添加并获取订阅</string>
-    <string name="action_import_clipboard">从剪贴板导入配置</string>
-    <string name="profiles_header">配置文件</string>
-    <string name="profiles_empty">暂无配置文件。</string>
-    <string name="action_update">更新</string>
-    <string name="action_delete">删除</string>
-    <string name="action_share">分享</string>
-    <string name="action_select">选用</string>
-    <string name="action_more">更多</string>
-    <string name="badge_subscription">订阅</string>
-    <string name="badge_local">本地</string>
-    <string name="badge_selected">已选择</string>
-    <string name="toast_subscription_added">已添加订阅，正在获取…</string>
-    <string name="toast_subscription_updated">订阅已更新</string>
-    <string name="toast_update_failed">更新失败：%1$s</string>
-    <string name="toast_config_imported">配置已导入</string>
-    <string name="toast_clipboard_empty">剪贴板为空</string>
-    <string name="toast_select_profile_first">请先选择或添加配置文件</string>
-    <string name="toast_import_failed">导入失败：%1$s</string>
+    <!-- 添加对话框与读屏标签(原先为硬编码中文,现与其它文案一样可本地化)。 -->
 
-    <!-- Navigation menu (bottom sheet) -->
-    <string name="app_settings">应用设置</string>
-    <string name="tools_and_info">工具与信息</string>
-    <string name="menu_home">主页</string>
-    <string name="settings">设置</string>
-    <string name="settings_language">语言</string>
-    <string name="language_system">系统默认</string>
-    <string name="language_english">English</string>
-    <string name="language_traditional_chinese">繁體中文</string>
-    <string name="language_simplified_chinese">简体中文</string>
-    <string name="language_french">Français</string>
-    <string name="language_indonesian">Bahasa Indonesia</string>
-    <string name="language_russian">Русский</string>
-    <string name="menu_log">Logcat</string>
-    <string name="desc_menu_log">查看应用日志</string>
-    <string name="menu_tools">工具</string>
-    <string name="desc_menu_tools">Ping、测速等</string>
-    <string name="desc_menu_about">关于此应用</string>
-    <string name="action_clear">清除</string>
-    <string name="logcat_read_failed">读取日志失败：%1$s</string>
-    <string name="toast_coming_soon">即将推出</string>
+    <!-- 分应用选择器直接在行名称里标注系统应用,读屏会连名字一起读出。 -->
 
-    <!-- Settings -->
-    <string name="settings_section_appearance">外观</string>
-    <string name="settings_section_connection">连接</string>
-    <string name="settings_theme">主题</string>
-    <string name="settings_theme_system">跟随系统</string>
-    <string name="settings_theme_light">浅色</string>
-    <string name="settings_theme_dark">深色</string>
-    <string name="settings_particles">粒子动画</string>
-    <string name="settings_particles_summary">菜单横幅的动态效果</string>
-    <string name="settings_boot">开机自动启动</string>
-    <string name="settings_boot_summary">重启后重新连接所选配置文件</string>
-    <string name="settings_mtu">MTU</string>
-    <string name="settings_per_app">分应用代理</string>
-    <string name="per_app_mode_all">所有应用</string>
-    <string name="per_app_mode_allow">允许列表</string>
-    <string name="per_app_mode_disallow">排除列表</string>
+    <!-- 桥接在 VPN 模式下始终启用 DNS 模块,DNS 页必须说明,否则 dns.enable=false 看起来像失效。 -->
+    <string name="mihomo_dns_vpn_forced_hint">VPN 模式下 DNS 模块始终开启(配置文件中的 dns.enable=false 会被覆盖)。若要不劫持 DNS,可清空 TUN DNS 劫持列表。</string>
 
-    <!-- Tools -->
-    <string name="tools_connection_test">连接测试</string>
-    <string name="tools_test_url">测试网址</string>
-    <string name="tools_run_test">开始测试</string>
-    <string name="tools_testing">测试中…</string>
-    <string name="tools_test_ok">HTTP %1$d · %2$d ms</string>
-    <string name="tools_test_failed">失败：%1$s</string>
-    <string name="tools_network_info">网络信息</string>
-    <string name="tools_net_transport">连接类型：%1$s</string>
-    <string name="tools_net_none">无连接</string>
-    <string name="tools_net_other">其他</string>
+    <!-- MikuRay 界面里没有的分应用选择器。 -->
+    <string name="apps_search">搜索应用</string>
+    <string name="apps_select_all">全选</string>
+    <string name="apps_invert_selection">反选</string>
 
-    <!-- About / Miku intro -->
-    <string name="menu_about">关于</string>
-    <string name="about_title">关于</string>
-    <string name="about_app_title">MikuBox for Android</string>
-    <string name="about_app_desc">以 Mihomo 为核心、换上初音未来主题的代理客户端。</string>
-    <string name="about_version">版本 %1$s</string>
-    <string name="uwu_about_miku_title">初音未来是谁？</string>
-    <string name="uwu_about_miku_summary">初音未来是 Crypton Future Media 推出、以 Vocaloid 为基础的虚拟歌手，代号 CV01。她以一头青绿色双马尾与清亮的歌声闻名，是一位 16 岁的少女，也是享誉全球的虚拟偶像。她活跃于音乐、演唱会与动画领域，深受粉丝喜爱。</string>
-    <string name="uwu_miku_gender_title">性别</string>
-    <string name="uwu_miku_gender_summary">女</string>
-    <string name="uwu_miku_birthday_title">生日</string>
-    <string name="uwu_miku_birthday_summary">8 月 31 日</string>
-    <string name="uwu_miku_age_title">年龄</string>
-    <string name="uwu_miku_age_summary">16</string>
-    <string name="uwu_miku_voice_title">声源</string>
-    <string name="uwu_miku_voice_summary">藤田咲</string>
-    <string name="uwu_miku_weight_title">体重</string>
-    <string name="uwu_miku_weight_summary">42 千克</string>
-    <string name="uwu_miku_height_title">身高</string>
-    <string name="uwu_miku_height_summary">158 厘米</string>
-    <string name="license">许可证</string>
-    <string name="about_license_summary">MikuBox 以 Apache-2.0 许可证发布。Mihomo 及其他随附组件仍遵循各自的许可证。</string>
-    <string name="settings_section_backup">备份</string>
-    <string name="settings_export">导出</string>
-    <string name="settings_export_summary">将配置文件与偏好保存为文件</string>
-    <string name="settings_import">导入</string>
-    <string name="settings_import_summary">从文件恢复配置文件与偏好</string>
-    <string name="toast_backup_exported">已导出备份</string>
-    <string name="toast_backup_imported">已导入备份</string>
-    <string name="toast_backup_failed">备份失败</string>
-
-    <!-- Proxies / node list -->
-    <string name="menu_proxies">节点</string>
-    <string name="proxies_title">节点</string>
-    <string name="proxies_empty_disconnected">连接后才能加载和管理节点。</string>
-    <string name="proxies_empty_none">当前配置没有可选择的分组。</string>
+    <!-- 节点页自己的操作。 -->
     <string name="proxies_test">测试延迟</string>
     <string name="proxies_sort_delay">按延迟排序</string>
-    <string name="proxies_testing">测试中…</string>
-    <string name="proxies_delay_ms">%1$d ms</string>
-    <string name="proxies_delay_timeout">超时</string>
-    <string name="toast_node_selected">已切换至 %1$s</string>
-    <string name="toast_node_select_failed">无法切换节点</string>
-    <string name="splash_version">Version %1$s</string>
 
-    <!-- DNS override -->
-    <string name="settings_dns">DNS</string>
-    <string name="settings_dns_summary">用自定义 DNS 覆盖配置的 DNS</string>
-    <string name="dns_title">DNS</string>
-    <string name="dns_override">覆盖 DNS</string>
-    <string name="dns_override_summary">用下方的内容替换每个配置的 dns 部分</string>
-    <string name="dns_yaml_hint">DNS（YAML）</string>
-    <string name="dns_invalid_title">DNS 配置无效</string>
-    <string name="dns_restart_hint">重新连接以应用更改。</string>
-    <string name="action_save">保存</string>
-    <string name="action_reset">重置</string>
-    <string name="toast_dns_saved">已保存 DNS 覆盖</string>
-    <string name="toast_dns_reset">已重置为默认 DNS</string>
+    <!-- 自定义配色选择器的轴标签。 -->
+    <string name="theme_hue">色相</string>
+    <string name="theme_saturation">饱和度</string>
+    <string name="theme_lightness">亮度</string>
 
-    <!-- Home search / sort -->
-    <string name="search_hint">想找点什么？</string>
-    <string name="sort_by_name">名称</string>
-    <string name="sort_by_updated">最近更新</string>
-    <string name="action_sort">排序</string>
-    <string name="action_menu">菜单</string>
-    <string name="action_refresh">刷新订阅</string>
-    <string name="toast_no_subscriptions">没有可刷新的订阅</string>
-    <string name="toast_subscriptions_updated">已更新 %1$d/%2$d 个订阅</string>
-    <string name="dialog_refresh_subscriptions_title">要刷新订阅吗？</string>
-    <string name="dialog_refresh_subscriptions_message">要立即刷新 %1$d 个订阅吗？</string>
-    <string name="dialog_update_subscription_title">要更新订阅吗？</string>
-    <string name="dialog_update_subscription_message">要从订阅网址更新“%1$s”吗？</string>
-
-    <!-- Core / connection settings -->
-    <string name="settings_section_core">核心</string>
-    <string name="settings_mode">出站模式</string>
-    <string name="settings_log">日志级别</string>
-    <string name="settings_tun_stack">TUN 堆栈</string>
-    <string name="settings_allow_lan">允许局域网</string>
-    <string name="settings_allow_lan_summary">让其他设备使用此代理</string>
-    <string name="settings_ipv6">IPv6</string>
-    <string name="settings_ipv6_summary">通过隧道路由 IPv6</string>
-    <string name="settings_autoconnect">启动时自动连接</string>
-    <string name="settings_autoconnect_summary">打开应用时启动 VPN</string>
-    <string name="settings_test_url">延迟测试链接</string>
-    <string name="settings_test_timeout">延迟测试超时</string>
-    <string name="mode_follow">跟随配置</string>
-    <string name="greeting_morning">早安…</string>
-    <string name="greeting_afternoon">午安…</string>
-    <string name="greeting_evening">晚上好…</string>
-    <string name="greeting_night">晚安…</string>
-
-    <!-- Navigation drawer -->
-    <string name="drawer_greeting">嗨，Miku 💕</string>
-    <string name="drawer_subtitle">一起加油吧！</string>
-    <string name="drawer_section_manage">管理</string>
-    <string name="drawer_section_tools">工具与信息</string>
-    <string name="about_links_title">相关链接</string>
-    <string name="about_link_github">GitHub 源代码</string>
-    <string name="about_link_telegram">Telegram 频道</string>
-    <string name="about_link_telegram_chinese">Telegram 中文频道</string>
-    <string name="settings_unified_delay">统一延迟</string>
-    <string name="settings_unified_delay_summary">对所有代理使用相同的延迟测量方式</string>
-    <string name="settings_tcp_concurrent">TCP 并行连接</string>
-    <string name="settings_tcp_concurrent_summary">同时连接到多个 IP 地址</string>
+    <!-- 行操作，供本应用弹出的短菜单使用。 -->
+    <string name="action_select">选用</string>
+    <string name="action_delete">删除</string>
+    <string name="action_share">分享</string>
+    <string name="action_update">更新</string>
 </resources>
