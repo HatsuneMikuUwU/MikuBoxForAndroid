@@ -13,6 +13,7 @@ fi
 # (fine locally off a warm module cache, but fatal on a fresh CI checkout).
 # Resync go.mod/go.sum against the checked-out submodule before building.
 go mod tidy || exit 1
+go get github.com/sagernet/gomobile/bind@v0.1.13 || exit 1
 
 # sing-box's own gomobile fork. Upstream golang.org/x/mobile lacks the -libname
 # flag and the binding fixes libbox depends on; sing-box pins this version in
