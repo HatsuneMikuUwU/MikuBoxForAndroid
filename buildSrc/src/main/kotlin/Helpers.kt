@@ -128,7 +128,7 @@ fun Project.setupAppCommon() {
 
     android.apply {
         if (keystorePwd != null) {
-            val signingKeystore = file(keystorePath ?: "release.keystore")
+            val signingKeystore = if (keystorePath != null) file(keystorePath) else rootProject.file("release.keystore")
             require(signingKeystore.exists()) {
                 "Keystore not found: ${signingKeystore.absolutePath}"
             }
