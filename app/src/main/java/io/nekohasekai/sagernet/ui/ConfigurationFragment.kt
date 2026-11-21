@@ -31,14 +31,18 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceDataStore
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -181,13 +185,61 @@ class ConfigurationFragment @JvmOverloads constructor(
 
         setupBannerHome()
          
+        val selectAppBar = view.findViewById<View>(R.id.select_appbar)
+        val mikuAppBar = view.findViewById<View>(R.id.app_bar)
+        val bannerHome = view.findViewById<View>(R.id.banner_home)
+        val pagerContainer = view.findViewById<View>(R.id.pager_container)
+        val btnHome = view.findViewById<View>(R.id.btn_home)
+        val btnMoreMenu = view.findViewById<View>(R.id.btn_more_menu)
+        val btnAddConfig = view.findViewById<View>(R.id.btn_add_config)
+        val btnAddSub = view.findViewById<View>(R.id.btn_add_sub)
+        val inlineSearch = view.findViewById<SearchView>(R.id.search_view_inline)
+        val quickLocateChip = view.findViewById<View>(R.id.layout_quick_locate_chip)
+
         if (!select) {
+            selectAppBar?.visibility = View.GONE
+            mikuAppBar?.visibility = View.VISIBLE
             menuController = ConfigurationMenuController(
                 toolbar = toolbar,
                 fragmentManager = childFragmentManager,
                 fragment = this
             )
+
+            mikuAppBar?.let { appBarView ->
+                ViewCompat.setOnApplyWindowInsetsListener(appBarView) { v, insets ->
+                    val statusTop = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+                    v.updatePadding(top = statusTop)
+                    insets
+                }
+            }
+
+            btnHome?.setOnClickListener {
+                (activity as? NavigationHost)?.showNavigationSheet()
+            }
+            btnMoreMenu?.setOnClickListener {
+                OtherMenuBottomSheet().show(childFragmentManager, OtherMenuBottomSheet.TAG)
+            }
+            btnAddConfig?.setOnClickListener {
+                ProfileMenuBottomSheet().show(childFragmentManager, ProfileMenuBottomSheet.TAG)
+            }
+            btnAddSub?.setOnClickListener {
+                (activity as? MainActivity)?.displayFragmentWithId(R.id.nav_group)
+            }
+            inlineSearch?.apply {
+                setOnQueryTextListener(this@ConfigurationFragment)
+                maxWidth = Int.MAX_VALUE
+            }
+            quickLocateChip?.setOnClickListener {
+                scrollToSelectedOrTop()
+            }
         } else {
+            selectAppBar?.visibility = View.VISIBLE
+            mikuAppBar?.visibility = View.GONE
+            bannerHome?.visibility = View.GONE
+            btnAddSub?.visibility = View.GONE
+            (pagerContainer?.layoutParams as? android.widget.RelativeLayout.LayoutParams)?.apply {
+                addRule(android.widget.RelativeLayout.BELOW, R.id.select_appbar)
+            }
             toolbar.setTitle(titleRes)
             toolbar.setNavigationIcon(R.drawable.ic_navigation_close)
             toolbar.setNavigationOnClickListener {
@@ -214,30 +266,36 @@ class ConfigurationFragment @JvmOverloads constructor(
         }.attach()
 
         toolbar.setOnClickListener {
-            val fragment = getCurrentGroupFragment()
-
-            if (fragment != null) {
-                val selectedProxy = selectedItem?.id ?: DataStore.selectedProxy
-                val selectedProfileIndex =
-                    fragment.adapter!!.configurationIdList.indexOf(selectedProxy)
-                if (selectedProfileIndex != -1) {
-                    val layoutManager = fragment.layoutManager
-                    val first = layoutManager.findFirstVisibleItemPosition()
-                    val last = layoutManager.findLastVisibleItemPosition()
-
-                    if (selectedProfileIndex !in first..last) {
-                        fragment.configurationListView.scrollTo(selectedProfileIndex, true)
-                        return@setOnClickListener
-                    }
-
-                }
-
-                fragment.configurationListView.scrollTo(0)
-            }
-
+            scrollToSelectedOrTop()
         }
 
         DataStore.profileCacheStore.registerChangeListener(this)
+    }
+
+    private fun scrollToSelectedOrTop() {
+        val fragment = getCurrentGroupFragment() ?: return
+        val selectedProxy = selectedItem?.id ?: DataStore.selectedProxy
+        val selectedProfileIndex =
+            fragment.adapter?.configurationIdList?.indexOf(selectedProxy) ?: -1
+        if (selectedProfileIndex != -1) {
+            val lm = fragment.layoutManager
+            val first = when (lm) {
+                is LinearLayoutManager -> lm.findFirstVisibleItemPosition()
+                is StaggeredGridLayoutManager -> lm.findFirstVisibleItemPositions(null).minOrNull() ?: 0
+                else -> 0
+            }
+            val last = when (lm) {
+                is LinearLayoutManager -> lm.findLastVisibleItemPosition()
+                is StaggeredGridLayoutManager -> lm.findLastVisibleItemPositions(null).maxOrNull() ?: 0
+                else -> 0
+            }
+
+            if (selectedProfileIndex !in first..last) {
+                fragment.configurationListView.scrollTo(selectedProfileIndex, true)
+                return
+            }
+        }
+        fragment.configurationListView.scrollTo(0)
     }
 
     fun setupSearchView() {
@@ -1149,7 +1207,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                 return DataStore.serviceState.let { it.canStop || it == BaseService.State.Stopped }
             }
 
-        lateinit var layoutManager: LinearLayoutManager
+        lateinit var layoutManager: RecyclerView.LayoutManager
         lateinit var configurationListView: RecyclerView
 
         val select by lazy {
@@ -1187,8 +1245,7 @@ class ConfigurationFragment @JvmOverloads constructor(
             if (!::proxyGroup.isInitialized) return
 
             configurationListView = view.findViewById(R.id.configuration_list)
-            layoutManager = FixedLinearLayoutManager(configurationListView)
-            configurationListView.layoutManager = layoutManager
+            applyLayoutMode()
             adapter = ConfigurationAdapter()
             ProfileManager.addListener(adapter!!)
             GroupManager.addListener(adapter!!)
@@ -1252,6 +1309,21 @@ class ConfigurationFragment @JvmOverloads constructor(
             undoManager.flush()
         }
 
+        fun applyLayoutMode() {
+            if (!::configurationListView.isInitialized) return
+            val isGrid = DataStore.doubleColumnProfileList
+            layoutManager = if (isGrid) {
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            } else {
+                FixedLinearLayoutManager(configurationListView)
+            }
+            configurationListView.layoutManager = layoutManager
+            val sidePadding = if (isGrid) dp2px(11) else 0
+            configurationListView.updatePadding(left = sidePadding, right = sidePadding)
+            configurationListView.recycledViewPool.clear()
+            adapter?.notifyDataSetChanged()
+        }
+
         inner class ConfigurationAdapter : RecyclerView.Adapter<ConfigurationHolder>(),
             ProfileManager.Listener,
             GroupManager.Listener,
@@ -1281,9 +1353,14 @@ class ConfigurationFragment @JvmOverloads constructor(
                 parent: ViewGroup,
                 viewType: Int,
             ): ConfigurationHolder {
+                val layoutRes = if (DataStore.doubleColumnProfileList) {
+                    R.layout.layout_profile_grid
+                } else {
+                    R.layout.layout_profile
+                }
                 return ConfigurationHolder(
                     LayoutInflater.from(parent.context)
-                        .inflate(R.layout.layout_profile, parent, false)
+                        .inflate(layoutRes, parent, false)
                 )
             }
 
@@ -1512,6 +1589,7 @@ class ConfigurationFragment @JvmOverloads constructor(
         val editButton: ImageView = view.findViewById(R.id.edit)
         val shareButton: ImageView = view.findViewById(R.id.share)
         val removeButton: ImageView = view.findViewById(R.id.remove)
+        val moreActionsButton: ImageView? = view.findViewById(R.id.more_actions)
     
         private val TAG_SHEET_DEFAULT = "DEFAULT_BANNER_SHEET"
 
@@ -1616,6 +1694,32 @@ class ConfigurationFragment @JvmOverloads constructor(
 
             editButton.setOnClickListener {
                 it.context.startActivity(proxyEntity.settingIntent(it.context, proxyGroup.type == GroupType.SUBSCRIPTION))
+            }
+
+            val collapseActions = DataStore.collapseProfileActions && !DataStore.doubleColumnProfileList
+            if (!DataStore.doubleColumnProfileList) {
+                shareButton.isVisible = !collapseActions
+                editButton.isVisible = !collapseActions
+                removeButton.isVisible = !collapseActions
+                moreActionsButton?.isVisible = collapseActions
+            } else {
+                moreActionsButton?.isVisible = true
+            }
+
+            moreActionsButton?.setOnClickListener { anchor ->
+                val popup = PopupMenu(anchor.context, anchor)
+                popup.menu.add(0, 1, 0, R.string.share)
+                popup.menu.add(0, 2, 1, R.string.edit)
+                popup.menu.add(0, 3, 2, R.string.delete)
+                popup.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        1 -> shareButton.performClick()
+                        2 -> editButton.performClick()
+                        3 -> removeButton.performClick()
+                    }
+                    true
+                }
+                popup.show()
             }
 
             removeButton.setOnClickListener {
@@ -1934,6 +2038,9 @@ class ConfigurationFragment @JvmOverloads constructor(
                             }
                             "custom_banner_uri", "custom_banner_blur_uri" -> {
                                 loadBanners()
+                            }
+                            "double_column_profile_list", "collapse_profile_actions" -> {
+                                getCurrentGroupFragment()?.applyLayoutMode()
                             }
                         }
                     }

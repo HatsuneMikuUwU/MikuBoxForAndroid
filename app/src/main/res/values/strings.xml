@@ -931,6 +931,26 @@ A sing-box client for Android."</string>
     <string name="uwu_welcome_summary_2">Sing-box client for Android With a Miku UI style from the UwU development.</string>
     <string name="uwu_welcome_summary_3">Made with Heart, Kotlin, Java code and more.</string>
 
+    <!-- MikuRay UI Phase 1 -->
+    <string name="blur_bottom_status_title">Liquid Glass Status Card</string>
+    <string name="blur_bottom_status_summary">Enable real-time blur and liquid glass effect on the floating bottom status card</string>
+    <string name="blur_bottom_blob_anim_title">Liquid Blob Animation</string>
+    <string name="blur_bottom_blob_anim_summary">Animate floating color blobs inside the blurred bottom status card</string>
+    <string name="show_fab_timer_title">Extended FAB Connection Timer</string>
+    <string name="show_fab_timer_summary">Show live HH:MM:SS connection timer inside the connect button</string>
+    <string name="show_quick_actions_title">Quick Actions Bar</string>
+    <string name="show_quick_actions_summary">Show quick action buttons below the floating status card</string>
+    <string name="show_snowflakes_title">Snowflakes Animation</string>
+    <string name="show_snowflakes_summary">Show gentle falling snowflakes overlay on the main screen</string>
+    <string name="locate_selected_chip">Locate</string>
+    <string name="double_column_profile_list_title">Double-Column Server Grid</string>
+    <string name="double_column_profile_list_summary">Display proxy profiles in a two-column staggered grid layout</string>
+    <string name="collapse_profile_actions_title">Collapse Server Card Actions</string>
+    <string name="collapse_profile_actions_summary">Move share, edit, and delete buttons into an overflow menu</string>
+    <string name="blur_bottom_radius_title">Liquid Glass Blur Radius</string>
+    <string name="blur_bottom_alpha_title">Liquid Glass Opacity (%)</string>
+    <string name="banner_settings_character_title">Settings Banner Character</string>
+
     <!-- greeting -->
     <string name="uwu_greeting_morning">Good morning...</string>
     <string name="uwu_greeting_afternoon">Good afternoon...</string>

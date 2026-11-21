@@ -21,7 +21,7 @@ class DynamicShapeImageView @JvmOverloads constructor(
 
     private val KEY_SHAPE = "preference_icon_shape"
     
-    private var currentShapeId: Int = R.raw.uwu_shape_cookie
+    private var currentShapeId: Int = R.raw.uwu_shape_cookie_9
 
     override fun createImageViewHelper(): ShaderHelper {
         val shapeId = resolveShapeId()
@@ -71,21 +71,9 @@ class DynamicShapeImageView @JvmOverloads constructor(
 
     private fun resolveShapeId(): Int {
         return try {
-            val shapeKey = DataStore.preferenceIconShape
-            when (shapeKey) {
-                "uwu_shape_clover" -> R.raw.uwu_shape_clover
-                "uwu_shape_circle" -> R.raw.uwu_shape_circle
-                "uwu_shape_diamond" -> R.raw.uwu_shape_diamond
-                "uwu_shape_pentagon" -> R.raw.uwu_shape_pentagon
-                "uwu_shape_hexagon" -> R.raw.uwu_shape_hexagon
-                "uwu_shape_octagon" -> R.raw.uwu_shape_octagon
-                "uwu_shape_rounded_square" -> R.raw.uwu_shape_rounded_square
-                "uwu_shape_squircle" -> R.raw.uwu_shape_squircle
-                "uwu_shape_heart" -> R.raw.uwu_shape_heart
-                else -> R.raw.uwu_shape_cookie
-            }
+            MikuShapeResolver.resolve(DataStore.preferenceIconShape)
         } catch (e: Exception) {
-            R.raw.uwu_shape_cookie
+            R.raw.uwu_shape_cookie_9
         }
     }
 

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView 
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16.0dip"
-    android:layout_marginTop="16.0dip"
-    android:layout_marginEnd="16.0dip"
-    android:layout_marginBottom="0.0dip"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="4dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardBackgroundColor="?colorCard"
-    app:cardCornerRadius="20.0dip"
-    app:cardElevation="1.0dip"
+    app:cardBackgroundColor="?attr/colorCard"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="0dp"
     app:strokeColor="?attr/colorOutlineVariant"
-    app:strokeWidth="1.0dip">
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:id="@+id/selected_view"
@@ -29,11 +29,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
-        android:orientation="horizontal">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="10dp">
 
         <com.neko.widget.LayoutOff
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             key="uwu_icon_profile_server">
@@ -41,17 +46,16 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10.0dip"
-                android:layout_marginEnd="5.0dip">
+                android:layout_marginEnd="8dp">
 
                 <com.neko.widget.DynamicShapeImageView
-                    android:layout_width="45.0dip"
-                    android:layout_height="45.0dip"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
                     android:scaleType="centerCrop" />
 
                 <androidx.preference.internal.PreferenceImageView
-                    android:layout_width="25.0dip"
-                    android:layout_height="25.0dip"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_social_emoji_symbols"
                     android:tint="?colorIcon" />
@@ -59,8 +63,9 @@
         </com.neko.widget.LayoutOff>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:nextFocusRight="@+id/edit"
             android:orientation="vertical">
 
@@ -68,134 +73,135 @@
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="0.0dip"
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
-                    android:gravity="center_vertical"
-                    android:paddingStart="12.0dip"
-                    android:paddingTop="10.0dip"
-                    android:paddingBottom="10.0dip">
-
-                    <TextView
-                        android:id="@+id/profile_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleLarge"
-                        android:textColor="?colorOnSurface"
-                        android:textSize="18.0sp" />
-                </LinearLayout>
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/edit"
-                    android:focusable="true"
-                    android:padding="12.0dip"
-                    app:srcCompat="@drawable/ic_image_edit"
-                    app:tint="?colorOnSurface" />
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="16.5sp"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/share"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:background="?selectableItemBackgroundBorderless"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_button"
                     android:contentDescription="@string/share"
                     android:focusable="true"
-                    android:padding="12.0dip"
-                    app:srcCompat="@drawable/ic_social_share"
-                    app:tint="?colorOnSurface" />
+                    android:padding="7dp"
+                    app:srcCompat="@drawable/ic_share_color"
+                    app:tint="@null" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/edit"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_button"
+                    android:contentDescription="@string/edit"
+                    android:focusable="true"
+                    android:padding="7dp"
+                    app:srcCompat="@drawable/ic_edit_color"
+                    app:tint="@null" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/remove"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:background="?selectableItemBackgroundBorderless"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_button"
                     android:contentDescription="@string/delete"
                     android:focusable="true"
-                    android:padding="12.0dip"
-                    app:srcCompat="@drawable/ic_action_delete"
-                    app:tint="?colorOnSurface" />
+                    android:padding="7dp"
+                    app:srcCompat="@drawable/ic_delete_empty"
+                    app:tint="?attr/colorError" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/more_actions"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_button"
+                    android:contentDescription="@string/menu_configuration"
+                    android:focusable="true"
+                    android:padding="7dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_baseline_more_vert_24"
+                    app:tint="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:orientation="horizontal"
-                android:paddingStart="12.0dip"
-                android:paddingEnd="8.0dip"
-                android:paddingBottom="6.0dip"
                 android:visibility="gone">
 
                 <TextView
                     android:id="@+id/profile_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="@string/server_address"
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodyMedium"
-                    android:textColor="?colorOnSurfaceVariant"
-                    android:textSize="14.0sp" />
-
-                <View
-                    android:layout_width="0.0dip"
-                    android:layout_height="0.0dip"
-                    android:layout_weight="1.0" />
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodySmall"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12.5sp" />
 
                 <TextView
                     android:id="@+id/traffic_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:text="@string/traffic"
                     android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodySmall"
-                    android:textColor="?colorOnSurfaceVariant"
-                    android:textSize="12.0sp" />
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="11.5sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingStart="12.0dip"
-                android:paddingEnd="8.0dip"
-                android:paddingBottom="12.0dip">
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/profile_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/uwu_badge"
-                    android:gravity="center"
-                    android:minHeight="28dp"
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodySmall"
-                    android:textColor="?colorPrimary"
-                    android:textSize="12.0sp" />
+                    android:background="@drawable/bg_weather_chip"
+                    android:paddingStart="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="2dp"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.LabelMedium"
+                    android:textSize="11.5sp"
+                    android:textStyle="bold" />
 
                 <View
-                    android:layout_width="0.0dip"
-                    android:layout_height="0.0dip"
-                    android:layout_weight="1.0" />
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/profile_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4.0dip"
-                    android:background="@drawable/uwu_badge"
-                    android:gravity="center"
-                    android:minHeight="28dp"
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.BodySmall"
-                    android:textColor="?colorPrimary"
-                    android:textSize="12.0sp" />
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="4dp"
+                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.LabelMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

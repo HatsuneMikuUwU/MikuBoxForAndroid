@@ -716,27 +716,35 @@
   <style name="Theme.SagerNet.True.Black" parent="@style/ThemeOverlay.MaterialComponents">
         <item name="android:colorBackground">#ff000000</item>
         <item name="colorBg">#ff000000</item>
-        <item name="colorCard">#ff131313</item>
-        <item name="colorSurfaceContainerHigh">#ff212121</item>
-        <item name="colorSurfaceContainerHighest">#ff212121</item>
-        <item name="colorSurfaceContainerLow">#ff131313</item>
+        <item name="colorCard">#ff111111</item>
+        <item name="colorSurface">#ff000000</item>
+        <item name="colorSurfaceContainerLowest">#ff000000</item>
+        <item name="colorSurfaceContainerLow">#ff111111</item>
+        <item name="colorSurfaceContainer">#ff161616</item>
+        <item name="colorSurfaceContainerHigh">#ff1e1e1e</item>
+        <item name="colorSurfaceContainerHighest">#ff242424</item>
         <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet.True.Black</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet.True.Black</item>
     </style>
   
-    <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet.True.Black" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="backgroundTint">#ff212121</item>
-        <item name="colorSurface">#ff212121</item>
-        <item name="android:backgroundTint">#ff212121</item>
-        <item name="android:background">#ff212121</item>
-        <item name="android:colorBackground">#ff212121</item>
-        <item name="android:colorBackgroundFloating">#ff212121</item>
+    <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet.True.Black" parent="@style/ThemeOverlay.Material3Expressive.MaterialAlertDialog.Centered">
+        <item name="shapeAppearance">@style/AppThemeAlertDialogShape</item>
+        <item name="backgroundTint">#ff161616</item>
+        <item name="colorSurface">#ff161616</item>
+        <item name="colorSurfaceContainerHigh">#ff161616</item>
+        <item name="android:backgroundTint">#ff161616</item>
+        <item name="android:background">#ff161616</item>
+        <item name="android:colorBackground">#ff161616</item>
+        <item name="android:colorBackgroundFloating">#ff161616</item>
         <item name="android:dialogCornerRadius">28.0dip</item>
-        <item name="buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
-        <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush.Primary</item>
-        <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
-        <item name="colorBackgroundFloating">#ff212121</item>
         <item name="dialogCornerRadius">28.0dip</item>
+        <item name="colorBackgroundFloating">#ff161616</item>
+        <item name="buttonBarPositiveButtonStyle">@style/CustomDialogFilledButtonPrimary</item>
+        <item name="buttonBarNegativeButtonStyle">@style/CustomDialogFilledButtonSecondary</item>
+        <item name="buttonBarNeutralButtonStyle">@style/CustomDialogFilledButtonNeutral</item>
+        <item name="materialAlertDialogTitleIconStyle">@style/AppThemeAlertDialogTitleIcon</item>
+        <item name="android:windowMinWidthMajor">91%</item>
+        <item name="android:windowMinWidthMinor">91%</item>
     </style>
   
     <style name="Theme.SagerNet" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
@@ -929,19 +937,57 @@
     </style>
 
 
-    <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
-        <item name="colorSurface">?attr/colorSurfaceContainerHigh</item>
-        <item name="android:backgroundTint">?attr/colorSurfaceContainerHigh</item>
-        <item name="android:background">?attr/colorSurfaceContainerHigh</item>
-        <item name="android:colorBackground">?attr/colorSurfaceContainerHigh</item>
-        <item name="android:colorBackgroundFloating">?attr/colorSurfaceContainerHigh</item>
+    <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet" parent="@style/ThemeOverlay.Material3Expressive.MaterialAlertDialog.Centered">
+        <item name="shapeAppearance">@style/AppThemeAlertDialogShape</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainer</item>
+        <item name="colorSurface">?attr/colorSurfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">?attr/colorSurfaceContainer</item>
+        <item name="android:backgroundTint">?attr/colorSurfaceContainer</item>
+        <item name="android:background">?attr/colorSurfaceContainer</item>
+        <item name="android:colorBackground">?attr/colorSurfaceContainer</item>
+        <item name="android:colorBackgroundFloating">?attr/colorSurfaceContainer</item>
+        <item name="colorBackgroundFloating">?attr/colorSurfaceContainer</item>
         <item name="android:dialogCornerRadius">28.0dip</item>
-        <item name="buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
-        <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush.Primary</item>
-        <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary</item>
-        <item name="colorBackgroundFloating">?attr/colorSurfaceContainerHigh</item>
         <item name="dialogCornerRadius">28.0dip</item>
+        <item name="buttonBarPositiveButtonStyle">@style/CustomDialogFilledButtonPrimary</item>
+        <item name="buttonBarNegativeButtonStyle">@style/CustomDialogFilledButtonSecondary</item>
+        <item name="buttonBarNeutralButtonStyle">@style/CustomDialogFilledButtonNeutral</item>
+        <item name="materialAlertDialogTitleIconStyle">@style/AppThemeAlertDialogTitleIcon</item>
+        <item name="android:windowMinWidthMajor">91%</item>
+        <item name="android:windowMinWidthMinor">91%</item>
+    </style>
+
+    <style name="AppThemeAlertDialogShape" parent="@style/ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="AppThemeAlertDialogTitleIcon" parent="@style/MaterialAlertDialog.Material3.Title.Icon.CenterStacked">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:tint">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="CustomDialogFilledButtonPrimary" parent="Widget.Material3Expressive.Button">
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:layout_marginStart">12dp</item>
+    </style>
+
+    <style name="CustomDialogFilledButtonSecondary" parent="Widget.Material3Expressive.Button">
+        <item name="backgroundTint">?attr/colorSecondaryContainer</item>
+        <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingHorizontal">12dp</item>
+    </style>
+
+    <style name="CustomDialogFilledButtonNeutral" parent="Widget.Material3Expressive.Button">
+        <item name="backgroundTint">?attr/colorTertiary</item>
+        <item name="android:textColor">?attr/colorOnTertiary</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingHorizontal">12dp</item>
     </style>
 
     <style name="AppearanceFoundation.Title" parent="TextAppearance.AppCompat.Title">

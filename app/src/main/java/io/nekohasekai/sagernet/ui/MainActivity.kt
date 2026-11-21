@@ -25,6 +25,9 @@ import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.preference.PreferenceDataStore
 import com.airbnb.lottie.LottieAnimationView
@@ -34,8 +37,6 @@ import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.Target
-import com.google.android.material.bottomappbar.BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-import com.google.android.material.bottomappbar.BottomAppBar.FAB_ALIGNMENT_MODE_END
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -88,33 +89,13 @@ class MainActivity : ThemedActivity(),
         
         navMenuController = NavMenuController(this)
 
-        when (DataStore.fabStyle) {
-            FabStyle.End -> {
-                binding.stats.fabAlignmentMode = FAB_ALIGNMENT_MODE_END
-                binding.stats.fabCradleMargin = dp2px(5).toFloat()
-                binding.stats.fabCradleRoundedCornerRadius = dp2px(6).toFloat()
-                binding.stats.cradleVerticalOffset = 0F
-            }
-            FabStyle.Center -> {
-                binding.stats.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER
-                binding.stats.fabCradleMargin = dp2px(5).toFloat()
-                binding.stats.fabCradleRoundedCornerRadius = dp2px(6).toFloat()
-                binding.stats.cradleVerticalOffset = 0F
-            }
-        }
-
-        (binding.stats.background as? MaterialShapeDrawable)?.let { barBackground ->
-            val radius = dp2px(28).toFloat()
-            val newShape = barBackground.shapeAppearanceModel
-                .toBuilder()
-                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                .setTopRightCorner(CornerFamily.ROUNDED, radius)
-                .build()
-            barBackground.shapeAppearanceModel = newShape
-            barBackground.elevation = 0f
-        }
-
         binding.fab.initProgress(binding.fabProgress)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomDockContainer) { view, insets ->
+            val navInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            view.updatePadding(bottom = dp2px(16) + navInsets.bottom)
+            insets
+        }
 
         if (savedInstanceState == null) {
             displayFragmentWithId(R.id.nav_configuration)
@@ -133,11 +114,13 @@ class MainActivity : ThemedActivity(),
         binding.fab.setOnClickListener {
             if (DataStore.serviceState.canStop) SagerNet.stopService() else connect.launch(null)
         }
-        binding.stats.setOnClickListener { if (DataStore.serviceState.connected) binding.stats.testConnection() }
-        
-        binding.stats.setNavigationOnClickListener {
-            navMenuController.showMenu()
+
+        binding.stats.applyMikuStyle(binding.coordinator) {
+            if (DataStore.serviceState.connected) binding.stats.testConnection()
         }
+
+        setupQuickActions()
+        updateSnowflakesVisibility()
 
         setContentView(binding.root)
         
@@ -389,11 +372,16 @@ class MainActivity : ThemedActivity(),
     fun displayFragment(fragment: ToolbarFragment, reverseAnim: Boolean = false) {
         if (fragment is ConfigurationFragment) {
             binding.stats.allowShow = true
+            binding.stats.performShow()
             binding.fab.show()
+            updateQuickActionsVisibility(isHome = true)
         } else if (!DataStore.showBottomBar) {
             binding.stats.allowShow = false
             binding.stats.performHide()
             binding.fab.hide()
+            updateQuickActionsVisibility(isHome = false)
+        } else {
+            updateQuickActionsVisibility(isHome = false)
         }
 
         val transaction = supportFragmentManager.beginTransaction()
@@ -645,11 +633,59 @@ class MainActivity : ThemedActivity(),
         }
     }
 
+    private fun setupQuickActions() {
+        binding.btnQuickMenu.setOnClickListener {
+            navMenuController.showMenu()
+        }
+        binding.btnQuickSubUpdate.setOnClickListener {
+            runOnDefaultDispatcher {
+                val current = DataStore.currentGroup()
+                if (current.type == GroupType.SUBSCRIPTION) {
+                    GroupUpdater.startUpdate(current, true)
+                } else {
+                    io.nekohasekai.sagernet.database.SagerDatabase.groupDao.allGroups()
+                        .filter { it.type == GroupType.SUBSCRIPTION }
+                        .forEach { GroupUpdater.startUpdate(it, true) }
+                }
+            }
+        }
+        binding.btnQuickUrlTest.setOnClickListener {
+            if (DataStore.serviceState.connected) {
+                binding.stats.testConnection()
+            } else {
+                snackbar(R.string.not_connected).show()
+            }
+        }
+        binding.btnQuickSettings.setOnClickListener {
+            displayFragmentWithId(R.id.nav_settings)
+        }
+        updateQuickActionsVisibility(isHome = true)
+    }
+
+    private fun updateQuickActionsVisibility(isHome: Boolean) {
+        binding.layoutQuickActions.visibility =
+            if (isHome && DataStore.showQuickActions) View.VISIBLE else View.GONE
+    }
+
+    private fun updateSnowflakesVisibility() {
+        binding.snowflakesView.visibility =
+            if (DataStore.showSnowflakes) View.VISIBLE else View.GONE
+    }
+
     override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {
         runOnUiThread {
             when (key) {
-            	"disable_bottom_sheet_home" -> updateDrawerLockMode()
-            	Key.ENABLE_CLASH_API -> refreshNavMenu(DataStore.enableClashAPI)
+                "disable_bottom_sheet_home" -> updateDrawerLockMode()
+                "blur_bottom_status", "blur_bottom_blob_anim", "blur_bottom_radius", "blur_bottom_alpha" -> {
+                    binding.stats.refreshMikuStyle()
+                }
+                "show_fab_timer" -> binding.fab.refreshTimerVisibility()
+                "show_quick_actions" -> {
+                    val isHome = supportFragmentManager.findFragmentById(R.id.fragment_holder) is ConfigurationFragment
+                    updateQuickActionsVisibility(isHome)
+                }
+                "show_snowflakes" -> updateSnowflakesVisibility()
+                Key.ENABLE_CLASH_API -> refreshNavMenu(DataStore.enableClashAPI)
                 Key.SERVICE_MODE -> onBinderDied()
                 Key.PROXY_APPS, Key.BYPASS_MODE, Key.INDIVIDUAL -> {
                     if (DataStore.serviceState.canStop) {

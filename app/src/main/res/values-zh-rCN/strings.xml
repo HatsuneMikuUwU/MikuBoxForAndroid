@@ -819,6 +819,26 @@ HatsuneMikuUwU 开发组"</string>
     <string name="uwu_welcome_summary_2">Android 上的 Sing-box 客户端, 采用 UwU 开发的 Miku UI</string>
     <string name="uwu_welcome_summary_3">使用 Heart, Kotlin, Java 等语言制作</string>
 
+    <!-- MikuRay UI Phase 1 -->
+    <string name="blur_bottom_status_title">液态玻璃状态栏</string>
+    <string name="blur_bottom_status_summary">为底部悬浮状态卡片启用实时高斯模糊与液态玻璃效果</string>
+    <string name="blur_bottom_blob_anim_title">液态光球动画</string>
+    <string name="blur_bottom_blob_anim_summary">在模糊状态卡片内显示动态流动的彩色光球</string>
+    <string name="show_fab_timer_title">扩展按钮连接计时器</string>
+    <string name="show_fab_timer_summary">连接后在启动按钮内显示实时 HH:MM:SS 计时器</string>
+    <string name="show_quick_actions_title">底部快捷操作栏</string>
+    <string name="show_quick_actions_summary">在悬浮状态卡片下方显示快捷操作按钮</string>
+    <string name="show_snowflakes_title">雪花飘落动画</string>
+    <string name="show_snowflakes_summary">在主界面叠加柔和的雪花飘落动画效果</string>
+    <string name="locate_selected_chip">定位</string>
+    <string name="double_column_profile_list_title">双栏节点网格</string>
+    <string name="double_column_profile_list_summary">以双栏瀑布流网格显示节点卡片</string>
+    <string name="collapse_profile_actions_title">收合节点卡片按钮</string>
+    <string name="collapse_profile_actions_summary">将分享、编辑、删除按钮收合至更多菜单中</string>
+    <string name="blur_bottom_radius_title">液态玻璃模糊半径</string>
+    <string name="blur_bottom_alpha_title">液态玻璃不透明度 (%)</string>
+    <string name="banner_settings_character_title">设置页横幅角色图</string>
+
     <!-- greeting -->
     <string name="uwu_greeting_morning"> 早安…</string>
     <string name="uwu_greeting_afternoon"> 午安…</string>

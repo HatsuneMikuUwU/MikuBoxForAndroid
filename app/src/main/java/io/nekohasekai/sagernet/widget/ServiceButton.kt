@@ -3,6 +3,7 @@ package io.nekohasekai.sagernet.widget
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.os.SystemClock
 import android.util.AttributeSet
 import android.view.PointerIcon
 import android.view.View
@@ -13,20 +14,23 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.progressindicator.BaseProgressIndicator
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.bg.BaseService
+import io.nekohasekai.sagernet.database.DataStore
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import java.util.*
 
 class ServiceButton @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) :
-    FloatingActionButton(context, attrs, defStyleAttr), DynamicAnimation.OnAnimationEndListener {
+    defStyleAttr: Int = com.google.android.material.R.attr.extendedFloatingActionButtonStyle
+) : ExtendedFloatingActionButton(context, attrs, defStyleAttr),
+    DynamicAnimation.OnAnimationEndListener {
 
     private val callback = object : Animatable2Compat.AnimationCallback() {
         override fun onAnimationEnd(drawable: Drawable) {
@@ -50,9 +54,9 @@ class ServiceButton @JvmOverloads constructor(
             }
 
         fun start() {
-            setImageDrawable(icon)
+            setIcon(icon)
             icon.start()
-            progress.onStart()
+            progress?.onStart()
         }
 
         fun stop() = icon.stop()
@@ -62,7 +66,7 @@ class ServiceButton @JvmOverloads constructor(
     private val iconConnecting by lazy {
         AnimatedState(R.drawable.ic_service_connecting) {
             hideProgress()
-            delayedAnimation = (context as LifecycleOwner).lifecycleScope.launchWhenStarted {
+            delayedAnimation = (context as? LifecycleOwner)?.lifecycleScope?.launchWhenStarted {
                 delay(context.resources.getInteger(android.R.integer.config_mediumAnimTime) + 1000L)
                 isIndeterminate = true
                 show()
@@ -80,7 +84,14 @@ class ServiceButton @JvmOverloads constructor(
 
     private var checked = false
     private var delayedAnimation: Job? = null
-    private lateinit var progress: BaseProgressIndicator<*>
+    private var timerJob: Job? = null
+    private var connectedSinceElapsedMs: Long = 0L
+    private var progress: BaseProgressIndicator<*>? = null
+
+    init {
+        shrink()
+    }
+
     fun initProgress(progress: BaseProgressIndicator<*>) {
         this.progress = progress
         progress.progressDrawable?.addSpringAnimationEndListener(this)
@@ -90,12 +101,12 @@ class ServiceButton @JvmOverloads constructor(
         animation: DynamicAnimation<out DynamicAnimation<*>>?, canceled: Boolean, value: Float,
         velocity: Float
     ) {
-        if (!canceled) progress.hide()
+        if (!canceled) progress?.hide()
     }
 
     private fun hideProgress() {
         delayedAnimation?.cancel()
-        progress.hide()
+        progress?.hide()
     }
 
     override fun onCreateDrawableState(extraSpace: Int): IntArray {
@@ -107,16 +118,80 @@ class ServiceButton @JvmOverloads constructor(
         return drawableState
     }
 
+    fun refreshTimerVisibility() {
+        if (checked && DataStore.showFabTimer) {
+            startTimer()
+        } else {
+            stopTimer()
+        }
+    }
+
+    private fun startTimer() {
+        if (connectedSinceElapsedMs == 0L) {
+            connectedSinceElapsedMs = SystemClock.elapsedRealtime()
+        }
+        if (timerJob?.isActive == true) {
+            extend()
+            return
+        }
+        val owner = context as? LifecycleOwner ?: return
+        timerJob = owner.lifecycleScope.launch {
+            extend()
+            while (isActive) {
+                val elapsedSec = ((SystemClock.elapsedRealtime() - connectedSinceElapsedMs) / 1000L)
+                    .coerceAtLeast(0L)
+                val hours = elapsedSec / 3600L
+                val minutes = (elapsedSec % 3600L) / 60L
+                val seconds = elapsedSec % 60L
+                text = String.format(Locale.US, "%02d:%02d:%02d", hours, minutes, seconds)
+                delay(1000L)
+            }
+        }
+    }
+
+    private fun stopTimer(resetTimestamp: Boolean = false) {
+        timerJob?.cancel()
+        timerJob = null
+        if (resetTimestamp) {
+            connectedSinceElapsedMs = 0L
+        }
+        text = ""
+        shrink()
+    }
+
+    override fun onDetachedFromWindow() {
+        timerJob?.cancel()
+        timerJob = null
+        super.onDetachedFromWindow()
+    }
+
     fun changeState(state: BaseService.State, previousState: BaseService.State, animate: Boolean) {
         when (state) {
-            BaseService.State.Connecting -> changeState(iconConnecting, animate)
-            BaseService.State.Connected -> changeState(iconConnected, animate)
+            BaseService.State.Connecting -> {
+                stopTimer(resetTimestamp = true)
+                changeState(iconConnecting, animate)
+            }
+            BaseService.State.Connected -> {
+                if (connectedSinceElapsedMs == 0L) {
+                    connectedSinceElapsedMs = SystemClock.elapsedRealtime()
+                }
+                changeState(iconConnected, animate)
+            }
             BaseService.State.Stopping -> {
+                stopTimer(resetTimestamp = true)
                 changeState(iconStopping, animate && previousState == BaseService.State.Connected)
             }
-            else -> changeState(iconStopped, animate)
+            else -> {
+                stopTimer(resetTimestamp = true)
+                changeState(iconStopped, animate)
+            }
         }
         checked = state == BaseService.State.Connected
+        if (checked && DataStore.showFabTimer) {
+            startTimer()
+        } else {
+            stopTimer(resetTimestamp = !checked)
+        }
         refreshDrawableState()
         val description = context.getText(if (state.canStop) R.string.stop else R.string.connect)
         contentDescription = description
@@ -144,7 +219,7 @@ class ServiceButton @JvmOverloads constructor(
         } else {
             animationQueue.peekFirst()?.stop()
             animationQueue.clear()
-            icon.start()    // force ensureAnimatorSet to be called so that stop() will work
+            icon.start()
             icon.stop()
         }
     }

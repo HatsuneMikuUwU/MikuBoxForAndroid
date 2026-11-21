@@ -419,4 +419,24 @@
     <string name="load_balance_interval">健康檢查間隔</string>
     <string name="load_balance_idle_timeout">健康檢查閒置逾時</string>
     <string name="load_balance_interrupt_exist_connections">中斷現有連線</string>
+
+    <!-- MikuRay UI Phase 1 -->
+    <string name="blur_bottom_status_title">液態玻璃狀態欄</string>
+    <string name="blur_bottom_status_summary">為底部懸浮狀態卡片啟用即時高斯模糊與液態玻璃效果</string>
+    <string name="blur_bottom_blob_anim_title">液態光球動畫</string>
+    <string name="blur_bottom_blob_anim_summary">在模糊狀態卡片內顯示動態流動的彩色光球</string>
+    <string name="show_fab_timer_title">擴展按鈕連線計時器</string>
+    <string name="show_fab_timer_summary">連線後在啟動按鈕內顯示即時 HH:MM:SS 計時器</string>
+    <string name="show_quick_actions_title">底部快捷操作列</string>
+    <string name="show_quick_actions_summary">在懸浮狀態卡片下方顯示快捷操作按鈕</string>
+    <string name="show_snowflakes_title">雪花飄落動畫</string>
+    <string name="show_snowflakes_summary">在主畫面疊加柔和的雪花飄落動畫效果</string>
+    <string name="locate_selected_chip">定位</string>
+    <string name="double_column_profile_list_title">雙欄節點網格</string>
+    <string name="double_column_profile_list_summary">以雙欄瀑布流網格顯示節點卡片</string>
+    <string name="collapse_profile_actions_title">收合節點卡片按鈕</string>
+    <string name="collapse_profile_actions_summary">將分享、編輯、刪除按鈕收合至更多選單中</string>
+    <string name="blur_bottom_radius_title">液態玻璃模糊半徑</string>
+    <string name="blur_bottom_alpha_title">液態玻璃不透明度 (%)</string>
+    <string name="banner_settings_character_title">設定頁橫幅角色圖</string>
 </resources>

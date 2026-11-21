@@ -23,15 +23,16 @@
             android:src="@drawable/uwu_addon_logo"
             android:adjustViewBounds="true"
             android:tint="?attr/colorPrimary" />
-        <ImageView
+        <com.neko.widget.BannerSettingsCharacterImageView
+            android:id="@+id/iv_banner_settings_character"
             android:layout_gravity="end|center"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginTop="10.0dip"
             android:layout_marginBottom="0.0dip"
-            android:src="@drawable/uwu_banner_image_2"
+            android:src="@drawable/uwu_banner_miku_v6"
             android:adjustViewBounds="true"
-            android:layout_marginEnd="-60.0dip" />
+            android:layout_marginEnd="-24.0dip" />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"

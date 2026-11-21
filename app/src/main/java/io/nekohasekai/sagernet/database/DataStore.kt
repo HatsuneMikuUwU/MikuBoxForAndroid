@@ -115,8 +115,18 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var customProfileName by configurationStore.string("custom_profile_name") { "" }
     var appFont by configurationStore.string("app_font_pref") { "default" }
     var fontSize by configurationStore.int("app_font_scale") { 100 }
-    var profileBannerShape by configurationStore.string("profile_banner_shape") { "uwu_shape_cookie" }
-    var preferenceIconShape by configurationStore.string("preference_icon_shape") { "uwu_shape_cookie" }
+    var profileBannerShape by configurationStore.string("profile_banner_shape") { "uwu_shape_cookie_9" }
+    var preferenceIconShape by configurationStore.string("preference_icon_shape") { "uwu_shape_cookie_9" }
+    var blurBottomStatus by configurationStore.boolean("blur_bottom_status") { true }
+    var blurBottomBlobAnim by configurationStore.boolean("blur_bottom_blob_anim") { true }
+    var blurBottomRadius by configurationStore.int("blur_bottom_radius") { 16 }
+    var blurBottomAlpha by configurationStore.int("blur_bottom_alpha") { 55 }
+    var showFabTimer by configurationStore.boolean("show_fab_timer") { true }
+    var showQuickActions by configurationStore.boolean("show_quick_actions") { false }
+    var showSnowflakes by configurationStore.boolean("show_snowflakes") { false }
+    var doubleColumnProfileList by configurationStore.boolean("double_column_profile_list") { false }
+    var collapseProfileActions by configurationStore.boolean("collapse_profile_actions") { false }
+    var bannerSettingsCharacter by configurationStore.string("banner_settings_character") { "uwu_banner_miku_v6" }
     var disableBottomSheet by configurationStore.boolean("disable_bottom_sheet") {false}
     var disableBottomSheetHome by configurationStore.boolean("disable_bottom_sheet_home") {false}
     var disableParticlesSheet by configurationStore.boolean("disable_particles_sheet") { false }

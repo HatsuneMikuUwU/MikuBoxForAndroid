@@ -453,6 +453,102 @@
             app:dependency="connection_test_with_ip"
             app:icon="@drawable/ic_toggle_switch" />
 
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:key="blur_bottom_status"
+            android:title="@string/blur_bottom_status_title"
+            android:summary="@string/blur_bottom_status_summary"
+            android:defaultValue="true"
+            app:icon="@drawable/ic_toggle_switch" />
+
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:key="blur_bottom_blob_anim"
+            android:title="@string/blur_bottom_blob_anim_title"
+            android:summary="@string/blur_bottom_blob_anim_summary"
+            android:defaultValue="true"
+            app:dependency="blur_bottom_status"
+            app:icon="@drawable/ic_toggle_switch" />
+
+        <SeekBarPreference
+            android:layout="@layout/uwu_mid_seekbar"
+            android:key="blur_bottom_radius"
+            android:title="@string/blur_bottom_radius_title"
+            android:defaultValue="16"
+            android:max="25"
+            app:min="0"
+            app:showSeekBarValue="true"
+            app:dependency="blur_bottom_status"
+            app:icon="@drawable/ic_toggle_switch" />
+
+        <SeekBarPreference
+            android:layout="@layout/uwu_mid_seekbar"
+            android:key="blur_bottom_alpha"
+            android:title="@string/blur_bottom_alpha_title"
+            android:defaultValue="55"
+            android:max="100"
+            app:min="0"
+            app:showSeekBarValue="true"
+            app:dependency="blur_bottom_status"
+            app:icon="@drawable/ic_toggle_switch" />
+
+        <com.takisoft.preferencex.SimpleMenuPreference
+            android:layout="@layout/uwu_mid"
+            android:key="banner_settings_character"
+            android:title="@string/banner_settings_character_title"
+            android:defaultValue="uwu_banner_miku_v6"
+            app:entries="@array/banner_character_entries"
+            app:entryValues="@array/banner_character_values"
+            app:useSimpleSummaryProvider="true"
+            app:icon="@drawable/ic_image_area" />
+
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:key="show_fab_timer"
+            android:title="@string/show_fab_timer_title"
+            android:summary="@string/show_fab_timer_summary"
+            android:defaultValue="true"
+            app:icon="@drawable/ic_toggle_switch" />
+
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:key="show_quick_actions"
+            android:title="@string/show_quick_actions_title"
+            android:summary="@string/show_quick_actions_summary"
+            android:defaultValue="false"
+            app:icon="@drawable/ic_toggle_switch" />
+
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:key="show_snowflakes"
+            android:title="@string/show_snowflakes_title"
+            android:summary="@string/show_snowflakes_summary"
+            android:defaultValue="false"
+            app:icon="@drawable/ic_toggle_switch" />
+
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:key="double_column_profile_list"
+            android:title="@string/double_column_profile_list_title"
+            android:summary="@string/double_column_profile_list_summary"
+            android:defaultValue="false"
+            app:icon="@drawable/ic_toggle_switch" />
+
+        <SwitchPreference
+            android:layout="@layout/uwu_mid_switch"
+            android:widgetLayout="@layout/uwu_switch"
+            android:key="collapse_profile_actions"
+            android:title="@string/collapse_profile_actions_title"
+            android:summary="@string/collapse_profile_actions_summary"
+            android:defaultValue="false"
+            app:icon="@drawable/ic_toggle_switch" />
+
         <com.takisoft.preferencex.SimpleMenuPreference
             android:layout="@layout/uwu_bot"
             app:key="fab_style"

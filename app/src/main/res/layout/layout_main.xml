@@ -1,152 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
-    android:id="@+id/drawer_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator"
-        android:clipChildren="false"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false">
+
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/fragment_holder"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/fabProgress"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.neko.widget.SnowflakesView
+            android:id="@+id/snowflakes_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:importantForAccessibility="no"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/bottom_dock_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="1"
-            app:indicatorColor="?colorSecondary"
-            app:layout_anchor="@+id/fab"
-            app:layout_anchorGravity="center"
-            app:layout_behavior="io.nekohasekai.sagernet.widget.FabProgressBehavior"
-            app:trackCornerRadius="@dimen/mtrl_progress_track_thickness"
-            app:trackThickness="8.0dip" />
-        <io.nekohasekai.sagernet.widget.ServiceButton
-            android:id="@+id/fab"
-            android:nextFocusDown="@+id/stats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="?colorPrimary"
-            app:elevation="0.0dip"
-            app:layout_anchor="@+id/stats"
-            app:pressedTranslationZ="6.0dip"
-            app:srcCompat="@drawable/ic_service_idle"
-            app:tint="?android:textColorPrimaryInverse"
-            style="?floatingActionButtonStyle" />
-        <io.nekohasekai.sagernet.widget.StatsBar
             android:layout_gravity="bottom"
-            android:id="@+id/stats"
-            android:fitsSystemWindows="true"
-            android:nextFocusUp="@+id/fab"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            app:backgroundTint="?colorPrimary"
-            app:contentInsetStart="0.0dip"
-            app:elevation="0.0dip"
-            app:hideOnScroll="true"
-            app:layout_scrollFlags="enterAlways|scroll"
-            style="?bottomAppBarStyle">
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
+
+            <io.nekohasekai.sagernet.widget.StatsBar
+                android:id="@+id/stats"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/status_text_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/fab_container"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/speed_row"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tx"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
+                                android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:textSize="11.5sp" />
+
+                            <TextView
+                                android:id="@+id/rx"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
+                                android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:textSize="11.5sp" />
+                        </LinearLayout>
+
+                        <com.neko.marquee.text.AutoMarqueeTextView
+                            android:id="@+id/ip_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
+
+                        <com.neko.marquee.text.AutoMarqueeTextView
+                            android:id="@+id/status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:text="@string/not_connected"
+                            android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="17sp" />
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fab_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true">
+
+                        <io.nekohasekai.sagernet.widget.ServiceButton
+                            android:id="@+id/fab"
+                            style="?attr/extendedFloatingActionButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="0dp"
+                            android:fontFeatureSettings="tnum"
+                            android:outlineProvider="none"
+                            android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="16dp"
+                            app:elevation="0dp"
+                            app:icon="@drawable/ic_service_idle"
+                            app:iconGravity="end" />
+
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/fabProgress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:max="1"
+                            android:visibility="invisible"
+                            app:indicatorColor="?colorSecondary"
+                            app:trackCornerRadius="@dimen/mtrl_progress_track_thickness"
+                            app:trackThickness="4dp" />
+                    </FrameLayout>
+                </RelativeLayout>
+            </io.nekohasekai.sagernet.widget.StatsBar>
+
             <LinearLayout
-                android:orientation="vertical"
-                android:background="?android:selectableItemBackground"
-                android:padding="16.0dip"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
-                    android:textSize="14.0sp"
-                    android:textColor="?android:textColorPrimaryInverse"
-                    android:ellipsize="marquee"
-                    android:layout_gravity="fill_horizontal"
-                    android:id="@+id/tx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:layout_columnWeight="1.0" />
-                <TextView
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
-                    android:textSize="14.0sp"
-                    android:textColor="?android:textColorPrimaryInverse"
-                    android:ellipsize="marquee"
-                    android:layout_gravity="fill_horizontal"
-                    android:id="@+id/rx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:layout_columnWeight="1.0" />
-                <com.neko.marquee.text.AutoMarqueeTextView
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
-                    android:textSize="14.0sp"
-                    android:textColor="?android:textColorPrimaryInverse"
-                    android:ellipsize="marquee"
-                    android:layout_gravity="fill_horizontal"
-                    android:id="@+id/ip_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:marqueeRepeatLimit="marquee_forever" />
-                <com.neko.marquee.text.AutoMarqueeTextView
-                    android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
-                    android:textSize="17.0sp"
-                    android:textColor="?android:textColorPrimaryInverse"
-                    android:ellipsize="marquee"
-                    android:layout_gravity="fill_horizontal"
-                    android:id="@+id/status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:marqueeRepeatLimit="marquee_forever" />
+                android:id="@+id/layout_quick_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_quick_menu"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/menu_configuration"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="?attr/colorPrimaryContainer"
+                    app:cornerRadius="16dp"
+                    app:icon="@drawable/ic_navigation_menu"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="?attr/colorOnPrimaryContainer" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_quick_sub_update"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/update_all_subscription"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="?attr/colorSecondaryContainer"
+                    app:cornerRadius="16dp"
+                    app:icon="@drawable/ic_baseline_update_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="?attr/colorOnSecondaryContainer" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_quick_url_test"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/connection_test"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="?attr/colorTertiaryContainer"
+                    app:cornerRadius="16dp"
+                    app:icon="@drawable/ic_baseline_speed_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="?attr/colorOnTertiaryContainer" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_quick_settings"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/settings"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="?attr/colorErrorContainer"
+                    app:cornerRadius="16dp"
+                    app:icon="@drawable/ic_action_settings"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="?attr/colorOnErrorContainer" />
             </LinearLayout>
-        </io.nekohasekai.sagernet.widget.StatsBar>
+        </LinearLayout>
+
         <com.airbnb.lottie.LottieAnimationView
-            android:gravity="bottom"
-            android:layout_gravity="bottom"
             android:id="@+id/lottieWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
             android:visibility="gone"
-            android:layout_width="fill_parent"
-            android:layout_height="150.0dip"
-            android:layout_alignParentBottom="true"
-            app:layout_anchorGravity="bottom"
             app:lottie_autoPlay="true"
             app:lottie_loop="false"
             app:lottie_rawRes="@raw/uwu_lottie_love" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <LinearLayout
+        android:layout_width="325dp"
+        android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:orientation="vertical"
         android:fitsSystemWindows="true"
-        android:layout_width="325.0dip"
-        android:layout_height="fill_parent">
+        android:orientation="vertical">
+
         <LinearLayout
-            android:orientation="vertical"
-            android:background="@drawable/uwu_bg_navigationview"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="16.0dip"
-            android:layout_marginTop="8.0dip"
-            android:layout_marginRight="16.0dip"
-            android:layout_marginBottom="8.0dip">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/uwu_bg_navigationview"
+            android:orientation="vertical">
+
             <include
-                android:layout_width="fill_parent"
+                layout="@layout/uwu_banner_nav"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16.0dip"
-                android:layout_marginTop="16.0dip"
-                android:layout_marginRight="16.0dip"
-                android:layout_marginBottom="8.0dip"
-                layout="@layout/uwu_banner_nav" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp" />
+
             <com.google.android.material.navigation.NavigationView
-                android:layout_gravity="start"
                 android:id="@+id/nav_view"
-                android:background="@drawable/uwu_bg_navigationview_2"
+                style="@style/AppTheme.Widget.Material3.NavigationView"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                app:menu="@menu/main_drawer_menu"
-                style="@style/AppTheme.Widget.Material3.NavigationView" />
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@drawable/uwu_bg_navigationview_2"
+                app:menu="@menu/main_drawer_menu" />
         </LinearLayout>
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

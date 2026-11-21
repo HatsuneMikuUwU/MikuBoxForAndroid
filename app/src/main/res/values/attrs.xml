@@ -136,4 +136,8 @@
         <attr name="blur_radius" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="BlurView">
+        <attr name="blurOverlayColor" format="color" />
+    </declare-styleable>
+
 </resources>

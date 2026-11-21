@@ -2,29 +2,103 @@
 <resources>
 	
     <string-array name="shape_entries">
-        <item>Cookie</item>
-        <item>Clover</item>
+        <item>Arch</item>
+        <item>Arrow</item>
+        <item>Boom</item>
+        <item>Bun</item>
+        <item>Burst</item>
         <item>Circle</item>
+        <item>Clover 4</item>
+        <item>Clover 8</item>
+        <item>Cookie 4</item>
+        <item>Cookie 6</item>
+        <item>Cookie 7</item>
+        <item>Cookie 9</item>
+        <item>Cookie 12</item>
         <item>Diamond</item>
-        <item>Pentagon</item>
-        <item>Hexagon</item>
-        <item>Octagon</item>
-        <item>Rounded Square</item>
-        <item>Squircle</item>
+        <item>Fan</item>
+        <item>Flower</item>
+        <item>Gem</item>
+        <item>Ghostish</item>
         <item>Heart</item>
+        <item>Hexagon</item>
+        <item>Oval</item>
+        <item>Pentagon</item>
+        <item>Pill</item>
+        <item>Pixel Circle</item>
+        <item>Pixel Triangle</item>
+        <item>Puffy</item>
+        <item>Puffy Diamond</item>
+        <item>Semicircle</item>
+        <item>Slanted Square</item>
+        <item>Soft Boom</item>
+        <item>Soft Burst</item>
+        <item>Square</item>
+        <item>Sunny</item>
+        <item>Triangle</item>
+        <item>Very Sunny</item>
     </string-array>
 
     <string-array name="shape_values">
-        <item>uwu_shape_cookie</item>
-        <item>uwu_shape_clover</item>
+        <item>uwu_shape_arch</item>
+        <item>uwu_shape_arrow</item>
+        <item>uwu_shape_boom</item>
+        <item>uwu_shape_bun</item>
+        <item>uwu_shape_burst</item>
         <item>uwu_shape_circle</item>
+        <item>uwu_shape_clover_4</item>
+        <item>uwu_shape_clover_8</item>
+        <item>uwu_shape_cookie_4</item>
+        <item>uwu_shape_cookie_6</item>
+        <item>uwu_shape_cookie_7</item>
+        <item>uwu_shape_cookie_9</item>
+        <item>uwu_shape_cookie_12</item>
         <item>uwu_shape_diamond</item>
-        <item>uwu_shape_pentagon</item>
-        <item>uwu_shape_hexagon</item>
-        <item>uwu_shape_octagon</item>
-        <item>uwu_shape_rounded_square</item>
-        <item>uwu_shape_squircle</item>
+        <item>uwu_shape_fan</item>
+        <item>uwu_shape_flower</item>
+        <item>uwu_shape_gem</item>
+        <item>uwu_shape_ghostish</item>
         <item>uwu_shape_heart</item>
+        <item>uwu_shape_hexagon</item>
+        <item>uwu_shape_oval</item>
+        <item>uwu_shape_pentagon</item>
+        <item>uwu_shape_pill</item>
+        <item>uwu_shape_pixel_circle</item>
+        <item>uwu_shape_pixel_triangle</item>
+        <item>uwu_shape_puffy</item>
+        <item>uwu_shape_puffy_diamond</item>
+        <item>uwu_shape_semicircle</item>
+        <item>uwu_shape_slanted_square</item>
+        <item>uwu_shape_soft_boom</item>
+        <item>uwu_shape_soft_burst</item>
+        <item>uwu_shape_square</item>
+        <item>uwu_shape_sunny</item>
+        <item>uwu_shape_triangle</item>
+        <item>uwu_shape_very_sunny</item>
+    </string-array>
+
+    <string-array name="banner_character_entries">
+        <item>Miku V6</item>
+        <item>Miku Super Pack</item>
+        <item>Miku V4</item>
+        <item>Miku V3</item>
+        <item>Miku V3 English</item>
+        <item>Miku V2</item>
+        <item>Miku V2 Append</item>
+        <item>Miku V2 Chinese</item>
+        <item>Classic MikuBox</item>
+    </string-array>
+
+    <string-array name="banner_character_values">
+        <item>uwu_banner_miku_v6</item>
+        <item>uwu_banner_miku_super_pack</item>
+        <item>uwu_banner_miku_v4</item>
+        <item>uwu_banner_miku_v3</item>
+        <item>uwu_banner_miku_v3_english</item>
+        <item>uwu_banner_miku_v2</item>
+        <item>uwu_banner_miku_v2_append</item>
+        <item>uwu_banner_miku_v2_chinese</item>
+        <item>uwu_banner_image_2</item>
     </string-array>
 	
     <string-array name="app_font_entries">
