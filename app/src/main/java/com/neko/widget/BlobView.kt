@@ -1,4 +1,4 @@
-﻿package com.neko.widget
+package com.neko.widget
 
 import android.animation.ValueAnimator
 import android.content.Context

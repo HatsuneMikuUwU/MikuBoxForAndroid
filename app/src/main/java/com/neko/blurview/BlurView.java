@@ -1,4 +1,4 @@
-﻿package com.neko.blurview;
+package com.neko.blurview;
 
 import static com.neko.blurview.PreDrawBlurController.TRANSPARENT;
 

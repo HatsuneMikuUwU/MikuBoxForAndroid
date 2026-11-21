@@ -1,4 +1,4 @@
-﻿package com.neko.blurview;
+package com.neko.blurview;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;

@@ -1,4 +1,4 @@
-﻿package com.neko.blurview;
+package com.neko.blurview;
 
 import android.content.Context;
 import android.graphics.Bitmap;

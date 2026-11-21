@@ -1,4 +1,4 @@
-﻿package com.neko.widget
+package com.neko.widget
 
 import android.content.Context
 import android.graphics.Canvas

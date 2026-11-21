@@ -1,4 +1,4 @@
-﻿package com.neko.blurview;
+package com.neko.blurview;
 
 public class SizeScaler {
 
