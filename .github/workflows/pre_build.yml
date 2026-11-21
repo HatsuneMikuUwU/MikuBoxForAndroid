@@ -75,7 +75,30 @@ jobs:
           APK=$(dirname $APK)
           echo "APK=$APK" >> $GITHUB_ENV
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload APK (arm64-v8a)
+        uses: actions/upload-artifact@v4
         with:
-          name: APKs
-          path: ${{ env.APK }}
+          name: MikuBox-arm64-v8a
+          path: ${{ env.APK }}/*-arm64-v8a*.apk
+          if-no-files-found: error
+
+      - name: Upload APK (armeabi-v7a)
+        uses: actions/upload-artifact@v4
+        with:
+          name: MikuBox-armeabi-v7a
+          path: ${{ env.APK }}/*-armeabi-v7a*.apk
+          if-no-files-found: error
+
+      - name: Upload APK (x86_64)
+        uses: actions/upload-artifact@v4
+        with:
+          name: MikuBox-x86_64
+          path: ${{ env.APK }}/*-x86_64*.apk
+          if-no-files-found: error
+
+      - name: Upload APK (x86)
+        uses: actions/upload-artifact@v4
+        with:
+          name: MikuBox-x86
+          path: ${{ env.APK }}/*-x86.apk
+          if-no-files-found: error

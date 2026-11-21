@@ -16,9 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Golang Status
-        run: find buildScript libcore/*.sh | xargs cat | sha1sum > golang_status
+        run: find buildScript libcore/*.sh -type f | sort | xargs cat | sha1sum > golang_status
       - name: Libcore Status
-        run: git ls-files libcore | xargs cat | sha1sum > libcore_status
+        run: git ls-files libcore | sort | xargs cat | sha1sum > libcore_status
       - name: LibCore Cache
         id: cache
         uses: actions/cache@v4
@@ -30,10 +30,16 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         uses: actions/setup-go@v5
         with:
-          go-version: ^1.25
+          go-version: '1.25'
       - name: Native Build
         if: steps.cache.outputs.cache-hit != 'true'
         run: ./run lib core
+      - name: Upload LibCore Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libcore-aar
+          path: app/libs/libcore.aar
+          retention-days: 1
   build:
     name: Build MikuBox APK
     runs-on: ubuntu-latest
@@ -42,21 +48,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Golang Status
-        run: find buildScript libcore/*.sh | xargs cat | sha1sum > golang_status
-      - name: Libcore Status
-        run: git ls-files libcore | xargs cat | sha1sum > libcore_status
-      - name: LibCore Cache
-        uses: actions/cache@v4
+      - name: Download LibCore Artifact
+        uses: actions/download-artifact@v4
         with:
-          path: |
-            app/libs/libcore.aar
-          key: ${{ hashFiles('.github/workflows/*', 'golang_status', 'libcore_status') }}
+          name: libcore-aar
+          path: app/libs
       - name: Gradle cache
         uses: actions/cache@v4
         with:
           path: ~/.gradle
           key: gradle-mikubox-${{ hashFiles('**/*.gradle.kts') }}
+      - name: Setup Java 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
       - name: Gradle Build
         env:
           BUILD_PLUGIN: none
@@ -69,10 +75,30 @@ jobs:
           APK=$(find app/build/outputs/apk -name '*arm64-v8a*.apk')
           APK=$(dirname $APK)
           echo "APK=$APK" >> $GITHUB_ENV
-      - uses: actions/upload-artifact@v4
+      - name: Upload APK (arm64-v8a)
+        uses: actions/upload-artifact@v4
         with:
-          name: APKs
-          path: ${{ env.APK }}
+          name: MikuBox-arm64-v8a
+          path: ${{ env.APK }}/*-arm64-v8a*.apk
+          if-no-files-found: error
+      - name: Upload APK (armeabi-v7a)
+        uses: actions/upload-artifact@v4
+        with:
+          name: MikuBox-armeabi-v7a
+          path: ${{ env.APK }}/*-armeabi-v7a*.apk
+          if-no-files-found: error
+      - name: Upload APK (x86_64)
+        uses: actions/upload-artifact@v4
+        with:
+          name: MikuBox-x86_64
+          path: ${{ env.APK }}/*-x86_64*.apk
+          if-no-files-found: error
+      - name: Upload APK (x86)
+        uses: actions/upload-artifact@v4
+        with:
+          name: MikuBox-x86
+          path: ${{ env.APK }}/*-x86.apk
+          if-no-files-found: error
   publish:
     name: Publish Release
     if: github.event.inputs.publish != 'y'
@@ -81,11 +107,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Donwload Artifacts
+      - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: APKs
+          pattern: MikuBox-*
           path: artifacts
+          merge-multiple: true
       - name: Release
         run: |
           wget -O ghr.tar.gz https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
