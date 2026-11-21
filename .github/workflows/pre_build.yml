@@ -56,6 +56,12 @@ jobs:
           path: ~/.gradle
           key: gradle-preview-${{ hashFiles('**/*.gradle.kts') }}
 
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
       - name: Gradle Build
         env:
           BUILD_PLUGIN: none
