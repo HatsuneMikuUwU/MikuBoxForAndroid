@@ -8,7 +8,7 @@
         <item name="android:backgroundTint">?colorSurfaceContainerHigh</item>
     </style>
     
-    <style name="Theme.SagerNet" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SagerNet" parent="@style/Theme.Material3Expressive.DayNight.NoActionBar">
         <item name="android:colorBackground">@color/magenta_background</item>
         <item name="android:windowBackground">?colorBg</item>
         <item name="android:homeAsUpIndicator">@drawable/baseline_arrow_back_24</item>
@@ -98,7 +98,7 @@
 		<item name="collapsingToolbarLayoutStyle">@style/Theme.SagerNet.CollapsingToolbar</item>
     </style>
     
-    <style name="Theme.SagerNet.Dialog" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
+    <style name="Theme.SagerNet.Dialog" parent="@style/Theme.Material3Expressive.DayNight.Dialog.Alert">
         <item name="android:colorBackground">@color/magenta_background</item>
         <item name="android:statusBarColor">?colorPrimary</item>
         <item name="android:navigationBarColor">?colorPrimary</item>
