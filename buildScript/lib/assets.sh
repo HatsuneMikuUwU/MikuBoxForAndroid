@@ -8,9 +8,16 @@ mkdir -p $DIR
 cd $DIR
 
 get_latest_release() {
-  curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
-    grep '"tag_name":' |                                            # Get tag line
-    sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+  local effective_url
+  effective_url=$(curl -fsSLI -o /dev/null -w '%{url_effective}' "https://github.com/$1/releases/latest" || true)
+  local tag="${effective_url##*/}"
+  if [ -n "$tag" ] && [ "$tag" != "latest" ]; then
+    echo "$tag"
+    return 0
+  fi
+  curl --silent "https://api.github.com/repos/$1/releases/latest" |
+    grep '"tag_name":' |
+    sed -E 's/.*"([^"]+)".*/\1/'
 }
 
 ####
