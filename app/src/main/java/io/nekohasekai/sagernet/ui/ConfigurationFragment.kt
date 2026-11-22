@@ -38,6 +38,11 @@ import androidx.core.view.isVisible
 import androidx.core.view.size
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import top.nkbe.mikubox.ui.component.mikuComposeView
+import top.nkbe.mikubox.ui.page.profiles.ProfilesScreen
+import top.nkbe.mikubox.ui.page.profiles.ProfilesScreenCallbacks
+import top.nkbe.mikubox.ui.viewmodel.ProfilesViewModel
 import androidx.preference.PreferenceDataStore
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -180,8 +185,85 @@ class ConfigurationFragment @JvmOverloads constructor(
         }
     }
 
+    private val profilesViewModel: ProfilesViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        if (!select) {
+            return mikuComposeView {
+                ProfilesScreen(
+                    viewModel = profilesViewModel,
+                    callbacks = ProfilesScreenCallbacks(
+                        onOpenMenu = {
+                            (activity as? NavigationHost)?.showNavigationSheet()
+                        },
+                        onSpeedTest = {
+                            urlTest()
+                        },
+                        onOpenSubscriptions = {
+                            (activity as? MainActivity)?.displayFragmentWithId(R.id.nav_group)
+                        },
+                        onAddProfile = {
+                            ProfileMenuBottomSheet().show(childFragmentManager, ProfileMenuBottomSheet.TAG)
+                        },
+                        onOpenMoreMenu = {
+                            val currentOrder = profilesViewModel.currentGroupOrder()
+                            OtherMenuBottomSheet.newInstance(currentOrder)
+                                .show(childFragmentManager, OtherMenuBottomSheet.TAG)
+                        },
+                        onSelectProfile = { entity ->
+                            if (DataStore.selectedProxy != entity.id) {
+                                DataStore.selectedProxy = entity.id
+                            }
+                            if (DataStore.serviceState.canStop) {
+                                SagerNet.reloadService()
+                            }
+                        },
+                        onEditProfile = { entity ->
+                            val isSub = DataStore.currentGroup().type == GroupType.SUBSCRIPTION
+                            startActivity(entity.settingIntent(requireContext(), isSub))
+                        },
+                        onShareProfileQr = { entity ->
+                            val link = if (entity.haveStandardLink()) entity.toStdLink() else entity.requireBean().toUniversalLink()
+                            QRCodeDialog(link, entity.displayName()).showAllowingStateLoss(parentFragmentManager)
+                        },
+                        onCopyProfileLink = { entity ->
+                            val link = if (entity.haveStandardLink()) entity.toStdLink() else entity.requireBean().toUniversalLink()
+                            val ok = SagerNet.trySetPrimaryClip(link)
+                            snackbar(if (ok) R.string.action_export_msg else R.string.action_export_err).show()
+                        },
+                        onDeleteProfile = { entity ->
+                            if (DataStore.confirmRemove) {
+                                MaterialAlertDialogBuilder(requireContext())
+                                    .setTitle(R.string.delete_confirm_prompt)
+                                    .setPositiveButton(R.string.yes) { _, _ ->
+                                        profilesViewModel.deleteProfile(entity)
+                                    }
+                                    .setNegativeButton(R.string.no, null)
+                                    .showBlur()
+                            } else {
+                                profilesViewModel.deleteProfile(entity)
+                            }
+                        },
+                        onShowError = { err ->
+                            MaterialAlertDialogBuilder(requireContext())
+                                .setMessage(err)
+                                .setPositiveButton(android.R.string.ok, null)
+                                .showBlur()
+                        },
+                    ),
+                )
+            }
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!select) return
 
         setupBannerHome()
          
@@ -320,6 +402,7 @@ class ConfigurationFragment @JvmOverloads constructor(
     }
 
     override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {
+        if (!::adapter.isInitialized) return
         runOnMainDispatcher {
             // editingGroup
             if (key == Key.PROFILE_GROUP) {
@@ -446,12 +529,12 @@ class ConfigurationFragment @JvmOverloads constructor(
     }
 
     private fun updateGroupOrder(order: Int) {
-        val fragment = getCurrentGroupFragment() ?: return
-        if (fragment.proxyGroup.order == order) return
+        val group = getCurrentGroupFragment()?.proxyGroup ?: DataStore.currentGroup()
+        if (group.order == order) return
 
         runOnDefaultDispatcher {
-            fragment.proxyGroup.order = order
-            GroupManager.updateGroup(fragment.proxyGroup)
+            group.order = order
+            GroupManager.updateGroup(group)
         }
     }
 
