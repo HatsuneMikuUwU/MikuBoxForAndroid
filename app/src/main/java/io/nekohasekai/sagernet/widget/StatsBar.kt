@@ -56,8 +56,24 @@ class StatsBar @JvmOverloads constructor(
     private var blurRootView: ViewGroup? = null
     private var cardClickAction: (() -> Unit)? = null
     private var isHidden = false
+    private var foregroundActive = true
+    private var configuredBlurActive = false
 
     var allowShow = true
+
+    fun setForegroundActive(active: Boolean) {
+        if (foregroundActive == active) return
+        foregroundActive = active
+        syncActiveEffects()
+    }
+
+    private fun syncActiveEffects() {
+        val shouldRun = foregroundActive && !isHidden && visibility == View.VISIBLE
+        if (configuredBlurActive) {
+            setBlurAutoUpdate(shouldRun)
+        }
+        blobView?.setPaused(!shouldRun)
+    }
 
     private fun ensureViews() {
         if (statusText == null) statusText = findViewById(R.id.status)
@@ -167,12 +183,15 @@ class StatsBar @JvmOverloads constructor(
         setBlurEnabled(blurRadius > 0f)
         setOverlayColor(glassFillColor)
 
+        configuredBlurActive = true
         applyBounceTouchAnimation(glowDrawable, onClick)
         attachBlobAnimation()
+        syncActiveEffects()
         updateChildColors(isBlurOn = true)
     }
 
     private fun applyBlurOff(radiusPx: Float, onClick: () -> Unit) {
+        configuredBlurActive = false
         detachBlobAnimation()
 
         val solidDrawable = GradientDrawable().apply {
@@ -316,6 +335,7 @@ class StatsBar @JvmOverloads constructor(
         if (!allowShow) return
         isHidden = false
         visibility = View.VISIBLE
+        syncActiveEffects()
         animate().cancel()
         animate()
             .translationY(0f)
@@ -326,6 +346,7 @@ class StatsBar @JvmOverloads constructor(
 
     fun performHide() {
         isHidden = true
+        syncActiveEffects()
         animate().cancel()
         val slideDistance = (height.takeIf { it > 0 } ?: 240).toFloat() + 64f
         animate()

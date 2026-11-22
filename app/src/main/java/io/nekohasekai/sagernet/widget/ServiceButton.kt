@@ -83,6 +83,7 @@ class ServiceButton @JvmOverloads constructor(
     private val animationQueue = ArrayDeque<AnimatedState>()
 
     private var checked = false
+    private var foregroundActive = true
     private var delayedAnimation: Job? = null
     private var timerJob: Job? = null
     private var connectedSinceElapsedMs: Long = 0L
@@ -118,8 +119,14 @@ class ServiceButton @JvmOverloads constructor(
         return drawableState
     }
 
+    fun setForegroundActive(active: Boolean) {
+        if (foregroundActive == active) return
+        foregroundActive = active
+        refreshTimerVisibility()
+    }
+
     fun refreshTimerVisibility() {
-        if (checked && DataStore.showFabTimer) {
+        if (checked && DataStore.showFabTimer && foregroundActive) {
             startTimer()
         } else {
             stopTimer()
@@ -187,7 +194,7 @@ class ServiceButton @JvmOverloads constructor(
             }
         }
         checked = state == BaseService.State.Connected
-        if (checked && DataStore.showFabTimer) {
+        if (checked && DataStore.showFabTimer && foregroundActive) {
             startTimer()
         } else {
             stopTimer(resetTimestamp = !checked)

@@ -101,7 +101,10 @@ class TrafficLooper
             }
 
             if (trafficUpdater == null) {
-                if (!proxy.isInitialized()) continue
+                if (!proxy.isInitialized()) {
+                    delay(100L)
+                    continue
+                }
                 idMap.clear()
                 idMap[-1] = itemBypass
                 //
@@ -132,6 +135,15 @@ class TrafficLooper
                 Libcore.setV2rayStats(tags.joinToString("\n"))
             }
 
+            val hasForeground = data.state == BaseService.State.Connected &&
+                data.binder.callbackIdMap.containsValue(SagerConnection.CONNECTION_ID_MAIN_ACTIVITY_FOREGROUND)
+            val wantNotifSpeed = data.notification?.listenPostSpeed == true
+
+            if (!hasForeground && !wantNotifSpeed && !profileTrafficStatistics) {
+                delay(maxOf(delayMs, 2500L))
+                continue
+            }
+
             trafficUpdater.updateAll()
             if (!sc.isActive) return
 
@@ -149,40 +161,40 @@ class TrafficLooper
                 mainRx += it.rx - it.rxBase
             }
 
-            // speed
-            val speed = SpeedDisplayData(
-                mainTxRate,
-                mainRxRate,
-                if (showDirectSpeed) itemBypass.txRate else 0L,
-                if (showDirectSpeed) itemBypass.rxRate else 0L,
-                mainTx,
-                mainRx
-            )
+            if (hasForeground || wantNotifSpeed) {
+                // speed
+                val speed = SpeedDisplayData(
+                    mainTxRate,
+                    mainRxRate,
+                    if (showDirectSpeed) itemBypass.txRate else 0L,
+                    if (showDirectSpeed) itemBypass.rxRate else 0L,
+                    mainTx,
+                    mainRx
+                )
 
-            // broadcast (MainActivity)
-            if (data.state == BaseService.State.Connected
-                && data.binder.callbackIdMap.containsValue(SagerConnection.CONNECTION_ID_MAIN_ACTIVITY_FOREGROUND)
-            ) {
-                data.binder.broadcast { b ->
-                    if (data.binder.callbackIdMap[b] == SagerConnection.CONNECTION_ID_MAIN_ACTIVITY_FOREGROUND) {
-                        b.cbSpeedUpdate(speed)
-                        if (profileTrafficStatistics) {
-                            idMap.forEach { (id, item) ->
-                                b.cbTrafficUpdate(
-                                    TrafficData(id = id, rx = item.rx, tx = item.tx) // display
-                                )
+                // broadcast (MainActivity)
+                if (hasForeground) {
+                    data.binder.broadcast { b ->
+                        if (data.binder.callbackIdMap[b] == SagerConnection.CONNECTION_ID_MAIN_ACTIVITY_FOREGROUND) {
+                            b.cbSpeedUpdate(speed)
+                            if (profileTrafficStatistics) {
+                                idMap.forEach { (id, item) ->
+                                    b.cbTrafficUpdate(
+                                        TrafficData(id = id, rx = item.rx, tx = item.tx) // display
+                                    )
+                                }
                             }
                         }
                     }
                 }
+
+                // ServiceNotification
+                if (wantNotifSpeed) {
+                    data.notification?.postNotificationSpeedUpdate(speed)
+                }
             }
 
-            // ServiceNotification
-            data.notification?.apply {
-                if (listenPostSpeed) postNotificationSpeedUpdate(speed)
-            }
-
-            delay(delayMs)
+            delay(if (hasForeground || wantNotifSpeed) delayMs else maxOf(delayMs, 2500L))
         }
     }
 }

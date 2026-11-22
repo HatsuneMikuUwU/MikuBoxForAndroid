@@ -66,6 +66,7 @@ class ProfilesViewModel : ViewModel(),
     val uiState: StateFlow<ProfilesUiState> = _uiState.asStateFlow()
 
     private var allProfilesInGroup: List<ProxyEntity> = emptyList()
+    private var coalescedReloadJob: kotlinx.coroutines.Job? = null
 
     init {
         ProfileManager.addListener(this)
@@ -76,6 +77,7 @@ class ProfilesViewModel : ViewModel(),
     }
 
     override fun onCleared() {
+        coalescedReloadJob?.cancel()
         ProfileManager.removeListener(this)
         GroupManager.removeListener(this)
         DataStore.configurationStore.unregisterChangeListener(this)
@@ -83,7 +85,16 @@ class ProfilesViewModel : ViewModel(),
         super.onCleared()
     }
 
+    private fun scheduleCoalescedReload() {
+        coalescedReloadJob?.cancel()
+        coalescedReloadJob = viewModelScope.launch {
+            kotlinx.coroutines.delay(90L)
+            reloadAll()
+        }
+    }
+
     fun reloadAll() {
+        coalescedReloadJob?.cancel()
         viewModelScope.launch {
             val snapshot = withContext(Dispatchers.IO) {
                 var rawGroups = ArrayList(SagerDatabase.groupDao.allGroups())
@@ -234,16 +245,16 @@ class ProfilesViewModel : ViewModel(),
     }
 
     // ProfileManager.Listener
-    override suspend fun onAdd(profile: ProxyEntity) = reloadAll()
+    override suspend fun onAdd(profile: ProxyEntity) = scheduleCoalescedReload()
     override suspend fun onUpdated(data: io.nekohasekai.sagernet.aidl.TrafficData) { /* traffic handled by StatsBar */ }
-    override suspend fun onUpdated(profile: ProxyEntity, noTraffic: Boolean) = reloadAll()
-    override suspend fun onRemoved(groupId: Long, profileId: Long) = reloadAll()
+    override suspend fun onUpdated(profile: ProxyEntity, noTraffic: Boolean) = scheduleCoalescedReload()
+    override suspend fun onRemoved(groupId: Long, profileId: Long) = scheduleCoalescedReload()
 
     // GroupManager.Listener
-    override suspend fun groupAdd(group: ProxyGroup) = reloadAll()
-    override suspend fun groupUpdated(group: ProxyGroup) = reloadAll()
-    override suspend fun groupUpdated(groupId: Long) = reloadAll()
-    override suspend fun groupRemoved(groupId: Long) = reloadAll()
+    override suspend fun groupAdd(group: ProxyGroup) = scheduleCoalescedReload()
+    override suspend fun groupUpdated(group: ProxyGroup) = scheduleCoalescedReload()
+    override suspend fun groupUpdated(groupId: Long) = scheduleCoalescedReload()
+    override suspend fun groupRemoved(groupId: Long) = scheduleCoalescedReload()
 
     // Preference listener
     override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {

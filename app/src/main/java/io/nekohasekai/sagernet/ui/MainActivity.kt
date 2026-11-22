@@ -735,11 +735,21 @@ class MainActivity : ThemedActivity(),
 
     override fun onStart() {
         connection.updateConnectionId(SagerConnection.CONNECTION_ID_MAIN_ACTIVITY_FOREGROUND)
+        if (::binding.isInitialized) {
+            binding.stats.setForegroundActive(true)
+            binding.fab.setForegroundActive(true)
+            binding.snowflakesView.setPaused(false)
+        }
         super.onStart()
     }
 
     override fun onStop() {
         connection.updateConnectionId(SagerConnection.CONNECTION_ID_MAIN_ACTIVITY_BACKGROUND)
+        if (::binding.isInitialized) {
+            binding.stats.setForegroundActive(false)
+            binding.fab.setForegroundActive(false)
+            binding.snowflakesView.setPaused(true)
+        }
         super.onStop()
     }
 

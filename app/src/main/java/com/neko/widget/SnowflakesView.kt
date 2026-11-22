@@ -53,6 +53,10 @@ class SnowflakesView @JvmOverloads constructor(
     @Volatile
     private var running = false
     @Volatile
+    private var pausedByLifecycle = false
+    @Volatile
+    private var windowVisible = true
+    @Volatile
     private var animationGeneration = 0L
     private var animationThread: HandlerThread? = null
     private var animationHandler: Handler? = null
@@ -72,7 +76,7 @@ class SnowflakesView @JvmOverloads constructor(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         refreshColor()
-        startAnimation()
+        syncAnimationState()
     }
 
     override fun onDetachedFromWindow() {
@@ -83,7 +87,27 @@ class SnowflakesView @JvmOverloads constructor(
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
         if (changedView === this) {
-            if (visibility == VISIBLE) startAnimation() else stopAnimation()
+            syncAnimationState()
+        }
+    }
+
+    override fun onWindowVisibilityChanged(visibility: Int) {
+        super.onWindowVisibilityChanged(visibility)
+        windowVisible = (visibility == VISIBLE)
+        syncAnimationState()
+    }
+
+    fun setPaused(paused: Boolean) {
+        if (pausedByLifecycle == paused) return
+        pausedByLifecycle = paused
+        syncAnimationState()
+    }
+
+    private fun syncAnimationState() {
+        if (isAttachedToWindow && visibility == VISIBLE && windowVisible && !pausedByLifecycle) {
+            startAnimation()
+        } else {
+            stopAnimation()
         }
     }
 

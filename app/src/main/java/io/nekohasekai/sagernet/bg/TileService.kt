@@ -6,7 +6,10 @@ import androidx.annotation.RequiresApi
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.aidl.ISagerNetService
+import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.database.SagerDatabase
+import io.nekohasekai.sagernet.ktx.onMainDispatcher
+import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
 import android.service.quicksettings.TileService as BaseTileService
 
 @RequiresApi(24)
@@ -23,7 +26,8 @@ class TileService : BaseTileService(), SagerConnection.Callback {
         updateTile(state, profileName)
 
     override fun onServiceConnected(service: ISagerNetService) {
-        updateTile(BaseService.State.values()[service.state], service.profileName)
+        val state = BaseService.State.values().getOrElse(service.state) { BaseService.State.Stopped }
+        updateTile(state, service.profileName)
         if (tapPending) {
             tapPending = false
             onClick()
@@ -53,23 +57,23 @@ class TileService : BaseTileService(), SagerConnection.Callback {
         qsTile?.apply {
             label = null
             when (serviceState) {
-                BaseService.State.Idle -> error("serviceState")
+                BaseService.State.Idle -> {
+                    icon = iconIdle
+                    state = Tile.STATE_INACTIVE
+                }
                 BaseService.State.Connecting -> {
                     icon = iconBusy
                     state = Tile.STATE_ACTIVE
                 }
-
                 BaseService.State.Connected -> {
                     icon = iconConnected
                     label = profileName
                     state = Tile.STATE_ACTIVE
                 }
-
                 BaseService.State.Stopping -> {
                     icon = iconBusy
                     state = Tile.STATE_UNAVAILABLE
                 }
-
                 BaseService.State.Stopped -> {
                     icon = iconIdle
                     state = Tile.STATE_INACTIVE
@@ -82,11 +86,39 @@ class TileService : BaseTileService(), SagerConnection.Callback {
 
     private fun toggle() {
         val service = connection.service
-        if (service == null) tapPending =
-            true else BaseService.State.values()[service.state].let { state ->
-            when {
-                state.canStop -> SagerNet.stopService()
-                state == BaseService.State.Stopped -> SagerNet.startService()
+        if (service == null) {
+            tapPending = true
+            return
+        }
+        val state = BaseService.State.values().getOrElse(service.state) { BaseService.State.Stopped }
+        when {
+            state.canStop -> SagerNet.stopService()
+            state == BaseService.State.Stopped || state == BaseService.State.Idle -> {
+                runOnDefaultDispatcher {
+                    val selected = if (DataStore.selectedProxy > 0L) {
+                        SagerDatabase.proxyDao.getById(DataStore.selectedProxy)
+                    } else {
+                        null
+                    }
+                    val target = selected
+                        ?: SagerDatabase.proxyDao.getByGroup(DataStore.selectedGroup).firstOrNull()
+                        ?: SagerDatabase.groupDao.allGroups()
+                            .asSequence()
+                            .mapNotNull { group ->
+                                SagerDatabase.proxyDao.getByGroup(group.id).firstOrNull()?.also {
+                                    DataStore.selectedGroup = group.id
+                                }
+                            }
+                            .firstOrNull()
+                    if (target != null) {
+                        if (selected == null) {
+                            DataStore.selectedProxy = target.id
+                        }
+                        onMainDispatcher {
+                            SagerNet.startService()
+                        }
+                    }
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RadialGradient
 import android.graphics.Shader
@@ -15,6 +16,7 @@ import kotlin.random.Random
 class BlobView(context: Context) : View(context) {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
+    private val shaderMatrix = Matrix()
 
     private var blobColors: IntArray = intArrayOf(Color.WHITE)
     private var blobCount = 4
@@ -23,8 +25,11 @@ class BlobView(context: Context) : View(context) {
     private var radiusFactor = FloatArray(0)
     private var dx = FloatArray(0)
     private var dy = FloatArray(0)
+    private var cachedShaders: Array<RadialGradient?> = emptyArray()
+    private var cachedMinDim = -1f
 
     private var animator: ValueAnimator? = null
+    private var paused = false
 
     fun start(
         colors: IntArray,
@@ -43,6 +48,8 @@ class BlobView(context: Context) : View(context) {
         radiusFactor = FloatArray(this.blobCount) { 0.35f + random.nextFloat() * 0.25f }
         dx = FloatArray(this.blobCount) { (random.nextFloat() - 0.5f) * blobSpeed }
         dy = FloatArray(this.blobCount) { (random.nextFloat() - 0.5f) * blobSpeed }
+        cachedShaders = arrayOfNulls(this.blobCount)
+        cachedMinDim = -1f
 
         animator = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = motionDurationMs.coerceAtLeast(1L)
@@ -54,12 +61,46 @@ class BlobView(context: Context) : View(context) {
                 invalidate()
             }
             start()
+            if (paused || visibility != VISIBLE) {
+                pause()
+            }
+        }
+    }
+
+    fun setPaused(shouldPause: Boolean) {
+        if (paused == shouldPause) return
+        paused = shouldPause
+        if (shouldPause) {
+            animator?.pause()
+        } else if (isAttachedToWindow && visibility == VISIBLE) {
+            animator?.resume()
         }
     }
 
     fun stop() {
         animator?.cancel()
         animator = null
+        cachedShaders = emptyArray()
+        cachedMinDim = -1f
+    }
+
+    private fun ensureShaders(minDim: Float) {
+        if (cachedMinDim == minDim && cachedShaders.size == xPos.size) return
+        cachedMinDim = minDim
+        cachedShaders = Array(xPos.size) { i ->
+            val r = minDim * radiusFactor[i]
+            if (r <= 0f) {
+                null
+            } else {
+                val color = blobColors[i % blobColors.size]
+                RadialGradient(
+                    0f, 0f, r,
+                    adjustAlpha(color, 0.55f),
+                    adjustAlpha(color, 0f),
+                    Shader.TileMode.CLAMP,
+                )
+            }
+        }
     }
 
     private fun stepMotion() {
@@ -69,6 +110,15 @@ class BlobView(context: Context) : View(context) {
 
             if (xPos[i] < 0f || xPos[i] > 1f) dx[i] *= -1f
             if (yPos[i] < 0f || yPos[i] > 1f) dy[i] *= -1f
+        }
+    }
+
+    override fun onWindowVisibilityChanged(visibility: Int) {
+        super.onWindowVisibilityChanged(visibility)
+        if (visibility != VISIBLE || paused) {
+            animator?.pause()
+        } else if (isAttachedToWindow) {
+            animator?.resume()
         }
     }
 
@@ -83,19 +133,19 @@ class BlobView(context: Context) : View(context) {
         val h = height.toFloat()
         if (w <= 0f || h <= 0f || xPos.isEmpty()) return
 
+        val minDim = min(w, h)
+        ensureShaders(minDim)
+
         for (i in xPos.indices) {
-            val color = blobColors[i % blobColors.size]
-            val cx = xPos[i] * w
-            val cy = yPos[i] * h
-            val r = min(w, h) * radiusFactor[i]
+            val shader = cachedShaders.getOrNull(i) ?: continue
+            val r = minDim * radiusFactor[i]
             if (r <= 0f) continue
 
-            paint.shader = RadialGradient(
-                cx, cy, r,
-                adjustAlpha(color, 0.55f),
-                adjustAlpha(color, 0f),
-                Shader.TileMode.CLAMP
-            )
+            val cx = xPos[i] * w
+            val cy = yPos[i] * h
+            shaderMatrix.setTranslate(cx, cy)
+            shader.setLocalMatrix(shaderMatrix)
+            paint.shader = shader
             canvas.drawCircle(cx, cy, r, paint)
         }
     }
