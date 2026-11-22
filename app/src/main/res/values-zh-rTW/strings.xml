@@ -439,4 +439,15 @@
     <string name="blur_bottom_radius_title">液態玻璃模糊半徑</string>
     <string name="blur_bottom_alpha_title">液態玻璃不透明度 (%)</string>
     <string name="banner_settings_character_title">設定頁橫幅角色圖</string>
+    <string name="sub_kicker">SUBSCRIPTIONS</string>
+    <string name="sub_summary_count">%1$d 個訂閱</string>
+    <string name="sub_summary_nodes">%1$d 節點</string>
+    <string name="sub_summary_attention">%1$d 個需留意</string>
+    <string name="sub_days_left">剩 %1$d 天</string>
+    <string name="sub_expired">已到期</string>
+    <string name="sub_local_group">本機分組</string>
+    <string name="sub_synced_just_now">剛剛同步</string>
+    <string name="sub_synced_min_ago">%1$d 分鐘前同步</string>
+    <string name="sub_synced_hour_ago">%1$d 小時前同步</string>
+    <string name="sub_synced_day_ago">%1$d 天前同步</string>
 </resources>

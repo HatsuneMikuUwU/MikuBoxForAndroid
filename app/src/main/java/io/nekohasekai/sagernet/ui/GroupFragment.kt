@@ -48,7 +48,14 @@ import io.nekohasekai.sagernet.widget.StatsBar
 import io.nekohasekai.sagernet.utils.showBlur
 import io.nekohasekai.sagernet.utils.Theme
 import io.nekohasekai.sagernet.ui.bottomsheet.GroupMenuBottomSheet
+import android.content.res.ColorStateList
+import android.content.res.Configuration
+import android.graphics.Color
+import android.widget.TextView
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.R as MaterialR
 import io.nekohasekai.sagernet.ui.toolbar.GroupMenuController
+import kotlin.math.abs
 
 class GroupFragment : ToolbarFragment(R.layout.layout_group), 
     GroupMenuBottomSheet.OnOptionClickListener {
@@ -60,6 +67,104 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
     lateinit var undoManager: UndoSnackbarManager<ProxyGroup>
     
     private lateinit var menuController: GroupMenuController
+    private var summarySubsView: TextView? = null
+    private var summaryNodesView: TextView? = null
+    private var summaryAlertView: TextView? = null
+
+    private enum class SubHealth { OK, WARN, ERR, LOCAL }
+
+    private data class SubMetrics(
+        val hasQuota: Boolean = false,
+        val usedBytes: Long = 0L,
+        val totalBytes: Long = 0L,
+        val percent: Int = 0,
+        val daysLeft: Int? = null,
+        val health: SubHealth = SubHealth.LOCAL
+    )
+
+    private fun parseSubMetrics(group: ProxyGroup): SubMetrics {
+        if (group.type != GroupType.SUBSCRIPTION) return SubMetrics(health = SubHealth.LOCAL)
+        val sub = group.subscription ?: return SubMetrics(health = SubHealth.OK)
+
+        var used = 0L
+        var total = 0L
+        var expireSec = 0L
+
+        if (sub.bytesUsed > 0L || sub.bytesRemaining > 0L) {
+            used = sub.bytesUsed.coerceAtLeast(0L)
+            val remain = sub.bytesRemaining.coerceAtLeast(0L)
+            total = if (remain > 0L) used + remain else 0L
+            if (sub.expiryDate != null && sub.expiryDate > 0) {
+                expireSec = sub.expiryDate.toLong()
+            }
+        } else if (!sub.subscriptionUserinfo.isNullOrBlank()) {
+            val info = sub.subscriptionUserinfo
+            fun extract(regex: String): Long? =
+                regex.toRegex(RegexOption.IGNORE_CASE).find(info)?.groupValues?.getOrNull(1)?.toLongOrNull()
+            used = (extract("upload=([0-9]+)") ?: 0L) + (extract("download=([0-9]+)") ?: 0L)
+            total = extract("total=([0-9]+)") ?: 0L
+            expireSec = extract("expire=([0-9]+)") ?: 0L
+        }
+
+        val hasQuota = used > 0L || total > 0L
+        val pct = if (total > 0L) ((used * 100L) / total).toInt().coerceIn(0, 100) else 0
+        val daysLeft: Int? = if (expireSec > 0L) {
+            val nowSec = System.currentTimeMillis() / 1000L
+            val diffSec = expireSec - nowSec
+            if (diffSec <= 0L) 0 else ((diffSec + 86399L) / 86400L).toInt()
+        } else null
+
+        val health = when {
+            (daysLeft != null && daysLeft <= 0) || (total > 0L && used >= total) -> SubHealth.ERR
+            (daysLeft != null && daysLeft <= 5) || (total > 0L && pct >= 80) -> SubHealth.WARN
+            else -> SubHealth.OK
+        }
+
+        return SubMetrics(hasQuota, used, total, pct, daysLeft, health)
+    }
+
+    private fun refreshHeroSummary() {
+        if (!isAdded || !::groupAdapter.isInitialized) return
+        val snapshot = groupAdapter.groupList.toList()
+        runOnDefaultDispatcher {
+            var subCount = 0
+            var totalNodes = 0L
+            var attentionCount = 0
+            for (g in snapshot) {
+                totalNodes += SagerDatabase.proxyDao.countByGroup(g.id)
+                if (g.type == GroupType.SUBSCRIPTION) {
+                    subCount++
+                    val h = parseSubMetrics(g).health
+                    if (h == SubHealth.WARN || h == SubHealth.ERR) attentionCount++
+                }
+            }
+            onMainDispatcher {
+                if (!isAdded) return@onMainDispatcher
+                summarySubsView?.text = getString(R.string.sub_summary_count, subCount)
+                summaryNodesView?.text = getString(R.string.sub_summary_nodes, totalNodes.toInt())
+                summaryAlertView?.apply {
+                    if (attentionCount > 0) {
+                        visibility = View.VISIBLE
+                        text = getString(R.string.sub_summary_attention, attentionCount)
+                        backgroundTintList = ColorStateList.valueOf(Color.argb(235, 255, 255, 255))
+                    } else {
+                        visibility = View.GONE
+                    }
+                }
+            }
+        }
+    }
+
+    private fun formatRelativeSync(lastUpdatedSec: Int): String {
+        if (lastUpdatedSec <= 0) return getString(R.string.sub_local_group)
+        val diffMin = ((System.currentTimeMillis() / 1000L) - lastUpdatedSec.toLong()).coerceAtLeast(0L) / 60L
+        return when {
+            diffMin < 2L -> getString(R.string.sub_synced_just_now)
+            diffMin < 60L -> getString(R.string.sub_synced_min_ago, diffMin.toInt())
+            diffMin < 1440L -> getString(R.string.sub_synced_hour_ago, (diffMin / 60L).toInt())
+            else -> getString(R.string.sub_synced_day_ago, (diffMin / 1440L).toInt())
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,9 +172,20 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
 
         ViewCompat.setOnApplyWindowInsetsListener(view, ListListener)
 
-        val collapsingToolbar = view.findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
+        val appBar = view.findViewById<AppBarLayout>(R.id.appbar)
+        val heroTextContainer = view.findViewById<View>(R.id.hero_text_container)
         val toolbarView = view.findViewById<Toolbar>(R.id.toolbar)
-        collapsingToolbar.title = getString(R.string.menu_group)
+        summarySubsView = view.findViewById(R.id.tv_summary_subs)
+        summaryNodesView = view.findViewById(R.id.tv_summary_nodes)
+        summaryAlertView = view.findViewById(R.id.tv_summary_alert)
+
+        toolbarView.title = ""
+        appBar?.addOnOffsetChangedListener { layout, verticalOffset ->
+            val range = layout.totalScrollRange.coerceAtLeast(1)
+            val progress = abs(verticalOffset).toFloat() / range.toFloat()
+            heroTextContainer?.alpha = (1f - progress * 1.4f).coerceIn(0f, 1f)
+            toolbarView.title = if (progress > 0.72f) getString(R.string.menu_group) else ""
+        }
 
         toolbar = toolbarView
         
@@ -243,6 +359,7 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
             groupList.addAll(groups)
             groupListView.post {
                 notifyDataSetChanged()
+                refreshHeroSummary()
             }
         }
 
@@ -324,6 +441,7 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
             onMainDispatcher {
                 undoManager.flush()
                 notifyItemInserted(groupList.size - 1)
+                refreshHeroSummary()
 
                 if (group.type == GroupType.SUBSCRIPTION) {
                     GroupUpdater.startUpdate(group, true)
@@ -343,6 +461,7 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
                 } else {
                     groupList.removeAt(index)
                     notifyItemRemoved(index)
+                    refreshHeroSummary()
                 }
             }
         }
@@ -358,6 +477,7 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
                 undoManager.flush()
 
                 notifyItemChanged(index)
+                refreshHeroSummary()
             }
         }
 
@@ -369,6 +489,7 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
             }
             onMainDispatcher {
                 notifyItemChanged(index)
+                refreshHeroSummary()
             }
         }
     }
@@ -397,6 +518,12 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
         val optionsButton = binding.options
         val updateButton = binding.groupUpdate
         val subscriptionUpdateProgress = binding.subscriptionUpdateProgress
+        val statusDot = binding.statusDot
+        val statusDotHalo = binding.statusDotHalo
+        val statusPill = binding.statusPill
+        val usagePanel = binding.usagePanel
+        val tvNodesPct = binding.tvNodesPct
+        val usageProgress = binding.usageProgress
         
         private val TAG_SHEET_DEFAULT = "DEFAULT_BANNER_SHEET"
 
@@ -595,13 +722,9 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
                 }
             }
 
-            if (proxyGroup.id in GroupUpdater.updating) {
-                (groupName.parent as LinearLayout).apply {
-                    setPadding(paddingLeft, dp2px(11), paddingRight, paddingBottom)
-                }
-
+            val isUpdating = proxyGroup.id in GroupUpdater.updating
+            if (isUpdating) {
                 subscriptionUpdateProgress.isVisible = true
-
                 if (!GroupUpdater.progress.containsKey(proxyGroup.id)) {
                     subscriptionUpdateProgress.isIndeterminate = true
                 } else {
@@ -611,119 +734,100 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
                         subscriptionUpdateProgress.progress = it.progress
                     }
                 }
-
-                updateButton.isInvisible = true
+                updateButton.isEnabled = false
                 editButton.isGone = true
             } else {
-                (groupName.parent as LinearLayout).apply {
-                    setPadding(paddingLeft, dp2px(15), paddingRight, paddingBottom)
-                }
-
                 subscriptionUpdateProgress.isVisible = false
-                updateButton.isInvisible = proxyGroup.type != GroupType.SUBSCRIPTION
+                updateButton.isEnabled = true
+                updateButton.isGone = proxyGroup.type != GroupType.SUBSCRIPTION
                 editButton.isGone = proxyGroup.ungrouped
             }
 
             val subscription = proxyGroup.subscription
-            if (subscription != null && subscription.bytesUsed > 0L) { // SIP008 & Open Online Config
-                groupTraffic.isVisible = true
-                groupTraffic.text = if (subscription.bytesRemaining > 0L) {
-                    app.getString(
-                        R.string.subscription_traffic, Formatter.formatFileSize(
-                            app, subscription.bytesUsed
-                        ), Formatter.formatFileSize(
-                            app, subscription.bytesRemaining
-                        )
-                    )
-                } else {
-                    app.getString(
-                        R.string.subscription_used, Formatter.formatFileSize(
-                            app, subscription.bytesUsed
-                        )
-                    )
-                }
-                groupStatus.setPadding(0)
-            } else if (subscription != null && !subscription.subscriptionUserinfo.isNullOrBlank()) { // Raw
-                var text = ""
+            val userText = subscription?.username.orEmpty()
+            groupUser.isVisible = userText.isNotBlank()
+            groupUser.text = userText
 
-                fun get(regex: String): String? {
-                    return regex.toRegex().findAll(subscription.subscriptionUserinfo).mapNotNull {
-                        if (it.groupValues.size > 1) it.groupValues[1] else null
-                    }.firstOrNull()
-                }
-
-                try {
-                    var used: Long = 0
-                    get("upload=([0-9]+)")?.apply {
-                        used += toLong()
-                    }
-                    get("download=([0-9]+)")?.apply {
-                        used += toLong()
-                    }
-                    val total = get("total=([0-9]+)")?.toLong() ?: 0
-                    val remain = total - used
-                    if (used > 0 || total > 0) {
-                        text += if (remain > 0) {
-                            getString(
-                                R.string.subscription_traffic,
-                                used.toBytesString(),
-                                remain.toBytesString()
-                            )
-                        } else {
-                            getString(R.string.subscription_used, used.toBytesString())
-                        }
-                    }
-                    get("expire=([0-9]+)")?.apply {
-                        text += "\n"
-                        text += getString(
-                            R.string.subscription_expire,
-                            Util.timeStamp2Text(this.toLong() * 1000)
-                        )
-                    }
-                } catch (_: NumberFormatException) {
-                    // ignore
-                }
-
-                if (text.isNotEmpty()) {
-                    groupTraffic.isVisible = true
-                    groupTraffic.text = text
-                    groupStatus.setPadding(0)
-                }
-            } else {
-                groupTraffic.isVisible = false
-                groupStatus.setPadding(0, 0, 0, dp2px(4))
+            val metrics = parseSubMetrics(proxyGroup)
+            val isDark = (itemView.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+            val primaryColor = itemView.context.getColorAttr(androidx.appcompat.R.attr.colorPrimary)
+            val mutedColor = itemView.context.getColorAttr(MaterialR.attr.colorOnSurfaceVariant)
+            val (accentColor, pillBg, pillFg) = when (metrics.health) {
+                SubHealth.OK -> Triple(
+                    primaryColor,
+                    itemView.context.getColorAttr(MaterialR.attr.colorSecondaryContainer),
+                    itemView.context.getColorAttr(MaterialR.attr.colorOnSecondaryContainer)
+                )
+                SubHealth.WARN -> Triple(
+                    Color.parseColor("#F59E0B"),
+                    Color.parseColor(if (isDark) "#3A2A12" else "#FFF3DC"),
+                    Color.parseColor(if (isDark) "#FBBF24" else "#A86400")
+                )
+                SubHealth.ERR -> Triple(
+                    Color.parseColor(if (isDark) "#F87171" else "#EF4444"),
+                    Color.parseColor(if (isDark) "#3C1919" else "#FEE4E2"),
+                    Color.parseColor(if (isDark) "#FCA5A5" else "#B42318")
+                )
+                SubHealth.LOCAL -> Triple(
+                    mutedColor,
+                    itemView.context.getColorAttr(MaterialR.attr.colorSurfaceContainer),
+                    mutedColor
+                )
             }
 
-            groupUser.text = subscription?.username ?: ""
+            statusDot.backgroundTintList = ColorStateList.valueOf(accentColor)
+            statusDotHalo.backgroundTintList = ColorStateList.valueOf(accentColor)
+            statusPill.backgroundTintList = ColorStateList.valueOf(pillBg)
+            statusPill.setTextColor(pillFg)
+
+            if (metrics.hasQuota) {
+                usagePanel.isVisible = true
+                usageProgress.setIndicatorColor(accentColor)
+                usageProgress.setProgressCompat(metrics.percent, false)
+                groupTraffic.text = if (metrics.totalBytes > 0L) {
+                    "${metrics.usedBytes.toBytesString()} / ${metrics.totalBytes.toBytesString()}"
+                } else {
+                    getString(R.string.subscription_used, metrics.usedBytes.toBytesString())
+                }
+            } else {
+                usagePanel.isVisible = false
+            }
 
             runOnDefaultDispatcher {
                 val size = SagerDatabase.proxyDao.countByGroup(group.id)
                 onMainDispatcher {
-                    @Suppress("DEPRECATION") when (group.type) {
+                    val nodesLabel = getString(R.string.sub_summary_nodes, size.toInt())
+                    if (metrics.hasQuota) {
+                        tvNodesPct.text = if (metrics.totalBytes > 0L) {
+                            "$nodesLabel · ${metrics.percent}%"
+                        } else {
+                            nodesLabel
+                        }
+                    }
+
+                    when (group.type) {
                         GroupType.BASIC -> {
-                            if (size == 0L) {
-                                groupStatus.setText(R.string.group_status_empty)
+                            statusPill.text = nodesLabel
+                            groupStatus.text = if (size == 0L) {
+                                getString(R.string.group_status_empty)
                             } else {
-                                groupStatus.text = getString(R.string.group_status_proxies, size)
+                                getString(R.string.sub_local_group)
                             }
                         }
-
                         GroupType.SUBSCRIPTION -> {
+                            statusPill.text = when {
+                                metrics.daysLeft == null -> nodesLabel
+                                metrics.daysLeft <= 0 -> getString(R.string.sub_expired)
+                                else -> getString(R.string.sub_days_left, metrics.daysLeft)
+                            }
                             groupStatus.text = if (size == 0L) {
                                 getString(R.string.group_status_empty_subscription)
                             } else {
-                                val date = Date(group.subscription!!.lastUpdated * 1000L)
-                                getString(
-                                    R.string.group_status_proxies_subscription,
-                                    size,
-                                    "${date.month + 1} - ${date.date}"
-                                )
+                                formatRelativeSync(group.subscription?.lastUpdated ?: 0)
                             }
-
                         }
                     }
                 }
-
             }
 
         }

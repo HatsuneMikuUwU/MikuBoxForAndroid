@@ -950,6 +950,17 @@ A sing-box client for Android."</string>
     <string name="blur_bottom_radius_title">Liquid Glass Blur Radius</string>
     <string name="blur_bottom_alpha_title">Liquid Glass Opacity (%)</string>
     <string name="banner_settings_character_title">Settings Banner Character</string>
+    <string name="sub_kicker">SUBSCRIPTIONS</string>
+    <string name="sub_summary_count">%1$d subscriptions</string>
+    <string name="sub_summary_nodes">%1$d nodes</string>
+    <string name="sub_summary_attention">%1$d need attention</string>
+    <string name="sub_days_left">%1$d d left</string>
+    <string name="sub_expired">Expired</string>
+    <string name="sub_local_group">Local group</string>
+    <string name="sub_synced_just_now">Synced just now</string>
+    <string name="sub_synced_min_ago">Synced %1$d min ago</string>
+    <string name="sub_synced_hour_ago">Synced %1$d h ago</string>
+    <string name="sub_synced_day_ago">Synced %1$d d ago</string>
 
     <!-- greeting -->
     <string name="uwu_greeting_morning">Good morning...</string>
