@@ -95,15 +95,16 @@ fun generateRuleSet(ruleSetString: List<String>, ruleSet: MutableList<RuleSet>) 
 }
 
 fun SingBoxOptions.Rule_DefaultOptions.makeSingBoxRule(list: List<String>, isIP: Boolean) {
+    if (rule_set == null) {
+        rule_set = mutableListOf<String>()
+    }
     if (isIP) {
-        ip_cidr = mutableListOf<String>()
-        rule_set = mutableListOf<String>()
+        if (ip_cidr == null) ip_cidr = mutableListOf<String>()
     } else {
-        rule_set = mutableListOf<String>()
-        domain = mutableListOf<String>()
-        domain_suffix = mutableListOf<String>()
-        domain_regex = mutableListOf<String>()
-        domain_keyword = mutableListOf<String>()
+        if (domain == null) domain = mutableListOf<String>()
+        if (domain_suffix == null) domain_suffix = mutableListOf<String>()
+        if (domain_regex == null) domain_regex = mutableListOf<String>()
+        if (domain_keyword == null) domain_keyword = mutableListOf<String>()
     }
     list.forEach {
         if (isIP) {

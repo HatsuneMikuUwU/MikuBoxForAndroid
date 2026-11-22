@@ -645,24 +645,22 @@ fun buildConfig(
                         ruleObj.outbound = null
                         ruleObj.action = "reject"
                     } else {
-                        // 檢查使用者自定義配置是否包含 "action"
-                        var hasCustomAction = false
+                        // Check if custom rule JSON specifies a non-route action (e.g. sniff, resolve, reject)
+                        var actionDisallowsOutbound = false
                         if (!rule.config.isNullOrBlank()) {
                             try {
-                                // 僅解析為通用 Map 來檢查 "action" 鍵的存在
                                 @Suppress("UNCHECKED_CAST")
                                 val customMap = gson.fromJson(rule.config, Map::class.java) as? Map<String, Any>
-                                if (customMap?.containsKey("action") == true) {
-                                    hasCustomAction = true
+                                val actionVal = customMap?.get("action") as? String
+                                if (!actionVal.isNullOrBlank() && actionVal != "route") {
+                                    actionDisallowsOutbound = true
                                 }
                             } catch (e: Exception) {
-                                // JSON 解析失敗或格式不符，忽略
+                                // Ignore malformed custom JSON
                             }
                         }
 
-                        if (hasCustomAction) {
-                            // 如果有自定義 action (如 sniff, resolve)，
-                            // 則不應有 outbound 欄位，將其設為 null
+                        if (actionDisallowsOutbound) {
                             ruleObj.outbound = null
                         }
                     }

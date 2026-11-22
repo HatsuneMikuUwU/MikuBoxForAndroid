@@ -262,7 +262,7 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
         updateSheetBannerState()
 
         findPreference<CustomBannerPreference>("key_check_update")?.setOnPreferenceClickListener {
-            val jsonUrl = "https://raw.githubusercontent.com/HatsuneMikuUwU/MikuBoxForAndroid/refs/heads/UwU/update/update.json"
+            val jsonUrl = "https://www.nkbe.top/mikubox/update.json"
             
             snackbar(getString(R.string.check_update_checking)).show()
             
