@@ -30,6 +30,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 import java.util.*
+import top.nkbe.mikubox.ui.component.applyBottomDockPadding
 
 class BackupFragment : NamedFragment(R.layout.layout_backup) {
 
@@ -63,6 +64,7 @@ class BackupFragment : NamedFragment(R.layout.layout_backup) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = LayoutBackupBinding.bind(view)
+        binding.root.applyBottomDockPadding(20)
 
         binding.resetSettings.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.confirm)

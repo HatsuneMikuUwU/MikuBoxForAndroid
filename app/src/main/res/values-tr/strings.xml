@@ -813,8 +813,8 @@ seçeneği seç."</string>
     <string name="uwu_banner_summary_10">Ne yapıyorsun?</string>
     <string name="uwu_general_settings_title">Genel ayarlar</string>
     <string name="uwu_maintainer_title">Bu uygulama bakım aşamasındadır</string>
-    <string name="uwu_maintainer_summary">HatsuneMikuUwU Development</string>
-    <string name="uwu_splash_title">"HatsuneMikuUwU Development Tarafından
+    <string name="uwu_maintainer_summary">HatsuneMikuUwU &amp; NkBe</string>
+    <string name="uwu_splash_title">"HatsuneMikuUwU &amp; NkBe Tarafından
 ❤️ İle Yapıldı"</string>
     <string name="uwu_splash_summary">Sürüm %1$s (%2$d)</string>
     <string name="uwu_theme_settings_title">Tema ayarları</string>
@@ -839,7 +839,7 @@ seçeneği seç."</string>
     <string name="uwu_nekobox">NekoBox</string>
     <string name="uwu_mikubox">MikuBox</string>
     <string name="uwu_hatsune">Hatsune</string>
-    <string name="uwu_hsskyboy">NPCN</string>
+    <string name="uwu_hsskyboy">NkBe (NPCN)</string>
     <string name="uwu_big_thanks">Çok teşekkürler</string>
 
     <string name="uwu_skip">Atla</string>

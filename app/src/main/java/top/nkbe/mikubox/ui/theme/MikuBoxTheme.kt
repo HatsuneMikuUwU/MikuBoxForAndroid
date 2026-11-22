@@ -28,6 +28,9 @@ import com.google.android.material.color.MaterialColors
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.utils.Theme
 
+import top.nkbe.mikubox.ui.component.LocalMikuBottomDockDp
+import top.nkbe.mikubox.ui.component.rememberMikuBottomInsetDp
+
 @Immutable
 data class MikuExtendedColors(
     val warning: Color,
@@ -142,7 +145,12 @@ fun MikuBoxTheme(
         }
     }
 
-    CompositionLocalProvider(LocalMikuExtendedColors provides extended) {
+    val bottomDockDp = rememberMikuBottomInsetDp()
+
+    CompositionLocalProvider(
+        LocalMikuExtendedColors provides extended,
+        LocalMikuBottomDockDp provides bottomDockDp,
+    ) {
         MaterialTheme(
             colorScheme = colorScheme,
             shapes = MikuShapes,

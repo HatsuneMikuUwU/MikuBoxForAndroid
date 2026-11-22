@@ -28,6 +28,7 @@ import io.nekohasekai.sagernet.bg.BaseService
 import io.nekohasekai.sagernet.utils.showBlur
 import io.nekohasekai.sagernet.ui.bottomsheet.RouteMenuBottomSheet
 import io.nekohasekai.sagernet.ui.toolbar.RouteMenuController
+import top.nkbe.mikubox.ui.component.applyBottomDockPadding
 
 class RouteFragment : ToolbarFragment(R.layout.layout_route), 
     RouteMenuBottomSheet.OnOptionClickListener {
@@ -59,6 +60,7 @@ class RouteFragment : ToolbarFragment(R.layout.layout_route),
         )
 
         ruleListView = view.findViewById(R.id.route_list)
+        ruleListView.applyBottomDockPadding(20)
         ruleListView.layoutManager = FixedLinearLayoutManager(ruleListView)
         ruleAdapter = RuleAdapter()
         ProfileManager.addListener(ruleAdapter)

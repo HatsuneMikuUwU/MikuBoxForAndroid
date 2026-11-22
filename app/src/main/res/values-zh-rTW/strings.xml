@@ -847,9 +847,9 @@
     <string name="uwu_banner_summary_10">你在做什麼呢？</string>
     <string name="uwu_general_settings_title">一般設定</string>
     <string name="uwu_maintainer_title">維護團隊</string>
-    <string name="uwu_maintainer_summary">HatsuneMikuUwU 開發團隊</string>
+    <string name="uwu_maintainer_summary">HatsuneMikuUwU &amp; NkBe</string>
     <string name="uwu_splash_title">"用心打造 ❤️
-HatsuneMikuUwU 開發團隊"</string>
+HatsuneMikuUwU &amp; NkBe"</string>
     <string name="uwu_splash_summary">版本 %1$s (%2$d)</string>
     <string name="uwu_theme_settings_title">主題設定</string>
     <string name="uwu_theme_settings_summary">自訂應用程式強調色</string>
@@ -871,7 +871,7 @@ HatsuneMikuUwU 開發團隊"</string>
     <string name="uwu_nekobox">NekoBox</string>
     <string name="uwu_mikubox">MikuBox</string>
     <string name="uwu_hatsune">Hatsune</string>
-    <string name="uwu_hsskyboy">NPCN</string>
+    <string name="uwu_hsskyboy">NkBe (NPCN)</string>
     <string name="uwu_big_thanks">特別感謝</string>
     <string name="uwu_skip">略過</string>
     <string name="uwu_next">下一步</string>

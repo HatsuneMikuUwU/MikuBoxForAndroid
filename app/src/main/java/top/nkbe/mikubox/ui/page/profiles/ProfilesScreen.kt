@@ -64,6 +64,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.ProxyEntity
 import moe.matsuri.nb4a.Protocols
+import top.nkbe.mikubox.ui.component.LocalMikuBottomDockDp
 import top.nkbe.mikubox.ui.component.MikuSoftCard
 import top.nkbe.mikubox.ui.theme.MikuTheme
 import top.nkbe.mikubox.ui.viewmodel.ProfileGroupChip
@@ -92,6 +93,8 @@ fun ProfilesScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val columns = if (state.doubleColumn) 2 else 1
+    val bottomDockDp = LocalMikuBottomDockDp.current
+    val listBottomPadding = if (bottomDockDp > 0.dp) bottomDockDp + 20.dp else 160.dp
 
     Box(
         modifier = Modifier
@@ -101,7 +104,7 @@ fun ProfilesScreen(
         LazyVerticalGrid(
             columns = GridCells.Fixed(columns),
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 160.dp),
+            contentPadding = PaddingValues(bottom = listBottomPadding),
             verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {

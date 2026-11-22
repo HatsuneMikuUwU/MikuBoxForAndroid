@@ -15,6 +15,7 @@ import com.neko.hosttoip.HostToIP
 import com.neko.hostpotproxy.ui.ProxySettings
 import com.neko.ip.hostchecker.HostChecker
 import com.neko.speedtest.SpeedTestActivity
+import top.nkbe.mikubox.ui.component.applyBottomDockPadding
 
 class NetworkFragment : NamedFragment(R.layout.layout_network) {
 
@@ -24,6 +25,7 @@ class NetworkFragment : NamedFragment(R.layout.layout_network) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = LayoutNetworkBinding.bind(view)
+        (binding.root as? NestedScrollView)?.applyBottomDockPadding(20)
 
         binding.stunTest.setOnClickListener {
             startActivity(Intent(requireContext(), StunActivity::class.java))

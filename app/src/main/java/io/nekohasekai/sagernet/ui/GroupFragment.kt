@@ -55,6 +55,7 @@ import android.widget.TextView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.R as MaterialR
 import io.nekohasekai.sagernet.ui.toolbar.GroupMenuController
+import top.nkbe.mikubox.ui.component.applyBottomDockPadding
 import kotlin.math.abs
 
 class GroupFragment : ToolbarFragment(R.layout.layout_group), 
@@ -196,6 +197,7 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
         )
 
         groupListView = view.findViewById(R.id.group_list)
+        groupListView.applyBottomDockPadding(20)
         layoutManager = FixedLinearLayoutManager(groupListView)
         groupListView.layoutManager = layoutManager
         groupAdapter = GroupAdapter()

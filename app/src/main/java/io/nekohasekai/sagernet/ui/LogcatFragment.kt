@@ -25,6 +25,7 @@ import libcore.Libcore
 import moe.matsuri.nb4a.utils.SendLog
 import io.nekohasekai.sagernet.ui.bottomsheet.LogcatMenuBottomSheet
 import io.nekohasekai.sagernet.ui.toolbar.LogcatMenuController
+import top.nkbe.mikubox.ui.component.applyBottomDockPadding
 
 class LogcatFragment : ToolbarFragment(R.layout.layout_logcat),
     LogcatMenuBottomSheet.OnOptionClickListener {
@@ -57,6 +58,7 @@ class LogcatFragment : ToolbarFragment(R.layout.layout_logcat),
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root, ListListener)
+        binding.scroolview.applyBottomDockPadding(20)
 
         binding.scroolview.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             appBarLayout.setExpanded(scrollY == 0)

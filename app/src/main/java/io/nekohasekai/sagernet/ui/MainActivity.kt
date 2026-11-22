@@ -72,6 +72,10 @@ import io.nekohasekai.sagernet.utils.showBlur
 import io.nekohasekai.sagernet.widget.FabStyle
 import moe.matsuri.nb4a.utils.Util
 import io.nekohasekai.sagernet.ui.toolbar.NavMenuController
+import top.nkbe.mikubox.ui.component.MikuInsets
+import top.nkbe.mikubox.ui.component.clearDefaultSheetBackground
+import top.nkbe.mikubox.ui.component.mikuComposeView
+import top.nkbe.mikubox.ui.page.sheets.MikuNavigationSheetContent
 
 class MainActivity : ThemedActivity(),
     SagerConnection.Callback,
@@ -94,7 +98,17 @@ class MainActivity : ThemedActivity(),
         ViewCompat.setOnApplyWindowInsetsListener(binding.bottomDockContainer) { view, insets ->
             val navInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
             view.updatePadding(bottom = dp2px(16) + navInsets.bottom)
+            view.post {
+                val visibleDockHeight = if (binding.stats.isShown) view.height else 0
+                MikuInsets.updateBottomDock(visibleDockHeight, navInsets.bottom)
+            }
             insets
+        }
+        binding.bottomDockContainer.addOnLayoutChangeListener { view, _, top, _, bottom, _, oldTop, _, oldBottom ->
+            if ((bottom - top) != (oldBottom - oldTop)) {
+                val visibleDockHeight = if (binding.stats.isShown) (bottom - top) else 0
+                MikuInsets.updateDockVisibilityHeight(visibleDockHeight)
+            }
         }
 
         if (savedInstanceState == null) {
@@ -296,75 +310,35 @@ class MainActivity : ThemedActivity(),
     
     fun showOriginalNavigationSheet() {
         val dialog = BottomSheetDialog(this)
-        
         Theme.applyWindowBlur(dialog.window)
 
-        val view = layoutInflater.inflate(R.layout.uwu_bottom_sheet_nav_menu, null)
-        dialog.setContentView(view)
-
-        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        dialog.behavior.skipCollapsed = true
-        
-        val bannerImageView = view.findViewById<ImageView>(R.id.img_banner_sheet)
-
-        if (bannerImageView != null) {
-        	bannerImageView.setLayerType(View.LAYER_TYPE_HARDWARE, null) 
-            val bannerUriString = DataStore.configurationStore.getString("custom_sheet_banner_uri", null) 
-            val targetTag = if (bannerUriString.isNullOrBlank()) TAG_SHEET_DEFAULT else bannerUriString
-            val currentTag = bannerImageView.tag            
-            if (currentTag != targetTag) {
-                if (!bannerUriString.isNullOrBlank()) {
-                	val bannerSavedUriString = Uri.parse(bannerUriString)
-                    Glide.with(this)
-                        .load(bannerSavedUriString)
-                        .downsample(DownsampleStrategy.NONE)
-                        .set(GifOptions.DECODE_FORMAT, DecodeFormat.PREFER_ARGB_8888)
-                        .format(DecodeFormat.PREFER_ARGB_8888)
-                        .override(Target.SIZE_ORIGINAL)
-                        .diskCacheStrategy(DiskCacheStrategy.DATA)
-                        .skipMemoryCache(false)
-                        .error(R.drawable.uwu_banner_image_about)
-                        .into(bannerImageView)
-                } else {
-                    Glide.with(this).clear(bannerImageView)
-                    bannerImageView.setImageResource(R.drawable.uwu_banner_image_about)
-                }              
-                bannerImageView.tag = targetTag
-            }
-        }
-        
-        val particlesView = view.findViewById<View>(R.id.ParticlesView)
-        if (particlesView != null) {
-            if (DataStore.disableParticlesSheet) {
-                particlesView.visibility = View.GONE
-            } else {
-                particlesView.visibility = View.VISIBLE
-            }
+        val currentNavId = when (supportFragmentManager.findFragmentById(R.id.fragment_holder)) {
+            is GroupFragment -> R.id.nav_group
+            is RouteFragment -> R.id.nav_route
+            is SettingsFragment -> R.id.nav_settings
+            is WebviewFragment -> R.id.nav_traffic
+            is ToolsFragment -> R.id.nav_tools
+            is LogcatFragment -> R.id.nav_logcat
+            is AboutFragment -> R.id.nav_about
+            else -> R.id.nav_configuration
         }
 
-        val trafficMenu = view.findViewById<View>(R.id.nav_traffic)
-        if (DataStore.enableClashAPI) {
-            trafficMenu?.visibility = View.VISIBLE
-        } else {
-            trafficMenu?.visibility = View.GONE
+        val composeView = mikuComposeView {
+            MikuNavigationSheetContent(
+                selectedNavId = currentNavId,
+                showTraffic = DataStore.enableClashAPI,
+                onSelectNav = { id ->
+                    displayFragmentWithId(id)
+                    dialog.dismiss()
+                },
+            )
         }
-
-        fun setClick(@IdRes id: Int) {
-            view.findViewById<View>(id)?.setOnClickListener {
-                displayFragmentWithId(id)
-                dialog.dismiss()
-            }
+        dialog.setContentView(composeView)
+        dialog.setOnShowListener {
+            dialog.clearDefaultSheetBackground()
+            dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            dialog.behavior.skipCollapsed = true
         }
-
-        setClick(R.id.nav_configuration)
-        setClick(R.id.nav_group)
-        setClick(R.id.nav_route)
-        setClick(R.id.nav_settings)
-        setClick(R.id.nav_traffic)
-        setClick(R.id.nav_tools)
-        setClick(R.id.nav_logcat)
-        setClick(R.id.nav_about)
-
         dialog.show()
     }
 
@@ -375,13 +349,21 @@ class MainActivity : ThemedActivity(),
             binding.stats.performShow()
             binding.fab.show()
             updateQuickActionsVisibility(isHome = true)
+            binding.bottomDockContainer.post {
+                MikuInsets.updateDockVisibilityHeight(binding.bottomDockContainer.height)
+            }
         } else if (!DataStore.showBottomBar) {
             binding.stats.allowShow = false
             binding.stats.performHide()
             binding.fab.hide()
             updateQuickActionsVisibility(isHome = false)
+            MikuInsets.updateDockVisibilityHeight(0)
         } else {
             updateQuickActionsVisibility(isHome = false)
+            binding.bottomDockContainer.post {
+                val h = if (binding.stats.isShown) binding.bottomDockContainer.height else 0
+                MikuInsets.updateDockVisibilityHeight(h)
+            }
         }
 
         val transaction = supportFragmentManager.beginTransaction()

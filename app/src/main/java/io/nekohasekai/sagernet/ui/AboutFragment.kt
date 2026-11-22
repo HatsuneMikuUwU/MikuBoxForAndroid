@@ -15,6 +15,7 @@ import androidx.activity.result.component2
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
+import top.nkbe.mikubox.ui.component.applyBottomDockPadding
 import com.danielstone.materialaboutlibrary.MaterialAboutFragment
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem
 import com.danielstone.materialaboutlibrary.model.MaterialAboutCard
@@ -224,6 +225,17 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
                                     )
                                 }
                                 .build())
+                        .addItem(
+                            MaterialAboutActionItem.Builder()
+                                .icon(R.drawable.ic_baseline_person_24)
+                                .text(R.string.uwu_mikubox_author_title)
+                                .subText(R.string.uwu_author_summary)
+                                .setOnClickAction {
+                                    requireContext().launchCustomTab(
+                                        "https://www.nkbe.top"
+                                    )
+                                }
+                                .build())
                         .build())
                         
                 .addCard(
@@ -262,6 +274,7 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
 
             view.findViewById<RecyclerView>(R.id.mal_recyclerview).apply {
                 overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+                applyBottomDockPadding(20)
             }
         }
     }
