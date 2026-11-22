@@ -2,9 +2,10 @@
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("com.google.devtools.ksp")
-    id("kotlin-parcelize")
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ksp)
 }
 
 setupApp()
@@ -14,89 +15,104 @@ kotlin {
 }
 
 android {
+    namespace = "io.nekohasekai.sagernet"
+
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
+
     androidResources {
         localeFilters += listOf("en", "zh-rCN", "zh-rTW", "in", "ja", "ru", "tr")
+        generateLocaleConfig = true
     }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }
+
     ksp {
         arg("room.incremental", "true")
         arg("room.schemaLocation", "$projectDir/schemas")
     }
+
     bundle {
         language {
             enableSplit = false
         }
     }
+
     buildFeatures {
         buildConfig = true
         viewBinding = true
+        compose = true
         aidl = true
     }
-    namespace = "io.nekohasekai.sagernet"
+
     packaging {
         jniLibs {
             useLegacyPackaging = true
         }
     }
-    androidResources {
-        generateLocaleConfig = true
-    }
 }
 
 dependencies {
-
     implementation(fileTree("libs"))
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("androidx.core:core-ktx:1.17.0")
-    implementation("androidx.recyclerview:recyclerview:1.3.0")
-    implementation("androidx.activity:activity-ktx:1.11.0")
-    implementation("androidx.fragment:fragment-ktx:1.8.9")
-    implementation("androidx.browser:browser:1.5.0")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("androidx.appcompat:appcompat:1.7.1")
-    implementation("androidx.work:work-runtime-ktx:2.10.1")
-    implementation("androidx.work:work-multiprocess:2.10.1")
+    // Kotlin & Coroutines
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation("com.google.android.material:material:1.14.0")
-    implementation("com.google.code.gson:gson:2.13.1")
+    // AndroidX Core & UI
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.work.multiprocess)
 
-    implementation("com.takisoft.preferencex:preferencex:1.1.0")
-    implementation("com.takisoft.preferencex:preferencex-simplemenu:1.1.0")
+    // Jetpack Compose & Material 3 Expressive
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation("com.airbnb.android:lottie:4.2.2")
-    implementation("com.github.bumptech.glide:glide:5.0.5")
-    implementation("com.github.yalantis:ucrop:2.2.11")
-    implementation("com.github.anastr:speedviewlib:1.6.1")
+    // Google Material & Utilities
+    implementation(libs.google.material)
+    implementation(libs.google.gson)
+    implementation(libs.google.guava)
 
-    implementation("com.github.jenly1314:zxing-lite:2.1.1")
-    implementation("com.blacksquircle.ui:editorkit:2.6.0")
-    implementation("com.blacksquircle.ui:language-base:2.6.0")
-    implementation("com.blacksquircle.ui:language-json:2.6.0")
-
-    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.3")
-    implementation("org.yaml:snakeyaml:1.30")
-    implementation("com.jakewharton:process-phoenix:2.1.2")
-    implementation("com.esotericsoftware:kryo:5.2.1")
-    implementation("com.google.guava:guava:31.0.1-android")
-    implementation("org.ini4j:ini4j:0.5.4")
-    
-    implementation("com.simplecityapps:recyclerview-fastscroll:2.0.1") {
+    // Preference & Widgets
+    implementation(libs.preferencex)
+    implementation(libs.preferencex.simplemenu)
+    implementation(libs.recyclerview.fastscroll) {
         exclude(group = "androidx.recyclerview")
         exclude(group = "androidx.appcompat")
     }
 
-    implementation("androidx.room:room-runtime:2.7.1")
-    ksp("androidx.room:room-compiler:2.7.1")
-    implementation("androidx.room:room-ktx:2.7.1")
-    implementation("com.github.MatrixDev.Roomigrant:RoomigrantLib:0.3.4")
-    ksp("com.github.MatrixDev.Roomigrant:RoomigrantCompiler:0.3.4")
+    // Media, Editor & Tools
+    implementation(libs.lottie)
+    implementation(libs.glide)
+    implementation(libs.ucrop)
+    implementation(libs.speedviewlib)
+    implementation(libs.zxing.lite)
+    implementation(libs.bundles.editorkit)
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+    // Networking & Serialization
+    implementation(libs.okhttp)
+    implementation(libs.snakeyaml)
+    implementation(libs.process.phoenix)
+    implementation(libs.kryo)
+    implementation(libs.ini4j)
+
+    // Room & Migrations
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.roomigrant.lib)
+    ksp(libs.roomigrant.compiler)
+
+    // Desugaring
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }
