@@ -77,6 +77,7 @@ import top.nkbe.mikubox.ui.component.MikuSegmentedTabs
 import top.nkbe.mikubox.ui.component.MikuSoftCard
 import top.nkbe.mikubox.ui.component.MikuSoftPanelHero
 import top.nkbe.mikubox.ui.theme.MikuTheme
+import top.nkbe.mikubox.ui.theme.mikuContrastColor
 import kotlin.math.roundToInt
 
 data class SettingsScreenCallbacks(
@@ -163,6 +164,7 @@ data class SettingsScreenCallbacks(
     val onSetManualWeatherCity: (String) -> Unit,
     val onSetShowWeatherCondition: (Boolean) -> Unit,
     val onSetHideWeatherCity: (Boolean) -> Unit,
+    val onOpenUrl: (String) -> Unit,
 )
 
 private sealed interface ActiveSettingDialog {
@@ -324,8 +326,8 @@ fun SettingsScreen(
                             .padding(horizontal = 16.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                     ) {
-                        // Subtle Maintainer Credit Pill (credits both authors clearly)
-                        MikuMaintainerCard()
+                        // Subtle Maintainer Credit Pill (credits both authors clearly with separate links)
+                        MikuMaintainerCard(onOpenUrl = callbacks.onOpenUrl)
 
                         // 1. General Settings
                         SettingsGroupSection(title = stringResource(R.string.general_settings)) {
@@ -812,6 +814,7 @@ fun SettingsScreen(
                         MikuWardrobeIdentityCard(
                             state = state,
                             onCheckUpdate = callbacks.onCheckUpdate,
+                            onOpenUrl = callbacks.onOpenUrl,
                         )
 
                         // 1. Theme & Colors
@@ -1347,7 +1350,78 @@ private fun MikuSettingsHero(
 }
 
 @Composable
-private fun MikuMaintainerCard() {
+private fun AuthorLinkChipsRow(
+    onOpenUrl: (String) -> Unit,
+) {
+    val primaryBg = MaterialTheme.colorScheme.primaryContainer
+    val primaryFg = remember(primaryBg) { mikuContrastColor(primaryBg) }
+    val secondaryBg = MaterialTheme.colorScheme.secondaryContainer
+    val secondaryFg = remember(secondaryBg) { mikuContrastColor(secondaryBg) }
+
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Surface(
+            modifier = Modifier
+                .clip(CircleShape)
+                .clickable { onOpenUrl("https://github.com/HatsuneMikuUwU") },
+            shape = CircleShape,
+            color = primaryBg,
+            contentColor = primaryFg,
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_github),
+                    contentDescription = null,
+                    modifier = Modifier.size(13.dp),
+                )
+                Text(
+                    text = "HatsuneMikuUwU",
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                )
+            }
+        }
+
+        Surface(
+            modifier = Modifier
+                .clip(CircleShape)
+                .clickable { onOpenUrl("https://www.nkbe.top") },
+            shape = CircleShape,
+            color = secondaryBg,
+            contentColor = secondaryFg,
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_baseline_person_24),
+                    contentDescription = null,
+                    modifier = Modifier.size(13.dp),
+                )
+                Text(
+                    text = "NkBe",
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MikuMaintainerCard(
+    onOpenUrl: (String) -> Unit,
+) {
     MikuSoftCard(
         modifier = Modifier.fillMaxWidth(),
         containerColor = MikuTheme.extendedColors.softPanel,
@@ -1375,20 +1449,17 @@ private fun MikuMaintainerCard() {
                 )
             }
             Spacer(Modifier.width(14.dp))
-            Column(modifier = Modifier.weight(1f)) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
                 Text(
                     text = stringResource(R.string.uwu_maintainer_title),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = stringResource(R.string.uwu_maintainer_summary),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold,
-                )
+                AuthorLinkChipsRow(onOpenUrl = onOpenUrl)
             }
         }
     }
@@ -1398,6 +1469,7 @@ private fun MikuMaintainerCard() {
 private fun MikuWardrobeIdentityCard(
     state: SettingsUiState,
     onCheckUpdate: () -> Unit,
+    onOpenUrl: (String) -> Unit,
 ) {
     MikuSoftCard(
         modifier = Modifier.fillMaxWidth(),
@@ -1431,7 +1503,7 @@ private fun MikuWardrobeIdentityCard(
                 Spacer(Modifier.width(14.dp))
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(3.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Text(
                         text = stringResource(R.string.app_name),
@@ -1439,12 +1511,7 @@ private fun MikuWardrobeIdentityCard(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
-                    Text(
-                        text = "${stringResource(R.string.uwu_mikubox_author_title)}: ${stringResource(R.string.uwu_author_summary)}",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
+                    AuthorLinkChipsRow(onOpenUrl = onOpenUrl)
                     Text(
                         text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) · ${BuildConfig.APPLICATION_ID}",
                         style = MaterialTheme.typography.bodySmall,

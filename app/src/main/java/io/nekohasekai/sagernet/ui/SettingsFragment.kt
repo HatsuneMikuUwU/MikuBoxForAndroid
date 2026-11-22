@@ -31,6 +31,7 @@ import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.ktx.Logs
 import io.nekohasekai.sagernet.ktx.dp2pxf
+import io.nekohasekai.sagernet.ktx.launchCustomTab
 import io.nekohasekai.sagernet.ktx.needReload
 import io.nekohasekai.sagernet.ktx.needRestart
 import io.nekohasekai.sagernet.ktx.snackbar
@@ -468,6 +469,9 @@ class SettingsFragment : ToolbarFragment() {
                 },
                 onSetHideWeatherCity = { enabled ->
                     DataStore.hideWeatherCity = enabled
+                },
+                onOpenUrl = { url ->
+                    requireContext().launchCustomTab(url)
                 },
             )
 
