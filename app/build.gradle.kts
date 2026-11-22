@@ -14,9 +14,12 @@ kotlin {
 }
 
 android {
-defaultConfig {
-    vectorDrawables.useSupportLibrary = true
-  }
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+    androidResources {
+        localeFilters += listOf("en", "zh-rCN", "zh-rTW", "in", "ja", "ru", "tr")
+    }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }

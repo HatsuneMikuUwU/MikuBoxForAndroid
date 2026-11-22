@@ -103,38 +103,10 @@
 	
     <string-array name="app_font_entries">
         <item>@string/language_system_default</item>
-        <item>Google Sans</item>
-        <item>Choco Cooky</item>
-        <item>Roboto</item>
-        <item>Poppins</item>
-        <item>Simple Day</item>
-        <item>Fucek</item>
-        <item>San Francisco Pro Display</item>
-        <item>Dancing Script</item>
-        <item>Cream</item>
-        <item>Samsung One UI</item>
-        <item>Inconsolata</item>
-        <item>Emily\'s Candy</item>
-        <item>Summer Dream</item>
-        <item>Rine</item>
     </string-array>
 
     <string-array name="app_font_values">
         <item>default</item>
-        <item>google</item>
-        <item>chococooky</item>
-        <item>roboto</item>
-        <item>poppins</item>
-        <item>simpleday</item>
-        <item>fucek</item>
-        <item>sfprodisplay</item>
-        <item>dancingscript</item>
-        <item>cream</item>
-        <item>oneui</item>
-        <item>inconsolata</item>
-        <item>emilyscandy</item>
-        <item>summerdream</item>
-        <item>rine</item>
     </string-array>
 
 	<string-array name="style_category_entries">

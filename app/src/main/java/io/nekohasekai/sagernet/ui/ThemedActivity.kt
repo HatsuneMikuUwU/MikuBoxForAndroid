@@ -182,49 +182,7 @@ abstract class ThemedActivity : AppCompatActivity {
 
     internal open fun snackbarInternal(text: CharSequence): Snackbar = throw NotImplementedError()
 
-    private fun getFontResId(fontName: String?): Int {
-        return when (fontName) { 
-            "google" -> R.style.StyleFontGoogle
-            "chococooky" -> R.style.StyleFontChocoCooky
-            "roboto" -> R.style.StyleFontRoboto
-            "poppins" -> R.style.StyleFontPoppins
-            "simpleday" -> R.style.StyleFontSimpleDay
-            "fucek" -> R.style.StyleFontFucek
-            "sfprodisplay" -> R.style.StyleFontSFProDisplay
-            "dancingscript" -> R.style.StyleFontDancingScript
-            "cream" -> R.style.StyleFontCream
-            "oneui" -> R.style.StyleFontOneUI
-            "inconsolata" -> R.style.StyleFontInconsolata
-            "emilyscandy" -> R.style.StyleFontEmilysCandy
-            "summerdream" -> R.style.StyleFontSummerDream
-            "rine" -> R.style.StyleFontRine
-            else -> 0 
-        }
-    }
+    private fun getFontResId(fontName: String?): Int = 0
 
-    fun getCustomTypeface(context: Context, fontName: String?): Typeface {
-        val fontId = when (fontName) {
-            "google" -> R.font.googlesansregular 
-            "chococooky" -> R.font.chococookyregular
-            "roboto" -> R.font.robotoregular
-            "poppins" -> R.font.poppinsregular
-            "simpleday" -> R.font.simpleday
-            "fucek" -> R.font.fucek
-            "sfprodisplay" -> R.font.sfprodisplay
-            "dancingscript" -> R.font.dancingscript
-            "cream" -> R.font.cream
-            "oneui" -> R.font.oneui
-            "inconsolata" -> R.font.incosolata
-            "emilyscandy" -> R.font.emilyscandy
-            "summerdream" -> R.font.summerdream
-            "rine" -> R.font.rine
-            else -> return Typeface.DEFAULT
-        }
-        
-        return try {
-            ResourcesCompat.getFont(context, fontId) ?: Typeface.DEFAULT
-        } catch (e: Exception) {
-            Typeface.DEFAULT
-        }
-    }
+    fun getCustomTypeface(context: Context, fontName: String?): Typeface = Typeface.DEFAULT
 }

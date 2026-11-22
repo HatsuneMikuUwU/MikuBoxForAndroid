@@ -61,10 +61,11 @@
             android:entries="@array/app_font_entries"
             android:entryValues="@array/app_font_values"
             app:useSimpleSummaryProvider="true"
+            app:isPreferenceVisible="false"
             android:icon="@drawable/ic_format_font" />
 
         <SwitchPreference
-            android:layout="@layout/uwu_mid_switch"
+            android:layout="@layout/uwu_top_switch"
             android:widgetLayout="@layout/uwu_switch"
             android:key="bold_font_switch"
             android:title="@string/pref_font_bold_title"

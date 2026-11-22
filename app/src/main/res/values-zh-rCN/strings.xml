@@ -857,4 +857,31 @@ HatsuneMikuUwU 开发组"</string>
     <string name="uwu_greeting_night"> 晚安…</string>
     <string name="uwu_greeting_late_night"> 该睡觉啦…</string>
     
+
+    <!-- Completed translations -->
+    <string name="menu_dashboard">sing-box 仪表板</string>
+    <string name="tuic_udp_relay_mode">UDP 中继模式</string>
+    <string name="tuic_congestion_controller">拥塞控制算法</string>
+    <string name="tuic_disable_sni">禁用 SNI</string>
+    <string name="tuic_reduce_rtt">启用 0-RTT QUIC 握手</string>
+    <string name="pinned_certchain_sha256">证书链 SHA256 指纹固定</string>
+    <string name="mux_preference">多路复用</string>
+    <string name="padding">填充 (Padding)</string>
+    <string name="language_en_display_name">English</string>
+    <string name="language_id_display_name">Indonesia</string>
+    <string name="language_zh_Hans_CN_display_name">简体中文（中国）</string>
+    <string name="language_tr_display_name">Türkçe</string>
+    <string name="language_ja_display_name">日本語</string>
+    <string name="rules_geoip_url">geoip 下载地址</string>
+    <string name="rules_geosite_url">geosite 下载地址</string>
+    <string name="mal_title_about">关于</string>
+    <string name="mal_title_licenses">开源许可</string>
+    <string name="mal_close">关闭</string>
+    <string name="mal_send_email">发送邮件</string>
+    <string name="mal_activity_exception">没有可处理此操作的应用</string>
+    <string name="uwu_nekobox">NekoBox</string>
+    <string name="uwu_mikubox">MikuBox</string>
+    <string name="uwu_hatsune">Hatsune</string>
+    <string name="uwu_hsskyboy">NPCN</string>
+    <string name="uwu_start">开始</string>
 </resources>

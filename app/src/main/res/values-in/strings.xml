@@ -823,4 +823,55 @@ klien sing-box buat Android."</string>
     <string name="uwu_greeting_night">Met Malem...</string>
     <string name="uwu_greeting_late_night">Waktunya bobo...</string>
 
+
+    <!-- Completed translations -->
+    <string name="pinned_certchain_sha256">SHA256 Sertifikat Tersemat</string>
+    <string name="mux_preference">Multiplex</string>
+    <string name="padding">Padding</string>
+    <string name="language_en_display_name">English</string>
+    <string name="language_id_display_name">Indonesia</string>
+    <string name="language_zh_Hans_CN_display_name">简体中文（中国）</string>
+    <string name="language_tr_display_name">Türkçe</string>
+    <string name="language_ja_display_name">日本語</string>
+    <string name="rules_geoip_url">URL geoip</string>
+    <string name="rules_geosite_url">URL geosite</string>
+    <string name="mal_title_about">Tentang</string>
+    <string name="mal_title_licenses">Lisensi</string>
+    <string name="mal_close">Tutup</string>
+    <string name="mal_send_email">Kirim email</string>
+    <string name="mal_activity_exception">Tidak ada aplikasi untuk menangani tindakan ini</string>
+    <string name="uwu_nekobox">NekoBox</string>
+    <string name="uwu_mikubox">MikuBox</string>
+    <string name="uwu_hatsune">Hatsune</string>
+    <string name="uwu_hsskyboy">NPCN</string>
+    <string name="uwu_big_thanks">Terima kasih banyak</string>
+    <string name="blur_bottom_status_title">Kartu Status Kaca Cair</string>
+    <string name="blur_bottom_status_summary">Aktifkan blur waktu nyata dan efek kaca cair pada kartu status melayang di bawah</string>
+    <string name="blur_bottom_blob_anim_title">Animasi Gelembung Cair</string>
+    <string name="blur_bottom_blob_anim_summary">Animasikan gelembung warna melayang di dalam kartu status blur</string>
+    <string name="show_fab_timer_title">Timer Koneksi FAB Diperluas</string>
+    <string name="show_fab_timer_summary">Tampilkan timer koneksi HH:MM:SS langsung di dalam tombol hubungkan</string>
+    <string name="show_quick_actions_title">Bilah Aksi Cepat</string>
+    <string name="show_quick_actions_summary">Tampilkan tombol aksi cepat di bawah kartu status melayang</string>
+    <string name="show_snowflakes_title">Animasi Kepingan Salju</string>
+    <string name="show_snowflakes_summary">Tampilkan hamparan kepingan salju lembut di layar utama</string>
+    <string name="locate_selected_chip">Lokasi</string>
+    <string name="double_column_profile_list_title">Grid Server Dua Kolom</string>
+    <string name="double_column_profile_list_summary">Tampilkan profil proksi dalam tata letak grid bertingkat dua kolom</string>
+    <string name="collapse_profile_actions_title">Ciutkan Aksi Kartu Server</string>
+    <string name="collapse_profile_actions_summary">Pindahkan tombol bagikan, edit, dan hapus ke dalam menu luapan</string>
+    <string name="blur_bottom_radius_title">Radius Blur Kaca Cair</string>
+    <string name="blur_bottom_alpha_title">Opasitas Kaca Cair (%)</string>
+    <string name="banner_settings_character_title">Karakter Banner Pengaturan</string>
+    <string name="sub_kicker">LANGGANAN</string>
+    <string name="sub_summary_count">%1$d langganan</string>
+    <string name="sub_summary_nodes">%1$d node</string>
+    <string name="sub_summary_attention">%1$d perlu perhatian</string>
+    <string name="sub_days_left">Sisa %1$d hari</string>
+    <string name="sub_expired">Kedaluwarsa</string>
+    <string name="sub_local_group">Grup lokal</string>
+    <string name="sub_synced_just_now">Baru saja disinkronkan</string>
+    <string name="sub_synced_min_ago">Disinkronkan %1$d mnt lalu</string>
+    <string name="sub_synced_hour_ago">Disinkronkan %1$d jam lalu</string>
+    <string name="sub_synced_day_ago">Disinkronkan %1$d hari lalu</string>
 </resources>
