@@ -10,6 +10,7 @@ import androidx.compose.runtime.setValue
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.ktx.app
+import io.nekohasekai.sagernet.ktx.filterIsInstance
 import io.nekohasekai.sagernet.ktx.getStr
 import io.nekohasekai.sagernet.ktx.onMainDispatcher
 import io.nekohasekai.sagernet.ktx.readableMessage

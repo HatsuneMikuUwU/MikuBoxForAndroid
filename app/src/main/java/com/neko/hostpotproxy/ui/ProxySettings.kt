@@ -122,7 +122,7 @@ class ProxySettings : ThemedActivity() {
 
     private fun updateStatus() {
         try {
-            val running = proxyControl?.isRunning == true
+            val running = proxyControl?.isRunning() == true
             val port = proxyControl?.getPort() ?: 0
             uiState = uiState.copy(
                 isRunning = running,
