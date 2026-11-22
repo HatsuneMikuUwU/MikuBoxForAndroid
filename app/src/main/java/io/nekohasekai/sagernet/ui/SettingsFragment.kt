@@ -97,7 +97,7 @@ class SettingsFragment : ToolbarFragment() {
                 }
             } else if (result.resultCode == UCrop.RESULT_ERROR) {
                 val cropError = result.data?.let { UCrop.getError(it) }
-                Logs.e("Sheet UCrop error", cropError)
+                cropError?.let { Logs.e("Sheet UCrop error", it) }
                 snackbar("Crop failed: ${cropError?.message}").show()
             }
         }
