@@ -38,6 +38,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -62,10 +63,10 @@ fun MikuSoftCard(
     containerColor: Color = MaterialTheme.colorScheme.surfaceContainerLow,
     borderColor: Color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
     cornerRadius: Dp = 22.dp,
+    shape: Shape = RoundedCornerShape(cornerRadius),
     onClick: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val shape = RoundedCornerShape(cornerRadius)
     val colors = CardDefaults.cardColors(containerColor = containerColor)
     val border = BorderStroke(1.dp, borderColor)
 
@@ -283,6 +284,7 @@ fun MikuSoftPanelHero(
     modifier: Modifier = Modifier,
     kicker: String? = null,
     subtitle: String? = null,
+    @DrawableRes navigationIconRes: Int = R.drawable.ic_navigation_menu,
     @DrawableRes characterRes: Int = remember {
         BannerSettingsCharacterImageView.resolveDrawable(DataStore.bannerSettingsCharacter)
     },
@@ -334,7 +336,7 @@ fun MikuSoftPanelHero(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 MikuHeroGlassIconButton(
-                    iconRes = R.drawable.ic_navigation_menu,
+                    iconRes = navigationIconRes,
                     contentDescription = stringResource(R.string.menu_configuration),
                     heroPalette = palette,
                     onClick = onOpenMenu,

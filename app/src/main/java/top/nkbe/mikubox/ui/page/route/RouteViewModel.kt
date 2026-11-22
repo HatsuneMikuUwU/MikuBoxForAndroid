@@ -7,7 +7,6 @@ import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.database.ProfileManager
 import io.nekohasekai.sagernet.database.RuleEntity
 import io.nekohasekai.sagernet.database.SagerDatabase
-import io.nekohasekai.sagernet.ktx.needReload
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,21 +30,53 @@ data class RouteUiState(
     val rules: List<RuleItemUi> = emptyList(),
 )
 
-class RouteViewModel : ViewModel(), ProfileManager.RuleListener {
+class RouteViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(RouteUiState())
     val uiState: StateFlow<RouteUiState> = _uiState.asStateFlow()
 
+    var onNeedReload: (() -> Unit)? = null
+
     private var cachedRules: List<RuleEntity> = emptyList()
 
+    private val ruleListener = object : ProfileManager.RuleListener {
+        override suspend fun onAdd(rule: RuleEntity) {
+            reload()
+            notifyReload()
+        }
+
+        override suspend fun onUpdated(rule: RuleEntity) {
+            reload()
+            notifyReload()
+        }
+
+        override suspend fun onRemoved(ruleId: Long) {
+            reload()
+            notifyReload()
+        }
+
+        override suspend fun onCleared() {
+            cachedRules = emptyList()
+            _uiState.update { it.copy(rules = emptyList()) }
+            notifyReload()
+        }
+    }
+
     init {
-        ProfileManager.addListener(this)
+        ProfileManager.addListener(ruleListener)
         reload()
     }
 
     override fun onCleared() {
-        ProfileManager.removeListener(this)
+        ProfileManager.removeListener(ruleListener)
+        onNeedReload = null
         super.onCleared()
+    }
+
+    private suspend fun notifyReload() {
+        withContext(Dispatchers.Main) {
+            onNeedReload?.invoke()
+        }
     }
 
     fun reload() {
@@ -72,9 +103,7 @@ class RouteViewModel : ViewModel(), ProfileManager.RuleListener {
                     }
                 )
             }
-            withContext(Dispatchers.Main) {
-                needReload()
-            }
+            notifyReload()
         }
     }
 
@@ -99,9 +128,7 @@ class RouteViewModel : ViewModel(), ProfileManager.RuleListener {
             val mapped = current.map { it.toUi() }
             _uiState.update { it.copy(rules = mapped) }
 
-            withContext(Dispatchers.Main) {
-                needReload()
-            }
+            notifyReload()
         }
     }
 
@@ -116,38 +143,7 @@ class RouteViewModel : ViewModel(), ProfileManager.RuleListener {
             SagerDatabase.rulesDao.reset()
             DataStore.rulesFirstCreate = false
             reload()
-            withContext(Dispatchers.Main) {
-                needReload()
-            }
-        }
-    }
-
-    override suspend fun onAdd(rule: RuleEntity) {
-        reload()
-        withContext(Dispatchers.Main) {
-            needReload()
-        }
-    }
-
-    override suspend fun onUpdated(rule: RuleEntity) {
-        reload()
-        withContext(Dispatchers.Main) {
-            needReload()
-        }
-    }
-
-    override suspend fun onRemoved(ruleId: Long) {
-        reload()
-        withContext(Dispatchers.Main) {
-            needReload()
-        }
-    }
-
-    override suspend fun onCleared() {
-        cachedRules = emptyList()
-        _uiState.update { it.copy(rules = emptyList()) }
-        withContext(Dispatchers.Main) {
-            needReload()
+            notifyReload()
         }
     }
 

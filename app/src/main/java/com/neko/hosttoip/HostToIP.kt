@@ -1,95 +1,86 @@
 package com.neko.hosttoip
 
 import android.os.Bundle
-import android.widget.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.ui.ThemedActivity
 import org.json.JSONObject
-import java.util.HashMap
-import com.neko.hosttoip.RequestNetwork
-import com.neko.hosttoip.RequestNetwork.RequestListener
+import top.nkbe.mikubox.ui.component.setMikuContent
+import top.nkbe.mikubox.ui.page.tools.HostToIpScreen
+import top.nkbe.mikubox.ui.page.tools.HostToIpUiState
 
 class HostToIP : ThemedActivity() {
 
-    private lateinit var hostInput: EditText
-    private lateinit var resolveButton: Button
-    private lateinit var resultText: TextView
-
     private val requestNetwork: RequestNetwork by lazy { RequestNetwork(this) }
+    private var uiState by mutableStateOf(HostToIpUiState())
 
     private val requestListener = object : RequestNetwork.RequestListener {
-        override fun onResponse(tag: String, response: String, responseHeaders: HashMap<String, Any>) {
-            try {
+        override fun onResponse(
+            tag: String,
+            response: String,
+            responseHeaders: HashMap<String, Any>,
+        ) {
+            val formatted = try {
                 val json = JSONObject(response)
-                
-                val status = json.optString("status")
-
-                if (status == "success") {
+                if (json.optString("status") == "success") {
                     val ip = json.optString("query")
                     val country = json.optString("country", "Unknown")
                     val city = json.optString("city", "Unknown")
-                    
                     val ispName = json.optString("isp", json.optString("org", "Unknown"))
-
-                    val displayText = getString(
+                    getString(
                         R.string.hip_result_format,
-                        hostInput.text.toString(),
+                        uiState.host.trim(),
                         ip,
                         country,
                         city,
-                        ispName
+                        ispName,
                     )
-
-                    resultText.text = displayText
                 } else {
                     val msg = json.optString("message", "Unknown Error")
-                    resultText.text = "API Failed: $msg"
+                    "API Failed: $msg"
                 }
             } catch (e: Exception) {
-                resultText.text = "Parse Error: ${e.message}"
+                "Parse Error: ${e.message}"
             }
+            uiState = uiState.copy(isLoading = false, resultText = formatted)
         }
 
         override fun onErrorResponse(tag: String, message: String) {
-            resultText.text = "Network Error: $message"
+            uiState = uiState.copy(isLoading = false, resultText = "Network Error: $message")
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.uwu_host_to_ip)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
-        supportActionBar?.apply {
-            setTitle(R.string.host_to_ip)
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
+        setMikuContent {
+            HostToIpScreen(
+                state = uiState,
+                onHostChange = { host ->
+                    uiState = uiState.copy(host = host, inputError = null)
+                },
+                onLookup = {
+                    val host = uiState.host.trim()
+                    if (host.isEmpty()) {
+                        uiState = uiState.copy(inputError = getString(R.string.hip_error_empty))
+                    } else {
+                        uiState = uiState.copy(
+                            isLoading = true,
+                            inputError = null,
+                            resultText = getString(R.string.hip_resolving),
+                        )
+                        requestNetwork.startRequestNetwork(
+                            RequestNetworkController.GET,
+                            "http://ip-api.com/json/$host",
+                            "TAG_CHECK_IP",
+                            requestListener,
+                        )
+                    }
+                },
+                onBack = { finish() },
+            )
         }
-
-        hostInput = findViewById(R.id.host_input)
-        resolveButton = findViewById(R.id.resolve_button)
-        resultText = findViewById(R.id.result_text)
-
-        resolveButton.setOnClickListener {
-            val host = hostInput.text.toString().trim()
-            if (host.isNotEmpty()) {
-                resolveHostInfo(host)
-            } else {
-                Toast.makeText(this, getString(R.string.hip_error_empty), Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun resolveHostInfo(host: String) {
-        resultText.text = getString(R.string.hip_resolving)
-
-        val url = "http://ip-api.com/json/$host"
-
-        requestNetwork.startRequestNetwork(
-            RequestNetworkController.GET,
-            url,
-            "TAG_CHECK_IP",
-            requestListener
-        )
     }
 }

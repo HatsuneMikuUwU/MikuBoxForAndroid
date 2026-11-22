@@ -3,9 +3,11 @@ package top.nkbe.mikubox.ui.component
 import android.content.Context
 import android.graphics.Color
 import android.view.View
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import top.nkbe.mikubox.ui.theme.MikuBoxTheme
@@ -24,6 +26,15 @@ fun Context.mikuComposeView(
     setContent {
         MikuBoxTheme(content = content)
     }
+}
+
+fun ComponentActivity.setMikuContent(
+    content: @Composable () -> Unit,
+) {
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+    @Suppress("DEPRECATION")
+    window.statusBarColor = Color.TRANSPARENT
+    setContentView(mikuComposeView(content))
 }
 
 fun BottomSheetDialog.clearDefaultSheetBackground() {

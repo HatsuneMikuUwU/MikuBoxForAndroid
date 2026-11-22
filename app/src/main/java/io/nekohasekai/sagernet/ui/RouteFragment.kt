@@ -9,6 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.fragment.app.viewModels
 import io.nekohasekai.sagernet.ktx.launchCustomTab
+import io.nekohasekai.sagernet.ktx.needReload
 import top.nkbe.mikubox.ui.component.mikuComposeView
 import top.nkbe.mikubox.ui.page.route.RouteScreen
 import top.nkbe.mikubox.ui.page.route.RouteScreenCallbacks
@@ -23,6 +24,9 @@ class RouteFragment : ToolbarFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        viewModel.onNeedReload = {
+            if (isAdded) needReload()
+        }
         return mikuComposeView {
             val state by viewModel.uiState.collectAsState()
             RouteScreen(

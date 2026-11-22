@@ -1,65 +1,60 @@
 package io.nekohasekai.sagernet.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
-import io.nekohasekai.sagernet.R
-import io.nekohasekai.sagernet.databinding.LayoutStunBinding
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import io.nekohasekai.sagernet.ktx.onMainDispatcher
 import io.nekohasekai.sagernet.ktx.readableMessage
 import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
 import libcore.Libcore
+import top.nkbe.mikubox.ui.component.setMikuContent
+import top.nkbe.mikubox.ui.page.tools.StunScreen
+import top.nkbe.mikubox.ui.page.tools.StunUiState
 
 class StunActivity : ThemedActivity() {
 
-    private lateinit var binding: LayoutStunBinding
+    private var uiState by mutableStateOf(StunUiState())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = LayoutStunBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(findViewById(R.id.toolbar))
-        supportActionBar?.apply {
-            setTitle(R.string.stun_test)
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
-        }
-        binding.stunTest.setOnClickListener {
-            doTest()
+        setMikuContent {
+            StunScreen(
+                state = uiState,
+                onServerChange = { server ->
+                    uiState = uiState.copy(server = server)
+                },
+                onStartTest = { doTest() },
+                onDismissError = {
+                    uiState = uiState.copy(errorMessage = null)
+                },
+                onBack = { finish() },
+            )
         }
     }
 
-    fun doTest() {
-        binding.waitLayout.isVisible = true
+    private fun doTest() {
+        val server = uiState.server.trim()
+        if (server.isEmpty() || uiState.isTesting) return
+        uiState = uiState.copy(isTesting = true, errorMessage = null)
+
         runOnDefaultDispatcher {
-            val result = try {
-                val _result = Libcore.stunTest(binding.natStunServer.text.toString())
-                if (_result!!.success) {
-                    _result.text
+            val result = runCatching {
+                val res = Libcore.stunTest(server)
+                if (res != null && res.success) {
+                    res.text
                 } else {
-                    throw Exception(_result.text)
+                    throw IllegalStateException(res?.text ?: "STUN test failed")
                 }
-            } catch (e: Exception) {
-                onMainDispatcher {
-                    AlertDialog.Builder(this@StunActivity)
-                        .setTitle(R.string.error_title)
-                        .setMessage(e.readableMessage)
-                        .setPositiveButton(android.R.string.ok) { _, _ ->
-                            finish()
-                        }
-                        .setOnCancelListener {
-                            finish()
-                        }
-                        .runCatching { show() }
-                }
-                return@runOnDefaultDispatcher
             }
             onMainDispatcher {
-                binding.waitLayout.isVisible = false
-                binding.natResult.text = result
+                result.onSuccess { text ->
+                    uiState = uiState.copy(isTesting = false, result = text)
+                }.onFailure { err ->
+                    uiState = uiState.copy(isTesting = false, errorMessage = err.readableMessage)
+                }
             }
         }
     }
-
 }

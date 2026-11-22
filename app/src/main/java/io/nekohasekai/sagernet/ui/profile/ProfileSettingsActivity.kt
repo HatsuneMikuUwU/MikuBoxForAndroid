@@ -31,7 +31,6 @@ import io.nekohasekai.sagernet.database.GroupManager
 import io.nekohasekai.sagernet.database.ProfileManager
 import io.nekohasekai.sagernet.database.SagerDatabase
 import io.nekohasekai.sagernet.database.preference.OnPreferenceDataStoreChangeListener
-import io.nekohasekai.sagernet.databinding.LayoutGroupItemBinding
 import io.nekohasekai.sagernet.fmt.AbstractBean
 import io.nekohasekai.sagernet.ktx.*
 import io.nekohasekai.sagernet.ui.ThemedActivity
@@ -299,39 +298,30 @@ abstract class ProfileSettingsActivity<T : AbstractBean>(
 
                 R.id.action_move -> {
                     val activity = requireActivity() as ProfileSettingsActivity<*>
-                    val view = LinearLayout(context).apply {
-                        val ent = activity.proxyEntity!!
-                        orientation = LinearLayout.VERTICAL
-
-                        SagerDatabase.groupDao.allGroups()
-                            .filter { it.type == GroupType.BASIC && it.id != ent.groupId }
-                            .forEach { group ->
-                                LayoutGroupItemBinding.inflate(layoutInflater, this, true).apply {
-                                    edit.isVisible = false
-                                    options.isVisible = false
-                                    groupName.text = group.displayName()
-                                    groupUpdate.text = getString(R.string.move)
-                                    groupUpdate.setOnClickListener {
-                                        runOnDefaultDispatcher {
-                                            val oldGroupId = ent.groupId
-                                            val newGroupId = group.id
-                                            ent.groupId = newGroupId
-                                            ProfileManager.updateProfile(ent)
-                                            GroupManager.postUpdate(oldGroupId) // reload
-                                            GroupManager.postUpdate(newGroupId)
-                                            DataStore.editingGroup = newGroupId // post switch animation
-                                            runOnMainDispatcher {
-                                                activity.finish()
-                                            }
-                                        }
+                    val ent = activity.proxyEntity!!
+                    val targetGroups = SagerDatabase.groupDao.allGroups()
+                        .filter { it.type == GroupType.BASIC && it.id != ent.groupId }
+                    if (targetGroups.isNotEmpty()) {
+                        MaterialAlertDialogBuilder(activity)
+                            .setTitle(R.string.move)
+                            .setItems(targetGroups.map { it.displayName() }.toTypedArray()) { _, which ->
+                                val group = targetGroups[which]
+                                runOnDefaultDispatcher {
+                                    val oldGroupId = ent.groupId
+                                    val newGroupId = group.id
+                                    ent.groupId = newGroupId
+                                    ProfileManager.updateProfile(ent)
+                                    GroupManager.postUpdate(oldGroupId)
+                                    GroupManager.postUpdate(newGroupId)
+                                    DataStore.editingGroup = newGroupId
+                                    runOnMainDispatcher {
+                                        activity.finish()
                                     }
                                 }
                             }
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show()
                     }
-                    val scrollView = ScrollView(context).apply {
-                        addView(view)
-                    }
-                    MaterialAlertDialogBuilder(activity).setView(scrollView).show()
                 }
             }
         }
