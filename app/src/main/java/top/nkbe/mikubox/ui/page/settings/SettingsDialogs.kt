@@ -41,8 +41,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
+import top.nkbe.mikubox.ui.theme.mikuContrastColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -279,7 +279,7 @@ fun MikuColorPickerDialog(
                     val themeId = index + 1
                     val selected = themeId == selectedThemeId
                     val swatchColor = Color(argb)
-                    val iconTint = if (swatchColor.luminance() > 0.55f) Color.Black else Color.White
+                    val iconTint = mikuContrastColor(swatchColor)
 
                     Box(
                         modifier = Modifier

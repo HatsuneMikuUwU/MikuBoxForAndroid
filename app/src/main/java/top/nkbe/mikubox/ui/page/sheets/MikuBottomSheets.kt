@@ -59,6 +59,7 @@ import io.nekohasekai.sagernet.GroupOrder
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
 import top.nkbe.mikubox.ui.component.MikuSoftCard
+import top.nkbe.mikubox.ui.theme.rememberMikuHeroPalette
 
 @Composable
 fun MikuSheetContainer(
@@ -98,9 +99,7 @@ private fun MikuCompactSheetBanner(
     title: String,
     subtitle: String,
 ) {
-    val primary = MaterialTheme.colorScheme.primary
-    val gradientStart = lerp(primary, Color.White, 0.14f)
-    val gradientEnd = lerp(primary, Color.Black, 0.28f)
+    val palette = rememberMikuHeroPalette()
     val charRes = remember {
         BannerSettingsCharacterImageView.resolveDrawable(DataStore.bannerSettingsCharacter)
     }
@@ -109,7 +108,11 @@ private fun MikuCompactSheetBanner(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(22.dp))
-            .background(Brush.linearGradient(listOf(gradientStart, primary, gradientEnd)))
+            .background(
+                Brush.linearGradient(
+                    listOf(palette.gradientStart, palette.gradientMid, palette.gradientEnd)
+                )
+            )
             .padding(horizontal = 18.dp, vertical = 14.dp),
     ) {
         Image(
@@ -126,7 +129,7 @@ private fun MikuCompactSheetBanner(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.ExtraBold,
-                color = Color.White,
+                color = palette.onHero,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -134,7 +137,7 @@ private fun MikuCompactSheetBanner(
             Text(
                 text = subtitle,
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.White.copy(alpha = 0.85f),
+                color = palette.onHeroMuted,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )

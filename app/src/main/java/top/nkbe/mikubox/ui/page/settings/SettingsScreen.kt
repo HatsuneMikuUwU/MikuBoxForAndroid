@@ -72,7 +72,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.nekohasekai.sagernet.BuildConfig
 import io.nekohasekai.sagernet.R
 import top.nkbe.mikubox.ui.component.LocalMikuBottomDockDp
+import top.nkbe.mikubox.ui.component.MikuHeroGlassPill
+import top.nkbe.mikubox.ui.component.MikuSegmentedTabs
 import top.nkbe.mikubox.ui.component.MikuSoftCard
+import top.nkbe.mikubox.ui.component.MikuSoftPanelHero
 import top.nkbe.mikubox.ui.theme.MikuTheme
 import kotlin.math.roundToInt
 
@@ -302,9 +305,11 @@ fun SettingsScreen(
                         .padding(top = 16.dp, bottom = 4.dp),
                 ) {
                     MikuSegmentedTabs(
-                        selectedTab = selectedTab,
-                        tab0Label = stringResource(R.string.settings),
-                        tab1Label = stringResource(R.string.uwu_miku_ui),
+                        tabs = listOf(
+                            stringResource(R.string.settings),
+                            stringResource(R.string.uwu_miku_ui),
+                        ),
+                        selectedIndex = selectedTab,
                         onSelectTab = { selectedTab = it },
                     )
                 }
@@ -1314,202 +1319,31 @@ private fun MikuSettingsHero(
     selectedTab: Int,
     onOpenMenu: () -> Unit,
 ) {
-    val primary = MaterialTheme.colorScheme.primary
-    val gradientStart = lerp(primary, Color.White, 0.12f)
-    val gradientEnd = lerp(primary, Color.Black, 0.30f)
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                Brush.linearGradient(
-                    colors = listOf(gradientStart, primary, gradientEnd),
-                )
+    MikuSoftPanelHero(
+        title = if (selectedTab == 0) {
+            stringResource(R.string.settings)
+        } else {
+            stringResource(R.string.uwu_miku_ui)
+        },
+        kicker = if (selectedTab == 0) {
+            stringResource(R.string.uwu_banner_settings_title)
+        } else {
+            stringResource(R.string.uwu_banner_theme_title)
+        },
+        subtitle = if (selectedTab == 0) {
+            stringResource(R.string.uwu_banner_settings_summary)
+        } else {
+            stringResource(R.string.uwu_miku_ui_summary)
+        },
+        characterRes = state.bannerCharacterRes,
+        onOpenMenu = onOpenMenu,
+        pills = { palette ->
+            MikuHeroGlassPill(
+                text = "v${BuildConfig.VERSION_NAME}",
+                heroPalette = palette,
             )
-            .statusBarsPadding()
-            .padding(bottom = 36.dp),
-    ) {
-        // Subtle ♪ watermark matching Profiles & Subscriptions Hero
-        Text(
-            text = "♪",
-            fontSize = 110.sp,
-            fontWeight = FontWeight.Black,
-            color = Color.White.copy(alpha = 0.08f),
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(top = 4.dp, end = 98.dp),
-        )
-
-        // Miku character cutout (synced with Wardrobe character picker!)
-        Image(
-            painter = painterResource(state.bannerCharacterRes),
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = 6.dp)
-                .size(width = 118.dp, height = 148.dp)
-                .alpha(0.92f),
-        )
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 10.dp),
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                IconButton(
-                    onClick = onOpenMenu,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(Color.White.copy(alpha = 0.16f)),
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_navigation_menu),
-                        contentDescription = stringResource(R.string.menu_configuration),
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp),
-                    )
-                }
-                Spacer(Modifier.width(12.dp))
-                Text(
-                    text = if (selectedTab == 0) {
-                        stringResource(R.string.settings)
-                    } else {
-                        stringResource(R.string.uwu_miku_ui)
-                    },
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
-
-            Spacer(Modifier.height(10.dp))
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 112.dp),
-            ) {
-                Text(
-                    text = if (selectedTab == 0) {
-                        stringResource(R.string.uwu_banner_settings_title)
-                    } else {
-                        stringResource(R.string.uwu_banner_theme_title)
-                    },
-                    style = MaterialTheme.typography.labelLarge,
-                    color = Color.White.copy(alpha = 0.85f),
-                    fontWeight = FontWeight.Medium,
-                )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = if (selectedTab == 0) {
-                        stringResource(R.string.uwu_banner_settings_summary)
-                    } else {
-                        stringResource(R.string.uwu_miku_ui_summary)
-                    },
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White,
-                    fontWeight = FontWeight.SemiBold,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Spacer(Modifier.height(10.dp))
-                HeroPillTag(text = "v${BuildConfig.VERSION_NAME}")
-            }
-        }
-    }
-}
-
-@Composable
-private fun HeroPillTag(text: String) {
-    Surface(
-        shape = CircleShape,
-        color = Color.White.copy(alpha = 0.18f),
-        contentColor = Color.White,
-    ) {
-        Text(
-            text = text,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.SemiBold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
-    }
-}
-
-@Composable
-private fun MikuSegmentedTabs(
-    selectedTab: Int,
-    tab0Label: String,
-    tab1Label: String,
-    onSelectTab: (Int) -> Unit,
-) {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = CircleShape,
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.45f)),
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            listOf(tab0Label, tab1Label).forEachIndexed { index, label ->
-                val selected = selectedTab == index
-                val bg by animateColorAsState(
-                    targetValue = if (selected) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        Color.Transparent
-                    },
-                    label = "TabBg",
-                )
-                val fg by animateColorAsState(
-                    targetValue = if (selected) {
-                        MaterialTheme.colorScheme.onPrimary
-                    } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
-                    },
-                    label = "TabFg",
-                )
-
-                Surface(
-                    modifier = Modifier
-                        .weight(1f)
-                        .clip(CircleShape)
-                        .clickable { onSelectTab(index) },
-                    shape = CircleShape,
-                    color = bg,
-                    contentColor = fg,
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp, horizontal = 12.dp),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Text(
-                            text = label,
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                }
-            }
-        }
-    }
+        },
+    )
 }
 
 @Composable

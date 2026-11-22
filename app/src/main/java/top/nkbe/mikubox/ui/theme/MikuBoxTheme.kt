@@ -19,6 +19,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -27,9 +29,95 @@ import com.google.android.material.R as MaterialR
 import com.google.android.material.color.MaterialColors
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.utils.Theme
+import kotlin.math.max
+import kotlin.math.min
 
 import top.nkbe.mikubox.ui.component.LocalMikuBottomDockDp
 import top.nkbe.mikubox.ui.component.rememberMikuBottomInsetDp
+
+private val MikuDarkInk = Color(0xFF0E1B18)
+
+private fun mikuContrastRatio(first: Color, second: Color): Float {
+    val l1 = first.luminance()
+    val l2 = second.luminance()
+    return (max(l1, l2) + 0.05f) / (min(l1, l2) + 0.05f)
+}
+
+fun mikuContrastColor(background: Color): Color {
+    return if (background.luminance() > 0.28f) {
+        MikuDarkInk
+    } else {
+        Color.White
+    }
+}
+
+private fun ensureReadableOn(foreground: Color, background: Color): Color {
+    return if (mikuContrastRatio(foreground, background) < 3.5f) {
+        mikuContrastColor(background)
+    } else {
+        foreground
+    }
+}
+
+@Immutable
+data class MikuHeroPalette(
+    val gradientStart: Color,
+    val gradientMid: Color,
+    val gradientEnd: Color,
+    val onHero: Color,
+    val onHeroMuted: Color,
+    val glassContainer: Color,
+    val glassBorder: Color,
+    val watermarkTint: Color,
+)
+
+@Composable
+fun rememberMikuHeroPalette(
+    primary: Color = MaterialTheme.colorScheme.primary,
+): MikuHeroPalette = remember(primary) {
+    val isBrightPrimary = primary.luminance() > 0.28f
+    val gradientStart = if (isBrightPrimary) {
+        primary
+    } else {
+        lerp(primary, Color.White, 0.12f)
+    }
+    val gradientMid = if (isBrightPrimary) {
+        lerp(primary, Color.Black, 0.10f)
+    } else {
+        primary
+    }
+    val gradientEnd = lerp(primary, Color.Black, if (isBrightPrimary) 0.34f else 0.30f)
+
+    val effectiveLum =
+        gradientStart.luminance() * 0.45f +
+            gradientMid.luminance() * 0.40f +
+            gradientEnd.luminance() * 0.15f
+    val useDarkInk = effectiveLum > 0.28f
+    val onHero = if (useDarkInk) MikuDarkInk else Color.White
+
+    MikuHeroPalette(
+        gradientStart = gradientStart,
+        gradientMid = gradientMid,
+        gradientEnd = gradientEnd,
+        onHero = onHero,
+        onHeroMuted = onHero.copy(alpha = if (useDarkInk) 0.76f else 0.85f),
+        glassContainer = if (useDarkInk) {
+            Color.Black.copy(alpha = 0.09f)
+        } else {
+            Color.White.copy(alpha = 0.18f)
+        },
+        glassBorder = if (useDarkInk) {
+            Color.Black.copy(alpha = 0.16f)
+        } else {
+            Color.White.copy(alpha = 0.24f)
+        },
+        watermarkTint = if (useDarkInk) {
+            Color.Black.copy(alpha = 0.08f)
+        } else {
+            Color.White.copy(alpha = 0.11f)
+        },
+    )
+}
 
 @Immutable
 data class MikuExtendedColors(
@@ -119,8 +207,17 @@ fun MikuBoxTheme(
             )
         }
 
+        val contrastGuarded = base.copy(
+            onPrimary = ensureReadableOn(base.onPrimary, base.primary),
+            onSecondary = ensureReadableOn(base.onSecondary, base.secondary),
+            onTertiary = ensureReadableOn(base.onTertiary, base.tertiary),
+            onPrimaryContainer = ensureReadableOn(base.onPrimaryContainer, base.primaryContainer),
+            onSecondaryContainer = ensureReadableOn(base.onSecondaryContainer, base.secondaryContainer),
+            onTertiaryContainer = ensureReadableOn(base.onTertiaryContainer, base.tertiaryContainer),
+        )
+
         if (darkTheme && trueBlack) {
-            base.copy(
+            contrastGuarded.copy(
                 background = Color.Black,
                 surface = Color.Black,
                 surfaceContainerLowest = Color.Black,
@@ -130,7 +227,7 @@ fun MikuBoxTheme(
                 surfaceContainerHighest = Color(0xFF202020),
             )
         } else {
-            base
+            contrastGuarded
         }
     }
 

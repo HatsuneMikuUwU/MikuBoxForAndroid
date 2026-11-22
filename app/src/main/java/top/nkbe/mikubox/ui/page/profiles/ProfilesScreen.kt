@@ -65,8 +65,12 @@ import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.ProxyEntity
 import moe.matsuri.nb4a.Protocols
 import top.nkbe.mikubox.ui.component.LocalMikuBottomDockDp
+import top.nkbe.mikubox.ui.component.MikuHeroGlassIconButton
+import top.nkbe.mikubox.ui.component.MikuHeroGlassPill
 import top.nkbe.mikubox.ui.component.MikuSoftCard
 import top.nkbe.mikubox.ui.theme.MikuTheme
+import top.nkbe.mikubox.ui.theme.mikuContrastColor
+import top.nkbe.mikubox.ui.theme.rememberMikuHeroPalette
 import top.nkbe.mikubox.ui.viewmodel.ProfileGroupChip
 import top.nkbe.mikubox.ui.viewmodel.ProfilesUiState
 import top.nkbe.mikubox.ui.viewmodel.ProfilesViewModel
@@ -242,9 +246,7 @@ private fun MikuProfilesHero(
     onAddProfile: () -> Unit,
     onOpenMoreMenu: () -> Unit,
 ) {
-    val primary = MaterialTheme.colorScheme.primary
-    val gradientStart = lerp(primary, Color.White, 0.12f)
-    val gradientEnd = lerp(primary, Color.Black, 0.30f)
+    val palette = rememberMikuHeroPalette()
 
     val greetingRes = remember { timeGreetingRes() }
     val displayName = state.customProfileName.ifBlank {
@@ -258,7 +260,7 @@ private fun MikuProfilesHero(
             .fillMaxWidth()
             .background(
                 Brush.linearGradient(
-                    colors = listOf(gradientStart, primary, gradientEnd),
+                    colors = listOf(palette.gradientStart, palette.gradientMid, palette.gradientEnd),
                 )
             )
             .statusBarsPadding()
@@ -269,7 +271,7 @@ private fun MikuProfilesHero(
             text = "♪",
             fontSize = 112.sp,
             fontWeight = FontWeight.Black,
-            color = Color.White.copy(alpha = 0.11f),
+            color = palette.watermarkTint,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(end = 96.dp, bottom = 6.dp),
@@ -298,31 +300,36 @@ private fun MikuProfilesHero(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                HeroGlassIconButton(
+                MikuHeroGlassIconButton(
                     iconRes = R.drawable.ic_navigation_menu,
                     contentDescription = stringResource(R.string.menu_configuration),
+                    heroPalette = palette,
                     onClick = onOpenMenu,
                 )
 
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    HeroGlassIconButton(
+                    MikuHeroGlassIconButton(
                         iconRes = R.drawable.ic_search_black_24,
                         contentDescription = stringResource(R.string.search_apps),
+                        heroPalette = palette,
                         onClick = onToggleSearch,
                     )
-                    HeroGlassIconButton(
+                    MikuHeroGlassIconButton(
                         iconRes = R.drawable.ic_youtube_subscription,
                         contentDescription = stringResource(R.string.menu_group),
+                        heroPalette = palette,
                         onClick = onOpenSubscriptions,
                     )
-                    HeroGlassIconButton(
+                    MikuHeroGlassIconButton(
                         iconRes = R.drawable.ic_action_note_add,
                         contentDescription = stringResource(R.string.add_profile),
+                        heroPalette = palette,
                         onClick = onAddProfile,
                     )
-                    HeroGlassIconButton(
+                    MikuHeroGlassIconButton(
                         iconRes = R.drawable.ic_baseline_more_vert_24,
                         contentDescription = stringResource(R.string.action_group_setting_1),
+                        heroPalette = palette,
                         onClick = onOpenMoreMenu,
                     )
                 }
@@ -335,7 +342,7 @@ private fun MikuProfilesHero(
                 text = stringResource(greetingRes).trim(),
                 style = MaterialTheme.typography.labelMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = Color.White.copy(alpha = 0.85f),
+                color = palette.onHeroMuted,
             )
 
             // "Hi, master" expressive title
@@ -343,7 +350,7 @@ private fun MikuProfilesHero(
                 text = heroTitle,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.ExtraBold,
-                color = Color.White,
+                color = palette.onHero,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(end = 112.dp),
@@ -358,65 +365,20 @@ private fun MikuProfilesHero(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 if (state.selectedProxyName.isNotBlank()) {
-                    HeroGlassPill(
+                    MikuHeroGlassPill(
                         text = state.selectedProxyName,
+                        heroPalette = palette,
                         modifier = Modifier.weight(1f, fill = false),
                     )
                 }
                 if (activeGroup != null) {
-                    HeroGlassPill(
+                    MikuHeroGlassPill(
                         text = stringResource(R.string.sub_summary_nodes, activeGroup.count),
+                        heroPalette = palette,
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun HeroGlassIconButton(
-    iconRes: Int,
-    contentDescription: String,
-    onClick: () -> Unit,
-) {
-    Surface(
-        onClick = onClick,
-        shape = RoundedCornerShape(13.dp),
-        color = Color.White.copy(alpha = 0.18f),
-        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.22f)),
-        modifier = Modifier.size(38.dp),
-    ) {
-        Box(contentAlignment = Alignment.Center) {
-            Icon(
-                painter = painterResource(id = iconRes),
-                contentDescription = contentDescription,
-                tint = Color.White,
-                modifier = Modifier.size(20.dp),
-            )
-        }
-    }
-}
-
-@Composable
-private fun HeroGlassPill(
-    text: String,
-    modifier: Modifier = Modifier,
-) {
-    Surface(
-        modifier = modifier,
-        shape = CircleShape,
-        color = Color.White.copy(alpha = 0.18f),
-        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.24f)),
-    ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.labelSmall,
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
-        )
     }
 }
 
@@ -433,18 +395,19 @@ private fun GroupChipsRow(
     ) {
         items(items = groups, key = { it.id }) { grp ->
             val selected = grp.id == selectedGroupId
+            val primary = MaterialTheme.colorScheme.primary
             val bg = if (selected) {
-                MaterialTheme.colorScheme.primary
+                primary
             } else {
                 MaterialTheme.colorScheme.surfaceContainerHigh
             }
             val fg = if (selected) {
-                MaterialTheme.colorScheme.onPrimary
+                mikuContrastColor(primary)
             } else {
                 MaterialTheme.colorScheme.onSurfaceVariant
             }
             val badgeBg = if (selected) {
-                MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.22f)
+                fg.copy(alpha = 0.16f)
             } else {
                 MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
             }
