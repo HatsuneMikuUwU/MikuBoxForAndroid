@@ -97,7 +97,12 @@ class Greetings @JvmOverloads constructor(
             addAction(Intent.ACTION_TIME_CHANGED)
             addAction(Intent.ACTION_TIMEZONE_CHANGED)
         }
-        context.registerReceiver(timeReceiver, filter)
+        ContextCompat.registerReceiver(
+            context,
+            timeReceiver,
+            filter,
+            ContextCompat.RECEIVER_NOT_EXPORTED,
+        )
 
         refreshSettings()
         updateDisplay()

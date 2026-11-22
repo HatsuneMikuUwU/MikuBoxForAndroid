@@ -29,17 +29,27 @@ public class RenderEffectBlur implements BlurAlgorithm {
 
     @Override
     public Bitmap blur(@NonNull Bitmap bitmap, float blurRadius) {
-        lastBlurRadius = blurRadius;
+        float safeRadius = Math.max(1f, blurRadius);
+        lastBlurRadius = safeRadius;
 
-        if (bitmap.getHeight() != height || bitmap.getWidth() != width) {
-            height = bitmap.getHeight();
-            width = bitmap.getWidth();
-            node.setPosition(0, 0, width, height);
+        try {
+            if (bitmap.getHeight() != height || bitmap.getWidth() != width) {
+                height = bitmap.getHeight();
+                width = bitmap.getWidth();
+                node.setPosition(0, 0, width, height);
+            }
+            Canvas canvas = node.beginRecording();
+            canvas.drawBitmap(bitmap, 0, 0, null);
+            node.endRecording();
+            node.setRenderEffect(RenderEffect.createBlurEffect(safeRadius, safeRadius, Shader.TileMode.MIRROR));
+        } catch (Throwable ignored) {
+            if (fallbackAlgorithm == null && context != null) {
+                fallbackAlgorithm = new RenderScriptBlur(context);
+            }
+            if (fallbackAlgorithm != null) {
+                return fallbackAlgorithm.blur(bitmap, safeRadius);
+            }
         }
-        Canvas canvas = node.beginRecording();
-        canvas.drawBitmap(bitmap, 0, 0, null);
-        node.endRecording();
-        node.setRenderEffect(RenderEffect.createBlurEffect(blurRadius, blurRadius, Shader.TileMode.MIRROR));
 
         return bitmap;
     }
@@ -71,13 +81,20 @@ public class RenderEffectBlur implements BlurAlgorithm {
     @Override
     public void render(@NonNull Canvas canvas, @NonNull Bitmap bitmap) {
         if (canvas.isHardwareAccelerated()) {
-            canvas.drawRenderNode(node);
-        } else {
-            if (fallbackAlgorithm == null) {
-                fallbackAlgorithm = new RenderScriptBlur(context);
+            try {
+                canvas.drawRenderNode(node);
+                return;
+            } catch (Throwable ignored) {
             }
+        }
+        if (fallbackAlgorithm == null && context != null) {
+            fallbackAlgorithm = new RenderScriptBlur(context);
+        }
+        if (fallbackAlgorithm != null) {
             fallbackAlgorithm.blur(bitmap, lastBlurRadius);
             fallbackAlgorithm.render(canvas, bitmap);
+        } else {
+            canvas.drawBitmap(bitmap, 0, 0, null);
         }
     }
 

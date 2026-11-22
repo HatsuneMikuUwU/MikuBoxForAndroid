@@ -86,18 +86,21 @@ public final class PreDrawBlurController implements BlurController {
             return;
         }
 
-        if (frameClearDrawable == null) {
-            internalBitmap.eraseColor(Color.TRANSPARENT);
-        } else {
-            frameClearDrawable.draw(internalCanvas);
+        try {
+            if (frameClearDrawable == null) {
+                internalBitmap.eraseColor(Color.TRANSPARENT);
+            } else {
+                frameClearDrawable.draw(internalCanvas);
+            }
+
+            internalCanvas.save();
+            setupInternalCanvasMatrix();
+            rootView.draw(internalCanvas);
+            internalCanvas.restore();
+
+            blurAndSave();
+        } catch (Throwable ignored) {
         }
-
-        internalCanvas.save();
-        setupInternalCanvasMatrix();
-        rootView.draw(internalCanvas);
-        internalCanvas.restore();
-
-        blurAndSave();
     }
 
     private void setupInternalCanvasMatrix() {

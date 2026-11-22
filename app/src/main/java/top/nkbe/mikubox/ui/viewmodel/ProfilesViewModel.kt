@@ -122,10 +122,18 @@ class ProfilesViewModel : ViewModel(),
                     emptyList()
                 }
 
-                val selectedId = DataStore.selectedProxy
-                val selectedName = profiles.firstOrNull { it.id == selectedId }?.displayName()
-                    ?: SagerDatabase.proxyDao.getById(selectedId)?.displayName()
-                    ?: ""
+                var selectedId = DataStore.selectedProxy
+                var selectedEntity = if (selectedId > 0L) {
+                    SagerDatabase.proxyDao.getById(selectedId)
+                } else {
+                    null
+                }
+                if (selectedEntity == null && profiles.isNotEmpty()) {
+                    selectedEntity = profiles.first()
+                    selectedId = selectedEntity.id
+                    DataStore.selectedProxy = selectedId
+                }
+                val selectedName = selectedEntity?.displayName() ?: ""
 
                 Triple(chips, currentGroupId, Pair(profiles, selectedName))
             }
@@ -253,14 +261,14 @@ class ProfilesViewModel : ViewModel(),
             "custom_profile_name" -> _uiState.update {
                 it.copy(customProfileName = DataStore.customProfileName)
             }
-            Key.PROFILE_GROUP -> {
-                val targetId = DataStore.editingGroup
+            Key.PROFILE_GROUP -> if (store === DataStore.configurationStore) {
+                val targetId = DataStore.selectedGroup
                 if (targetId > 0L && targetId != _uiState.value.selectedGroupId) {
                     selectGroup(targetId)
                 }
             }
-            Key.PROFILE_ID -> {
-                _uiState.update { it.copy(selectedProxyId = DataStore.selectedProxy) }
+            Key.PROFILE_ID -> if (store === DataStore.configurationStore) {
+                reloadAll()
             }
         }
     }

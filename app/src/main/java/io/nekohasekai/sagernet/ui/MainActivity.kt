@@ -126,7 +126,11 @@ class MainActivity : ThemedActivity(),
         }
 
         binding.fab.setOnClickListener {
-            if (DataStore.serviceState.canStop) SagerNet.stopService() else connect.launch(null)
+            if (DataStore.serviceState.canStop) {
+                SagerNet.stopService()
+            } else {
+                ensureSelectedProfileThenConnect()
+            }
         }
 
         binding.stats.applyMikuStyle(binding.coordinator) {
@@ -241,25 +245,29 @@ class MainActivity : ThemedActivity(),
             binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
                 override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                     super.onDrawerSlide(drawerView, slideOffset)
-                    
-                    val radius = slideOffset * 30f 
-                    
-                    if (radius > 1f) {
-                        binding.coordinator.setRenderEffect(
-                            android.graphics.RenderEffect.createBlurEffect(
-                                radius,
-                                radius,
-                                android.graphics.Shader.TileMode.CLAMP
+                    val radius = slideOffset * 30f
+                    try {
+                        if (radius > 1f) {
+                            binding.coordinator.setRenderEffect(
+                                android.graphics.RenderEffect.createBlurEffect(
+                                    radius,
+                                    radius,
+                                    android.graphics.Shader.TileMode.CLAMP
+                                )
                             )
-                        )
-                    } else {
-                        binding.coordinator.setRenderEffect(null)
+                        } else {
+                            binding.coordinator.setRenderEffect(null)
+                        }
+                    } catch (_: Throwable) {
                     }
                 }
 
                 override fun onDrawerClosed(drawerView: View) {
                     super.onDrawerClosed(drawerView)
-                    binding.coordinator.setRenderEffect(null)
+                    try {
+                        binding.coordinator.setRenderEffect(null)
+                    } catch (_: Throwable) {
+                    }
                 }
             })
         }
@@ -494,9 +502,54 @@ class MainActivity : ThemedActivity(),
         }
     }
 
+    private fun ensureSelectedProfileThenConnect() {
+        runOnDefaultDispatcher {
+            val dao = io.nekohasekai.sagernet.database.SagerDatabase.proxyDao
+            var selected = DataStore.selectedProxy.takeIf { it > 0L }?.let { dao.getById(it) }
+            if (selected == null) {
+                val currentGroupProxies = dao.getByGroup(DataStore.selectedGroup)
+                selected = currentGroupProxies.firstOrNull()
+                if (selected == null) {
+                    val allGroups = io.nekohasekai.sagernet.database.SagerDatabase.groupDao.allGroups()
+                    for (grp in allGroups) {
+                        val list = dao.getByGroup(grp.id)
+                        if (list.isNotEmpty()) {
+                            selected = list.first()
+                            DataStore.selectedGroup = grp.id
+                            break
+                        }
+                    }
+                }
+                if (selected != null) {
+                    DataStore.selectedProxy = selected.id
+                }
+            }
+            onMainDispatcher {
+                if (selected != null) {
+                    connect.launch(null)
+                } else {
+                    snackbar(R.string.profile_empty).show()
+                }
+            }
+        }
+    }
+
     private suspend fun finishImportSubscription(subscription: ProxyGroup) {
         GroupManager.createGroup(subscription)
-        GroupUpdater.startUpdate(subscription, true)
+        val ok = GroupUpdater.executeUpdate(subscription, true)
+        if (ok) {
+            val dao = io.nekohasekai.sagernet.database.SagerDatabase.proxyDao
+            val imported = dao.getByGroup(subscription.id)
+            if (imported.isNotEmpty()) {
+                DataStore.selectedGroup = subscription.id
+                if (DataStore.selectedProxy == 0L || dao.getById(DataStore.selectedProxy) == null) {
+                    DataStore.selectedProxy = imported.first().id
+                }
+                onMainDispatcher {
+                    displayFragmentWithId(R.id.nav_configuration, reverseAnim = true)
+                }
+            }
+        }
     }
 
     suspend fun importProfile(uri: Uri) {

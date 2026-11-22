@@ -698,7 +698,20 @@ class GroupFragment : ToolbarFragment(R.layout.layout_group),
         fun bind(group: ProxyGroup) {
             proxyGroup = group
 
-            itemView.setOnClickListener { }
+            itemView.setOnClickListener {
+                DataStore.selectedGroup = proxyGroup.id
+                runOnDefaultDispatcher {
+                    val proxies = SagerDatabase.proxyDao.getByGroup(proxyGroup.id)
+                    if (proxies.isNotEmpty() &&
+                        (DataStore.selectedProxy == 0L || SagerDatabase.proxyDao.getById(DataStore.selectedProxy) == null)
+                    ) {
+                        DataStore.selectedProxy = proxies.first().id
+                    }
+                    onMainDispatcher {
+                        activity.displayFragmentWithId(R.id.nav_configuration, reverseAnim = true)
+                    }
+                }
+            }
 
             editButton.isGone = proxyGroup.ungrouped
             updateButton.isInvisible = proxyGroup.type != GroupType.SUBSCRIPTION
