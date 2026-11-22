@@ -92,7 +92,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var hidePreviewDialog by configurationStore.boolean("hide_preview_dialog")
     var boldFontEnabled by configurationStore.boolean("bold_font_switch")
     var trueBlackEnabled by configurationStore.boolean("true_dark_enabled")
-    var soundOnConnect by configurationStore.boolean("sound_connect") { true }
+    var soundOnConnect by configurationStore.boolean("sound_connect") { false }
     var dpiValue: Int
     get() = configurationStore.getInt("dpi_value", 0)
     set(value) = configurationStore.putInt("dpi_value", value)
@@ -162,10 +162,10 @@ object DataStore : OnPreferenceDataStoreChangeListener {
 
     var globalCustomConfig by configurationStore.string(Key.GLOBAL_CUSTOM_CONFIG) { "" }
 
-    var remoteDns by configurationStore.string(Key.REMOTE_DNS) { "https://doh.pub/dns-query" }
-    var directDns by configurationStore.string(Key.DIRECT_DNS) { "https://1.1.1.1/dns-query" }
+    var remoteDns by configurationStore.string(Key.REMOTE_DNS) { "https://1.1.1.1/dns-query" }
+    var directDns by configurationStore.string(Key.DIRECT_DNS) { "https://doh.pub/dns-query" }
     var enableDnsRouting by configurationStore.boolean(Key.ENABLE_DNS_ROUTING) { true }
-    var enableFakeDns by configurationStore.boolean(Key.ENABLE_FAKEDNS) { true }
+    var enableFakeDns by configurationStore.boolean(Key.ENABLE_FAKEDNS) { false }
 
     var rulesProvider by configurationStore.stringToInt(Key.RULES_PROVIDER)
     var logLevel by configurationStore.stringToInt(Key.LOG_LEVEL)
@@ -174,8 +174,8 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var fabStyle by configurationStore.stringToInt("fab_style") { 1 }
     var hideFromRecentApps by configurationStore.boolean("hide_from_recent_apps")
     
-    var rulesGeositeUrl by configurationStore.string("rules_geosite_url") { "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db" }
-    var rulesGeoipUrl by configurationStore.string("rules_geoip_url") { "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db" }
+    var rulesGeositeUrl by configurationStore.string("rules_geosite_url") { "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db" }
+    var rulesGeoipUrl by configurationStore.string("rules_geoip_url") { "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db" }
 
     // hopefully hashCode = mHandle doesn't change, currently this is true from KitKat to Nougat
     private val userIndex by lazy { Binder.getCallingUserHandle().hashCode() }
@@ -198,7 +198,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
         configurationStore.putString(key, "$value")
     }
 
-    var ipv6Mode by configurationStore.stringToInt(Key.IPV6_MODE) { IPv6Mode.DISABLE }
+    var ipv6Mode by configurationStore.stringToInt(Key.IPV6_MODE) { IPv6Mode.PREFER }
 
     var meteredNetwork by configurationStore.boolean(Key.METERED_NETWORK)
     var proxyApps by configurationStore.boolean(Key.PROXY_APPS)
@@ -210,10 +210,10 @@ object DataStore : OnPreferenceDataStoreChangeListener {
 
     var appendHttpProxy by configurationStore.boolean(Key.APPEND_HTTP_PROXY)
     var connectionTestURL by configurationStore.string(Key.CONNECTION_TEST_URL) { CONNECTION_TEST_URL }
-    var connectionTestConcurrent by configurationStore.int("connectionTestConcurrent") { 5 }
+    var connectionTestConcurrent by configurationStore.int("connectionTestConcurrent") { 10 }
     var alwaysShowAddress by configurationStore.boolean(Key.ALWAYS_SHOW_ADDRESS)
 
-    var tunImplementation by configurationStore.stringToInt(Key.TUN_IMPLEMENTATION) { TunImplementation.GVISOR }
+    var tunImplementation by configurationStore.stringToInt(Key.TUN_IMPLEMENTATION) { TunImplementation.MIXED }
     var profileTrafficStatistics by configurationStore.boolean(Key.PROFILE_TRAFFIC_STATISTICS) { true }
 
     var yacdURL by configurationStore.string("yacdURL") { "http://127.0.0.1:9090/ui" }

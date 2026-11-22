@@ -105,7 +105,7 @@
             android:key="sound_connect"
             android:title="@string/sound_connect_title"
             android:summary="@string/sound_connect_summary"
-            android:defaultValue="true"
+            android:defaultValue="false"
             app:icon="@drawable/ic_audio" />
 
         <com.takisoft.preferencex.SimpleMenuPreference

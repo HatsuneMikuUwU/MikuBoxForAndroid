@@ -97,7 +97,7 @@
             android:layout="@layout/uwu_mid_switch"
             android:widgetLayout="@layout/uwu_switch"
             app:icon="@drawable/ic_action_delete"
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:key="confirm_profile_delete"
             app:summary="@string/summary_pref_confirm_remove"
             app:title="@string/title_pref_confirm_remove" />
@@ -243,7 +243,7 @@
         
         <EditTextPreference
             android:layout="@layout/uwu_top"
-            app:defaultValue="https://cloudflare-dns.com/dns-query"
+            app:defaultValue="https://1.1.1.1/dns-query"
             app:icon="@drawable/ic_action_dns"
             app:key="remoteDns"
             app:title="@string/remote_dns"
@@ -261,7 +261,7 @@
         
         <EditTextPreference
             android:layout="@layout/uwu_mid"
-            app:defaultValue="local"
+            app:defaultValue="https://doh.pub/dns-query"
             app:icon="@drawable/ic_action_dns"
             app:key="directDns"
             app:title="@string/direct_dns"
@@ -289,6 +289,7 @@
         <SwitchPreference
             android:layout="@layout/uwu_bot_switch"
             android:widgetLayout="@layout/uwu_switch"
+            app:defaultValue="false"
             app:icon="@drawable/ic_action_lock"
             app:key="enableFakeDns"
             app:summary="@string/fakedns_message"

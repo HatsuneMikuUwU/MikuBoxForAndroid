@@ -582,6 +582,8 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
                 "en-US" -> getString(R.string.language_en_display_name)
                 "id" -> getString(R.string.language_id_display_name)
                 "zh-Hans-CN" -> getString(R.string.language_zh_Hans_CN_display_name)
+                "zh-TW", "zh-Hant-TW" -> getString(R.string.language_zh_Hant_TW_display_name)
+                "ru", "ru-RU" -> getString(R.string.language_ru_display_name)
                 "tr-TR" -> getString(R.string.language_tr_display_name)
                 "ja-JP" -> getString(R.string.language_ja_display_name)
                 else -> Locale.forLanguageTag(code).displayName
@@ -592,6 +594,8 @@ class ThemeSettingsPreferenceFragment : PreferenceFragmentCompat() {
         appLanguage?.apply {
             val locale = when (val value = AppCompatDelegate.getApplicationLocales().toLanguageTags()) {
                 "in" -> "id"
+                "zh-Hant-TW" -> "zh-TW"
+                "ru-RU" -> "ru"
                 else -> value
             }
             summary = getLanguageDisplayName(locale)
