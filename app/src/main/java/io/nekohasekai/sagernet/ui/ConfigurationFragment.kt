@@ -236,7 +236,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                             snackbar(if (ok) R.string.action_export_msg else R.string.action_export_err).show()
                         },
                         onDeleteProfile = { entity ->
-                            if (DataStore.confirmRemove) {
+                            if (DataStore.confirmProfileDelete) {
                                 MaterialAlertDialogBuilder(requireContext())
                                     .setTitle(R.string.delete_confirm_prompt)
                                     .setPositiveButton(R.string.yes) { _, _ ->

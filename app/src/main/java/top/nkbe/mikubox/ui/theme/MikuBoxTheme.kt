@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.appcompat.R as AppCompatR
 import com.google.android.material.R as MaterialR
 import com.google.android.material.color.MaterialColors
 import io.nekohasekai.sagernet.database.DataStore
@@ -161,7 +162,7 @@ private fun resolveColorSchemeFromHostTheme(
     }
 
     return fallback.copy(
-        primary = attr(MaterialR.attr.colorPrimary, fallback.primary),
+        primary = attr(AppCompatR.attr.colorPrimary, fallback.primary),
         onPrimary = attr(MaterialR.attr.colorOnPrimary, fallback.onPrimary),
         primaryContainer = attr(MaterialR.attr.colorPrimaryContainer, fallback.primaryContainer),
         onPrimaryContainer = attr(MaterialR.attr.colorOnPrimaryContainer, fallback.onPrimaryContainer),
@@ -184,7 +185,7 @@ private fun resolveColorSchemeFromHostTheme(
         surfaceContainerHighest = attr(MaterialR.attr.colorSurfaceContainerHighest, fallback.surfaceContainerHighest),
         outline = attr(MaterialR.attr.colorOutline, fallback.outline),
         outlineVariant = attr(MaterialR.attr.colorOutlineVariant, fallback.outlineVariant),
-        error = attr(MaterialR.attr.colorError, fallback.error),
+        error = attr(AppCompatR.attr.colorError, fallback.error),
         onError = attr(MaterialR.attr.colorOnError, fallback.onError),
     )
 }
