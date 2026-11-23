@@ -1,8 +1,11 @@
 package io.nekohasekai.sagernet.bg
 
+import android.content.Intent
 import android.graphics.drawable.Icon
+import android.net.VpnService as AndroidVpnService
 import android.service.quicksettings.Tile
 import androidx.annotation.RequiresApi
+import io.nekohasekai.sagernet.Key
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.aidl.ISagerNetService
@@ -10,6 +13,7 @@ import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.database.SagerDatabase
 import io.nekohasekai.sagernet.ktx.onMainDispatcher
 import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
+import io.nekohasekai.sagernet.ui.VpnRequestActivity
 import android.service.quicksettings.TileService as BaseTileService
 
 @RequiresApi(24)
@@ -115,7 +119,15 @@ class TileService : BaseTileService(), SagerConnection.Callback {
                             DataStore.selectedProxy = target.id
                         }
                         onMainDispatcher {
-                            SagerNet.startService()
+                            if (DataStore.serviceMode == Key.MODE_VPN && AndroidVpnService.prepare(this@TileService) != null) {
+                                @Suppress("DEPRECATION")
+                                startActivityAndCollapse(
+                                    Intent(this@TileService, VpnRequestActivity::class.java)
+                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                )
+                            } else {
+                                SagerNet.startService()
+                            }
                         }
                     }
                 }

@@ -2,25 +2,61 @@ package libcore
 
 import (
 	"fmt"
+	"io"
 	"libcore/device"
+	"log"
 	"os"
 	"path/filepath"
 	"runtime/debug"
 	"strings"
-
-	"log"
+	"sync"
 
 	"github.com/sagernet/sing-box/experimental/libbox"
 	"github.com/sagernet/sing-box/option"
 	"golang.org/x/sys/unix"
 )
 
+var (
+	nekoLogMu   sync.Mutex
+	nekoLogFile *os.File
+	nekoLogPath string
+)
+
+const nekoLogMaxBytes int64 = 512 * 1024
+
+func initNekoLog(cachePath string, allowTrim bool) {
+	nekoLogMu.Lock()
+	defer nekoLogMu.Unlock()
+	if nekoLogFile != nil {
+		return
+	}
+	nekoLogPath = filepath.Join(cachePath, "neko.log")
+	if allowTrim {
+		if info, err := os.Stat(nekoLogPath); err == nil && info.Size() > nekoLogMaxBytes {
+			_ = os.Truncate(nekoLogPath, 0)
+		}
+	}
+	f, err := os.OpenFile(nekoLogPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o644)
+	if err != nil {
+		return
+	}
+	nekoLogFile = f
+	log.SetOutput(io.MultiWriter(os.Stderr, f))
+}
+
 func NekoLogPrintln(s string) {
 	log.Println(s)
 }
 
 func NekoLogClear() {
-	// no-op with official libbox; logs managed internally
+	nekoLogMu.Lock()
+	defer nekoLogMu.Unlock()
+	if nekoLogPath != "" {
+		_ = os.Truncate(nekoLogPath, 0)
+	}
+	if nekoLogFile != nil {
+		_, _ = nekoLogFile.Seek(0, 0)
+	}
 }
 
 func ForceGc() {
@@ -39,6 +75,7 @@ func Setup(process, cachePath, internalAssets, externalAssets string,
 	tmp := filepath.Join(cachePath, "../no_backup")
 	os.MkdirAll(tmp, 0755)
 	os.Chdir(tmp)
+	initNekoLog(cachePath, isBgProcess)
 
 	// Initialize libbox
 	logMaxLines := int(maxLogSizeKb)

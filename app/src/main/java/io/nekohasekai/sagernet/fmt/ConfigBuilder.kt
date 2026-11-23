@@ -216,7 +216,6 @@ fun buildConfig(
                     TunImplementation.SYSTEM -> "system"
                     else -> "mixed"
                 }
-                endpoint_independent_nat = true
                 mtu = DataStore.mtu
                 // sing-box 1.13 removed inbound sniff/domain_strategy fields;
                 // migrated to route sniff/resolve rule actions below.

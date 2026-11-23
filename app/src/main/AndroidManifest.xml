@@ -441,7 +441,11 @@
             android:exported="false"
             android:foregroundServiceType="systemExempted|specialUse"
             android:process=":bg"
-            tools:ignore="ForegroundServicePermission" />
+            tools:ignore="ForegroundServicePermission">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="proxy" />
+        </service>
 
         <service
             android:name="io.nekohasekai.sagernet.bg.VpnService"
@@ -451,6 +455,9 @@
             android:permission="android.permission.BIND_VPN_SERVICE"
             android:process=":bg"
             tools:ignore="ForegroundServicePermission">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="vpn" />
             <intent-filter>
                 <action android:name="android.net.VpnService" />
             </intent-filter>

@@ -17,6 +17,7 @@ import io.nekohasekai.sagernet.utils.PackageCache
 import io.nekohasekai.sagernet.utils.DefaultNetworkListener
 import libbox.*
 import moe.matsuri.nb4a.net.LocalResolverImpl
+import java.net.Inet6Address
 import java.net.InetSocketAddress
 import java.net.NetworkInterface as JavaNetworkInterface
 
@@ -106,28 +107,75 @@ class NativeInterface(
     private fun updateDefaultInterface(listener: InterfaceUpdateListener, network: Network) {
         val link = SagerNet.connectivity.getLinkProperties(network) ?: return
         val interfaceName = link.interfaceName ?: return
+        val ifaceIndex = runCatching { JavaNetworkInterface.getByName(interfaceName)?.index }.getOrNull() ?: return
         val capabilities = SagerNet.connectivity.getNetworkCapabilities(network)
         listener.updateDefaultInterface(
             interfaceName,
-            JavaNetworkInterface.getByName(interfaceName)?.index ?: 0,
+            ifaceIndex,
             capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) == false,
             false,
         )
     }
 
     override fun getInterfaces(): NetworkInterfaceIterator? {
-        val interfaces = JavaNetworkInterface.getNetworkInterfaces()?.toList().orEmpty().map { networkInterface ->
-            NetworkInterface().apply {
-                index = networkInterface.index
-                mtu = runCatching { networkInterface.mtu }.getOrDefault(0)
-                name = networkInterface.name
-                addresses = stringIterator(networkInterface.inetAddresses.toList().map { it.hostAddress ?: "" })
-                flags = 0
-                type = 0
-                dnsServer = stringIterator(emptyList())
-                metered = false
+        val connectivity = SagerNet.connectivity
+        val networkMetaByIface = hashMapOf<String, Triple<Int, List<String>, Boolean>>()
+        @Suppress("DEPRECATION")
+        runCatching {
+            connectivity.allNetworks.forEach { net ->
+                val link = connectivity.getLinkProperties(net) ?: return@forEach
+                val ifaceName = link.interfaceName ?: return@forEach
+                val caps = connectivity.getNetworkCapabilities(net)
+                val ifType = when {
+                    caps?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true -> Libbox.InterfaceTypeWIFI
+                    caps?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) == true -> Libbox.InterfaceTypeCellular
+                    caps?.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) == true -> Libbox.InterfaceTypeEthernet
+                    else -> Libbox.InterfaceTypeOther
+                }
+                val dnsList = link.dnsServers.mapNotNull { it.hostAddress?.substringBefore('%') }
+                val isMetered = caps?.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) == false
+                networkMetaByIface[ifaceName] = Triple(ifType, dnsList, isMetered)
             }
         }
+
+        val interfaces = runCatching {
+            JavaNetworkInterface.getNetworkInterfaces()?.toList().orEmpty().map { networkInterface ->
+                val cidrList = runCatching {
+                    networkInterface.interfaceAddresses.mapNotNull { ia ->
+                        val addrObj = ia.address ?: return@mapNotNull null
+                        val host = addrObj.hostAddress?.substringBefore('%')?.takeIf { it.isNotBlank() }
+                            ?: return@mapNotNull null
+                        val maxPrefix = if (addrObj is Inet6Address) 128 else 32
+                        val prefix = ia.networkPrefixLength.toInt().coerceIn(0, maxPrefix)
+                        "$host/$prefix"
+                    }
+                }.getOrDefault(emptyList())
+
+                var rawFlags = 0
+                runCatching {
+                    if (networkInterface.isUp) rawFlags = rawFlags or 0x1 or 0x40 // IFF_UP | IFF_RUNNING
+                    if (networkInterface.isLoopback) rawFlags = rawFlags or 0x8 // IFF_LOOPBACK
+                    if (networkInterface.isPointToPoint) rawFlags = rawFlags or 0x10 // IFF_POINTOPOINT
+                    if (networkInterface.supportsMulticast()) rawFlags = rawFlags or 0x1000 // IFF_MULTICAST
+                    if (networkInterface.interfaceAddresses.any { it.broadcast != null }) {
+                        rawFlags = rawFlags or 0x2 // IFF_BROADCAST
+                    }
+                }
+
+                val meta = networkMetaByIface[networkInterface.name]
+                NetworkInterface().apply {
+                    index = networkInterface.index
+                    mtu = runCatching { networkInterface.mtu }.getOrDefault(0)
+                    name = networkInterface.name
+                    addresses = stringIterator(cidrList)
+                    flags = rawFlags
+                    type = meta?.first ?: Libbox.InterfaceTypeOther
+                    dnsServer = stringIterator(meta?.second ?: emptyList())
+                    metered = meta?.third ?: false
+                }
+            }
+        }.getOrDefault(emptyList())
+
         return object : NetworkInterfaceIterator {
             private var index = 0
             override fun hasNext(): Boolean = index < interfaces.size

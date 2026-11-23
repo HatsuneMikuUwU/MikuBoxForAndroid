@@ -270,6 +270,9 @@ class BaseService {
         var upstreamInterfaceName: String?
 
         suspend fun preInit() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SagerNet.underlyingNetwork == null) {
+                SagerNet.underlyingNetwork = SagerNet.connectivity.activeNetwork
+            }
             DefaultNetworkListener.start(this) {
                 SagerNet.connectivity.getLinkProperties(it)?.also { link ->
                     SagerNet.underlyingNetwork = it
@@ -307,6 +310,7 @@ class BaseService {
         }
 
         fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+            SagerNet.updateNotificationChannels()
             DataStore.baseService = this
 
             val data = data

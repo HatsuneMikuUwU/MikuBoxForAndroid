@@ -6,13 +6,17 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED
+import android.graphics.Color
+import android.net.VpnService as AndroidVpnService
 import android.os.Build
 import android.text.format.Formatter
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.color.MaterialColors
 import io.nekohasekai.sagernet.Action
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.SagerNet
@@ -21,7 +25,6 @@ import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.database.ProxyEntity
 import io.nekohasekai.sagernet.database.SagerDatabase
 import io.nekohasekai.sagernet.ktx.app
-import io.nekohasekai.sagernet.ktx.getColorAttr
 import io.nekohasekai.sagernet.ktx.runOnMainDispatcher
 import io.nekohasekai.sagernet.ui.SwitchActivity
 import io.nekohasekai.sagernet.utils.Theme
@@ -131,12 +134,19 @@ class ServiceNotification(
         }
     }
 
+    @Volatile
+    private var destroyed = false
+
     init {
         service as Context
 
         Theme.apply(app)
         Theme.apply(service)
-        builder.color = service.getColorAttr(R.attr.colorPrimary)
+        builder.color = MaterialColors.getColor(
+            service,
+            androidx.appcompat.R.attr.colorPrimary,
+            Color.TRANSPARENT,
+        )
 
         ContextCompat.registerReceiver(
             service,
@@ -149,8 +159,10 @@ class ServiceNotification(
         )
 
         runOnMainDispatcher {
-            updateActions()
-            show()
+            if (!destroyed) {
+                updateActions()
+                show()
+            }
         }
     }
 
@@ -176,7 +188,7 @@ class ServiceNotification(
             val resetUpstreamAction = NotificationCompat.Action.Builder(
                 0, service.getString(R.string.reset_connections),
                 PendingIntent.getBroadcast(
-                    service, 0, Intent(Action.RESET_UPSTREAM_CONNECTIONS), flags
+                    service, 0, Intent(Action.RESET_UPSTREAM_CONNECTIONS).setPackage(service.packageName), flags
                 )
             ).setShowsUserInterface(false).build()
             it.addAction(resetUpstreamAction)
@@ -192,12 +204,18 @@ class ServiceNotification(
 
     private suspend fun show() =
         useBuilder {
+            if (destroyed) return@useBuilder
             try {
                 if (Build.VERSION.SDK_INT >= 34) {
+                    val fgsType = if (service is AndroidVpnService) {
+                        FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED
+                    } else {
+                        FOREGROUND_SERVICE_TYPE_SPECIAL_USE
+                    }
                     (service as Service).startForeground(
                         notificationId,
                         it.build(),
-                        FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED
+                        fgsType
                     )
                 } else {
                     (service as Service).startForeground(notificationId, it.build())
@@ -212,16 +230,18 @@ class ServiceNotification(
         }
 
     private suspend fun update() = useBuilder {
+        if (destroyed) return@useBuilder
         NotificationManagerCompat.from(service as Service).notify(notificationId, it.build())
     }
 
     fun destroy() {
+        destroyed = true
         listenPostSpeed = false
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             (service as Service).stopForeground(Service.STOP_FOREGROUND_REMOVE)
         } else {
             (service as Service).stopForeground(true)
         }
-        service.unregisterReceiver(this)
+        runCatching { service.unregisterReceiver(this) }
     }
 }
