@@ -32,7 +32,7 @@
                 android:elevation="0.0dip"
                 app:blur_radius="2" />
             <View
-                android:background="?android:textColorPrimaryInverse"
+                android:background="?attr/colorSurface"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:alpha="0.2" />

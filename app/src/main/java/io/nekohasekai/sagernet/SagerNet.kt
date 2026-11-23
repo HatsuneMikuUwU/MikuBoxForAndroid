@@ -76,6 +76,9 @@ class SagerNet : Application(),
             JavaUtil.handleWebviewDir(this)
 
             runOnDefaultDispatcher {
+                if (isBgProcess) {
+                    extractAppAssets()
+                }
                 PackageCache.register()
                 cleanWebview()
             }
@@ -103,6 +106,65 @@ class SagerNet : Application(),
                     .penaltyLog()
                     .build()
             )
+        }
+    }
+
+    private fun extractAppAssets() {
+        val useOfficialAssets = DataStore.rulesProvider == 0
+        extractXzAsset("sing-box/geoip.db.xz", "sing-box/geoip.version.txt", File(externalAssets, "geoip.db"), File(externalAssets, "geoip.version.txt"), useOfficialAssets)
+        extractXzAsset("sing-box/geosite.db.xz", "sing-box/geosite.version.txt", File(externalAssets, "geosite.db"), File(externalAssets, "geosite.version.txt"), useOfficialAssets)
+        extractYacdAsset()
+    }
+
+    private fun extractXzAsset(
+        assetPath: String,
+        versionAssetPath: String,
+        destFile: File,
+        versionFile: File,
+        useOfficialAssets: Boolean,
+    ) {
+        try {
+            val assetVersion = assets.open(versionAssetPath).bufferedReader().use { it.readText().trim() }
+            val localVersion = if (versionFile.isFile) versionFile.readText().trim() else ""
+            if (localVersion == "Custom" && destFile.exists()) return
+            val shouldExtract = !destFile.exists() || (useOfficialAssets && localVersion != assetVersion)
+            if (!shouldExtract) return
+
+            destFile.parentFile?.mkdirs()
+            val tmpFile = File(destFile.parentFile, destFile.name + ".xz")
+            assets.open(assetPath).use { input ->
+                tmpFile.outputStream().use { output -> input.copyTo(output) }
+            }
+            Libcore.unxz(tmpFile.absolutePath, destFile.absolutePath)
+            tmpFile.delete()
+            versionFile.writeText(assetVersion)
+        } catch (e: Exception) {
+            Logs.w("extractXzAsset($assetPath): ${e.message}")
+        }
+    }
+
+    private fun extractYacdAsset() {
+        try {
+            val assetVersion = assets.open("yacd.version.txt").bufferedReader().use { it.readText().trim() }
+            val dstDir = File(filesDir, "yacd")
+            val versionFile = File(filesDir, "yacd.version.txt")
+            val localVersion = if (versionFile.isFile) versionFile.readText().trim() else ""
+            if (dstDir.exists() && localVersion == assetVersion) return
+
+            dstDir.deleteRecursively()
+            val tmpZip = File(cacheDir, "yacd.zip")
+            assets.open("yacd.zip").use { input ->
+                tmpZip.outputStream().use { output -> input.copyTo(output) }
+            }
+            Libcore.unzip(tmpZip.absolutePath, filesDir.absolutePath)
+            tmpZip.delete()
+            val extracted = filesDir.listFiles { file -> file.isDirectory && file.name.startsWith("Yacd-") }
+            if (extracted != null && extracted.size == 1) {
+                extracted[0].renameTo(dstDir)
+            }
+            versionFile.writeText(assetVersion)
+        } catch (e: Exception) {
+            Logs.w("extractYacdAsset: ${e.message}")
         }
     }
 
