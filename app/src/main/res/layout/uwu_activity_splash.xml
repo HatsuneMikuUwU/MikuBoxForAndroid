@@ -20,13 +20,13 @@
                 android:layout_width="160.0dip"
                 android:layout_height="160.0dip"
                 android:src="@drawable/uwu_banner_splash"
-                app:siBorderColor="?android:textColorPrimaryInverse"
+                app:siBorderColor="?attr/colorOnPrimary"
                 app:siBorderWidth="3.0dip" />
         
         <TextView
             android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleMedium"
             android:textSize="24.0sp"
-            android:textColor="?android:textColorPrimaryInverse"
+            android:textColor="?attr/colorOnPrimary"
             android:gravity="center_horizontal"
             android:id="@+id/splash_name"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
     <TextView
         android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
         android:textSize="14.0sp"
-        android:textColor="?android:textColorPrimaryInverse"
+        android:textColor="?attr/colorOnPrimary"
         android:gravity="center_horizontal"
         android:id="@+id/splash_owner"
         android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
     <TextView
         android:textAppearance="@style/TextAppearance.M3.Sys.Typescale.TitleSmall"
         android:textSize="14.0sp"
-        android:textColor="?android:textColorPrimaryInverse"
+        android:textColor="?attr/colorOnPrimary"
         android:id="@+id/splash_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

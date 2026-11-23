@@ -54,9 +54,14 @@ func testBoxContext() context.Context {
 func NewTestBox(config string) (b *TestBox, err error) {
 	defer device.DeferPanicToError("NewTestBox", func(err_ error) { err = err_ })
 
+	resolvedConfig, err := resolveGeoRuleSets(config)
+	if err != nil {
+		return nil, err
+	}
+
 	ctx, cancel := context.WithCancel(testBoxContext())
 
-	options, err := json.UnmarshalExtendedContext[option.Options](ctx, []byte(config))
+	options, err := json.UnmarshalExtendedContext[option.Options](ctx, []byte(resolvedConfig))
 	if err != nil {
 		cancel()
 		return nil, err

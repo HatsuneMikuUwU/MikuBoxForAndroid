@@ -145,7 +145,7 @@
                 android:layout_marginBottom="16.0dip">
                 <com.google.android.material.button.MaterialButton
                     android:textSize="14.0sp"
-                    android:textColor="?android:textColorPrimaryInverse"
+                    android:textColor="?attr/colorOnPrimary"
                     android:id="@+id/page_1button"
                     android:background="@drawable/uwu_bg_button"
                     android:layout_width="match_parent"
@@ -261,7 +261,7 @@
                 android:layout_marginBottom="16.0dip">
                 <com.google.android.material.button.MaterialButton
                     android:textSize="14.0sp"
-                    android:textColor="?android:textColorPrimaryInverse"
+                    android:textColor="?attr/colorOnPrimary"
                     android:id="@+id/page_2button"
                     android:background="@drawable/uwu_bg_button"
                     android:layout_width="match_parent"
@@ -354,7 +354,7 @@
                 android:layout_marginBottom="16.0dip">
                 <com.google.android.material.button.MaterialButton
                     android:textSize="14.0sp"
-                    android:textColor="?android:textColorPrimaryInverse"
+                    android:textColor="?attr/colorOnPrimary"
                     android:id="@+id/page_3button"
                     android:background="@drawable/uwu_bg_button"
                     android:layout_width="match_parent"

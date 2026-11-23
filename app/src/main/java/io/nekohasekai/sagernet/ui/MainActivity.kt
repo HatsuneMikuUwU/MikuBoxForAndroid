@@ -720,6 +720,22 @@ class MainActivity : ThemedActivity(),
                     updateQuickActionsVisibility(isHome)
                 }
                 "show_snowflakes" -> updateSnowflakesVisibility()
+                Key.SHOW_BOTTOM_BAR -> {
+                    val current = supportFragmentManager.findFragmentById(R.id.fragment_holder)
+                    val shouldShow = current is ConfigurationFragment || DataStore.showBottomBar
+                    binding.stats.allowShow = shouldShow
+                    if (shouldShow) {
+                        binding.stats.performShow()
+                        binding.fab.show()
+                        binding.bottomDockContainer.post {
+                            MikuInsets.updateDockVisibilityHeight(binding.bottomDockContainer.height)
+                        }
+                    } else {
+                        binding.stats.performHide()
+                        binding.fab.hide()
+                        MikuInsets.updateDockVisibilityHeight(0)
+                    }
+                }
                 Key.ENABLE_CLASH_API -> refreshNavMenu(DataStore.enableClashAPI)
                 Key.SERVICE_MODE -> onBinderDied()
                 Key.PROXY_APPS, Key.BYPASS_MODE, Key.INDIVIDUAL -> {

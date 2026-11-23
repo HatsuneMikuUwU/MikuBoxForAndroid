@@ -37,6 +37,11 @@ class ProxyInstance(profile: ProxyEntity, var service: BaseService.Interface? = 
         buildConfig()
     }
 
+    override suspend fun loadConfig() {
+        io.nekohasekai.sagernet.SagerNet.application.awaitAssetsReady()
+        super.loadConfig()
+    }
+
     override suspend fun init() {
         super.init()
         pluginConfigs.forEach { (_, plugin) ->

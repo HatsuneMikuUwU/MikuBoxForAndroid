@@ -19,6 +19,7 @@ import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.widget.TooltipCompat
+import androidx.core.graphics.ColorUtils
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.R as MaterialR
@@ -298,14 +299,28 @@ class StatsBar @JvmOverloads constructor(
         blobView = null
     }
 
+    private fun contrastInkFor(backgroundColor: Int): Int {
+        return if (ColorUtils.calculateLuminance(backgroundColor) > 0.28) {
+            0xFF0E1B18.toInt()
+        } else {
+            Color.WHITE
+        }
+    }
+
     private fun updateChildColors(isBlurOn: Boolean) {
         ensureViews()
-        val secondaryColor = context.getColorAttr(
-            if (isBlurOn) MaterialR.attr.colorOnSurfaceVariant else MaterialR.attr.colorOnPrimary
-        )
-        val primaryTextColor = context.getColorAttr(
-            if (isBlurOn) MaterialR.attr.colorOnSurface else MaterialR.attr.colorOnPrimary
-        )
+        val primaryColor = context.getColorAttr(androidx.appcompat.R.attr.colorPrimary)
+        val contrastOnPrimary = contrastInkFor(primaryColor)
+        val secondaryColor = if (isBlurOn) {
+            context.getColorAttr(MaterialR.attr.colorOnSurfaceVariant)
+        } else {
+            contrastOnPrimary
+        }
+        val primaryTextColor = if (isBlurOn) {
+            context.getColorAttr(MaterialR.attr.colorOnSurface)
+        } else {
+            contrastOnPrimary
+        }
 
         txText?.setTextColor(secondaryColor)
         rxText?.setTextColor(secondaryColor)
@@ -317,14 +332,10 @@ class StatsBar @JvmOverloads constructor(
 
         fabButton?.apply {
             val contentColor = ColorStateList.valueOf(
-                context.getColorAttr(
-                    if (isBlurOn) MaterialR.attr.colorOnPrimary else androidx.appcompat.R.attr.colorPrimary
-                )
+                if (isBlurOn) contrastOnPrimary else primaryColor
             )
             backgroundTintList = ColorStateList.valueOf(
-                context.getColorAttr(
-                    if (isBlurOn) androidx.appcompat.R.attr.colorPrimary else MaterialR.attr.colorOnPrimary
-                )
+                if (isBlurOn) primaryColor else contrastOnPrimary
             )
             iconTint = contentColor
             setTextColor(contentColor)
@@ -508,7 +519,12 @@ class StatsBar @JvmOverloads constructor(
                 Logs.w(e.toString())
                 onMainDispatcher {
                     isEnabled = true
-                    setStatus(app.getText(R.string.connection_test_testing))
+                    setStatus(
+                        app.getText(
+                            if (DataStore.serviceState.connected) R.string.vpn_connected
+                            else R.string.not_connected
+                        )
+                    )
                     ipStatusText?.visibility = View.GONE
                     ipStatusText?.text = ""
                     activity.snackbar(

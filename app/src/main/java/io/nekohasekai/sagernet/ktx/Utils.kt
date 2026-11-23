@@ -284,9 +284,9 @@ fun Context.getColour(@ColorRes colorRes: Int): Int {
 }
 
 fun Context.getColorAttr(@AttrRes resId: Int): Int {
-    return ContextCompat.getColor(this, TypedValue().also {
-        theme.resolveAttribute(resId, it, true)
-    }.resourceId)
+    val tv = TypedValue()
+    if (!theme.resolveAttribute(resId, tv, true)) return 0
+    return if (tv.resourceId != 0) ContextCompat.getColor(this, tv.resourceId) else tv.data
 }
 
 val isExpert: Boolean by lazy { BuildConfig.DEBUG || DataStore.isExpert }

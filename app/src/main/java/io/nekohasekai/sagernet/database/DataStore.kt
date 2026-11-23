@@ -82,7 +82,8 @@ object DataStore : OnPreferenceDataStoreChangeListener {
         val current = currentGroup()
         if (current.type == GroupType.BASIC) return current.id
         val groups = SagerDatabase.groupDao.allGroups()
-        return groups.find { it.type == GroupType.BASIC }!!.id
+        return groups.find { it.type == GroupType.BASIC }?.id
+            ?: SagerDatabase.groupDao.createGroup(ProxyGroup(ungrouped = true))
     }
 
     var lastAppTheme: Int

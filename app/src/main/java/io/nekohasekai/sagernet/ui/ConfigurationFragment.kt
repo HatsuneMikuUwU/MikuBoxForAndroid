@@ -106,6 +106,7 @@ import moe.matsuri.nb4a.ui.ConnectionTestNotification
 import okhttp3.internal.closeQuietly
 import java.io.File
 import java.io.IOException
+import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.net.UnknownHostException
@@ -149,6 +150,7 @@ class ConfigurationFragment @JvmOverloads constructor(
     val alwaysShowAddress by lazy { DataStore.alwaysShowAddress }
 
     fun getCurrentGroupFragment(): GroupFragment? {
+        if (!select || !isAdded) return null
         return try {
             childFragmentManager.findFragmentByTag("f" + DataStore.selectedGroup) as GroupFragment?
         } catch (e: Exception) {
@@ -601,13 +603,15 @@ class ConfigurationFragment @JvmOverloads constructor(
                             MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.confirm)
                                 .setMessage(R.string.delete_confirm_prompt)
                                 .setPositiveButton(R.string.yes) { _, _ ->
-                                    for (profile in toClear) {
-                                        adapter.groupFragments[DataStore.selectedGroup]?.adapter?.apply {
-                                            val index = configurationIdList.indexOf(profile.id)
-                                            if (index >= 0) {
-                                                configurationIdList.removeAt(index)
-                                                configurationList.remove(profile.id)
-                                                notifyItemRemoved(index)
+                                    if (::adapter.isInitialized) {
+                                        for (profile in toClear) {
+                                            adapter.groupFragments[DataStore.selectedGroup]?.adapter?.apply {
+                                                val index = configurationIdList.indexOf(profile.id)
+                                                if (index >= 0) {
+                                                    configurationIdList.removeAt(index)
+                                                    configurationList.remove(profile.id)
+                                                    notifyItemRemoved(index)
+                                                }
                                             }
                                         }
                                     }
@@ -653,13 +657,15 @@ class ConfigurationFragment @JvmOverloads constructor(
                                             }.joinToString("\n")
                                 )
                                 .setPositiveButton(R.string.yes) { _, _ ->
-                                    for (profile in toClear) {
-                                        adapter.groupFragments[DataStore.selectedGroup]?.adapter?.apply {
-                                            val index = configurationIdList.indexOf(profile.id)
-                                            if (index >= 0) {
-                                                configurationIdList.removeAt(index)
-                                                configurationList.remove(profile.id)
-                                                notifyItemRemoved(index)
+                                    if (::adapter.isInitialized) {
+                                        for (profile in toClear) {
+                                            adapter.groupFragments[DataStore.selectedGroup]?.adapter?.apply {
+                                                val index = configurationIdList.indexOf(profile.id)
+                                                if (index >= 0) {
+                                                    configurationIdList.removeAt(index)
+                                                    configurationList.remove(profile.id)
+                                                    notifyItemRemoved(index)
+                                                }
                                             }
                                         }
                                     }
@@ -912,126 +918,137 @@ class ConfigurationFragment @JvmOverloads constructor(
         val group = DataStore.currentGroup()
 
         val mainJob = runOnDefaultDispatcher {
-            val profilesList = SagerDatabase.proxyDao.getByGroup(group.id).filter {
-                if (icmpPing) {
-                    if (it.requireBean().canICMPing()) {
-                        return@filter true
+            try {
+                val profilesList = SagerDatabase.proxyDao.getByGroup(group.id).filter {
+                    if (icmpPing) {
+                        if (it.requireBean().canICMPing()) {
+                            return@filter true
+                        }
+                    } else {
+                        if (it.requireBean().canTCPing()) {
+                            return@filter true
+                        }
                     }
-                } else {
-                    if (it.requireBean().canTCPing()) {
-                        return@filter true
+                    return@filter false
+                }
+                test.proxyN = profilesList.size
+                val profiles = ConcurrentLinkedQueue(profilesList)
+                repeat(DataStore.connectionTestConcurrent) {
+                    testJobs.add(launch(Dispatchers.IO) {
+                        while (isActive) {
+                            val profile = profiles.poll() ?: break
+
+                            profile.status = 0
+                            var address = profile.requireBean().serverAddress
+                            if (!address.isIpAddress()) {
+                                try {
+                                    val resolved = SagerNet.underlyingNetwork?.getAllByName(address)
+                                        ?: InetAddress.getAllByName(address)
+                                    if (resolved.isNotEmpty()) {
+                                        address = resolved[0].hostAddress ?: address
+                                    }
+                                } catch (ignored: UnknownHostException) {
+                                }
+                            }
+                            if (!isActive) break
+                            if (!address.isIpAddress()) {
+                                profile.status = 2
+                                profile.error = app.getString(R.string.connection_test_domain_not_found)
+                                test.update(profile)
+                                continue
+                            }
+                            try {
+                                if (icmpPing) {
+                                    // removed
+                                } else {
+                                    val socket =
+                                        SagerNet.underlyingNetwork?.socketFactory?.createSocket()
+                                            ?: Socket()
+                                    try {
+                                        socket.soTimeout = 3000
+                                        socket.bind(InetSocketAddress(0))
+                                        val start = SystemClock.elapsedRealtime()
+                                        socket.connect(
+                                            InetSocketAddress(
+                                                address, profile.requireBean().serverPort
+                                            ), 3000
+                                        )
+                                        if (!isActive) break
+                                        profile.status = 1
+                                        profile.ping = (SystemClock.elapsedRealtime() - start).toInt()
+                                        test.update(profile)
+                                    } finally {
+                                        socket.closeQuietly()
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                if (!isActive) break
+                                val message = e.readableMessage
+
+                                if (icmpPing) {
+                                    profile.status = 2
+                                    profile.error = getString(R.string.connection_test_unreachable)
+                                } else {
+                                    profile.status = 2
+                                    when {
+                                        !message.contains("failed:") -> profile.error =
+                                            getString(R.string.connection_test_timeout)
+
+                                        else -> when {
+                                            message.contains("ECONNREFUSED") -> {
+                                                profile.error =
+                                                    getString(R.string.connection_test_refused)
+                                            }
+
+                                            message.contains("ENETUNREACH") -> {
+                                                profile.error =
+                                                    getString(R.string.connection_test_unreachable)
+                                            }
+
+                                            else -> {
+                                                profile.status = 3
+                                                profile.error = message
+                                            }
+                                        }
+                                    }
+                                }
+                                test.update(profile)
+                            }
+                        }
+                    })
+                }
+
+                testJobs.joinAll()
+
+                runOnMainDispatcher {
+                    test.cancel()
+                }
+            } finally {
+                withContext(NonCancellable) {
+                    if (test.dialogStatus.get() != 2) {
+                        DataStore.runningTest = false
                     }
                 }
-                return@filter false
-            }
-            test.proxyN = profilesList.size
-            val profiles = ConcurrentLinkedQueue(profilesList)
-            repeat(DataStore.connectionTestConcurrent) {
-                testJobs.add(launch(Dispatchers.IO) {
-                    while (isActive) {
-                        val profile = profiles.poll() ?: break
-
-                        profile.status = 0
-                        var address = profile.requireBean().serverAddress
-                        if (!address.isIpAddress()) {
-                            try {
-                                SagerNet.underlyingNetwork!!.getAllByName(address).apply {
-                                    if (isNotEmpty()) {
-                                        address = this[0].hostAddress
-                                    }
-                                }
-                            } catch (ignored: UnknownHostException) {
-                            }
-                        }
-                        if (!isActive) break
-                        if (!address.isIpAddress()) {
-                            profile.status = 2
-                            profile.error = app.getString(R.string.connection_test_domain_not_found)
-                            test.update(profile)
-                            continue
-                        }
-                        try {
-                            if (icmpPing) {
-                                // removed
-                            } else {
-                                val socket =
-                                    SagerNet.underlyingNetwork?.socketFactory?.createSocket()
-                                        ?: Socket()
-                                try {
-                                    socket.soTimeout = 3000
-                                    socket.bind(InetSocketAddress(0))
-                                    val start = SystemClock.elapsedRealtime()
-                                    socket.connect(
-                                        InetSocketAddress(
-                                            address, profile.requireBean().serverPort
-                                        ), 3000
-                                    )
-                                    if (!isActive) break
-                                    profile.status = 1
-                                    profile.ping = (SystemClock.elapsedRealtime() - start).toInt()
-                                    test.update(profile)
-                                } finally {
-                                    socket.closeQuietly()
-                                }
-                            }
-                        } catch (e: Exception) {
-                            if (!isActive) break
-                            val message = e.readableMessage
-
-                            if (icmpPing) {
-                                profile.status = 2
-                                profile.error = getString(R.string.connection_test_unreachable)
-                            } else {
-                                profile.status = 2
-                                when {
-                                    !message.contains("failed:") -> profile.error =
-                                        getString(R.string.connection_test_timeout)
-
-                                    else -> when {
-                                        message.contains("ECONNREFUSED") -> {
-                                            profile.error =
-                                                getString(R.string.connection_test_refused)
-                                        }
-
-                                        message.contains("ENETUNREACH") -> {
-                                            profile.error =
-                                                getString(R.string.connection_test_unreachable)
-                                        }
-
-                                        else -> {
-                                            profile.status = 3
-                                            profile.error = message
-                                        }
-                                    }
-                                }
-                            }
-                            test.update(profile)
-                        }
-                    }
-                })
-            }
-
-            testJobs.joinAll()
-
-            runOnMainDispatcher {
-                test.cancel()
             }
         }
         test.cancel = {
             test.dialogStatus.set(2)
             dialog.dismiss()
             runOnDefaultDispatcher {
-                mainJob.cancel()
-                testJobs.forEach { it.cancel() }
-                test.results.forEach {
-                    try {
-                        ProfileManager.updateProfile(it)
-                    } catch (e: Exception) {
-                        Logs.w(e)
+                try {
+                    mainJob.cancel()
+                    testJobs.forEach { it.cancel() }
+                    test.results.forEach {
+                        try {
+                            ProfileManager.updateProfile(it)
+                        } catch (e: Exception) {
+                            Logs.w(e)
+                        }
                     }
+                    GroupManager.postReload(DataStore.currentGroupId())
+                } finally {
+                    DataStore.runningTest = false
                 }
-                GroupManager.postReload(DataStore.currentGroupId())
-                DataStore.runningTest = false
             }
         }
         test.minimize = {
@@ -1053,54 +1070,65 @@ class ConfigurationFragment @JvmOverloads constructor(
         val group = DataStore.currentGroup()
 
         val mainJob = runOnDefaultDispatcher {
-            val profilesList = SagerDatabase.proxyDao.getByGroup(group.id)
-            test.proxyN = profilesList.size
-            val profiles = ConcurrentLinkedQueue(profilesList)
-            repeat(DataStore.connectionTestConcurrent) {
-                testJobs.add(launch(Dispatchers.IO) {
-                    val urlTest = UrlTest() // note: this is NOT in bg process
-                    while (isActive) {
-                        val profile = profiles.poll() ?: break
-                        profile.status = 0
+            try {
+                val profilesList = SagerDatabase.proxyDao.getByGroup(group.id)
+                test.proxyN = profilesList.size
+                val profiles = ConcurrentLinkedQueue(profilesList)
+                repeat(DataStore.connectionTestConcurrent) {
+                    testJobs.add(launch(Dispatchers.IO) {
+                        val urlTest = UrlTest() // note: this is NOT in bg process
+                        while (isActive) {
+                            val profile = profiles.poll() ?: break
+                            profile.status = 0
 
-                        try {
-                            val result = urlTest.doTest(profile)
-                            profile.status = 1
-                            profile.ping = result
-                        } catch (e: PluginManager.PluginNotFoundException) {
-                            profile.status = 2
-                            profile.error = e.readableMessage
-                        } catch (e: Exception) {
-                            profile.status = 3
-                            profile.error = e.readableMessage
+                            try {
+                                val result = urlTest.doTest(profile)
+                                profile.status = 1
+                                profile.ping = result
+                            } catch (e: PluginManager.PluginNotFoundException) {
+                                profile.status = 2
+                                profile.error = e.readableMessage
+                            } catch (e: Exception) {
+                                profile.status = 3
+                                profile.error = e.readableMessage
+                            }
+
+                            test.update(profile)
                         }
+                    })
+                }
 
-                        test.update(profile)
+                testJobs.joinAll()
+
+                runOnMainDispatcher {
+                    test.cancel()
+                }
+            } finally {
+                withContext(NonCancellable) {
+                    if (test.dialogStatus.get() != 2) {
+                        DataStore.runningTest = false
                     }
-                })
-            }
-
-            testJobs.joinAll()
-
-            runOnMainDispatcher {
-                test.cancel()
+                }
             }
         }
         test.cancel = {
             test.dialogStatus.set(2)
             dialog.dismiss()
             runOnDefaultDispatcher {
-                mainJob.cancel()
-                testJobs.forEach { it.cancel() }
-                test.results.forEach {
-                    try {
-                        ProfileManager.updateProfile(it)
-                    } catch (e: Exception) {
-                        Logs.w(e)
+                try {
+                    mainJob.cancel()
+                    testJobs.forEach { it.cancel() }
+                    test.results.forEach {
+                        try {
+                            ProfileManager.updateProfile(it)
+                        } catch (e: Exception) {
+                            Logs.w(e)
+                        }
                     }
+                    GroupManager.postReload(DataStore.currentGroupId())
+                } finally {
+                    DataStore.runningTest = false
                 }
-                GroupManager.postReload(DataStore.currentGroupId())
-                DataStore.runningTest = false
             }
         }
         test.minimize = {

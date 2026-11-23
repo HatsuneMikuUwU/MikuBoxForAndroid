@@ -48,6 +48,12 @@ class SagerNet : Application(),
     val process: String = JavaUtil.getProcessName()
     private val isMainProcess = process == BuildConfig.APPLICATION_ID
     val isBgProcess = process.endsWith(":bg")
+    @Volatile
+    private var assetsExtractJob: kotlinx.coroutines.Job? = null
+
+    suspend fun awaitAssetsReady() {
+        assetsExtractJob?.join()
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -75,12 +81,15 @@ class SagerNet : Application(),
             // fix multi process issue in Android 9+
             JavaUtil.handleWebviewDir(this)
 
-            runOnDefaultDispatcher {
+            val job = runOnDefaultDispatcher {
                 if (isBgProcess) {
                     extractAppAssets()
                 }
                 PackageCache.register()
                 cleanWebview()
+            }
+            if (isBgProcess) {
+                assetsExtractJob = job
             }
         }
 
@@ -131,12 +140,18 @@ class SagerNet : Application(),
             if (!shouldExtract) return
 
             destFile.parentFile?.mkdirs()
-            val tmpFile = File(destFile.parentFile, destFile.name + ".xz")
+            val tmpXz = File(destFile.parentFile, destFile.name + ".xz")
+            val tmpOut = File(destFile.parentFile, destFile.name + ".tmp")
             assets.open(assetPath).use { input ->
-                tmpFile.outputStream().use { output -> input.copyTo(output) }
+                tmpXz.outputStream().use { output -> input.copyTo(output) }
             }
-            Libcore.unxz(tmpFile.absolutePath, destFile.absolutePath)
-            tmpFile.delete()
+            Libcore.unxz(tmpXz.absolutePath, tmpOut.absolutePath)
+            tmpXz.delete()
+            if (destFile.exists()) destFile.delete()
+            if (!tmpOut.renameTo(destFile)) {
+                tmpOut.copyTo(destFile, overwrite = true)
+                tmpOut.delete()
+            }
             versionFile.writeText(assetVersion)
         } catch (e: Exception) {
             Logs.w("extractXzAsset($assetPath): ${e.message}")

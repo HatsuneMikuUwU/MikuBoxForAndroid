@@ -82,6 +82,10 @@ func StartOrReloadService(configContent string, options *libbox.OverrideOptions)
 	// A reload builds a new router; the old tracker stays attached to the old
 	// one. Drop it so the next SetV2rayStats re-attaches.
 	v2api = nil
+	resolvedConfig, err := resolveGeoRuleSets(configContent)
+	if err != nil {
+		return err
+	}
 	// Starting the service builds the gVisor TUN stack. This entrypoint is
 	// invoked through JNI, so its goroutine stack is pinned to the host pthread
 	// size (8188KB on Android); gVisor's initialization overruns that bound and
@@ -89,7 +93,7 @@ func StartOrReloadService(configContent string, options *libbox.OverrideOptions)
 	// goroutine, whose Go-managed stack grows on demand. Mirrors sing-box's
 	// FixAndroidStack workaround (golang.org/go#68760).
 	return runOnFreshStack(func() error {
-		return commandServer.StartOrReloadService(configContent, options)
+		return commandServer.StartOrReloadService(resolvedConfig, options)
 	})
 }
 
