@@ -242,6 +242,6 @@ class ServiceNotification(
         } else {
             (service as Service).stopForeground(true)
         }
-        runCatching { service.unregisterReceiver(this) }
+        runCatching { (service as Context).unregisterReceiver(this) }
     }
 }
