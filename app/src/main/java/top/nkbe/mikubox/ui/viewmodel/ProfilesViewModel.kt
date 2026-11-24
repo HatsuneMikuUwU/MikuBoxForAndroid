@@ -44,6 +44,7 @@ data class ProfilesUiState(
     val alwaysShowAddress: Boolean = false,
     val customProfileName: String = "",
     @DrawableRes val bannerCharacterRes: Int = BannerSettingsCharacterImageView.resolveDrawable(null),
+    @DrawableRes val homeBannerRes: Int = top.nkbe.mikubox.ui.theme.MikuBannerManager.getCurrentHomeBannerRes(),
     val isLoading: Boolean = true,
 )
 
@@ -62,6 +63,7 @@ class ProfilesViewModel : ViewModel(),
             bannerCharacterRes = BannerSettingsCharacterImageView.resolveDrawable(
                 DataStore.bannerSettingsCharacter
             ),
+            homeBannerRes = top.nkbe.mikubox.ui.theme.MikuBannerManager.getCurrentHomeBannerRes(),
         )
     )
     val uiState: StateFlow<ProfilesUiState> = _uiState.asStateFlow()
@@ -279,6 +281,9 @@ class ProfilesViewModel : ViewModel(),
                         DataStore.bannerSettingsCharacter
                     )
                 )
+            }
+            "home_banner_theme", "randomize_banner_on_launch" -> _uiState.update {
+                it.copy(homeBannerRes = top.nkbe.mikubox.ui.theme.MikuBannerManager.getCurrentHomeBannerRes())
             }
             "custom_profile_name" -> _uiState.update {
                 it.copy(customProfileName = DataStore.customProfileName)

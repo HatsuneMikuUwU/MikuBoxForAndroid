@@ -41,6 +41,9 @@ data class SettingsUiState(
     val bannerCharacterKey: String = DataStore.bannerSettingsCharacter,
     @DrawableRes val bannerCharacterRes: Int =
         BannerSettingsCharacterImageView.resolveDrawable(DataStore.bannerSettingsCharacter),
+    val homeBannerTheme: String = DataStore.homeBannerTheme,
+    @DrawableRes val homeBannerRes: Int = top.nkbe.mikubox.ui.theme.MikuBannerManager.getCurrentHomeBannerRes(),
+    val randomizeBannerOnLaunch: Boolean = DataStore.randomizeBannerOnLaunch,
     val customProfileName: String = DataStore.customProfileName,
 
     // General
@@ -148,6 +151,9 @@ data class SettingsUiState(
             bannerCharacterRes = BannerSettingsCharacterImageView.resolveDrawable(
                 DataStore.bannerSettingsCharacter
             ),
+            homeBannerTheme = DataStore.homeBannerTheme,
+            homeBannerRes = top.nkbe.mikubox.ui.theme.MikuBannerManager.getCurrentHomeBannerRes(),
+            randomizeBannerOnLaunch = DataStore.randomizeBannerOnLaunch,
             customProfileName = DataStore.customProfileName,
             persistAcrossReboot = DataStore.configurationStore.getBoolean(
                 Key.PERSIST_ACROSS_REBOOT,

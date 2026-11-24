@@ -32,6 +32,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -76,8 +78,10 @@ import top.nkbe.mikubox.ui.component.MikuHeroGlassPill
 import top.nkbe.mikubox.ui.component.MikuSegmentedTabs
 import top.nkbe.mikubox.ui.component.MikuSoftCard
 import top.nkbe.mikubox.ui.component.MikuSoftPanelHero
+import top.nkbe.mikubox.ui.theme.MikuBannerManager
 import top.nkbe.mikubox.ui.theme.MikuTheme
 import top.nkbe.mikubox.ui.theme.mikuContrastColor
+import com.neko.widget.BannerSettingsCharacterImageView
 import kotlin.math.roundToInt
 
 data class SettingsScreenCallbacks(
@@ -141,6 +145,8 @@ data class SettingsScreenCallbacks(
     val onSetShowSplashScreen: (Boolean) -> Unit,
     val onSetShowWelcomeAnim: (Boolean) -> Unit,
     val onSetBannerCharacter: (String) -> Unit,
+    val onSetHomeBannerTheme: (String) -> Unit,
+    val onSetRandomizeBannerOnLaunch: (Boolean) -> Unit,
     val onSetCustomProfileName: (String) -> Unit,
     val onSetShowBottomBar: (Boolean) -> Unit,
     val onSetBlurBottomStatus: (Boolean) -> Unit,
@@ -271,6 +277,11 @@ fun SettingsScreen(
     val characterOptions = remember(context) {
         val entries = resources.getStringArray(R.array.banner_character_entries)
         val values = resources.getStringArray(R.array.banner_character_values)
+        entries.zip(values).map { ChoiceOption(it.first, it.second) }
+    }
+    val bannerThemeOptions = remember(context) {
+        val entries = resources.getStringArray(R.array.banner_theme_entries)
+        val values = resources.getStringArray(R.array.banner_theme_values)
         entries.zip(values).map { ChoiceOption(it.first, it.second) }
     }
     val fabStyleOptions = remember(context) {
@@ -817,7 +828,77 @@ fun SettingsScreen(
                             onOpenUrl = callbacks.onOpenUrl,
                         )
 
-                        // 1. Theme & Colors
+                        // 1. Miku Theme Banners (Home & Drawer)
+                        SettingsGroupSection(title = stringResource(R.string.home_banner_title)) {
+                            MikuBannerHorizontalGallery(
+                                currentThemeKey = state.homeBannerTheme,
+                                onSelectBanner = callbacks.onSetHomeBannerTheme,
+                            )
+                            SettingsGroupDivider()
+                            SettingsClickRow(
+                                iconRes = R.drawable.ic_image_area,
+                                title = stringResource(R.string.home_banner_title),
+                                subtitle = stringResource(R.string.home_banner_summary),
+                                valueText = bannerThemeOptions.labelFor(state.homeBannerTheme),
+                                onClick = {
+                                    activeDialog = ActiveSettingDialog.SingleChoice(
+                                        title = context.getString(R.string.home_banner_title),
+                                        options = bannerThemeOptions,
+                                        selectedValue = state.homeBannerTheme,
+                                        onSelect = callbacks.onSetHomeBannerTheme,
+                                    )
+                                },
+                            )
+                            SettingsGroupDivider()
+                            SettingsSwitchRow(
+                                iconRes = R.drawable.ic_toggle_switch,
+                                title = stringResource(R.string.pref_banner_random_title),
+                                subtitle = stringResource(R.string.pref_banner_random_summary),
+                                checked = state.randomizeBannerOnLaunch,
+                                onCheckedChange = callbacks.onSetRandomizeBannerOnLaunch,
+                            )
+                        }
+
+                        // 2. Miku Characters & Cutouts
+                        SettingsGroupSection(title = stringResource(R.string.banner_settings_character_title)) {
+                            MikuCharacterHorizontalGallery(
+                                currentCharacterKey = state.bannerCharacterKey,
+                                options = characterOptions,
+                                onSelectCharacter = callbacks.onSetBannerCharacter,
+                            )
+                            SettingsGroupDivider()
+                            SettingsClickRow(
+                                iconRes = R.drawable.ic_image_area,
+                                title = stringResource(R.string.banner_settings_character_title),
+                                valueText = characterOptions.labelFor(state.bannerCharacterKey),
+                                onClick = {
+                                    activeDialog = ActiveSettingDialog.SingleChoice(
+                                        title = context.getString(R.string.banner_settings_character_title),
+                                        options = characterOptions,
+                                        selectedValue = state.bannerCharacterKey,
+                                        onSelect = callbacks.onSetBannerCharacter,
+                                    )
+                                },
+                            )
+                            SettingsGroupDivider()
+                            SettingsClickRow(
+                                iconRes = R.drawable.ic_image_edit,
+                                title = stringResource(R.string.profile_name_custom_title),
+                                subtitle = state.customProfileName.ifBlank {
+                                    stringResource(R.string.uwu_banner_title)
+                                },
+                                onClick = {
+                                    activeDialog = ActiveSettingDialog.TextInput(
+                                        title = context.getString(R.string.profile_name_custom_title),
+                                        initialValue = state.customProfileName,
+                                        hint = context.getString(R.string.profile_name_custom_dialog),
+                                        onConfirm = callbacks.onSetCustomProfileName,
+                                    )
+                                },
+                            )
+                        }
+
+                        // 3. Theme & Colors
                         SettingsGroupSection(title = stringResource(R.string.theme_category)) {
                             SettingsThemeColorRow(
                                 enabled = !state.isDynamicTheme,
@@ -865,38 +946,8 @@ fun SettingsScreen(
                             )
                         }
 
-                        // 2. Display & Typography
+                        // 4. Display & Typography
                         SettingsGroupSection(title = stringResource(R.string.display_category)) {
-                            SettingsClickRow(
-                                iconRes = R.drawable.ic_image_area,
-                                title = stringResource(R.string.banner_settings_character_title),
-                                valueText = characterOptions.labelFor(state.bannerCharacterKey),
-                                onClick = {
-                                    activeDialog = ActiveSettingDialog.SingleChoice(
-                                        title = context.getString(R.string.banner_settings_character_title),
-                                        options = characterOptions,
-                                        selectedValue = state.bannerCharacterKey,
-                                        onSelect = callbacks.onSetBannerCharacter,
-                                    )
-                                },
-                            )
-                            SettingsGroupDivider()
-                            SettingsClickRow(
-                                iconRes = R.drawable.ic_image_edit,
-                                title = stringResource(R.string.profile_name_custom_title),
-                                subtitle = state.customProfileName.ifBlank {
-                                    stringResource(R.string.uwu_banner_title)
-                                },
-                                onClick = {
-                                    activeDialog = ActiveSettingDialog.TextInput(
-                                        title = context.getString(R.string.profile_name_custom_title),
-                                        initialValue = state.customProfileName,
-                                        hint = context.getString(R.string.profile_name_custom_dialog),
-                                        onConfirm = callbacks.onSetCustomProfileName,
-                                    )
-                                },
-                            )
-                            SettingsGroupDivider()
                             SettingsSwitchRow(
                                 iconRes = R.drawable.ic_format_bold,
                                 title = stringResource(R.string.pref_font_bold_title),
@@ -1562,6 +1613,200 @@ private fun MikuWardrobeIdentityCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MikuBannerHorizontalGallery(
+    currentThemeKey: String,
+    onSelectBanner: (String) -> Unit,
+) {
+    val banners = MikuBannerManager.BANNERS
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        items(banners, key = { it.key }) { item ->
+            val isSelected = currentThemeKey == item.key
+            val primaryColor = MaterialTheme.colorScheme.primary
+            val outlineColor = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)
+            val borderColor by animateColorAsState(
+                targetValue = if (isSelected) primaryColor else outlineColor,
+                label = "banner_border"
+            )
+
+            Box(
+                modifier = Modifier
+                    .width(160.dp)
+                    .height(96.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .border(
+                        BorderStroke(
+                            width = if (isSelected) 2.5.dp else 1.dp,
+                            color = borderColor
+                        ),
+                        RoundedCornerShape(16.dp)
+                    )
+                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                    .clickable { onSelectBanner(item.key) },
+            ) {
+                Image(
+                    painter = painterResource(item.drawableRes),
+                    contentDescription = stringResource(item.titleRes),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize(),
+                )
+                // Bottom gradient for readability
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(44.dp)
+                        .align(Alignment.BottomCenter)
+                        .background(
+                            Brush.verticalGradient(
+                                colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.8f))
+                            )
+                        )
+                )
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(horizontal = 8.dp, vertical = 6.dp)
+                ) {
+                    Text(
+                        text = stringResource(item.titleRes),
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    Text(
+                        text = item.subtitle,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = Color.White.copy(alpha = 0.75f),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+
+                // Selected Badge
+                if (isSelected) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(6.dp)
+                            .size(22.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.primary),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_action_done),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.size(14.dp),
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun MikuCharacterHorizontalGallery(
+    currentCharacterKey: String,
+    options: List<ChoiceOption>,
+    onSelectCharacter: (String) -> Unit,
+) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        items(options, key = { it.value }) { opt ->
+            val isSelected = currentCharacterKey == opt.value
+            val primaryColor = MaterialTheme.colorScheme.primary
+            val outlineColor = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)
+            val borderColor by animateColorAsState(
+                targetValue = if (isSelected) primaryColor else outlineColor,
+                label = "char_border"
+            )
+            val drawableRes = remember(opt.value) {
+                BannerSettingsCharacterImageView.resolveDrawable(opt.value)
+            }
+
+            Box(
+                modifier = Modifier
+                    .width(84.dp)
+                    .height(108.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .border(
+                        BorderStroke(
+                            width = if (isSelected) 2.dp else 1.dp,
+                            color = borderColor
+                        ),
+                        RoundedCornerShape(16.dp)
+                    )
+                    .background(
+                        if (isSelected) {
+                            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.25f)
+                        } else {
+                            MaterialTheme.colorScheme.surfaceContainerLow
+                        }
+                    )
+                    .clickable { onSelectCharacter(opt.value) }
+                    .padding(6.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Image(
+                        painter = painterResource(drawableRes),
+                        contentDescription = opt.label,
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .size(60.dp)
+                            .padding(2.dp),
+                    )
+                    Text(
+                        text = opt.label.substringBefore(" ("),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+
+                if (isSelected) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .size(18.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.primary),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_action_done),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.size(12.dp),
+                        )
+                    }
+                }
             }
         }
     }

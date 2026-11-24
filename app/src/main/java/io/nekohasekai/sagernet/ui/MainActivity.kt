@@ -90,6 +90,7 @@ class MainActivity : ThemedActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LayoutMainBinding.inflate(layoutInflater)
+        updateNavBannerImage()
         
         navMenuController = NavMenuController(this)
 
@@ -707,10 +708,17 @@ class MainActivity : ThemedActivity(),
             if (DataStore.showSnowflakes) View.VISIBLE else View.GONE
     }
 
+    private fun updateNavBannerImage() {
+        binding.root.findViewById<ImageView>(R.id.nav_banner_image)?.let { iv ->
+            iv.setImageResource(top.nkbe.mikubox.ui.theme.MikuBannerManager.getCurrentHomeBannerRes())
+        }
+    }
+
     override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {
         runOnUiThread {
             when (key) {
                 "disable_bottom_sheet_home" -> updateDrawerLockMode()
+                "home_banner_theme", "randomize_banner_on_launch" -> updateNavBannerImage()
                 "blur_bottom_status", "blur_bottom_blob_anim", "blur_bottom_radius", "blur_bottom_alpha" -> {
                     binding.stats.refreshMikuStyle()
                 }

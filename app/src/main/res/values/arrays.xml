@@ -78,6 +78,17 @@
     </string-array>
 
     <string-array name="banner_character_entries">
+        <item>深海少女 (Deep Sea Girl)</item>
+        <item>催眠術 (Mesmerizer)</item>
+        <item>兔洞 (Rabbit Hole)</item>
+        <item>大耳狗聯名 (Cinnamiku)</item>
+        <item>魔法未來 2024 (Magical Mirai)</item>
+        <item>賽車初音 2025 (Racing Miku)</item>
+        <item>雪初音 2025 (Snow Miku)</item>
+        <item>櫻花初音 (Sakura Miku)</item>
+        <item>交響樂 2022 (Symphony)</item>
+        <item>櫻桃波普 (Cherry Pop)</item>
+        <item>重試初音 (Retry Now)</item>
         <item>Miku V6</item>
         <item>Miku Super Pack</item>
         <item>Miku V4</item>
@@ -90,6 +101,17 @@
     </string-array>
 
     <string-array name="banner_character_values">
+        <item>uwu_icon_deep_sea_girl</item>
+        <item>uwu_icon_mesmerizer</item>
+        <item>uwu_icon_rabbit_hole</item>
+        <item>uwu_icon_cinnamiku</item>
+        <item>uwu_icon_magical_mirai_2024</item>
+        <item>uwu_icon_racing_miku_2025</item>
+        <item>uwu_icon_snow_miku_2025</item>
+        <item>uwu_icon_sakura</item>
+        <item>uwu_icon_symphony_2022</item>
+        <item>uwu_icon_cherry_pop</item>
+        <item>uwu_icon_retry_now</item>
         <item>uwu_banner_miku_v6</item>
         <item>uwu_banner_miku_super_pack</item>
         <item>uwu_banner_miku_v4</item>
@@ -99,6 +121,34 @@
         <item>uwu_banner_miku_v2_append</item>
         <item>uwu_banner_miku_v2_chinese</item>
         <item>uwu_banner_image_2</item>
+    </string-array>
+
+    <string-array name="banner_theme_entries">
+        <item>@string/banner_theme_home</item>
+        <item>@string/banner_theme_stage</item>
+        <item>@string/banner_theme_wardrobe</item>
+        <item>@string/banner_theme_author</item>
+        <item>@string/banner_theme_sheet</item>
+        <item>@string/banner_theme_selected</item>
+        <item>@string/banner_theme_about</item>
+        <item>@string/banner_theme_miracle</item>
+        <item>@string/banner_theme_splash</item>
+        <item>@string/banner_theme_iconic</item>
+        <item>@string/banner_theme_random</item>
+    </string-array>
+
+    <string-array name="banner_theme_values">
+        <item>uwu_banner_home</item>
+        <item>uwu_banner_stage</item>
+        <item>uwu_banner_theme</item>
+        <item>uwu_banner_author</item>
+        <item>uwu_banner_sheet</item>
+        <item>uwu_banner_selected</item>
+        <item>uwu_banner_image_about</item>
+        <item>uwu_banner_image</item>
+        <item>uwu_banner_splash</item>
+        <item>uwu_banner_profile</item>
+        <item>random</item>
     </string-array>
 	
     <string-array name="app_font_entries">

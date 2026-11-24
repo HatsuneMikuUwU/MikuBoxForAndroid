@@ -25,9 +25,10 @@
             app:cardCornerRadius="5.0dip"
             app:cardElevation="0.0dip">
             <com.neko.blur.BlurImageView
+                android:id="@+id/nav_banner_image"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:src="@drawable/uwu_banner_image_about"
+                android:src="@drawable/uwu_banner_stage"
                 android:scaleType="centerCrop"
                 android:elevation="0.0dip"
                 app:blur_radius="2" />

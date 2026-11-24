@@ -266,6 +266,16 @@ private fun MikuProfilesHero(
             .statusBarsPadding()
             .padding(bottom = 42.dp),
     ) {
+        // Miku dynamic banner illustration backdrop with gentle scrim
+        Image(
+            painter = painterResource(id = state.homeBannerRes),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .matchParentSize()
+                .alpha(0.24f),
+        )
+
         // Subtle musical note watermark
         Text(
             text = "♪",

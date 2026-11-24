@@ -58,6 +58,18 @@ class BannerSettingsCharacterImageView @JvmOverloads constructor(
 
         @DrawableRes
         fun resolveDrawable(key: String?): Int = when (key) {
+            "uwu_icon_deep_sea_girl" -> R.drawable.uwu_icon_deep_sea_girl
+            "uwu_icon_mesmerizer" -> R.drawable.uwu_icon_mesmerizer
+            "uwu_icon_rabbit_hole" -> R.drawable.uwu_icon_rabbit_hole
+            "uwu_icon_cinnamiku" -> R.drawable.uwu_icon_cinnamiku
+            "uwu_icon_magical_mirai_2024" -> R.drawable.uwu_icon_magical_mirai_2024
+            "uwu_icon_racing_miku_2025" -> R.drawable.uwu_icon_racing_miku_2025
+            "uwu_icon_snow_miku_2025" -> R.drawable.uwu_icon_snow_miku_2025
+            "uwu_icon_sakura" -> R.drawable.uwu_icon_sakura
+            "uwu_icon_symphony_2022" -> R.drawable.uwu_icon_symphony_2022
+            "uwu_icon_cherry_pop" -> R.drawable.uwu_icon_cherry_pop
+            "uwu_icon_retry_now" -> R.drawable.uwu_icon_retry_now
+            "uwu_icon_miku" -> R.drawable.uwu_icon_miku
             "uwu_banner_image_2" -> R.drawable.uwu_banner_image_2
             "uwu_banner_miku_v2" -> R.drawable.uwu_banner_miku_v2
             "uwu_banner_miku_v2_chinese" -> R.drawable.uwu_banner_miku_v2_chinese

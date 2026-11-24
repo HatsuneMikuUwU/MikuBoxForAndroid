@@ -379,6 +379,12 @@ class SettingsFragment : ToolbarFragment() {
                 onSetBannerCharacter = { key ->
                     DataStore.bannerSettingsCharacter = key
                 },
+                onSetHomeBannerTheme = { key ->
+                    DataStore.homeBannerTheme = key
+                },
+                onSetRandomizeBannerOnLaunch = { enabled ->
+                    DataStore.randomizeBannerOnLaunch = enabled
+                },
                 onSetCustomProfileName = { name ->
                     DataStore.customProfileName = name
                 },

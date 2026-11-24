@@ -128,6 +128,8 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var doubleColumnProfileList by configurationStore.boolean("double_column_profile_list") { false }
     var collapseProfileActions by configurationStore.boolean("collapse_profile_actions") { false }
     var bannerSettingsCharacter by configurationStore.string("banner_settings_character") { "uwu_banner_miku_v6" }
+    var homeBannerTheme by configurationStore.string("home_banner_theme") { "uwu_banner_home" }
+    var randomizeBannerOnLaunch by configurationStore.boolean("randomize_banner_on_launch") { false }
     var disableBottomSheet by configurationStore.boolean("disable_bottom_sheet") {false}
     var disableBottomSheetHome by configurationStore.boolean("disable_bottom_sheet_home") {false}
     var disableParticlesSheet by configurationStore.boolean("disable_particles_sheet") { false }
