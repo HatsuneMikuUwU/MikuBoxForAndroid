@@ -39,6 +39,8 @@ import androidx.core.view.size
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import top.nkbe.mikubox.ui.component.mikuComposeView
 import top.nkbe.mikubox.ui.page.profiles.ProfilesScreen
 import top.nkbe.mikubox.ui.page.profiles.ProfilesScreenCallbacks
