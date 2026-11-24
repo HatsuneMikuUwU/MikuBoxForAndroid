@@ -101,13 +101,6 @@ jobs:
           path: ${{ env.APK }}/*-x86_64*.apk
           if-no-files-found: error
 
-      - name: Upload APK (x86)
-        uses: actions/upload-artifact@v4
-        with:
-          name: MikuBox-x86
-          path: ${{ env.APK }}/*-x86.apk
-          if-no-files-found: error
-
       - name: Prepare all APK variants
         run: |
           mkdir -p all_apks
