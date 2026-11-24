@@ -82,15 +82,11 @@ class SagerNet : Application(),
             JavaUtil.handleWebviewDir(this)
 
             val job = runOnDefaultDispatcher {
-                if (isBgProcess) {
-                    extractAppAssets()
-                }
+                extractAppAssets()
                 PackageCache.register()
                 cleanWebview()
             }
-            if (isBgProcess) {
-                assetsExtractJob = job
-            }
+            assetsExtractJob = job
         }
 
         if (isMainProcess) {

@@ -1,44 +1,36 @@
 package io.nekohasekai.sagernet.bg.proto
 
 import io.nekohasekai.sagernet.BuildConfig
+import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.bg.GuardedProcessPool
 import io.nekohasekai.sagernet.database.ProxyEntity
 import io.nekohasekai.sagernet.fmt.buildConfig
 import io.nekohasekai.sagernet.ktx.Logs
-import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
-import io.nekohasekai.sagernet.ktx.tryResume
-import io.nekohasekai.sagernet.ktx.tryResumeWithException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import libcore.Libcore
 import libcore.TestBox
-import kotlin.coroutines.suspendCoroutine
 
 class TestInstance(profile: ProxyEntity, val link: String, private val timeout: Int) :
     BoxInstance(profile) {
 
     private var box: TestBox? = null
 
-    suspend fun doTest(): Int {
-        return suspendCoroutine { c ->
-            processes = GuardedProcessPool {
-                Logs.w(it)
-                c.tryResumeWithException(it)
+    suspend fun doTest(): Int = withContext(Dispatchers.IO) {
+        processes = GuardedProcessPool {
+            Logs.w(it)
+        }
+        try {
+            init()
+            launch()
+            if (processes.processCount > 0) {
+                // wait for plugin start
+                delay(500)
             }
-            runOnDefaultDispatcher {
-                use {
-                    try {
-                        init()
-                        launch()
-                        if (processes.processCount > 0) {
-                            // wait for plugin start
-                            delay(500)
-                        }
-                        c.tryResume(Libcore.urlTest(box, link, timeout))
-                    } catch (e: Exception) {
-                        c.tryResumeWithException(e)
-                    }
-                }
-            }
+            Libcore.urlTest(box, link, timeout)
+        } finally {
+            runCatching { close() }
         }
     }
 
@@ -47,7 +39,8 @@ class TestInstance(profile: ProxyEntity, val link: String, private val timeout: 
     }
 
     override suspend fun loadConfig() {
-        // don't call destroyAllJsi here
+        SagerNet.application.awaitAssetsReady()
+        super.loadConfig()
         if (BuildConfig.DEBUG) Logs.d(config.config)
         box = Libcore.newTestBox(config.config)
     }
@@ -57,7 +50,7 @@ class TestInstance(profile: ProxyEntity, val link: String, private val timeout: 
     }
 
     override fun closeCore() {
-        box?.close()
+        runCatching { box?.close() }
         box = null
     }
 

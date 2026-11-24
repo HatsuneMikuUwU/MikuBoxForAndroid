@@ -68,13 +68,17 @@ class GroupInterfaceAdapter(val context: ThemedActivity) : GroupManager.Interfac
             }
 
             onMainDispatcher {
+                if (context.isFinishing || context.isDestroyed) return@onMainDispatcher
                 delay(1000L)
+                if (context.isFinishing || context.isDestroyed) return@onMainDispatcher
 
-                MaterialAlertDialogBuilder(context).setTitle(
-                        context.getString(
-                                R.string.group_diff, group.displayName()
-                        )
-                ).setMessage(status.trim()).setPositiveButton(android.R.string.ok, null).show()
+                runCatching {
+                    MaterialAlertDialogBuilder(context).setTitle(
+                            context.getString(
+                                    R.string.group_diff, group.displayName()
+                            )
+                    ).setMessage(status.trim().take(4000)).setPositiveButton(android.R.string.ok, null).show()
+                }
             }
 
         }

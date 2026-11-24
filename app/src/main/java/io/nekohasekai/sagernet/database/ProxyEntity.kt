@@ -207,8 +207,17 @@ data class ProxyEntity(
         else -> "Undefined type $type"
     }
 
-    fun displayName() = requireBean().displayName()
-    fun displayAddress() = requireBean().displayAddress()
+    fun displayName(): String = try {
+        requireBean().displayName()
+    } catch (e: Exception) {
+        "Profile #$id"
+    }
+
+    fun displayAddress(): String = try {
+        requireBean().displayAddress()
+    } catch (e: Exception) {
+        ""
+    }
 
     fun requireBean(): AbstractBean {
         return when (type) {

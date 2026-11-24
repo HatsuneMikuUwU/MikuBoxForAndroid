@@ -98,8 +98,9 @@
         <item name="backgroundTint">?attr/colorBg</item>
     </style>
 
-  <style name="Theme.SagerNet.True.Black" parent="@style/ThemeOverlay.MaterialComponents">
+  <style name="Theme.SagerNet.True.Black" parent="@style/ThemeOverlay.Material3">
         <item name="android:colorBackground">#ff000000</item>
+        <item name="android:windowBackground">#ff000000</item>
         <item name="colorBg">#ff000000</item>
         <item name="colorCard">#ff111111</item>
         <item name="colorSurface">#ff000000</item>

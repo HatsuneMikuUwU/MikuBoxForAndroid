@@ -83,6 +83,9 @@ func (b *TestBox) Start() (err error) {
 	if b.closed {
 		return errors.New("closed")
 	}
+	if b.box == nil {
+		return errors.New("box is nil")
+	}
 	return b.box.Start()
 }
 
@@ -94,8 +97,13 @@ func (b *TestBox) Close() (err error) {
 		return nil
 	}
 	b.closed = true
-	b.cancel()
-	return b.box.Close()
+	if b.cancel != nil {
+		b.cancel()
+	}
+	if b.box != nil {
+		return b.box.Close()
+	}
+	return nil
 }
 
 // createProxyHttpClient dials through instance's default outbound, or directly
@@ -104,12 +112,21 @@ func createProxyHttpClient(instance *box.Box) *http.Client {
 	return &http.Client{
 		Transport: &http.Transport{
 			DisableKeepAlives: true,
-			DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+			DialContext: func(ctx context.Context, network, addr string) (conn net.Conn, err error) {
+				defer func() {
+					if r := recover(); r != nil {
+						err = errors.New("dial panic")
+					}
+				}()
 				if instance == nil {
 					var dialer net.Dialer
 					return dialer.DialContext(ctx, network, addr)
 				}
-				outbound := instance.Outbound().Default()
+				outboundManager := instance.Outbound()
+				if outboundManager == nil {
+					return nil, errors.New("no outbound manager")
+				}
+				outbound := outboundManager.Default()
 				if outbound == nil {
 					return nil, errors.New("no default outbound")
 				}
@@ -151,7 +168,7 @@ func measureRTT(client *http.Client, link string, timeout int32) (int32, error) 
 // UrlTest measures latency through instance, or directly when instance is nil.
 func UrlTest(instance *TestBox, link string, timeout int32) (latency int32, err error) {
 	defer device.DeferPanicToError("UrlTest", func(err_ error) { err = err_ })
-	if instance == nil {
+	if instance == nil || instance.box == nil {
 		return measureRTT(createProxyHttpClient(nil), link, timeout)
 	}
 	return measureRTT(createProxyHttpClient(instance.box), link, timeout)

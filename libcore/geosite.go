@@ -2,6 +2,8 @@ package libcore
 
 import (
 	"fmt"
+	"io"
+	"os"
 
 	geosites "github.com/sagernet/sing-box/common/geosite"
 	C "github.com/sagernet/sing-box/constant"
@@ -9,15 +11,27 @@ import (
 )
 
 type geositeReader struct {
+	closer io.Closer
 	reader *geosites.Reader
 }
 
 func openGeoSite(path string) (*geositeReader, error) {
-	reader, _, err := geosites.Open(path)
+	content, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
-	return &geositeReader{reader: reader}, nil
+	reader, _, err := geosites.NewReader(content)
+	if err != nil {
+		content.Close()
+		return nil, err
+	}
+	return &geositeReader{closer: content, reader: reader}, nil
+}
+
+func (g *geositeReader) Close() {
+	if g.closer != nil {
+		g.closer.Close()
+	}
 }
 
 func (g *geositeReader) Rules(code string) ([]option.HeadlessRule, error) {

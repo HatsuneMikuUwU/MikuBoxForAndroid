@@ -40,14 +40,14 @@ object Theme {
     fun apply(context: Context) {
         context.setTheme(getTheme())
         if (usingNightMode() && DataStore.trueBlackEnabled) {
-            context.setTheme(R.style.Theme_SagerNet_True_Black)
+            context.theme?.applyStyle(R.style.Theme_SagerNet_True_Black, true)
         }
     }
 
     fun applyDialog(context: Context) {
         context.setTheme(getDialogTheme())
         if (usingNightMode() && DataStore.trueBlackEnabled) {
-            context.setTheme(R.style.Theme_SagerNet_True_Black)
+            context.theme?.applyStyle(R.style.Theme_SagerNet_True_Black, true)
         }
     }
 

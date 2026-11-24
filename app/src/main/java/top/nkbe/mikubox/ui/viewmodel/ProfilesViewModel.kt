@@ -125,8 +125,18 @@ class ProfilesViewModel : ViewModel(),
 
                 val activeChip = chips.firstOrNull { it.id == currentGroupId }
                 val profiles = if (currentGroupId != 0L) {
+                    val rawList = SagerDatabase.proxyDao.getByGroup(currentGroupId)
+                    val safeList = rawList.filter {
+                        try {
+                            it.requireBean()
+                            true
+                        } catch (e: Throwable) {
+                            Logs.w("Skipping corrupted profile ${it.id}: ${e.message}")
+                            false
+                        }
+                    }
                     sortProfiles(
-                        SagerDatabase.proxyDao.getByGroup(currentGroupId),
+                        safeList,
                         activeChip?.order ?: GroupOrder.ORIGIN,
                     )
                 } else {

@@ -66,6 +66,9 @@ func resolveGeoRuleSets(configContent string) (string, error) {
 		if geoipR != nil {
 			geoipR.Close()
 		}
+		if geositeR != nil {
+			geositeR.Close()
+		}
 	}()
 
 	modified := false
@@ -93,7 +96,17 @@ func resolveGeoRuleSets(configContent string) (string, error) {
 		dbPath := filepath.Join(externalAssetsPath, dbName)
 		dbInfo, err := os.Stat(dbPath)
 		if err != nil {
-			return "", fmt.Errorf("rule-set %s requires %s: %w", pathStr, dbPath, err)
+			// Asset DB not present yet; emit an empty fallback rule-set rather than aborting service
+			sum := sha256.Sum256([]byte(pathStr))
+			key := hex.EncodeToString(sum[:16])
+			cacheDir := srsCacheDir()
+			srsPath := filepath.Join(cacheDir, key+".srs")
+			_ = writeRuleSetSrs(srsPath, "", "", nil)
+			entry["type"] = "local"
+			entry["format"] = "binary"
+			entry["path"] = srsPath
+			modified = true
+			continue
 		}
 
 		sum := sha256.Sum256([]byte(pathStr))
@@ -118,22 +131,23 @@ func resolveGeoRuleSets(configContent string) (string, error) {
 			if isGeoIP {
 				if geoipR == nil {
 					geoipR, err = openGeoIP(dbPath)
+				}
+				if err == nil {
+					rules, err = geoipR.Rules(code)
 					if err != nil {
-						return "", fmt.Errorf("open geoip database %s: %w", dbPath, err)
+						rules = nil
 					}
 				}
-				rules, err = geoipR.Rules(code)
 			} else if isGeoSite {
 				if geositeR == nil {
 					geositeR, err = openGeoSite(dbPath)
+				}
+				if err == nil {
+					rules, err = geositeR.Rules(code)
 					if err != nil {
-						return "", fmt.Errorf("open geosite database %s: %w", dbPath, err)
+						rules = nil
 					}
 				}
-				rules, err = geositeR.Rules(code)
-			}
-			if err != nil {
-				return "", fmt.Errorf("compile rule-set %s: %w", pathStr, err)
 			}
 			if err := writeRuleSetSrs(srsPath, metaPath, expectedMeta, rules); err != nil {
 				return "", fmt.Errorf("write rule-set %s: %w", pathStr, err)
