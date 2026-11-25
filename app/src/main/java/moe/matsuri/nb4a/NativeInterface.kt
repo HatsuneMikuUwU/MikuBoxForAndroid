@@ -63,13 +63,17 @@ class NativeInterface(
         sourcePort: Int,
         destinationAddress: String,
         destinationPort: Int
-    ): ConnectionOwner? {
+    ): ConnectionOwner {
         val uid = SagerNet.connectivity.getConnectionOwnerUid(
             ipProtocol,
             InetSocketAddress(sourceAddress, sourcePort),
             InetSocketAddress(destinationAddress, destinationPort)
         )
-        if (uid < 0) return null
+        // Must throw, not return null: libbox dereferences the result without a nil
+        // check, so a null owner (common for the first SYN of a flow) panics the Go
+        // runtime and aborts the whole :bg process. A thrown exception becomes a Go
+        // error that the router treats as "owner unknown".
+        if (uid < 0) error("android: connection owner not found")
         val result = ConnectionOwner()
         result.userId = uid
         result.userName = ""
