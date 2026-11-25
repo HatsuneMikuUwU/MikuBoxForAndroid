@@ -357,13 +357,19 @@ class BaseService {
             }
 
             data.changeState(State.Connecting)
-            runOnMainDispatcher {
+            // Keep the job so stopRunner can cancel and wait for an in-flight
+            // connect before tearing the core down.
+            data.connectingJob = runOnMainDispatcher {
                 try {
                     data.notification = createNotification(ServiceNotification.genTitle(profile))
 
                     Executable.killAll()    // clean up old processes
                     preInit()
-                    proxy.init()
+                    // Building the config and starting the core (box.New, the
+                    // gVisor stack, rule-set compilation) block for a while;
+                    // keep them off the main thread so receivers and binder
+                    // callbacks stay responsive.
+                    withContext(Dispatchers.IO) { proxy.init() }
                     DataStore.currentProfile = profile.id
 
                     proxy.processes = GuardedProcessPool {
@@ -371,7 +377,7 @@ class BaseService {
                         stopRunner(false, it.readableMessage)
                     }
 
-                    startProcesses()
+                    withContext(Dispatchers.IO) { startProcesses() }
                     data.changeState(State.Connected)
 
                     lateInit()
