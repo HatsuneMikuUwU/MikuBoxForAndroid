@@ -199,12 +199,22 @@ class NativeInterface(
     override fun includeAllNetworks(): Boolean = false
 
     override fun readWIFIState(): WIFIState? {
-        val wifiManager = app.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        val connectionInfo = wifiManager.connectionInfo
-        return Libbox.newWIFIState(
-            connectionInfo.ssid ?: "",
-            connectionInfo.bssid ?: ""
-        )
+        // ReadWIFIState has no error return on the Go side, so an exception here would
+        // not be converted to an error. Devices without Wi-Fi (some TV boxes) have no
+        // WifiManager, and reading the connection can throw SecurityException. Return
+        // null instead; libbox treats it as an empty Wi-Fi state.
+        return try {
+            val wifiManager = app.applicationContext
+                .getSystemService(Context.WIFI_SERVICE) as? WifiManager ?: return null
+            val connectionInfo = wifiManager.connectionInfo ?: return null
+            Libbox.newWIFIState(
+                connectionInfo.ssid ?: "",
+                connectionInfo.bssid ?: ""
+            )
+        } catch (e: Exception) {
+            Logs.w(e)
+            null
+        }
     }
 
     override fun clearDNSCache() {
