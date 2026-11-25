@@ -1,0 +1,117 @@
+name: 问题反馈 / Bug Report
+description: 报告崩溃、无法连接或功能异常 / Report a crash, connection failure or broken feature
+title: "BUG: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        提交前请先排除服务器端问题，并更新到最新版本。
+        Please rule out server-side problems and update to the latest build before reporting.
+
+        ⚠️ **请勿贴出完整的订阅链接、节点地址、UUID 或密码，请先打码。**
+        ⚠️ **Do not paste full subscription links, server addresses, UUIDs or passwords. Redact them first.**
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 确认事项 / Checklist
+      options:
+        - label: 我已更新到最新的 Release 或 Preview Build / I am on the latest Release or Preview Build
+          required: true
+        - label: 我已搜索过现有 issue，没有重复 / I searched existing issues and this is not a duplicate
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: App 版本 / App version
+      description: 「设置 → 关于」中显示的版本号 / The version shown in Settings → About
+      placeholder: "1.6.2-UwU (62)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: channel
+    attributes:
+      label: 安装来源 / Build channel
+      options:
+        - Release
+        - Preview Build (GitHub Actions)
+        - 其他 / Other
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Android 版本与设备 / Android version and device
+      placeholder: "Android 14, Pixel 8 / HyperOS 2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: service-mode
+    attributes:
+      label: 运行模式 / Service mode
+      options:
+        - VPN
+        - 仅代理 / Proxy only
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tun-implementation
+    attributes:
+      label: TUN 实现 / TUN implementation
+      description: 「设置 → TUN 实现」，仅 VPN 模式需要 / Settings → TUN implementation, VPN mode only
+      options:
+        - gVisor
+        - System
+        - Mixed
+        - 不清楚或仅代理模式 / Not sure or proxy-only mode
+
+  - type: input
+    id: profile
+    attributes:
+      label: 订阅格式与协议 / Subscription format and protocol
+      description: 只写类型，不要贴链接 / Types only, no links
+      placeholder: "Clash 订阅，VLESS + Reality / sing-box JSON, Hysteria2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述 / Description
+      description: 预期行为与实际行为 / Expected vs actual behavior
+      placeholder: |
+        预期 / Expected:
+        实际 / Actual:
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤 / Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志 / Logs
+      description: |
+        「日志」页面的内容，或崩溃时「导出调试信息」的结果。请先打码。
+        Content of the Logs page, or the output of "Export debug info" after a crash. Redact it first.
+      render: text
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 截图或其他信息 / Screenshots or other context

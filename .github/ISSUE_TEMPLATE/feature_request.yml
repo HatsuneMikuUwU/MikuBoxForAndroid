@@ -1,0 +1,41 @@
+name: 功能建议 / Feature Request
+description: 对新功能或改进提出建议 / Suggest a new feature or improvement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请先确认现有设置中没有类似功能。例如 VPN 模式本身就是 sing-tun，可在「设置 → TUN 实现」切换协议栈。
+        Please check the existing settings first. For example, VPN mode already uses sing-tun; switch its stack in Settings → TUN implementation.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 确认事项 / Checklist
+      options:
+        - label: 我已在最新版本中确认此功能不存在 / I confirmed this does not exist in the latest build
+          required: true
+        - label: 我已搜索过现有 issue，没有重复 / I searched existing issues and this is not a duplicate
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 建议内容 / What do you want
+      description: 具体描述想要的功能或改动 / Describe the feature or change in detail
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 使用场景 / Why do you need it
+      description: 这个功能要解决什么问题？现在是怎么处理的？ / What problem does it solve, and how do you handle it today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference
+    attributes:
+      label: 参考 / References
+      description: 其他客户端的类似实现、sing-box 文档链接等 / Similar features in other clients, sing-box docs, etc.

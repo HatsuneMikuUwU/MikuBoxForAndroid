@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 最新正式版 / Latest release
+    url: https://github.com/HatsuneMikuUwU/MikuBoxForAndroid/releases
+    about: 下载正式版本 / Download stable builds
+  - name: 预览版 / Preview Build
+    url: https://github.com/HatsuneMikuUwU/MikuBoxForAndroid/actions/workflows/pre_build.yml
+    about: 下载最新预览版（需登录 GitHub）/ Download the latest preview build (GitHub login required)

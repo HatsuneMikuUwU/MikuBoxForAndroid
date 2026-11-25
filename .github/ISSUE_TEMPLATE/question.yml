@@ -1,0 +1,30 @@
+name: 使用问题 / Question
+description: 使用方法、版本更新等一般问题 / Usage, release status and other general questions
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        想找最新版本？正式版在 [Releases](https://github.com/HatsuneMikuUwU/MikuBoxForAndroid/releases)，预览版在 [Actions → Preview Build](https://github.com/HatsuneMikuUwU/MikuBoxForAndroid/actions/workflows/pre_build.yml)。
+        Looking for the latest build? Stable builds are on [Releases](https://github.com/HatsuneMikuUwU/MikuBoxForAndroid/releases), preview builds on [Actions → Preview Build](https://github.com/HatsuneMikuUwU/MikuBoxForAndroid/actions/workflows/pre_build.yml).
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 确认事项 / Checklist
+      options:
+        - label: 我已搜索过现有 issue，没有重复 / I searched existing issues and this is not a duplicate
+          required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: 问题 / Question
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: App 版本 / App version
+      description: 如与使用相关请填写 / Fill in if the question is about app behavior
