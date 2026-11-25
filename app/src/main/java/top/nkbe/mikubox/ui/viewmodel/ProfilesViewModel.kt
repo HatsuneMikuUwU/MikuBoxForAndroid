@@ -182,8 +182,10 @@ class ProfilesViewModel : ViewModel(),
 
     fun selectGroup(groupId: Long) {
         if (groupId == _uiState.value.selectedGroupId) return
-        DataStore.selectedGroup = groupId
+        // Update state before persisting: the PROFILE_GROUP listener fires synchronously and
+        // calls back into selectGroup(), which would recurse until StackOverflowError otherwise.
         _uiState.update { it.copy(selectedGroupId = groupId) }
+        DataStore.selectedGroup = groupId
         reloadAll()
     }
 
