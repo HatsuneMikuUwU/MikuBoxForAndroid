@@ -1639,6 +1639,10 @@ private fun MikuBannerHorizontalGallery(
                 targetValue = if (isSelected) primaryColor else outlineColor,
                 label = "banner_border"
             )
+            // Localized label is "Primary (Secondary)"; show the parts on two lines.
+            val label = stringResource(item.titleRes)
+            val title = label.substringBefore(" (")
+            val subtitle = label.substringAfter(" (", "").removeSuffix(")")
 
             Box(
                 modifier = Modifier
@@ -1657,7 +1661,7 @@ private fun MikuBannerHorizontalGallery(
             ) {
                 Image(
                     painter = painterResource(item.drawableRes),
-                    contentDescription = stringResource(item.titleRes),
+                    contentDescription = label,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize(),
                 )
@@ -1679,20 +1683,22 @@ private fun MikuBannerHorizontalGallery(
                         .padding(horizontal = 8.dp, vertical = 6.dp)
                 ) {
                     Text(
-                        text = stringResource(item.titleRes),
+                        text = title,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
-                    Text(
-                        text = item.subtitle,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.White.copy(alpha = 0.75f),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
+                    if (subtitle.isNotEmpty()) {
+                        Text(
+                            text = subtitle,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Color.White.copy(alpha = 0.75f),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    }
                 }
 
                 // Selected Badge

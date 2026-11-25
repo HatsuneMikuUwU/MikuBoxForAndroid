@@ -454,6 +454,28 @@
     <string name="banner_theme_splash">迎賓啟航 (Splash Voyage)</string>
     <string name="banner_theme_iconic">標誌初音 (Iconic 39)</string>
     <string name="banner_theme_random">每次啟動隨機切換</string>
+    <string-array name="banner_character_entries">
+        <item>深海少女 (Deep Sea Girl)</item>
+        <item>催眠術 (Mesmerizer)</item>
+        <item>兔子洞 (Rabbit Hole)</item>
+        <item>大耳狗聯名 (Cinnamiku)</item>
+        <item>魔法未來 2024 (Magical Mirai)</item>
+        <item>賽車初音 2025 (Racing Miku)</item>
+        <item>雪初音 2025 (Snow Miku)</item>
+        <item>櫻花初音 (Sakura Miku)</item>
+        <item>交響樂 2022 (Symphony)</item>
+        <item>櫻桃波普 (Cherry Pop)</item>
+        <item>重試初音 (Retry Now)</item>
+        <item>Miku V6</item>
+        <item>Miku Super Pack</item>
+        <item>Miku V4</item>
+        <item>Miku V3</item>
+        <item>Miku V3 English</item>
+        <item>Miku V2</item>
+        <item>Miku V2 Append</item>
+        <item>Miku V2 Chinese</item>
+        <item>經典 MikuBox (Classic)</item>
+    </string-array>
     <string name="sub_kicker">SUBSCRIPTIONS</string>
     <string name="sub_summary_count">%1$d 個訂閱</string>
     <string name="sub_summary_nodes">%1$d 節點</string>

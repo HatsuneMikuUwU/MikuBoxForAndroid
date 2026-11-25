@@ -853,6 +853,28 @@ HatsuneMikuUwU &amp; NkBe"</string>
     <string name="banner_theme_splash">迎宾启航 (Splash Voyage)</string>
     <string name="banner_theme_iconic">标志初音 (Iconic 39)</string>
     <string name="banner_theme_random">每次启动随机切换</string>
+    <string-array name="banner_character_entries">
+        <item>深海少女 (Deep Sea Girl)</item>
+        <item>催眠术 (Mesmerizer)</item>
+        <item>兔子洞 (Rabbit Hole)</item>
+        <item>大耳狗联名 (Cinnamiku)</item>
+        <item>魔法未来 2024 (Magical Mirai)</item>
+        <item>赛车初音 2025 (Racing Miku)</item>
+        <item>雪初音 2025 (Snow Miku)</item>
+        <item>樱花初音 (Sakura Miku)</item>
+        <item>交响乐 2022 (Symphony)</item>
+        <item>樱桃波普 (Cherry Pop)</item>
+        <item>重试初音 (Retry Now)</item>
+        <item>Miku V6</item>
+        <item>Miku Super Pack</item>
+        <item>Miku V4</item>
+        <item>Miku V3</item>
+        <item>Miku V3 English</item>
+        <item>Miku V2</item>
+        <item>Miku V2 Append</item>
+        <item>Miku V2 Chinese</item>
+        <item>经典 MikuBox (Classic)</item>
+    </string-array>
     <string name="sub_kicker">SUBSCRIPTIONS</string>
     <string name="sub_summary_count">%1$d 个订阅</string>
     <string name="sub_summary_nodes">%1$d 节点</string>
