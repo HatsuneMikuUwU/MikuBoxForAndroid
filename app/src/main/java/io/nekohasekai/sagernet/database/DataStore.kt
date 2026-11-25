@@ -166,7 +166,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var globalCustomConfig by configurationStore.string(Key.GLOBAL_CUSTOM_CONFIG) { "" }
 
     var remoteDns by configurationStore.string(Key.REMOTE_DNS) { "https://1.1.1.1/dns-query" }
-    var directDns by configurationStore.string(Key.DIRECT_DNS) { "https://doh.pub/dns-query" }
+    var directDns by configurationStore.string(Key.DIRECT_DNS) { "119.29.29.29" }
     var enableDnsRouting by configurationStore.boolean(Key.ENABLE_DNS_ROUTING) { true }
     var enableFakeDns by configurationStore.boolean(Key.ENABLE_FAKEDNS) { false }
 
