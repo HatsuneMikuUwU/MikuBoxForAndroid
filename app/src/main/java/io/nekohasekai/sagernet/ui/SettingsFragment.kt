@@ -380,6 +380,8 @@ class SettingsFragment : ToolbarFragment() {
                     DataStore.bannerSettingsCharacter = key
                 },
                 onSetHomeBannerTheme = { key ->
+                    // A manual pick means the user wants that banner, so stop randomizing.
+                    DataStore.randomizeBannerOnLaunch = false
                     DataStore.homeBannerTheme = key
                 },
                 onSetRandomizeBannerOnLaunch = { enabled ->

@@ -4,6 +4,9 @@ import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -34,6 +37,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -48,6 +52,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -60,6 +65,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -830,8 +836,11 @@ fun SettingsScreen(
 
                         // 1. Miku Theme Banners (Home & Drawer)
                         SettingsGroupSection(title = stringResource(R.string.home_banner_title)) {
+                            // While randomizing, no fixed banner is in effect, so nothing is marked selected.
+                            val effectiveBannerKey =
+                                if (state.randomizeBannerOnLaunch) null else state.homeBannerTheme
                             MikuBannerHorizontalGallery(
-                                currentThemeKey = state.homeBannerTheme,
+                                currentThemeKey = effectiveBannerKey,
                                 onSelectBanner = callbacks.onSetHomeBannerTheme,
                             )
                             SettingsGroupDivider()
@@ -839,7 +848,11 @@ fun SettingsScreen(
                                 iconRes = R.drawable.ic_image_area,
                                 title = stringResource(R.string.home_banner_title),
                                 subtitle = stringResource(R.string.home_banner_summary),
-                                valueText = bannerThemeOptions.labelFor(state.homeBannerTheme),
+                                valueText = if (effectiveBannerKey == null) {
+                                    stringResource(R.string.banner_theme_random)
+                                } else {
+                                    bannerThemeOptions.labelFor(effectiveBannerKey)
+                                },
                                 onClick = {
                                     activeDialog = ActiveSettingDialog.SingleChoice(
                                         title = context.getString(R.string.home_banner_title),
@@ -1620,14 +1633,21 @@ private fun MikuWardrobeIdentityCard(
 
 @Composable
 private fun MikuBannerHorizontalGallery(
-    currentThemeKey: String,
+    currentThemeKey: String?,
     onSelectBanner: (String) -> Unit,
 ) {
     val banners = MikuBannerManager.BANNERS
+    val listState = rememberLazyListState()
+    // Bring the selected banner into view when entering the page or after picking from the dialog.
+    LaunchedEffect(currentThemeKey) {
+        val index = banners.indexOfFirst { it.key == currentThemeKey }
+        if (index >= 0) listState.animateScrollToItem(index)
+    }
     LazyRow(
+        state = listState,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 6.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
@@ -1639,6 +1659,14 @@ private fun MikuBannerHorizontalGallery(
                 targetValue = if (isSelected) primaryColor else outlineColor,
                 label = "banner_border"
             )
+            val cardScale by animateFloatAsState(
+                targetValue = if (isSelected) 1.04f else 1f,
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessLow,
+                ),
+                label = "banner_scale"
+            )
             // Localized label is "Primary (Secondary)"; show the parts on two lines.
             val label = stringResource(item.titleRes)
             val title = label.substringBefore(" (")
@@ -1648,6 +1676,10 @@ private fun MikuBannerHorizontalGallery(
                 modifier = Modifier
                     .width(160.dp)
                     .height(96.dp)
+                    .graphicsLayer {
+                        scaleX = cardScale
+                        scaleY = cardScale
+                    }
                     .clip(RoundedCornerShape(16.dp))
                     .border(
                         BorderStroke(

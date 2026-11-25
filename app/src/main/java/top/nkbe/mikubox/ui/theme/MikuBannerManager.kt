@@ -27,17 +27,9 @@ object MikuBannerManager {
         MikuBannerItem("uwu_banner_profile", R.string.banner_theme_iconic, R.drawable.uwu_banner_profile),
     )
 
-    private val RANDOM_POOL: List<String> = listOf(
-        "uwu_banner_home",
-        "uwu_banner_stage",
-        "uwu_banner_theme",
-        "uwu_banner_author",
-        "uwu_banner_sheet",
-        "uwu_banner_selected",
-        "uwu_banner_image_about",
-        "uwu_banner_image",
-        "uwu_banner_splash",
-    )
+    // The square avatar art crops poorly as a wide banner, so keep it out of the random pool.
+    private val RANDOM_POOL: List<String> =
+        BANNERS.map { it.key }.filter { it != "uwu_banner_profile" }
 
     // Cached random key generated once per session to maintain consistency until relaunch
     private val sessionRandomKey: String by lazy {
@@ -57,16 +49,6 @@ object MikuBannerManager {
     }
 
     @DrawableRes
-    fun resolveBannerDrawable(key: String?): Int = when (key) {
-        "uwu_banner_stage" -> R.drawable.uwu_banner_stage
-        "uwu_banner_theme" -> R.drawable.uwu_banner_theme
-        "uwu_banner_author" -> R.drawable.uwu_banner_author
-        "uwu_banner_sheet" -> R.drawable.uwu_banner_sheet
-        "uwu_banner_selected" -> R.drawable.uwu_banner_selected
-        "uwu_banner_image_about" -> R.drawable.uwu_banner_image_about
-        "uwu_banner_image" -> R.drawable.uwu_banner_image
-        "uwu_banner_splash" -> R.drawable.uwu_banner_splash
-        "uwu_banner_profile" -> R.drawable.uwu_banner_profile
-        else -> R.drawable.uwu_banner_home
-    }
+    fun resolveBannerDrawable(key: String?): Int =
+        BANNERS.firstOrNull { it.key == key }?.drawableRes ?: R.drawable.uwu_banner_home
 }

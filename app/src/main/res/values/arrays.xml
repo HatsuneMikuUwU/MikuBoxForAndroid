@@ -134,7 +134,6 @@
         <item>@string/banner_theme_miracle</item>
         <item>@string/banner_theme_splash</item>
         <item>@string/banner_theme_iconic</item>
-        <item>@string/banner_theme_random</item>
     </string-array>
 
     <string-array name="banner_theme_values">
@@ -148,7 +147,6 @@
         <item>uwu_banner_image</item>
         <item>uwu_banner_splash</item>
         <item>uwu_banner_profile</item>
-        <item>random</item>
     </string-array>
 	
     <string-array name="app_font_entries">

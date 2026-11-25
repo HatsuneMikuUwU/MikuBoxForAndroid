@@ -709,8 +709,13 @@ class MainActivity : ThemedActivity(),
     }
 
     private fun updateNavBannerImage() {
-        binding.root.findViewById<ImageView>(R.id.nav_banner_image)?.let { iv ->
-            iv.setImageResource(top.nkbe.mikubox.ui.theme.MikuBannerManager.getCurrentHomeBannerRes())
+        binding.root.findViewById<com.neko.blur.BlurImageView>(R.id.nav_banner_image)?.let { iv ->
+            val res = top.nkbe.mikubox.ui.theme.MikuBannerManager.getCurrentHomeBannerRes()
+            if (iv.tag == res) return@let
+            iv.tag = res
+            iv.setImageResource(res)
+            // setImageResource drops the blur applied from XML, so re-apply the layout's blur_radius.
+            iv.setBlur(2)
         }
     }
 

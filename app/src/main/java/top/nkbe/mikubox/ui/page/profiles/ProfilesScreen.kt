@@ -1,6 +1,8 @@
 package top.nkbe.mikubox.ui.page.profiles
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -50,8 +52,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -266,15 +272,38 @@ private fun MikuProfilesHero(
             .statusBarsPadding()
             .padding(bottom = 42.dp),
     ) {
-        // Miku dynamic banner illustration backdrop with gentle scrim
-        Image(
-            painter = painterResource(id = state.homeBannerRes),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+        // Miku dynamic banner illustration backdrop; cross-fades on change and
+        // fades out at the top/bottom so it blends into the gradient without hard edges.
+        Crossfade(
+            targetState = state.homeBannerRes,
+            animationSpec = tween(durationMillis = 450),
             modifier = Modifier
                 .matchParentSize()
-                .alpha(0.24f),
-        )
+                .graphicsLayer {
+                    alpha = 0.26f
+                    compositingStrategy = CompositingStrategy.Offscreen
+                }
+                .drawWithContent {
+                    drawContent()
+                    drawRect(
+                        brush = Brush.verticalGradient(
+                            0f to Color.Transparent,
+                            0.18f to Color.Black,
+                            0.7f to Color.Black,
+                            1f to Color.Transparent,
+                        ),
+                        blendMode = BlendMode.DstIn,
+                    )
+                },
+            label = "home_banner",
+        ) { bannerRes ->
+            Image(
+                painter = painterResource(id = bannerRes),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
 
         // Subtle musical note watermark
         Text(
