@@ -6,40 +6,20 @@ on:
         description: "Release Tag"
         required: true
       publish:
-        description: "Publish: If want ignore"
-        required: false
+        description: "Publish the APKs to GitHub Releases"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   libcore:
-    name: Native Build (LibCore)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Golang Status
-        run: find buildScript libcore/*.sh -type f | sort | xargs cat | sha1sum > golang_status
-      - name: Libcore Status
-        run: git ls-files libcore | sort | xargs cat | sha1sum > libcore_status
-      - name: LibCore Cache
-        id: cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            app/libs/libcore.aar
-          key: ${{ hashFiles('.github/workflows/*', 'golang_status', 'libcore_status') }}
-      - name: Install Golang
-        if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.25'
-      - name: Native Build
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: ./run lib core
-      - name: Upload LibCore Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: libcore-aar
-          path: app/libs/libcore.aar
-          retention-days: 1
+    uses: ./.github/workflows/libcore.yml
+
   build:
     name: Build MikuBox APK
     runs-on: ubuntu-latest
@@ -53,25 +33,25 @@ jobs:
         with:
           name: libcore-aar
           path: app/libs
-      - name: Gradle cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle
-          key: gradle-mikubox-${{ hashFiles('**/*.gradle.kts') }}
       - name: Setup Java 21
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '21'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
       - name: Gradle Build
         env:
           BUILD_PLUGIN: none
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
+          ALIAS_NAME: ${{ secrets.ALIAS_NAME }}
+          ALIAS_PASS: ${{ secrets.ALIAS_PASS }}
         run: |
           echo "sdk.dir=${ANDROID_HOME}" > local.properties
           echo "ndk.dir=${ANDROID_HOME}/ndk/27.3.13750724" >> local.properties
-          export LOCAL_PROPERTIES="${{ secrets.LOCAL_PROPERTIES }}"
           ./run init action gradle
-          KEYSTORE_PASS="${{ secrets.KEYSTORE_PASS }}" ALIAS_NAME="${{ secrets.ALIAS_NAME }}" ALIAS_PASS="${{ secrets.ALIAS_PASS}}" ./gradlew app:assembleMikuboxRelease
+          ./gradlew app:assembleMikuboxRelease
           APK=$(find app/build/outputs/apk -name '*arm64-v8a*.apk')
           APK=$(dirname $APK)
           echo "APK=$APK" >> $GITHUB_ENV
@@ -95,9 +75,11 @@ jobs:
           if-no-files-found: error
   publish:
     name: Publish Release
-    if: github.event.inputs.publish != 'y'
+    if: inputs.publish
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -108,10 +90,13 @@ jobs:
           path: artifacts
           merge-multiple: true
       - name: Release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
         run: |
           wget -O ghr.tar.gz https://github.com/tcnksm/ghr/releases/download/v0.13.0/ghr_v0.13.0_linux_amd64.tar.gz
           tar -xvf ghr.tar.gz
           mv ghr*linux_amd64/ghr .
           mkdir apks
           find artifacts -name "*.apk" -exec cp {} apks \;
-          ./ghr -delete -t "${{ github.token }}" -n "${{ github.event.inputs.tag }}" "${{ github.event.inputs.tag }}" apks
+          ./ghr -delete -t "$GITHUB_TOKEN" -n "$TAG" "$TAG" apks

@@ -7,45 +7,21 @@ on:
         description: "Pre-release tag name"
         required: true
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   libcore:
-    name: Native Build (LibCore)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Golang Status
-        run: find buildScript libcore/*.sh -type f | sort | xargs cat | sha1sum > golang_status
-      - name: Libcore Status
-        run: git ls-files libcore | sort | xargs cat | sha1sum > libcore_status
-      - name: LibCore Cache
-        id: cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            app/libs/libcore.aar
-          key: ${{ hashFiles('.github/workflows/*', 'golang_status', 'libcore_status') }}
-      - name: Install Golang
-        if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.25'
-      - name: Native Build
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: ./run lib core
-      - name: Upload LibCore Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: libcore-aar
-          path: app/libs/libcore.aar
-          retention-days: 1
+    uses: ./.github/workflows/libcore.yml
 
   build:
     name: Build Preview APK
     runs-on: ubuntu-latest
     needs:
       - libcore
-    if: github.event_name == 'workflow_dispatch' || github.actor == 'HSSkyBoy'
     permissions:
       contents: write
     steps:
@@ -56,26 +32,26 @@ jobs:
         with:
           name: libcore-aar
           path: app/libs
-      - name: Gradle cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle
-          key: gradle-preview-${{ hashFiles('**/*.gradle.kts') }}
       - name: Setup Java 21
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '21'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Gradle Build
         env:
           BUILD_PLUGIN: none
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
+          ALIAS_NAME: ${{ secrets.ALIAS_NAME }}
+          ALIAS_PASS: ${{ secrets.ALIAS_PASS }}
         run: |
           echo "sdk.dir=${ANDROID_HOME}" > local.properties
           echo "ndk.dir=${ANDROID_HOME}/ndk/27.3.13750724" >> local.properties
-          export LOCAL_PROPERTIES="${{ secrets.LOCAL_PROPERTIES }}"
           ./run init action gradle
-          KEYSTORE_PASS="${{ secrets.KEYSTORE_PASS }}" ALIAS_NAME="${{ secrets.ALIAS_NAME }}" ALIAS_PASS="${{ secrets.ALIAS_PASS}}" ./gradlew app:assemblePreviewRelease
+          ./gradlew app:assemblePreviewRelease
           APK=$(find app/build/outputs/apk -name '*arm64-v8a*.apk')
           APK=$(dirname $APK)
           echo "APK=$APK" >> $GITHUB_ENV
@@ -110,7 +86,7 @@ jobs:
       - name: Create GitHub Pre-release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.event.inputs.tag }}
+          tag_name: ${{ inputs.tag }}
           draft: false
           prerelease: true
           files: |

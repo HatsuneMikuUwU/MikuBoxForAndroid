@@ -1,0 +1,49 @@
+name: LibCore
+
+# Shared native build used by the Preview, Pre-release and Release workflows.
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+env:
+  GO_VERSION: '1.25'
+
+jobs:
+  libcore:
+    name: Native Build (LibCore)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Source Status
+        id: status
+        run: |
+          find buildScript libcore/*.sh -type f | sort | xargs cat | sha1sum > golang_status
+          git ls-files -z libcore | sort -z | xargs -0 cat | sha1sum > libcore_status
+          # libcore builds against the sing-box submodule (go.mod replace), so a
+          # submodule bump must invalidate the cached aar even when libcore/ is
+          # untouched. Read the gitlink from the tree; no submodule checkout needed.
+          echo "sing_box=$(git rev-parse HEAD:sing-box)" >> "$GITHUB_OUTPUT"
+      - name: LibCore Cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: app/libs/libcore.aar
+          key: libcore-go${{ env.GO_VERSION }}-${{ steps.status.outputs.sing_box }}-${{ hashFiles('.github/workflows/libcore.yml', 'golang_status', 'libcore_status') }}
+      - name: Install Golang
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: libcore/go.sum
+      - name: Native Build
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: ./run lib core
+      - name: Upload LibCore Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libcore-aar
+          path: app/libs/libcore.aar
+          retention-days: 1
