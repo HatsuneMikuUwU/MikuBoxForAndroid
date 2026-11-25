@@ -219,8 +219,11 @@ fun buildConfig(
                 mtu = DataStore.mtu
                 // sing-box 1.13 removed inbound sniff/domain_strategy fields;
                 // migrated to route sniff/resolve rule actions below.
+                // auto_route is required: VpnService.startVpn only adds the TUN
+                // DNS servers when TunOptions.autoRoute is set. strict_route is
+                // omitted because sing-tun only applies it to ip rules it installs
+                // itself, and on Android VpnService.Builder owns routing.
                 auto_route = true
-                strict_route = true
                 address = when (ipv6Mode) {
                     IPv6Mode.DISABLE -> listOf(VpnService.PRIVATE_VLAN4_CLIENT + "/28")
                     IPv6Mode.ONLY -> listOf(VpnService.PRIVATE_VLAN6_CLIENT + "/126")
