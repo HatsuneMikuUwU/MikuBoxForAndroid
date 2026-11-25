@@ -133,6 +133,7 @@
         <item>@string/banner_theme_about</item>
         <item>@string/banner_theme_miracle</item>
         <item>@string/banner_theme_splash</item>
+        <item>@string/banner_theme_lakeside</item>
         <item>@string/banner_theme_iconic</item>
     </string-array>
 
@@ -146,6 +147,7 @@
         <item>uwu_banner_image_about</item>
         <item>uwu_banner_image</item>
         <item>uwu_banner_splash</item>
+        <item>uwu_banner_lakeside</item>
         <item>uwu_banner_profile</item>
     </string-array>
 	

@@ -24,6 +24,7 @@ object MikuBannerManager {
         MikuBannerItem("uwu_banner_image_about", R.string.banner_theme_about, R.drawable.uwu_banner_image_about),
         MikuBannerItem("uwu_banner_image", R.string.banner_theme_miracle, R.drawable.uwu_banner_image),
         MikuBannerItem("uwu_banner_splash", R.string.banner_theme_splash, R.drawable.uwu_banner_splash),
+        MikuBannerItem("uwu_banner_lakeside", R.string.banner_theme_lakeside, R.drawable.uwu_banner_lakeside),
         MikuBannerItem("uwu_banner_profile", R.string.banner_theme_iconic, R.drawable.uwu_banner_profile),
     )
 

@@ -452,6 +452,7 @@
     <string name="banner_theme_about">夜櫻星辰 (Night Sakura)</string>
     <string name="banner_theme_miracle">奇蹟之音 (Miracle Voice)</string>
     <string name="banner_theme_splash">迎賓啟航 (Splash Voyage)</string>
+    <string name="banner_theme_lakeside">湖畔清音 (Lakeside Serenade)</string>
     <string name="banner_theme_iconic">標誌初音 (Iconic 39)</string>
     <string name="banner_theme_random">每次啟動隨機切換</string>
     <string-array name="banner_character_entries">
