@@ -214,7 +214,7 @@ fun buildConfig(
                 stack = when (DataStore.tunImplementation) {
                     TunImplementation.GVISOR -> "gvisor"
                     TunImplementation.SYSTEM -> "system"
-                    else -> "mixed"
+                    else -> "mixed" // TunImplementation.MIXED, also the default
                 }
                 mtu = DataStore.mtu
                 // sing-box 1.13 removed inbound sniff/domain_strategy fields;
