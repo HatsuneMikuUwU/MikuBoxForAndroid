@@ -857,7 +857,7 @@ fun SettingsScreen(
                                     activeDialog = ActiveSettingDialog.SingleChoice(
                                         title = context.getString(R.string.home_banner_title),
                                         options = bannerThemeOptions,
-                                        selectedValue = state.homeBannerTheme,
+                                        selectedValue = if (state.randomizeBannerOnLaunch) "random" else state.homeBannerTheme,
                                         onSelect = callbacks.onSetHomeBannerTheme,
                                     )
                                 },
@@ -1763,7 +1763,13 @@ private fun MikuCharacterHorizontalGallery(
     options: List<ChoiceOption>,
     onSelectCharacter: (String) -> Unit,
 ) {
+    val listState = rememberLazyListState()
+    LaunchedEffect(currentCharacterKey) {
+        val index = options.indexOfFirst { it.value == currentCharacterKey }
+        if (index >= 0) listState.animateScrollToItem(index)
+    }
     LazyRow(
+        state = listState,
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp),

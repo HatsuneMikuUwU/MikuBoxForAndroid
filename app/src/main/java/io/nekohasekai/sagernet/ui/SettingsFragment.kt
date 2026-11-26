@@ -380,12 +380,14 @@ class SettingsFragment : ToolbarFragment() {
                     DataStore.bannerSettingsCharacter = key
                 },
                 onSetHomeBannerTheme = { key ->
-                    // A manual pick means the user wants that banner, so stop randomizing.
-                    DataStore.randomizeBannerOnLaunch = false
+                    DataStore.randomizeBannerOnLaunch = (key == "random")
                     DataStore.homeBannerTheme = key
                 },
                 onSetRandomizeBannerOnLaunch = { enabled ->
                     DataStore.randomizeBannerOnLaunch = enabled
+                    if (!enabled && DataStore.homeBannerTheme == "random") {
+                        DataStore.homeBannerTheme = "uwu_banner_home"
+                    }
                 },
                 onSetCustomProfileName = { name ->
                     DataStore.customProfileName = name
